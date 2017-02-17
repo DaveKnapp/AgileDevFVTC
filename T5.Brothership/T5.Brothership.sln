@@ -11,11 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T5.Brothership.PL.Test", "T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{96CA780C-99DB-484B-9BEB-2B5E0D8F65F5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLScripts", "SQLScripts", "{1E05A5CE-7C25-45FB-B303-2BCEC411067D}"
-	ProjectSection(SolutionItems) = preProject
-		..\SQLScripts\CreateDatabase.sql = ..\SQLScripts\CreateDatabase.sql
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
