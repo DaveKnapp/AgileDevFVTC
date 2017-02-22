@@ -3,15 +3,8 @@ GO
 IF OBJECT_ID('User') IS NOT NULL
 BEGIN
 	AlTER TABLE "User"
-	DROP CONSTRAINT FK_User_UserTypeID, FK_User_Nationality
+	DROP CONSTRAINT FK_User_UserTypeID, FK_User_Nationality, FK_User_UserID
 END
-
-IF OBJECT_ID('UserLogin') IS NOT NULL
-BEGIN
-	ALTER TABLE UserLogin
-	DROP CONSTRAINT FK_UserLogin_UserID
-END
-
 
 IF OBJECT_ID('UserSocialJunc') IS NOT NULL
 BEGIN
@@ -96,11 +89,11 @@ CREATE TABLE "User"
 	DOB DATETIME NOT NULL,
 	Gender Char(1) NOT NULL,
 	UserTypeID int NOT NULL,
-	NationalityID int NOT NULL
+	NationalityID int NOT NULL,
 	)
 
 CREATE TABLE Nationality
-	(ID int PRIMARY KEY NOT NULL,
+	(ID int IDENTITY PRIMARY KEY NOT NULL,
 	 "Description" varchar(45) NOT NULL
 	)
 
@@ -112,31 +105,31 @@ CREATE TABLE UserSocialJunc
 	)
 
 CREATE TABLE SocialMediaType
-	(ID int PRIMARY KEY NOT NULL,
+	(ID int IDENTITY PRIMARY KEY NOT NULL,
 	"Description" varchar(45)
 	)
 
 CREATE TABLE UserLogin
-	(UserID int IDENTITY PRIMARY KEY NOT NULL,
+	(UserID int PRIMARY KEY NOT NULL,
 	 "Password" varchar(25) NOT NULL
 	)
 
 CREATE TABLE UserType
-   (ID int PRIMARY KEY NOT NULL,
-	Description varchar(45) NOT NULL
+   (ID int IDENTITY PRIMARY KEY NOT NULL,
+	"Description" varchar(45) NOT NULL
 	)
 
 
 
 CREATE TABLE IntigrationType
-   (ID int PRIMARY KEY NOT NULL,
-	Description varchar(45) NOT NULL
+   (ID int IDENTITY PRIMARY KEY NOT NULL,
+	"Description" varchar(45) NOT NULL
 	)
 
 
 
 CREATE TABLE UserRating
-   (RaterUserID int NOT NULL,
+   (RaterUserID int IDENTITY NOT NULL,
 	UserBeingRatedID int NOT NULL,
 	Comment Varchar(255),
 	RatingID int NOT NULL
@@ -144,8 +137,8 @@ CREATE TABLE UserRating
 	)
 
 CREATE TABLE Rating
-   (ID int PRIMARY KEY NOT NULL,
-	Description Varchar(45)
+   (ID int IDENTITY PRIMARY KEY NOT NULL,
+	"Description" Varchar(45)
 	)
 
 
@@ -179,11 +172,9 @@ CREATE TABLE UserIntigration
 --Create Foreign keys
 
 AlTER TABLE "USER"
-ADD CONSTRAINT FK_User_UserTypeID FOREIGN KEY(UserTypeID) REFERENCES UserType(ID),
-	CONSTRAINT FK_User_Nationality FOREIGN KEY(NationalityID) REFERENCES Nationality(ID)
-
-ALTER TABLE UserLogin
-ADD CONSTRAINT FK_UserLogin_UserID FOREIGN KEY(UserID) REFERENCES "User"(ID)
+ADD CONSTRAINT FK_User_UserTypeID FOREIGN KEY(UserTypeID) REFERENCES UserType(ID) ON DELETE CASCADE,
+	CONSTRAINT FK_User_Nationality FOREIGN KEY(NationalityID) REFERENCES Nationality(ID),
+	CONSTRAINT FK_User_UserID FOREIGN KEY(ID) REFERENCES UserLogin(UserID)
 
 ALTER TABLE UserSocialJunc
 ADD CONSTRAINT FK_UserSocial_User FOREIGN KEY(userID) REFERENCES "User"(ID),

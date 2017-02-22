@@ -56,6 +56,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SqlScripts\AddTestData.sql" />
     <Content Include="SqlScripts\CreateDatabase.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
