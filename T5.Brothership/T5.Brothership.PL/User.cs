@@ -48,5 +48,6 @@ namespace T5.Brothership.PL
         public virtual ICollection<UserSocialJunc> UserSocialJuncs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Game> Games { get; set; }
+        public virtual UserLogin UserLogin1 { get; set; }
     }
 }

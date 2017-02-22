@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="brothershipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="brothershipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Game">
           <Key>
             <PropertyRef Name="ID" />
@@ -25,28 +25,28 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="Nationality">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="SocialMediaType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="User">
@@ -85,7 +85,7 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Password" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRating">
@@ -93,7 +93,7 @@
             <PropertyRef Name="RaterUserID" />
             <PropertyRef Name="UserBeingRatedID" />
           </Key>
-          <Property Name="RaterUserID" Type="int" Nullable="false" />
+          <Property Name="RaterUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserBeingRatedID" Type="int" Nullable="false" />
           <Property Name="Comment" Type="varchar" MaxLength="255" />
           <Property Name="RatingID" Type="int" Nullable="false" />
@@ -111,7 +111,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <Association Name="FK_Game_Category">
@@ -162,8 +162,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_UserID">
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserLogin">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_UserTypeID">
-          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+          <End Role="UserType" Type="Self.UserType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserType">
@@ -206,18 +220,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="UserIntigration">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserLogin_UserID">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserLogin">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -300,6 +302,10 @@
             <End Role="Nationality" EntitySet="Nationality" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_UserID" Association="Self.FK_User_UserID">
+            <End Role="UserLogin" EntitySet="UserLogin" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_UserTypeID" Association="Self.FK_User_UserTypeID">
             <End Role="UserType" EntitySet="UserType" />
             <End Role="User" EntitySet="User" />
@@ -315,10 +321,6 @@
           <AssociationSet Name="FK_UserIntigration_UserID" Association="Self.FK_UserIntigration_UserID">
             <End Role="User" EntitySet="User" />
             <End Role="UserIntigration" EntitySet="UserIntigration" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserLogin_UserID" Association="Self.FK_UserLogin_UserID">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserLogin" EntitySet="UserLogin" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRated_UserID" Association="Self.FK_UserRated_UserID">
             <End Role="User" EntitySet="User" />
@@ -337,8 +339,7 @@
             <End Role="UserSocialJunc" EntitySet="UserSocialJunc" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="brothershipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -415,6 +416,7 @@
           <NavigationProperty Name="UserRatings1" Relationship="Self.FK_UserRater_UserID" FromRole="User" ToRole="UserRating" />
           <NavigationProperty Name="UserSocialJuncs" Relationship="Self.FK_UserSocial_User" FromRole="User" ToRole="UserSocialJunc" />
           <NavigationProperty Name="Games" Relationship="Self.UserGameJunc" FromRole="User" ToRole="Game" />
+          <NavigationProperty Name="UserLogin1" Relationship="brothershipModel.FK_User_UserID" FromRole="User" ToRole="UserLogin" />
         </EntityType>
         <EntityType Name="UserIntigration">
           <Key>
@@ -434,6 +436,7 @@
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserLogin_UserID" FromRole="UserLogin" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="brothershipModel.FK_User_UserID" FromRole="UserLogin" ToRole="User" />
         </EntityType>
         <EntityType Name="UserRating">
           <Key>
@@ -664,7 +667,23 @@
             <End Role="Game" EntitySet="Games" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_UserID" Association="brothershipModel.FK_User_UserID">
+            <End Role="UserLogin" EntitySet="UserLogins" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_User_UserID">
+          <End Type="brothershipModel.UserLogin" Role="UserLogin" Multiplicity="1" />
+          <End Type="brothershipModel.User" Role="User" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserLogin">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
