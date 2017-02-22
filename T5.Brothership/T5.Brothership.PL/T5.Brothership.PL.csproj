@@ -126,6 +126,7 @@
       <DependentUpon>Brothership.edmx</DependentUpon>
       <LastGenOutput>Brothership.cs</LastGenOutput>
     </Content>
+    <Content Include="SqlScripts\AddTestData.sql" />
     <Content Include="SqlScripts\CreateDatabase.sql" />
   </ItemGroup>
   <ItemGroup>
