@@ -1,0 +1,815 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="brothershipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="igdbID" Type="int" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GameCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IntigrationType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nationality">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="SocialMediaType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Bio" Type="varchar" MaxLength="350" Nullable="false" />
+          <Property Name="ProfileImagePath" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="DateJoined" Type="datetime" Nullable="false" />
+          <Property Name="DOB" Type="datetime" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="UserTypeID" Type="int" Nullable="false" />
+          <Property Name="NationalityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserGameJunc">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="GameID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="GameID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserIntigration">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="IntigrationTypeID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="IntigrationTypeID" Type="int" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRating">
+          <Key>
+            <PropertyRef Name="RaterUserID" />
+            <PropertyRef Name="UserBeingRatedID" />
+          </Key>
+          <Property Name="RaterUserID" Type="int" Nullable="false" />
+          <Property Name="UserBeingRatedID" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="varchar" MaxLength="255" />
+          <Property Name="RatingID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSocialJunc">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="SocialMediaTypeID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="SocialMediaTypeID" Type="int" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="70" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Game_Category">
+          <End Role="GameCategory" Type="Self.GameCategory" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GameCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_ID">
+          <End Role="Game" Type="Self.Game" Multiplicity="1" />
+          <End Role="UserGameJunc" Type="Self.UserGameJunc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserGameJunc">
+              <PropertyRef Name="GameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_RatingID">
+          <End Role="Rating" Type="Self.Rating" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rating">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Nationality">
+          <End Role="Nationality" Type="Self.Nationality" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nationality">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="NationalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserTypeID">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserID_ID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserGameJunc" Type="Self.UserGameJunc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserGameJunc">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserIntigration_IntigrationType">
+          <End Role="IntigrationType" Type="Self.IntigrationType" Multiplicity="1" />
+          <End Role="UserIntigration" Type="Self.UserIntigration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IntigrationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserIntigration">
+              <PropertyRef Name="IntigrationTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserIntigration_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserIntigration" Type="Self.UserIntigration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserIntigration">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRated_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="UserBeingRatedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRater_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RaterUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSocial_SocialType">
+          <End Role="SocialMediaType" Type="Self.SocialMediaType" Multiplicity="1" />
+          <End Role="UserSocialJunc" Type="Self.UserSocialJunc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SocialMediaType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSocialJunc">
+              <PropertyRef Name="SocialMediaTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSocial_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserSocialJunc" Type="Self.UserSocialJunc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSocialJunc">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="brothershipModelStoreContainer">
+          <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameCategory" EntityType="Self.GameCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IntigrationType" EntityType="Self.IntigrationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nationality" EntityType="Self.Nationality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SocialMediaType" EntityType="Self.SocialMediaType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserGameJunc" EntityType="Self.UserGameJunc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserIntigration" EntityType="Self.UserIntigration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSocialJunc" EntityType="Self.UserSocialJunc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Game_Category" Association="Self.FK_Game_Category">
+            <End Role="GameCategory" EntitySet="GameCategory" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_ID" Association="Self.FK_Game_ID">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="UserGameJunc" EntitySet="UserGameJunc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_RatingID" Association="Self.FK_Rating_RatingID">
+            <End Role="Rating" EntitySet="Rating" />
+            <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Nationality" Association="Self.FK_User_Nationality">
+            <End Role="Nationality" EntitySet="Nationality" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserTypeID" Association="Self.FK_User_UserTypeID">
+            <End Role="UserType" EntitySet="UserType" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserID_ID" Association="Self.FK_UserID_ID">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserGameJunc" EntitySet="UserGameJunc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserIntigration_IntigrationType" Association="Self.FK_UserIntigration_IntigrationType">
+            <End Role="IntigrationType" EntitySet="IntigrationType" />
+            <End Role="UserIntigration" EntitySet="UserIntigration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserIntigration_UserID" Association="Self.FK_UserIntigration_UserID">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserIntigration" EntitySet="UserIntigration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_UserID" Association="Self.FK_UserLogin_UserID">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLogin" EntitySet="UserLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRated_UserID" Association="Self.FK_UserRated_UserID">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRater_UserID" Association="Self.FK_UserRater_UserID">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSocial_SocialType" Association="Self.FK_UserSocial_SocialType">
+            <End Role="SocialMediaType" EntitySet="SocialMediaType" />
+            <End Role="UserSocialJunc" EntitySet="UserSocialJunc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSocial_User" Association="Self.FK_UserSocial_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserSocialJunc" EntitySet="UserSocialJunc" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="brothershipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="igdbID" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GameCategory" Relationship="Self.FK_Game_Category" FromRole="Game" ToRole="GameCategory" />
+          <NavigationProperty Name="Users" Relationship="Self.UserGameJunc" FromRole="Game" ToRole="User" />
+        </EntityType>
+        <EntityType Name="GameCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_Game_Category" FromRole="GameCategory" ToRole="Game" />
+        </EntityType>
+        <EntityType Name="IntigrationType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="UserIntigrations" Relationship="Self.FK_UserIntigration_IntigrationType" FromRole="IntigrationType" ToRole="UserIntigration" />
+        </EntityType>
+        <EntityType Name="Nationality">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Nationality" FromRole="Nationality" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserRatings" Relationship="Self.FK_Rating_RatingID" FromRole="Rating" ToRole="UserRating" />
+        </EntityType>
+        <EntityType Name="SocialMediaType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserSocialJuncs" Relationship="Self.FK_UserSocial_SocialType" FromRole="SocialMediaType" ToRole="UserSocialJunc" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Bio" Type="String" MaxLength="350" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProfileImagePath" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateJoined" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" />
+          <Property Name="NationalityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Nationality" Relationship="Self.FK_User_Nationality" FromRole="User" ToRole="Nationality" />
+          <NavigationProperty Name="UserType" Relationship="Self.FK_User_UserTypeID" FromRole="User" ToRole="UserType" />
+          <NavigationProperty Name="UserIntigrations" Relationship="Self.FK_UserIntigration_UserID" FromRole="User" ToRole="UserIntigration" />
+          <NavigationProperty Name="UserLogin" Relationship="Self.FK_UserLogin_UserID" FromRole="User" ToRole="UserLogin" />
+          <NavigationProperty Name="UserRatings" Relationship="Self.FK_UserRated_UserID" FromRole="User" ToRole="UserRating" />
+          <NavigationProperty Name="UserRatings1" Relationship="Self.FK_UserRater_UserID" FromRole="User" ToRole="UserRating" />
+          <NavigationProperty Name="UserSocialJuncs" Relationship="Self.FK_UserSocial_User" FromRole="User" ToRole="UserSocialJunc" />
+          <NavigationProperty Name="Games" Relationship="Self.UserGameJunc" FromRole="User" ToRole="Game" />
+        </EntityType>
+        <EntityType Name="UserIntigration">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="IntigrationTypeID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="IntigrationTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="IntigrationType" Relationship="Self.FK_UserIntigration_IntigrationType" FromRole="UserIntigration" ToRole="IntigrationType" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserIntigration_UserID" FromRole="UserIntigration" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserLogin_UserID" FromRole="UserLogin" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRating">
+          <Key>
+            <PropertyRef Name="RaterUserID" />
+            <PropertyRef Name="UserBeingRatedID" />
+          </Key>
+          <Property Name="RaterUserID" Type="Int32" Nullable="false" />
+          <Property Name="UserBeingRatedID" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RatingID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_RatingID" FromRole="UserRating" ToRole="Rating" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserRated_UserID" FromRole="UserRating" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_UserRater_UserID" FromRole="UserRating" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserSocialJunc">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="SocialMediaTypeID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="SocialMediaTypeID" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SocialMediaType" Relationship="Self.FK_UserSocial_SocialType" FromRole="UserSocialJunc" ToRole="SocialMediaType" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserSocial_User" FromRole="UserSocialJunc" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_UserTypeID" FromRole="UserType" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Game_Category">
+          <End Role="GameCategory" Type="Self.GameCategory" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GameCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserIntigration_IntigrationType">
+          <End Role="IntigrationType" Type="Self.IntigrationType" Multiplicity="1" />
+          <End Role="UserIntigration" Type="Self.UserIntigration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IntigrationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserIntigration">
+              <PropertyRef Name="IntigrationTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Nationality">
+          <End Role="Nationality" Type="Self.Nationality" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nationality">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="NationalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_RatingID">
+          <End Role="Rating" Type="Self.Rating" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rating">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSocial_SocialType">
+          <End Role="SocialMediaType" Type="Self.SocialMediaType" Multiplicity="1" />
+          <End Role="UserSocialJunc" Type="Self.UserSocialJunc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SocialMediaType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSocialJunc">
+              <PropertyRef Name="SocialMediaTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserTypeID">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserIntigration_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserIntigration" Type="Self.UserIntigration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserIntigration">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRated_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="UserBeingRatedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRater_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RaterUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSocial_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserSocialJunc" Type="Self.UserSocialJunc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSocialJunc">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserGameJunc">
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="brothershipEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Games" EntityType="Self.Game" />
+          <EntitySet Name="GameCategories" EntityType="Self.GameCategory" />
+          <EntitySet Name="IntigrationTypes" EntityType="Self.IntigrationType" />
+          <EntitySet Name="Nationalities" EntityType="Self.Nationality" />
+          <EntitySet Name="Ratings" EntityType="Self.Rating" />
+          <EntitySet Name="SocialMediaTypes" EntityType="Self.SocialMediaType" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserIntigrations" EntityType="Self.UserIntigration" />
+          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+          <EntitySet Name="UserRatings" EntityType="Self.UserRating" />
+          <EntitySet Name="UserSocialJuncs" EntityType="Self.UserSocialJunc" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+          <AssociationSet Name="FK_Game_Category" Association="Self.FK_Game_Category">
+            <End Role="GameCategory" EntitySet="GameCategories" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserIntigration_IntigrationType" Association="Self.FK_UserIntigration_IntigrationType">
+            <End Role="IntigrationType" EntitySet="IntigrationTypes" />
+            <End Role="UserIntigration" EntitySet="UserIntigrations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Nationality" Association="Self.FK_User_Nationality">
+            <End Role="Nationality" EntitySet="Nationalities" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_RatingID" Association="Self.FK_Rating_RatingID">
+            <End Role="Rating" EntitySet="Ratings" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSocial_SocialType" Association="Self.FK_UserSocial_SocialType">
+            <End Role="SocialMediaType" EntitySet="SocialMediaTypes" />
+            <End Role="UserSocialJunc" EntitySet="UserSocialJuncs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserTypeID" Association="Self.FK_User_UserTypeID">
+            <End Role="UserType" EntitySet="UserTypes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserIntigration_UserID" Association="Self.FK_UserIntigration_UserID">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserIntigration" EntitySet="UserIntigrations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_UserID" Association="Self.FK_UserLogin_UserID">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLogin" EntitySet="UserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRated_UserID" Association="Self.FK_UserRated_UserID">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRater_UserID" Association="Self.FK_UserRater_UserID">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSocial_User" Association="Self.FK_UserSocial_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserSocialJunc" EntitySet="UserSocialJuncs" />
+          </AssociationSet>
+          <AssociationSet Name="UserGameJunc" Association="Self.UserGameJunc">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="brothershipModelStoreContainer" CdmEntityContainer="brothershipEntities">
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="brothershipModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="igdbID" ColumnName="igdbID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameCategories">
+            <EntityTypeMapping TypeName="brothershipModel.GameCategory">
+              <MappingFragment StoreEntitySet="GameCategory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IntigrationTypes">
+            <EntityTypeMapping TypeName="brothershipModel.IntigrationType">
+              <MappingFragment StoreEntitySet="IntigrationType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nationalities">
+            <EntityTypeMapping TypeName="brothershipModel.Nationality">
+              <MappingFragment StoreEntitySet="Nationality">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="brothershipModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocialMediaTypes">
+            <EntityTypeMapping TypeName="brothershipModel.SocialMediaType">
+              <MappingFragment StoreEntitySet="SocialMediaType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="brothershipModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="ProfileImagePath" ColumnName="ProfileImagePath" />
+                <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="NationalityID" ColumnName="NationalityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserIntigrations">
+            <EntityTypeMapping TypeName="brothershipModel.UserIntigration">
+              <MappingFragment StoreEntitySet="UserIntigration">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="IntigrationTypeID" ColumnName="IntigrationTypeID" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="brothershipModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRatings">
+            <EntityTypeMapping TypeName="brothershipModel.UserRating">
+              <MappingFragment StoreEntitySet="UserRating">
+                <ScalarProperty Name="RaterUserID" ColumnName="RaterUserID" />
+                <ScalarProperty Name="UserBeingRatedID" ColumnName="UserBeingRatedID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSocialJuncs">
+            <EntityTypeMapping TypeName="brothershipModel.UserSocialJunc">
+              <MappingFragment StoreEntitySet="UserSocialJunc">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SocialMediaTypeID" ColumnName="SocialMediaTypeID" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="brothershipModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserGameJunc" TypeName="brothershipModel.UserGameJunc" StoreEntitySet="UserGameJunc">
+            <EndProperty Name="Game">
+              <ScalarProperty Name="ID" ColumnName="GameID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="ID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
