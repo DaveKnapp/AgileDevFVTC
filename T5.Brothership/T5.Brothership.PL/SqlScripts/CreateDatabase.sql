@@ -158,7 +158,7 @@ CREATE TABLE Game
 	)
 
 CREATE TABLE GameCategory
-	(ID int PRIMARY KEY,
+	(ID int IDENTITY PRIMARY KEY,
 	"Description" varchar(45) NOT NULL
 	)
 

@@ -80,12 +80,10 @@ BEGIN TRANSACTION
 			  (3, 'Instagram')
 	SET IDENTITY_INSERT SocialMediaType OFF;
 
-	SET IDENTITY_INSERT UserSocialJunc ON;
 	INSERT INTO UserSocialJunc(UserID, SocialMediaTypeID, "URL")
 		VALUES (1,1, 'youtube.com/channel/TestUserOne'),
 			   (1,2, 'twitter.com/TestUserOne'),
 			   (1,3, 'instagram.com/TestUserOne')
-	SET IDENTITY_INSERT UserSocialJunc OFF;
 
 	-- BEGIN GAME DATA INSERTS (To be updated or removed later if game API can be obtained)
 	SET IDENTITY_INSERT GameCategory ON;
@@ -105,6 +103,7 @@ BEGIN TRANSACTION
 				(13, 'Puzzle'),
 				(14, 'Tower Defense'),
 				(15, 'Hack and Slash')
+
 	SET IDENTITY_INSERT GameCategory OFF;
 
 	SET IDENTITY_INSERT Game ON;
