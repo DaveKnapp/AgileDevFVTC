@@ -1,3 +1,4 @@
+
 GO
 --Drop Foreign keys
 IF OBJECT_ID('User') IS NOT NULL
@@ -12,10 +13,10 @@ BEGIN
 	DROP CONSTRAINT FK_UserSocial_User, FK_UserSocial_SocialType
 END
 
-IF OBJECT_ID('UserIntigration') IS NOT NULL
+IF OBJECT_ID('UserIntegration') IS NOT NULL
 BEGIN
-	AlTER TABLE UserIntigration
-	DROP CONSTRAINT FK_UserIntigration_UserID, FK_UserIntigration_IntigrationType
+	AlTER TABLE UserIntegration
+	DROP CONSTRAINT FK_UserIntegration_UserID, FK_UserIntegration_IntegrationType
 END
 
 IF OBJECT_ID('UserGameJunc') IS NOT NULL
@@ -54,11 +55,11 @@ IF OBJECT_ID('UserType') IS NOT NULL
 IF OBJECT_ID('Nationality') IS NOT NULL
 	DROP TABLE Nationality
 
-IF OBJECT_ID('UserIntigration') IS NOT NULL
-	DROP TABLE UserIntigration
+IF OBJECT_ID('UserIntegration') IS NOT NULL
+	DROP TABLE UserIntegration
 
-IF OBJECT_ID('IntigrationType') IS NOT NULL
-	DROP TABLE IntigrationType
+IF OBJECT_ID('IntegrationType') IS NOT NULL
+	DROP TABLE IntegrationType
 
 IF OBJECT_ID('UserRating') IS NOT NULL
 	DROP TABLE UserRating
@@ -121,7 +122,7 @@ CREATE TABLE UserType
 
 
 
-CREATE TABLE IntigrationType
+CREATE TABLE IntegrationType
    (ID int IDENTITY PRIMARY KEY NOT NULL,
 	"Description" varchar(45) NOT NULL
 	)
@@ -161,11 +162,11 @@ CREATE TABLE GameCategory
 	"Description" varchar(45) NOT NULL
 	)
 
-CREATE TABLE UserIntigration
+CREATE TABLE UserIntegration
    (UserID int  NOT NULL,
-	IntigrationTypeID int NOT NULL,
+	IntegrationTypeID int NOT NULL,
 	Token varchar(80) NOT NULL,
-	PRIMARY KEY(UserID, IntigrationTypeID)
+	PRIMARY KEY(UserID, IntegrationTypeID)
 	)
 	GO
 
@@ -180,9 +181,9 @@ ALTER TABLE UserSocialJunc
 ADD CONSTRAINT FK_UserSocial_User FOREIGN KEY(userID) REFERENCES "User"(ID),
 	CONSTRAINT FK_UserSocial_SocialType FOREIGN KEY(SocialMediaTypeID) REFERENCES SocialMediaType(ID)
 
-AlTER TABLE UserIntigration
-ADD CONSTRAINT FK_UserIntigration_UserID FOREIGN KEY(UserID) REFERENCES "User"(ID),
-	CONSTRAINT FK_UserIntigration_IntigrationType FOREIGN KEY(IntigrationTypeID) REFERENCES IntigrationType(ID)
+AlTER TABLE UserIntegration
+ADD CONSTRAINT FK_UserIntegration_UserID FOREIGN KEY(UserID) REFERENCES "User"(ID),
+	CONSTRAINT FK_UserIntegration_IntegrationType FOREIGN KEY(IntegrationTypeID) REFERENCES IntegrationType(ID)
 
 ALTER TABLE UserGameJunc
 ADD CONSTRAINT FK_UserID_ID FOREIGN KEY(UserID) REFERENCES "User"(ID),
@@ -195,4 +196,3 @@ ALTER TABLE UserRating
 ADD CONSTRAINT FK_UserRater_UserID FOREIGN KEY(RaterUserID) REFERENCES "USER"(ID),
 	CONSTRAINT FK_UserRated_UserID	FOREIGN KEY(UserBeingRatedID) REFERENCES "USER"(ID),
 	CONSTRAINT FK_Rating_RatingID FOREIGN KEY(RatingID) REFERENCES Rating(ID)
-
