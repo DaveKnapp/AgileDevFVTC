@@ -3,14 +3,14 @@ BEGIN TRANSACTION
 
 	DELETE FROM UserRating
 	DELETE FROM UserSocialJunc
-	DELETE FROM UserIntigration
+	DELETE FROM UserIntegration
 	DELETE FROM UserGameJunc
 	DELETE FROM "User"
 	DELETE FROM UserLogin
 	DELETE FROM UserType
 	DELETE FROM Nationality
 	DELETE FROM Game
-	DELETE FROM IntigrationType
+	DELETE FROM IntegrationType
 	DELETE FROM SocialMediaType
 	DELETE FROM GameCategory
 	DELETE FROM Rating
@@ -47,10 +47,10 @@ BEGIN TRANSACTION
 			  (5, 'TestUserFive', 'TestingUser5@yahoo.com', 'Hello I am the Fifth test user', '../Images/TestUserFive/Profile.png','1-19-17', '7-9-1962', 'F', 1,1)
 	SET IDENTITY_INSERT "User" OFF;
 
-	SET IDENTITY_INSERT IntigrationType ON;
-	INSERT INTO IntigrationType(ID,"Description")
+	SET IDENTITY_INSERT IntegrationType ON;
+	INSERT INTO IntegrationType(ID,"Description")
 		VALUES(1, 'Twitch')
-	SET IDENTITY_INSERT IntigrationType OFF;
+	SET IDENTITY_INSERT IntegrationType OFF;
 
 	SET IDENTITY_INSERT Rating ON;
 		INSERT INTO Rating(ID, "Description")
@@ -80,10 +80,95 @@ BEGIN TRANSACTION
 			  (3, 'Instagram')
 	SET IDENTITY_INSERT SocialMediaType OFF;
 
+	SET IDENTITY_INSERT UserSocialJunc ON;
 	INSERT INTO UserSocialJunc(UserID, SocialMediaTypeID, "URL")
 		VALUES (1,1, 'youtube.com/channel/TestUserOne'),
 			   (1,2, 'twitter.com/TestUserOne'),
 			   (1,3, 'instagram.com/TestUserOne')
+	SET IDENTITY_INSERT UserSocialJunc OFF;
+
+	-- BEGIN GAME DATA INSERTS (To be updated or removed later if game API can be obtained)
+	SET IDENTITY_INSERT GameCategory ON;
+	INSERT INTO GameCategory(ID, "Description")
+		VALUES	(1, 'Fighting'),
+				(2, 'Action/Adventure'),
+				(3, 'RPG'),
+				(4, 'First-Person Shooter'),
+				(5, 'Survival Horror'),
+				(6, 'Strategy'),
+				(7, 'Sports'),
+				(8, 'Racing'),
+				(9, 'Stealth'),
+				(10, 'Simulation'),
+				(11, 'MOBA'),
+				(12, 'MMO'),
+				(13, 'Puzzle'),
+				(14, 'Tower Defense'),
+				(15, 'Hack and Slash')
+	SET IDENTITY_INSERT GameCategory OFF;
+
+	SET IDENTITY_INSERT Game ON;
+	INSERT INTO Game(ID, Title, igdbID, CategoryID)
+		VALUES	-- Fighting Games
+				(1, 'Street Figher V', null, 1),
+				(2, 'Mortal Kombat X', null, 1),
+				(3, 'Injustice: Gods Among Us', null, 1),
+				-- Action/Adventure Games
+				(4, 'Fallout 4', null, 2),
+				(5, 'Uncharted 4', null, 2),
+				(6, 'Grand Theft Auto V', null, 2),
+				-- RPG Games
+				(7, 'The Witcher 3: Wild Hunt', null, 3),
+				(8, 'Final Fantasy XV', null, 3),
+				(9, 'Elder Scrolls V: Skyrim', null, 3),
+				-- First-Person Shooter Games
+				(10, 'Battlefield 1', null, 4),
+				(11, 'Overwatch', null, 4),
+				(12, 'Counter-Strike: Global Offensive', null, 4),
+				-- Survival Horror Games
+				(13, 'Resident Evil 7', null, 5),
+				(14, 'Alien Isolation', null, 5),
+				(15, 'Dying Light: The Following', null, 5),
+				-- Strategy Games
+				(16, 'Civilization V', null, 6),
+				(17, 'Starcraft II', null, 6),
+				(18, 'XCOM 2', null, 6),
+				-- Sports Games
+				(19, 'Madden 17', null, 7),
+				(20, 'NBA 2K17', null, 7),
+				(21, 'Rocket League', null, 7),
+				-- Racing Games
+				(22, 'DiRT Rally', null, 8),
+				(23, 'F1 2016', null, 8),
+				(24, 'Need for Speed', null, 8),
+				-- Stealth Games
+				(25, 'Dishonored 2', null, 9),
+				(26, 'Metal Gear Solid V: The Phantom Pain', null, 9),
+				(27, 'Hitman', null, 9),
+				-- Simulation Games
+				(28, 'Arma III', null, 10),
+				(29, 'The Sims 4', null, 10),
+				(30, 'Planet Coaster', null, 10),
+				-- MOBA Games
+				(31, 'League of Legends', null, 11),
+				(32, 'DOTA 2', null, 11),
+				(33, 'Heroes of the Storm', null, 11),
+				-- MMO Games
+				(34, 'World of Warcraft', null, 12),
+				(35, 'Elder Scrolls Online', null, 12),
+				(36, 'Guild Wars 2', null, 12),
+				-- Puzzle Games
+				(37, 'Limbo', null, 13),
+				(38, 'Portal 2', null, 13),
+				(39, 'Scribblenauts Unlimited', null, 13),
+				-- Tower Defense Games
+				(40, 'Plants vs. Zombies', null, 14),
+				(41, 'Kingdom Rush', null, 14),
+				(42, 'Sanctum 2', null, 14),
+				-- Hack and Slash Games
+				(43, 'Diablo 3', null, 15),
+				(44, 'Path of Exile', null, 15),
+				(45, 'Grim Dawn', null, 15)
+	SET IDENTITY_INSERT Game OFF;
 
 COMMIT TRANSACTION
-
