@@ -72,7 +72,7 @@
     <Compile Include="GameCategory.cs">
       <DependentUpon>Brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="IntigrationType.cs">
+    <Compile Include="IntegrationType.cs">
       <DependentUpon>Brothership.tt</DependentUpon>
     </Compile>
     <Compile Include="Nationality.cs">
@@ -88,7 +88,7 @@
     <Compile Include="User.cs">
       <DependentUpon>Brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserIntigration.cs">
+    <Compile Include="UserIntegration.cs">
       <DependentUpon>Brothership.tt</DependentUpon>
     </Compile>
     <Compile Include="UserLogin.cs">

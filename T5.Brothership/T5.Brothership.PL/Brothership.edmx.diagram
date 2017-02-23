@@ -4,32 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="927e891a29b0401f9bed934de0fb6628" Name="Diagram1" ZoomLevel="88">
-        <EntityTypeShape EntityType="brothershipModel.Game" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.GameCategory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.IntigrationType" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.Nationality" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.Rating" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.SocialMediaType" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.User" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.UserIntigration" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.UserLogin" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.UserRating" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.UserSocialJunc" Width="1.5" PointX="10.5" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="brothershipModel.UserType" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+      <Diagram DiagramId="0cc0f5d7e49f4d73be174fda82ddb511" Name="Diagram1" ZoomLevel="66">
+        <EntityTypeShape EntityType="brothershipModel.Game" Width="1.5" PointX="2.875" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.GameCategory" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.IntegrationType" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.Nationality" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.Rating" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.SocialMediaType" Width="1.5" PointX="7.625" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.User" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.UserIntegration" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.UserLogin" Width="1.5" PointX="2.875" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.UserRating" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.UserSocialJunc" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="brothershipModel.UserType" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
         <AssociationConnector Association="brothershipModel.FK_Game_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="brothershipModel.FK_UserIntigration_IntigrationType" ManuallyRouted="false" />
+        <AssociationConnector Association="brothershipModel.FK_UserIntegration_IntegrationType" ManuallyRouted="false" />
         <AssociationConnector Association="brothershipModel.FK_User_Nationality" ManuallyRouted="false" />
         <AssociationConnector Association="brothershipModel.FK_Rating_RatingID" ManuallyRouted="false" />
         <AssociationConnector Association="brothershipModel.FK_UserSocial_SocialType" ManuallyRouted="false" />
+        <AssociationConnector Association="brothershipModel.FK_User_UserID" ManuallyRouted="false" />
         <AssociationConnector Association="brothershipModel.FK_User_UserTypeID" ManuallyRouted="false" />
-        <AssociationConnector Association="brothershipModel.FK_UserIntigration_UserID" ManuallyRouted="false" />
-        <AssociationConnector Association="brothershipModel.FK_UserLogin_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="brothershipModel.FK_UserIntegration_UserID" ManuallyRouted="false" />
         <AssociationConnector Association="brothershipModel.FK_UserRated_UserID" ManuallyRouted="false" />
         <AssociationConnector Association="brothershipModel.FK_UserRater_UserID" ManuallyRouted="false" />
         <AssociationConnector Association="brothershipModel.FK_UserSocial_User" ManuallyRouted="false" />
         <AssociationConnector Association="brothershipModel.UserGameJunc" ManuallyRouted="false" />
-        <AssociationConnector Association="brothershipModel.FK_User_UserID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

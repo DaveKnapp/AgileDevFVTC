@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="brothershipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="brothershipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Game">
           <Key>
             <PropertyRef Name="ID" />
@@ -18,10 +18,10 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
-        <EntityType Name="IntigrationType">
+        <EntityType Name="IntegrationType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -72,20 +72,20 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="GameID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="UserIntigration">
+        <EntityType Name="UserIntegration">
           <Key>
             <PropertyRef Name="UserID" />
-            <PropertyRef Name="IntigrationTypeID" />
+            <PropertyRef Name="IntegrationTypeID" />
           </Key>
           <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="IntigrationTypeID" Type="int" Nullable="false" />
+          <Property Name="IntegrationTypeID" Type="int" Nullable="false" />
           <Property Name="Token" Type="varchar" MaxLength="80" Nullable="false" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRating">
@@ -200,26 +200,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserIntigration_IntigrationType">
-          <End Role="IntigrationType" Type="Self.IntigrationType" Multiplicity="1" />
-          <End Role="UserIntigration" Type="Self.UserIntigration" Multiplicity="*" />
+        <Association Name="FK_UserIntegration_IntegrationType">
+          <End Role="IntegrationType" Type="Self.IntegrationType" Multiplicity="1" />
+          <End Role="UserIntegration" Type="Self.UserIntegration" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="IntigrationType">
+            <Principal Role="IntegrationType">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="UserIntigration">
-              <PropertyRef Name="IntigrationTypeID" />
+            <Dependent Role="UserIntegration">
+              <PropertyRef Name="IntegrationTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserIntigration_UserID">
+        <Association Name="FK_UserIntegration_UserID">
           <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserIntigration" Type="Self.UserIntigration" Multiplicity="*" />
+          <End Role="UserIntegration" Type="Self.UserIntegration" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="UserIntigration">
+            <Dependent Role="UserIntegration">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -275,13 +275,13 @@
         <EntityContainer Name="brothershipModelStoreContainer">
           <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GameCategory" EntityType="Self.GameCategory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="IntigrationType" EntityType="Self.IntigrationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IntegrationType" EntityType="Self.IntegrationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nationality" EntityType="Self.Nationality" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SocialMediaType" EntityType="Self.SocialMediaType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGameJunc" EntityType="Self.UserGameJunc" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserIntigration" EntityType="Self.UserIntigration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserIntegration" EntityType="Self.UserIntegration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSocialJunc" EntityType="Self.UserSocialJunc" Schema="dbo" store:Type="Tables" />
@@ -314,13 +314,13 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserGameJunc" EntitySet="UserGameJunc" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserIntigration_IntigrationType" Association="Self.FK_UserIntigration_IntigrationType">
-            <End Role="IntigrationType" EntitySet="IntigrationType" />
-            <End Role="UserIntigration" EntitySet="UserIntigration" />
+          <AssociationSet Name="FK_UserIntegration_IntegrationType" Association="Self.FK_UserIntegration_IntegrationType">
+            <End Role="IntegrationType" EntitySet="IntegrationType" />
+            <End Role="UserIntegration" EntitySet="UserIntegration" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserIntigration_UserID" Association="Self.FK_UserIntigration_UserID">
+          <AssociationSet Name="FK_UserIntegration_UserID" Association="Self.FK_UserIntegration_UserID">
             <End Role="User" EntitySet="User" />
-            <End Role="UserIntigration" EntitySet="UserIntigration" />
+            <End Role="UserIntegration" EntitySet="UserIntegration" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRated_UserID" Association="Self.FK_UserRated_UserID">
             <End Role="User" EntitySet="User" />
@@ -339,7 +339,8 @@
             <End Role="UserSocialJunc" EntitySet="UserSocialJunc" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="brothershipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -358,23 +359,23 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Games" Relationship="Self.FK_Game_Category" FromRole="GameCategory" ToRole="Game" />
         </EntityType>
-        <EntityType Name="IntigrationType">
+        <EntityType Name="IntegrationType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="UserIntigrations" Relationship="Self.FK_UserIntigration_IntigrationType" FromRole="IntigrationType" ToRole="UserIntigration" />
+          <NavigationProperty Name="UserIntegrations" Relationship="Self.FK_UserIntegration_IntegrationType" FromRole="IntegrationType" ToRole="UserIntegration" />
         </EntityType>
         <EntityType Name="Nationality">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK_User_Nationality" FromRole="Nationality" ToRole="User" />
         </EntityType>
@@ -382,7 +383,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserRatings" Relationship="Self.FK_Rating_RatingID" FromRole="Rating" ToRole="UserRating" />
         </EntityType>
@@ -390,7 +391,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserSocialJuncs" Relationship="Self.FK_UserSocial_SocialType" FromRole="SocialMediaType" ToRole="UserSocialJunc" />
         </EntityType>
@@ -409,41 +410,39 @@
           <Property Name="UserTypeID" Type="Int32" Nullable="false" />
           <Property Name="NationalityID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Nationality" Relationship="Self.FK_User_Nationality" FromRole="User" ToRole="Nationality" />
+          <NavigationProperty Name="UserLogin" Relationship="Self.FK_User_UserID" FromRole="User" ToRole="UserLogin" />
           <NavigationProperty Name="UserType" Relationship="Self.FK_User_UserTypeID" FromRole="User" ToRole="UserType" />
-          <NavigationProperty Name="UserIntigrations" Relationship="Self.FK_UserIntigration_UserID" FromRole="User" ToRole="UserIntigration" />
-          <NavigationProperty Name="UserLogin" Relationship="Self.FK_UserLogin_UserID" FromRole="User" ToRole="UserLogin" />
+          <NavigationProperty Name="UserIntegrations" Relationship="Self.FK_UserIntegration_UserID" FromRole="User" ToRole="UserIntegration" />
           <NavigationProperty Name="UserRatings" Relationship="Self.FK_UserRated_UserID" FromRole="User" ToRole="UserRating" />
           <NavigationProperty Name="UserRatings1" Relationship="Self.FK_UserRater_UserID" FromRole="User" ToRole="UserRating" />
           <NavigationProperty Name="UserSocialJuncs" Relationship="Self.FK_UserSocial_User" FromRole="User" ToRole="UserSocialJunc" />
           <NavigationProperty Name="Games" Relationship="Self.UserGameJunc" FromRole="User" ToRole="Game" />
-          <NavigationProperty Name="UserLogin1" Relationship="brothershipModel.FK_User_UserID" FromRole="User" ToRole="UserLogin" />
         </EntityType>
-        <EntityType Name="UserIntigration">
+        <EntityType Name="UserIntegration">
           <Key>
             <PropertyRef Name="UserID" />
-            <PropertyRef Name="IntigrationTypeID" />
+            <PropertyRef Name="IntegrationTypeID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="IntigrationTypeID" Type="Int32" Nullable="false" />
+          <Property Name="IntegrationTypeID" Type="Int32" Nullable="false" />
           <Property Name="Token" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="IntigrationType" Relationship="Self.FK_UserIntigration_IntigrationType" FromRole="UserIntigration" ToRole="IntigrationType" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserIntigration_UserID" FromRole="UserIntigration" ToRole="User" />
+          <NavigationProperty Name="IntegrationType" Relationship="Self.FK_UserIntegration_IntegrationType" FromRole="UserIntegration" ToRole="IntegrationType" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserIntegration_UserID" FromRole="UserIntegration" ToRole="User" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserLogin_UserID" FromRole="UserLogin" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="brothershipModel.FK_User_UserID" FromRole="UserLogin" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_UserID" FromRole="UserLogin" ToRole="User" />
         </EntityType>
         <EntityType Name="UserRating">
           <Key>
             <PropertyRef Name="RaterUserID" />
             <PropertyRef Name="UserBeingRatedID" />
           </Key>
-          <Property Name="RaterUserID" Type="Int32" Nullable="false" />
+          <Property Name="RaterUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserBeingRatedID" Type="Int32" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="RatingID" Type="Int32" Nullable="false" />
@@ -466,7 +465,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK_User_UserTypeID" FromRole="UserType" ToRole="User" />
         </EntityType>
@@ -482,15 +481,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserIntigration_IntigrationType">
-          <End Role="IntigrationType" Type="Self.IntigrationType" Multiplicity="1" />
-          <End Role="UserIntigration" Type="Self.UserIntigration" Multiplicity="*" />
+        <Association Name="FK_UserIntegration_IntegrationType">
+          <End Role="IntegrationType" Type="Self.IntegrationType" Multiplicity="1" />
+          <End Role="UserIntegration" Type="Self.UserIntegration" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="IntigrationType">
+            <Principal Role="IntegrationType">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="UserIntigration">
-              <PropertyRef Name="IntigrationTypeID" />
+            <Dependent Role="UserIntegration">
+              <PropertyRef Name="IntegrationTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -530,8 +529,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_UserID">
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserLogin">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_UserTypeID">
-          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+          <End Role="UserType" Type="Self.UserType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserType">
@@ -542,26 +555,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserIntigration_UserID">
+        <Association Name="FK_UserIntegration_UserID">
           <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserIntigration" Type="Self.UserIntigration" Multiplicity="*" />
+          <End Role="UserIntegration" Type="Self.UserIntegration" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="UserIntigration">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserLogin_UserID">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserLogin">
+            <Dependent Role="UserIntegration">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -609,12 +610,12 @@
         <EntityContainer Name="brothershipEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Games" EntityType="Self.Game" />
           <EntitySet Name="GameCategories" EntityType="Self.GameCategory" />
-          <EntitySet Name="IntigrationTypes" EntityType="Self.IntigrationType" />
+          <EntitySet Name="IntegrationTypes" EntityType="Self.IntegrationType" />
           <EntitySet Name="Nationalities" EntityType="Self.Nationality" />
           <EntitySet Name="Ratings" EntityType="Self.Rating" />
           <EntitySet Name="SocialMediaTypes" EntityType="Self.SocialMediaType" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="UserIntigrations" EntityType="Self.UserIntigration" />
+          <EntitySet Name="UserIntegrations" EntityType="Self.UserIntegration" />
           <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
           <EntitySet Name="UserRatings" EntityType="Self.UserRating" />
           <EntitySet Name="UserSocialJuncs" EntityType="Self.UserSocialJunc" />
@@ -623,9 +624,9 @@
             <End Role="GameCategory" EntitySet="GameCategories" />
             <End Role="Game" EntitySet="Games" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserIntigration_IntigrationType" Association="Self.FK_UserIntigration_IntigrationType">
-            <End Role="IntigrationType" EntitySet="IntigrationTypes" />
-            <End Role="UserIntigration" EntitySet="UserIntigrations" />
+          <AssociationSet Name="FK_UserIntegration_IntegrationType" Association="Self.FK_UserIntegration_IntegrationType">
+            <End Role="IntegrationType" EntitySet="IntegrationTypes" />
+            <End Role="UserIntegration" EntitySet="UserIntegrations" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Nationality" Association="Self.FK_User_Nationality">
             <End Role="Nationality" EntitySet="Nationalities" />
@@ -639,17 +640,17 @@
             <End Role="SocialMediaType" EntitySet="SocialMediaTypes" />
             <End Role="UserSocialJunc" EntitySet="UserSocialJuncs" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_UserID" Association="Self.FK_User_UserID">
+            <End Role="UserLogin" EntitySet="UserLogins" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_UserTypeID" Association="Self.FK_User_UserTypeID">
             <End Role="UserType" EntitySet="UserTypes" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserIntigration_UserID" Association="Self.FK_UserIntigration_UserID">
+          <AssociationSet Name="FK_UserIntegration_UserID" Association="Self.FK_UserIntegration_UserID">
             <End Role="User" EntitySet="Users" />
-            <End Role="UserIntigration" EntitySet="UserIntigrations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserLogin_UserID" Association="Self.FK_UserLogin_UserID">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserLogin" EntitySet="UserLogins" />
+            <End Role="UserIntegration" EntitySet="UserIntegrations" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRated_UserID" Association="Self.FK_UserRated_UserID">
             <End Role="User" EntitySet="Users" />
@@ -667,23 +668,7 @@
             <End Role="Game" EntitySet="Games" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_UserID" Association="brothershipModel.FK_User_UserID">
-            <End Role="UserLogin" EntitySet="UserLogins" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_User_UserID">
-          <End Type="brothershipModel.UserLogin" Role="UserLogin" Multiplicity="1" />
-          <End Type="brothershipModel.User" Role="User" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="UserLogin">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -708,9 +693,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IntigrationTypes">
-            <EntityTypeMapping TypeName="brothershipModel.IntigrationType">
-              <MappingFragment StoreEntitySet="IntigrationType">
+          <EntitySetMapping Name="IntegrationTypes">
+            <EntityTypeMapping TypeName="brothershipModel.IntegrationType">
+              <MappingFragment StoreEntitySet="IntegrationType">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
@@ -756,11 +741,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserIntigrations">
-            <EntityTypeMapping TypeName="brothershipModel.UserIntigration">
-              <MappingFragment StoreEntitySet="UserIntigration">
+          <EntitySetMapping Name="UserIntegrations">
+            <EntityTypeMapping TypeName="brothershipModel.UserIntegration">
+              <MappingFragment StoreEntitySet="UserIntegration">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="IntigrationTypeID" ColumnName="IntigrationTypeID" />
+                <ScalarProperty Name="IntegrationTypeID" ColumnName="IntegrationTypeID" />
                 <ScalarProperty Name="Token" ColumnName="Token" />
               </MappingFragment>
             </EntityTypeMapping>
