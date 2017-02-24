@@ -1,4 +1,4 @@
-
+----  THIS IS AN OLD SCRIPT USE Brothership.edmx.sql
 GO
 --Drop Foreign keys
 IF OBJECT_ID('User') IS NOT NULL

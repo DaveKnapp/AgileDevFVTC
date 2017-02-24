@@ -1,68 +1,70 @@
 --Delete all data in tables
 BEGIN TRANSACTION 
 
-	DELETE FROM UserRating
-	DELETE FROM UserSocialJunc
-	DELETE FROM UserIntegration
+	DELETE FROM UserRatings
+	DELETE FROM UserSocialJuncs
+	DELETE FROM UserIntegrations
 	DELETE FROM UserGameJunc
-	DELETE FROM "User"
-	DELETE FROM UserLogin
-	DELETE FROM UserType
-	DELETE FROM Nationality
-	DELETE FROM Game
-	DELETE FROM IntegrationType
-	DELETE FROM SocialMediaType
-	DELETE FROM GameCategory
-	DELETE FROM Rating
+	DELETE FROM Users
+	DELETE FROM UserLogins
+	DELETE FROM UserTypes
+	DELETE FROM Nationalities
+	DELETE FROM Games
+	DELETE FROM IntegrationTypes
+	DELETE FROM SocialMediaTypes
+	DELETE FROM GameCategories
+	DELETE FROM Ratings
 
 COMMIT TRANSACTION
 
 GO
 --ADD Test Data
 BEGIN TRANSACTION
-	SET IDENTITY_INSERT Nationality ON;
+	SET IDENTITY_INSERT Nationalities ON;
 
-	INSERT INTO Nationality (ID, "Description")
+	INSERT INTO Nationalities (ID, "Description")
 		VALUES(1, 'US and A')
-	SET IDENTITY_INSERT Nationality OFF;
+	SET IDENTITY_INSERT Nationalities OFF;
 
-	SET IDENTITY_INSERT UserType ON;
-	INSERT INTO UserType(ID, "Description")
+	SET IDENTITY_INSERT UserTypes ON;
+	INSERT INTO UserTypes(ID, "Description")
 		VALUES(1, 'User')
-	SET IDENTITY_INSERT UserType OFF;
+	SET IDENTITY_INSERT UserTypes OFF;
 
-	INSERT INTO UserLogin(UserID, "Password")
+SET IDENTITY_INSERT UserLogins ON;
+	INSERT INTO UserLogins(UserID, "Password")
 		VALUES(1,'Password'),
 			  (2,'Password'),
 			  (3,'Password'),
 			  (4,'Password'),
 			  (5,'Password')
+SET IDENTITY_INSERT UserLogins OFF;
 
-	SET IDENTITY_INSERT "User" ON;
-	INSERT INTO "User" (ID, UserName, Email, Bio, ProfileImagePath, DateJoined, DOB, Gender, UserTypeID, NationalityID)
+
+
+	INSERT INTO Users (ID, UserName, Email, Bio, ProfileImagePath, DateJoined, DOB, Gender, UserTypeID, NationalityID)
 		VALUES(1, 'TestUserOne', 'Testing123@yahoo.com', 'This is my bio', '../Images/TestUserOne/profile.png','2-20-17', '11-12-1988', 'M', 1,1),
 			  (2, 'TestUserTwo', 'TestingUser2@yahoo.com', 'Hello I am the second test user', '../Images/TestUserTwo/Profile.png','2-22-17', '1-27-1980', 'F', 1,1),
 			  (3, 'TestUserThree', 'TestingUser3@yahoo.com', 'Hello I am the Third test user', '../Images/TestUserThree/Profile.png','1-5-17', '6-1-1990', 'M', 1,1),
 			  (4, 'TestUserFour', 'TestingUser4@yahoo.com', 'Hello I am the Fourth test user', '../Images/TestUserFour/Profile.png','1-13-17', '4-27-1991', 'M', 1,1),
 			  (5, 'TestUserFive', 'TestingUser5@yahoo.com', 'Hello I am the Fifth test user', '../Images/TestUserFive/Profile.png','1-19-17', '7-9-1962', 'F', 1,1)
-	SET IDENTITY_INSERT "User" OFF;
 
-	SET IDENTITY_INSERT IntegrationType ON;
-	INSERT INTO IntegrationType(ID,"Description")
+	SET IDENTITY_INSERT IntegrationTypes ON;
+	INSERT INTO IntegrationTypes(ID,"Description")
 		VALUES(1, 'Twitch')
-	SET IDENTITY_INSERT IntegrationType OFF;
+	SET IDENTITY_INSERT IntegrationTypes OFF;
 
-	SET IDENTITY_INSERT Rating ON;
-		INSERT INTO Rating(ID, "Description")
+	SET IDENTITY_INSERT Ratings ON;
+		INSERT INTO Ratings(ID, "Description")
 		VALUES(1, 'One Star'),
 			  (2, 'Two Stars'),
 			  (3, 'Three Stars'),
 			  (4, 'Four Stars'),
 			  (5, 'Five Stars')
-	SET IDENTITY_INSERT Rating OFF;
+	SET IDENTITY_INSERT Ratings OFF;
 
-	SET IDENTITY_INSERT UserRating ON;
-		INSERT INTO UserRating(RaterUserID, UserBeingRatedID, Comment, RatingID)
+	SET IDENTITY_INSERT UserRatings ON;
+		INSERT INTO UserRatings(RaterUserID, UserBeingRatedID, Comment, RatingID)
 			VALUES(1,2,'10/10 would watch again', 5),
 				  (3,2,'Okay', 4),
 				  (4,2,'Elbows too pointy', 1),
@@ -71,23 +73,23 @@ BEGIN TRANSACTION
 				  (4,5,'5/5 would watch again', 5),
 				  (5,3,'Best stream ever', 5),
 				  (3,1,'boring', 2)
-	SET IDENTITY_INSERT UserRating OFF;
+	SET IDENTITY_INSERT UserRatings OFF;
 
-	SET IDENTITY_INSERT SocialMediaType ON;
-	INSERT INTO SocialMediaType(ID, "Description")
+	SET IDENTITY_INSERT SocialMediaTypes ON;
+	INSERT INTO SocialMediaTypes(ID, "Description")
 		VALUES(1, 'Youtube'),
 			  (2, 'Twitter'),
 			  (3, 'Instagram')
-	SET IDENTITY_INSERT SocialMediaType OFF;
+	SET IDENTITY_INSERT SocialMediaTypes OFF;
 
-	INSERT INTO UserSocialJunc(UserID, SocialMediaTypeID, "URL")
+	INSERT INTO UserSocialJuncs(UserID, SocialMediaTypeID, "URL")
 		VALUES (1,1, 'youtube.com/channel/TestUserOne'),
 			   (1,2, 'twitter.com/TestUserOne'),
 			   (1,3, 'instagram.com/TestUserOne')
 
 	-- BEGIN GAME DATA INSERTS (To be updated or removed later if game API can be obtained)
-	SET IDENTITY_INSERT GameCategory ON;
-	INSERT INTO GameCategory(ID, "Description")
+	SET IDENTITY_INSERT GameCategories ON;
+	INSERT INTO GameCategories(ID, "Description")
 		VALUES	(1, 'Fighting'),
 				(2, 'Action/Adventure'),
 				(3, 'RPG'),
@@ -104,10 +106,10 @@ BEGIN TRANSACTION
 				(14, 'Tower Defense'),
 				(15, 'Hack and Slash')
 
-	SET IDENTITY_INSERT GameCategory OFF;
+	SET IDENTITY_INSERT GameCategories OFF;
 
-	SET IDENTITY_INSERT Game ON;
-	INSERT INTO Game(ID, Title, igdbID, CategoryID)
+	SET IDENTITY_INSERT Games ON;
+	INSERT INTO Games(ID, Title, igdbID, CategoryID)
 		VALUES	-- Fighting Games
 				(1, 'Street Figher V', null, 1),
 				(2, 'Mortal Kombat X', null, 1),
@@ -168,6 +170,6 @@ BEGIN TRANSACTION
 				(43, 'Diablo 3', null, 15),
 				(44, 'Path of Exile', null, 15),
 				(45, 'Grim Dawn', null, 15)
-	SET IDENTITY_INSERT Game OFF;
+	SET IDENTITY_INSERT Games OFF;
 
 COMMIT TRANSACTION

@@ -105,7 +105,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="Brothership.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Brothership.Designer.cs</LastGenOutput>
@@ -121,6 +123,7 @@
       <DependentUpon>Brothership.edmx</DependentUpon>
       <LastGenOutput>Brothership.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Brothership.edmx.sql" />
     <Content Include="Brothership.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Brothership.edmx</DependentUpon>

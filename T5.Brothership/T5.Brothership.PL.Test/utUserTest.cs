@@ -30,46 +30,39 @@ namespace T5.Brothership.PL.Test
         [TestMethod]
         public void InsertUserLoginTest()
         {
-            brothershipEntities oDc = new brothershipEntities();
 
-            //Use LINQ to create a new user
-            var UserStart = (from u in oDc.Users
-                                 join ul in oDc.UserLogins on u.ID equals ul.UserID                            
-                                 select new
-                                 {
-                                     u,
-                                     ul
-                                 }).ToList();
+            //This is how you insert user
+            brothershipEntities context = new brothershipEntities();
 
-            User newUser = new User();
-            UserLogin newUserLogin = new UserLogin();
+            UserLogin expectedUser = new UserLogin { Password = "password" };
+            context.UserLogins.Add(expectedUser);
 
-            //newUser.ID = -1;
-            //newUserLogin.UserID = -1;
-            newUser.UserName = "UnitTestUser";
-            newUserLogin.Password = "UnitTestPassword";
-            newUser.Email = "UnitTest@email";
-            newUser.DateJoined = DateTime.Now;
-            newUser.DOB = DateTime.Parse("01/01/1990");
-            newUser.Bio = "UnitTestBio";
-            newUser.ProfileImagePath = "UnitTestPath";
-            newUser.Gender = "U";
-            //Add nationality
+            context.SaveChanges();
 
-            //Insert it all then test each individually
-            oDc.Users.Add(newUser);
-            oDc.UserLogins.Add(newUserLogin);
-            oDc.SaveChanges();
+            expectedUser.User = new User
+            {
+                ID = expectedUser.UserID,
+                Bio = "Hello",
+                DateJoined = DateTime.Now,
+                DOB = new DateTime(1990, 4, 1),
+                Email = @"MrTestUser@gmail.com",
+                NationalityID = 1,
+                ProfileImagePath = @"MrTestUser.png",
+                UserName = "MrTestUser",
+                UserTypeID = 1,
+                Gender = "m"
+            };
 
-            var UserEnd = (from u in oDc.Users
-                           join ul in oDc.UserLogins on u.ID equals ul.UserID
-                           select new
-                           {
-                               u,
-                               ul
-                           }).ToList();
+            context.SaveChanges();
 
-            Assert.AreEqual(UserStart.Count + 1, UserEnd.Count);
+            var actualUser = context.UserLogins.FirstOrDefault(p => p.UserID == expectedUser.UserID);
+
+            Assert.AreEqual(expectedUser.UserID, actualUser.UserID);
+            Assert.AreEqual(expectedUser.User.ID, actualUser.User.ID);
+            Assert.AreEqual(expectedUser.User.Nationality, actualUser.User.Nationality);
+            Assert.AreEqual(expectedUser.User.Bio, actualUser.User.Bio);
+            Assert.AreEqual(expectedUser.User.UserName, actualUser.User.UserName);
+            Assert.AreEqual(expectedUser.User.ProfileImagePath, actualUser.User.ProfileImagePath);
         }
 
         [TestMethod]
@@ -114,7 +107,6 @@ namespace T5.Brothership.PL.Test
         public void InsertUserTest()
         {//this one has no referential integrity errors
             brothershipEntities oDc = new brothershipEntities();
-
             //Use LINQ to create a new user
             var UserStart = (from u in oDc.Users
                              select u).ToList();
