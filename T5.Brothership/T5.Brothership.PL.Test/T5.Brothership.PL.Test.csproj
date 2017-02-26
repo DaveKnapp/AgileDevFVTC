@@ -63,6 +63,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\T5.Brothership.Entities\T5.Brothership.Entities.csproj">
+      <Project>{1300b598-b232-48ca-9ce8-c728a0a51d59}</Project>
+      <Name>T5.Brothership.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\T5.Brothership.PL\T5.Brothership.PL.csproj">
       <Project>{4f834891-914a-4314-9798-c1bb1222f34b}</Project>
       <Name>T5.Brothership.PL</Name>
