@@ -41,7 +41,8 @@ namespace T5.Brothership.BL
                             join ul in oDc.UserLogins on u.ID equals ul.UserID
                             join un in oDc.Nationalities on u.NationalityID equals un.ID
                             join ut in oDc.UserTypes on u.UserTypeID equals ut.ID
-                            where u.UserName == username && ul.Password == password
+                            where (u.UserName == username || u.Email == username) //handles username or login
+                            && ul.Password == password
                             select new
                             {
                                 u,

@@ -13,6 +13,7 @@ namespace T5.Brothership.BL.Test
         {
             CUser oUser = new CUser();
             oUser.Load("TestUserOne", "Password");
+            //oUser.Load("Testing123@yahoo.com", "Password"); //Email can also be used to log in
 
             //Click Output under the finished test to see additional info
             Trace.WriteLine(oUser.Id);
