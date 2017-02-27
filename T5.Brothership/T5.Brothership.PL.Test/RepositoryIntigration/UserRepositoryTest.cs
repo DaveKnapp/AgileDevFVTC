@@ -7,7 +7,7 @@ using T5.Brothership.PL.Repositories;
 using System.IO;
 using System.Data.SqlClient;
 using Microsoft.SqlServer.Dts.ManagedConnections;
-
+using System.Linq;
 
 namespace T5.Brothership.PL.Test.RepositoryIntigration
 {
@@ -20,8 +20,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
         [TestInitialize]
         public void Initialize()
         {
-            //TODO Refactor
-            string script = File.ReadAllText(@"../../RepositoryIntigration/AddTestData.sql");
+            string script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
 
             using (brothershipEntities dataContext = new brothershipEntities())
             {
@@ -51,7 +50,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             {
                 userRepo.Insert(expectedUser);
                 userRepo.Save();
-                actualUser = userRepo.GetByID(expectedUser);
+                actualUser = userRepo.GetByID(expectedUser.ID);
             }
 
             Assert.AreEqual(expectedUser.UserName, actualUser.UserName);
@@ -77,10 +76,58 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             User actualUser = new User();
             using (UserRepository userRepo = new UserRepository())
             {
-                actualUser = userRepo.GetByID(expectedUser);
+                actualUser = userRepo.GetByID(expectedUser.ID);
             }
 
             Assert.AreEqual(expectedUser.ID, actualUser.ID);
+        }
+
+        [TestMethod]
+        public void GetAll_NumberOfRecords_EqualsActual()
+        {
+            int expectedNumberOfUsers = 5;
+
+            int actualNumberOfusers;
+            using (UserRepository userRepo = new UserRepository())
+            {
+                 actualNumberOfusers = userRepo.GetAll().Count();
+            }
+
+            Assert.AreEqual(expectedNumberOfUsers, actualNumberOfusers);
+        }
+
+        [TestMethod]
+        public void Delete_WasRecordDeleted_GetReturnsNull()
+        {
+            //TODO Fix this my adding cascading delete
+            //User actualUser;
+            //using (UserRepository userRepo = new UserRepository())
+            //{
+            //    userRepo.Delete(1);
+            //    userRepo.Save();
+            //    actualUser = userRepo.GetByID(1);
+            //}
+
+            //Assert.IsNull(actualUser);
+        }
+
+        [TestMethod]
+        public void Update_WasRecordUpdated_DBContainsUpdatedUser()
+        {
+            User expectedUser;
+            User actualUser;
+
+            using (UserRepository userRepo = new UserRepository())
+            {
+                expectedUser = userRepo.GetByID(1);
+                expectedUser.Email = "UpdatedEmail@gmail.com";
+                userRepo.Update(expectedUser);
+                userRepo.Save();
+
+                actualUser = userRepo.GetByID(1);
+            }
+
+            Assert.AreEqual(expectedUser.Email, actualUser.Email);
         }
 
         private void AssertUsersEqual(User expected, User actual)

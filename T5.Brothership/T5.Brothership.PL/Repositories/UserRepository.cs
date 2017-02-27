@@ -9,7 +9,7 @@ using T5.Brothership.Entities.Models;
 namespace T5.Brothership.PL.Repositories
 {
     public class UserRepository : IUserRepository
-    {
+    {//This Class interacts with the database
         brothershipEntities _dataContext = new brothershipEntities();
 
         public void Dispose()
@@ -18,18 +18,18 @@ namespace T5.Brothership.PL.Repositories
         }
         public void Delete(int Id)
         {
-            _dataContext.Users.Remove(new User { ID = Id });
+            User user = _dataContext.Users.FirstOrDefault(p => p.ID == Id);
+            _dataContext.Users.Remove(user);
         }
-
 
         public IEnumerable<User> GetAll()
         {
             return _dataContext.Users;
         }
 
-        public User GetByID(User entity)
+        public User GetByID(int id)
         {
-            return _dataContext.Users.FirstOrDefault(p => p.ID == entity.ID);
+            return _dataContext.Users.FirstOrDefault(p => p.ID == id);
         }
 
         public void Insert(User entity)

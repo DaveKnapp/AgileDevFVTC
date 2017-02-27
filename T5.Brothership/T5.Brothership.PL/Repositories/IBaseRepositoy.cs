@@ -10,7 +10,7 @@ namespace T5.Brothership.PL.Repositories
     internal interface IBaseRepositoy<TEntity>: IDisposable
     {
         IEnumerable<TEntity> GetAll();
-        TEntity GetByID(TEntity entity);
+        TEntity GetByID(int id);
         void Insert(TEntity entity);
         void Delete(int Id);
         void Update(TEntity entity);
