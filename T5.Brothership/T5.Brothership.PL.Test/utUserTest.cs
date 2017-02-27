@@ -14,7 +14,7 @@ namespace T5.Brothership.PL.Test
             brothershipEntities oDc = new brothershipEntities();
 
             //Use LINQ to select user login info
-            var UserLogin = (from u in oDc.Users
+            var login = (from u in oDc.Users
                              join ul in oDc.UserLogins on u.ID equals ul.UserID
                              where u.UserName == "TestUserOne"
                             select new
@@ -24,7 +24,7 @@ namespace T5.Brothership.PL.Test
                             }).FirstOrDefault();
 
             //checks the password based on username
-            Assert.AreEqual(UserLogin.Password, "Password");
+            Assert.AreEqual(login.Password, "Password");
         }
 
         [TestMethod]
