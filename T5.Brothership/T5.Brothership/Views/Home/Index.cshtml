@@ -1,10 +1,18 @@
-﻿@{    
+﻿@{
     ViewBag.Title = "Home Page";
-
-
-    if (IsPost)
+    
+    try
     {
-        try
+        /*if (Request.Cookies["UserInfo"] != null)
+        {
+            HttpCookie _userInfoCookies = Request.Cookies["UserInfo"];
+            <text>
+                Welcome, @_userInfoCookies["Username"] <br />
+                Please go to the About Page to view more info.
+            </text>
+        }*/
+
+        if (IsPost)
         {
             string username = Request.Form["Username"];
             string password = Request.Form["Password"];
@@ -12,29 +20,47 @@
 
             oUser.Login(username, password);
 
+            if (Request.Cookies["UserInfo"] != null)
+            {//Delete cookie if it already exists
+                Response.Cookies["UserInfo"].Expires = DateTime.Now.AddDays(-1);
+            }
+
             <text>
-                Your info: <br />
-                UserID: @oUser.Id <br />
-                UserName: @oUser.UserName <br />
-                Password: @oUser.Password <br />
+                Welcome, @oUser.UserName <br />
+                Please go to the About Page to view more info.
             </text>
+
+            //Making a cookie
+            HttpCookie _userInfoCookies = new HttpCookie("UserInfo");
+
+            //adding info to cookie
+            _userInfoCookies["Id"] = oUser.Id.ToString();
+            _userInfoCookies["Username"] = oUser.UserName;
+            _userInfoCookies["Email"] = oUser.Email;
+            _userInfoCookies["Bio"] = oUser.Bio;
+            _userInfoCookies["ProfileImagePath"] = oUser.ProfileImagePath;
+            _userInfoCookies["DateJoined"] = oUser.DateJoined.ToShortDateString();
+            _userInfoCookies["DOB"] = oUser.DOB.ToShortDateString();
+            _userInfoCookies["Gender"] = oUser.Gender;
+            _userInfoCookies["Nationality"] = oUser.Nationality;
+            _userInfoCookies["UserType"] = oUser.UserType;
+
+            //_userInfoCookies["Expire"] = "5 Days";
+            //_userInfoCookies.Expires = DateTime.Now.AddDays(5);
+
+            Response.Cookies.Add(_userInfoCookies);
         }
-        catch (Exception ex)
-        {
+    }
+    catch (Exception ex)
+    {
             <text>
                 Error: @ex.Message;
             </text>            
-        }
-
-
     }
-}
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+
+    
+}
 
 <div>
     <form method="post">
@@ -46,7 +72,7 @@
             </div>
             <div>
                 <label for="Password">Password:</label>
-                <input type="text" name="Password" value="" />
+                <input type="password" name="Password" value="" />
             </div>
             <div>
                 <label>&nbsp;</label>
@@ -54,6 +80,12 @@
             </div>
         </fieldset>
     </form>
+</div>
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
 <div class="row">
