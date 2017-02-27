@@ -31,7 +31,7 @@ namespace T5.Brothership.BL
         //From UserType Table
         public string UserType { get; set; }
 
-        public void Load(string username, string password)
+        public void Login(string username, string password)
         {
             try
             {
@@ -65,9 +65,10 @@ namespace T5.Brothership.BL
 
                 oDc = null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Username and Password combination not found!");
+                //throw new Exception("Username and Password combination not found!");
+                throw ex;
             }
         }
     }
