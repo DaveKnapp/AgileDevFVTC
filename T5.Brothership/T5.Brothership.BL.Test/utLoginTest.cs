@@ -12,7 +12,7 @@ namespace T5.Brothership.BL.Test
         public void UserLoginTest()
         {
             CUser oUser = new CUser();
-            oUser.Load("TestUserOne", "Password");
+            oUser.Login("TestUserOne", "Password");
             //oUser.Load("Testing123@yahoo.com", "Password"); //Email can also be used to log in
 
             //Click Output under the finished test to see additional info
@@ -31,6 +31,12 @@ namespace T5.Brothership.BL.Test
             Assert.AreEqual(1, oUser.Id);
 
             oUser = null;
+        }
+
+        [TestMethod]
+        public void CookieTest()
+        {
+
         }
     }
 }
