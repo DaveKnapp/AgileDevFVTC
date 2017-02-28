@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EAE9DCFE-CAD3-4D9C-BBF7-C90148AFF3A0}</ProjectGuid>
+    <ProjectGuid>{10FAA319-DE6F-4D41-A77F-0368EA2B03BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>T5.Brothership.BL</RootNamespace>
@@ -49,10 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Managers\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\T5.Brothership.Entities\T5.Brothership.Entities.csproj">
+      <Project>{1300b598-b232-48ca-9ce8-c728a0a51d59}</Project>
+      <Name>T5.Brothership.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\T5.Brothership.PL\T5.Brothership.PL.csproj">
       <Project>{4f834891-914a-4314-9798-c1bb1222f34b}</Project>
       <Name>T5.Brothership.PL</Name>

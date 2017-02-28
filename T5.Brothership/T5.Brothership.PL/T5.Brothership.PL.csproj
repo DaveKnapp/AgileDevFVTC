@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -56,53 +57,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Brothership.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Brothership.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
     <Compile Include="Brothership.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Brothership.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Game.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GameCategory.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IntegrationType.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Nationality.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
+    <Compile Include="BrothershipUnitOfWork.cs" />
+    <Compile Include="IBrothershipUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rating.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SocialMediaType.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserIntegration.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserLogin.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserRating.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserSocialJunc.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserType.cs">
-      <DependentUpon>Brothership.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Repositories\IBaseRepositoy.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -125,15 +90,19 @@
     </Content>
     <Content Include="Brothership.edmx.sql" />
     <Content Include="Brothership.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Brothership.edmx</DependentUpon>
-      <LastGenOutput>Brothership.cs</LastGenOutput>
     </Content>
     <Content Include="SqlScripts\AddTestData.sql" />
     <Content Include="SqlScripts\CreateDatabase.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\T5.Brothership.Entities\T5.Brothership.Entities.csproj">
+      <Project>{1300b598-b232-48ca-9ce8-c728a0a51d59}</Project>
+      <Name>T5.Brothership.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

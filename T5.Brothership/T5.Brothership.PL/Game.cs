@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace T5.Brothership.PL
+namespace T5.Brothership.Entities.Models
 {
     using System;
     using System.Collections.Generic;

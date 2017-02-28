@@ -12,6 +12,7 @@ namespace T5.Brothership.PL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using T5.Brothership.Entities.Models;
     
     public partial class brothershipEntities : DbContext
     {

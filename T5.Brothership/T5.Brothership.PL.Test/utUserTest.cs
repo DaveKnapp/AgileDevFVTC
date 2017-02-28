@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using T5.Brothership.PL;
 using System.Linq;
+using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.PL.Test
 {
@@ -17,11 +18,11 @@ namespace T5.Brothership.PL.Test
             var login = (from u in oDc.Users
                              join ul in oDc.UserLogins on u.ID equals ul.UserID
                              where u.UserName == "TestUserOne"
-                            select new
-                            {
-                                u.UserName,
-                                ul.Password
-                            }).FirstOrDefault();
+                             select new
+                             {
+                                 u.UserName,
+                                 ul.Password
+                             }).FirstOrDefault();
 
             //checks the password based on username
             Assert.AreEqual(login.Password, "Password");
@@ -71,13 +72,13 @@ namespace T5.Brothership.PL.Test
             brothershipEntities oDc = new brothershipEntities();
 
             //Use LINQ to select user login info
-            var User = (from u in oDc.Users                             
+            var User = (from u in oDc.Users
                         where u.UserName == "UnitTestUser"
                         select u).FirstOrDefault();
 
             var Login = (from ul in oDc.UserLogins
-                        where ul.Password == "UnitTestPassword"
-                        select ul).FirstOrDefault();
+                         where ul.Password == "UnitTestPassword"
+                         select ul).FirstOrDefault();
 
 
             if (User != null && Login != null)
@@ -87,12 +88,12 @@ namespace T5.Brothership.PL.Test
                 oDc.SaveChanges();
 
                 var UserDeleted = (from u in oDc.Users
-                            where u.UserName == "UnitTestUser"
-                            select u).FirstOrDefault();
+                                   where u.UserName == "UnitTestUser"
+                                   select u).FirstOrDefault();
 
                 var LoginDeleted = (from ul in oDc.UserLogins
-                             where ul.Password=="UnitTestPassword"
-                             select ul).FirstOrDefault();
+                                    where ul.Password == "UnitTestPassword"
+                                    select ul).FirstOrDefault();
 
                 Assert.IsNull(UserDeleted);
                 Assert.IsNull(LoginDeleted);
@@ -112,10 +113,10 @@ namespace T5.Brothership.PL.Test
                              select u).ToList();
 
             User newUser = new User();
-            
+
 
             //newUser.ID = -1;            
-            newUser.UserName = "UnitTestUser";           
+            newUser.UserName = "UnitTestUser";
             newUser.Email = "UnitTest@email";
             newUser.DateJoined = DateTime.Now;
             newUser.DOB = DateTime.Parse("01/01/1990");
@@ -125,11 +126,11 @@ namespace T5.Brothership.PL.Test
             //Add nationality
 
             //Insert it all then test each individually
-            oDc.Users.Add(newUser);            
+            oDc.Users.Add(newUser);
             oDc.SaveChanges();
 
             var UserEnd = (from u in oDc.Users
-                             select u).ToList();
+                           select u).ToList();
 
             Assert.AreEqual(UserStart.Count + 1, UserEnd.Count);
         }

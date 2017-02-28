@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1300B598-B232-48CA-9CE8-C728A0A51D59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>T5.Brothership.Entities</RootNamespace>
+    <AssemblyName>T5.Brothership.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\T5.Brothership.PL\Brothership.cs">
+      <Link>Models\Brothership.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\Game.cs">
+      <Link>Models\Game.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\GameCategory.cs">
+      <Link>Models\GameCategory.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\IntegrationType.cs">
+      <Link>Models\IntegrationType.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\Nationality.cs">
+      <Link>Models\Nationality.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\Rating.cs">
+      <Link>Models\Rating.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\SocialMediaType.cs">
+      <Link>Models\SocialMediaType.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\User.cs">
+      <Link>Models\User.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\UserIntegration.cs">
+      <Link>Models\UserIntegration.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\UserLogin.cs">
+      <Link>Models\UserLogin.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\UserRating.cs">
+      <Link>Models\UserRating.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\UserSocialJunc.cs">
+      <Link>Models\UserSocialJunc.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="..\T5.Brothership.PL\UserType.cs">
+      <Link>Models\UserType.cs</Link>
+      <DependentUpon>Brothership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\T5.Brothership.PL\Brothership.tt">
+      <Link>Models\Brothership.tt</Link>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Brothership.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
