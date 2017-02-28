@@ -28,7 +28,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             }
 
         }
-        [TestMethod]
+        [TestCategory("IntigrationTest"), TestMethod]
         public void Insert_WasRecordInserted_ActualUserNotNull()
         {
             User expectedUser = new User
@@ -46,17 +46,17 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             };
 
             User actualUser = new User();
-            using (UserRepository userRepo = new UserRepository())
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
             {
-                userRepo.Insert(expectedUser);
-                userRepo.Save();
-                actualUser = userRepo.GetByID(expectedUser.ID);
+                userRepo.Add(expectedUser);
+                userRepo.SaveChanges();
+                actualUser = userRepo.GetById(expectedUser.ID);
             }
 
             Assert.AreEqual(expectedUser.UserName, actualUser.UserName);
         }
 
-        [TestMethod]
+        [TestCategory("IntigrationTest"), TestMethod]
         public void GetByID_WasDataGot_ActualUserNotNull()
         {
             User expectedUser = new User
@@ -74,21 +74,21 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             };
 
             User actualUser = new User();
-            using (UserRepository userRepo = new UserRepository())
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
             {
-                actualUser = userRepo.GetByID(expectedUser.ID);
+                actualUser = userRepo.GetById(expectedUser.ID);
             }
 
             Assert.AreEqual(expectedUser.ID, actualUser.ID);
         }
 
-        [TestMethod]
+        [TestCategory("IntigrationTest"), TestMethod]
         public void GetAll_NumberOfRecords_EqualsActual()
         {
             int expectedNumberOfUsers = 5;
 
             int actualNumberOfusers;
-            using (UserRepository userRepo = new UserRepository())
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
             {
                  actualNumberOfusers = userRepo.GetAll().Count();
             }
@@ -96,9 +96,10 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             Assert.AreEqual(expectedNumberOfUsers, actualNumberOfusers);
         }
 
-        [TestMethod]
+        [TestCategory("IntigrationTest"), TestMethod]
         public void Delete_WasRecordDeleted_GetReturnsNull()
         {
+            throw new NotImplementedException();
             //TODO Fix this my adding cascading delete
             //User actualUser;
             //using (UserRepository userRepo = new UserRepository())
@@ -111,20 +112,20 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             //Assert.IsNull(actualUser);
         }
 
-        [TestMethod]
+        [TestCategory("IntigrationTest"), TestMethod]
         public void Update_WasRecordUpdated_DBContainsUpdatedUser()
         {
             User expectedUser;
             User actualUser;
 
-            using (UserRepository userRepo = new UserRepository())
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
             {
-                expectedUser = userRepo.GetByID(1);
+                expectedUser = userRepo.GetById(1);
                 expectedUser.Email = "UpdatedEmail@gmail.com";
                 userRepo.Update(expectedUser);
-                userRepo.Save();
+                userRepo.SaveChanges();
 
-                actualUser = userRepo.GetByID(1);
+                actualUser = userRepo.GetById(1);
             }
 
             Assert.AreEqual(expectedUser.Email, actualUser.Email);

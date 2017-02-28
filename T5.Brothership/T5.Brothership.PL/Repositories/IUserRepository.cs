@@ -7,7 +7,8 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.PL.Repositories
 {
-    interface IUserRepository: IBaseRepositoy<User>
+    public interface IUserRepository : IRepository<User>
     {
+
     }
 }
