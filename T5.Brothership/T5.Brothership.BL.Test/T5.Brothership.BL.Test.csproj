@@ -49,9 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="utLoginTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\T5.Brothership.Entities\T5.Brothership.Entities.csproj">
