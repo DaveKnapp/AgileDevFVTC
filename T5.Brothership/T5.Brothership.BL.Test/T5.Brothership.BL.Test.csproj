@@ -38,6 +38,7 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,14 +50,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManagerUnitTests\UserMangerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Managers\UserManager.cs" />
     <Compile Include="utLoginTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\T5.Brothership.BL\T5.Brothership.BL.csproj">
+      <Project>{10faa319-de6f-4d41-a77f-0368ea2b03bd}</Project>
+      <Name>T5.Brothership.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\T5.Brothership.Entities\T5.Brothership.Entities.csproj">
       <Project>{1300b598-b232-48ca-9ce8-c728a0a51d59}</Project>
       <Name>T5.Brothership.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\T5.Brothership.PL.Test\T5.Brothership.PL.Test.csproj">
+      <Project>{02AEB517-53CD-4148-ABC5-EDEF085C31F7}</Project>
+      <Name>T5.Brothership.PL.Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\T5.Brothership.PL\T5.Brothership.PL.csproj">
       <Project>{4f834891-914a-4314-9798-c1bb1222f34b}</Project>
@@ -66,6 +75,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
