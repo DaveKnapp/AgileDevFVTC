@@ -32,7 +32,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,
                 UserTypeID = 1,
-                UserLogin = new UserLogin { Password = "Password", UserID = 1 }
+                UserLogin = new UserLogin { PasswordHash = "Password", UserID = 1 }
             };
 
             User actualUser;
@@ -73,7 +73,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             Assert.AreEqual(expected.UserType.ID, actual.UserType.ID);
             Assert.AreEqual(expected.UserType.Description, actual.UserType.Description);
             Assert.AreEqual(expected.UserLogin.UserID, actual.UserLogin.UserID);
-            Assert.AreEqual(expected.UserLogin.Password, actual.UserLogin.Password);
+            Assert.AreEqual(expected.UserLogin.PasswordHash, actual.UserLogin.PasswordHash);
         }
     }
 }

@@ -32,12 +32,12 @@ BEGIN TRANSACTION
 	SET IDENTITY_INSERT UserTypes OFF;
 
 SET IDENTITY_INSERT UserLogins ON;
-	INSERT INTO UserLogins(UserID, "Password")
-		VALUES(1,'Password'),
-			  (2,'Password'),
-			  (3,'Password'),
-			  (4,'Password'),
-			  (5,'Password')
+	INSERT INTO UserLogins(UserID, "PasswordHash",Salt)
+		VALUES(1,'Password','none'),
+			  (2,'Password', 'none'),
+			  (3,'Password', 'none'),
+			  (4,'Password', 'none'),
+			  (5,'Password', 'none')
 SET IDENTITY_INSERT UserLogins OFF;
 
 

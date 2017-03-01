@@ -15,7 +15,8 @@ namespace T5.Brothership.Entities.Models
     public partial class UserLogin
     {
         public int UserID { get; set; }
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
+        public string Salt { get; set; }
     
         public virtual User User { get; set; }
     }

@@ -21,11 +21,11 @@ namespace T5.Brothership.PL.Test
                              select new
                              {
                                  u.UserName,
-                                 ul.Password
+                                 ul.PasswordHash
                              }).FirstOrDefault();
 
             //checks the password based on username
-            Assert.AreEqual(login.Password, "Password");
+            Assert.AreEqual(login.PasswordHash ,"Password");
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace T5.Brothership.PL.Test
             //This is how you insert user
             brothershipEntities context = new brothershipEntities();
 
-            UserLogin expectedUser = new UserLogin { Password = "password" };
+            UserLogin expectedUser = new UserLogin { PasswordHash = "password" };
             context.UserLogins.Add(expectedUser);
 
             context.SaveChanges();
@@ -77,7 +77,7 @@ namespace T5.Brothership.PL.Test
                         select u).FirstOrDefault();
 
             var Login = (from ul in oDc.UserLogins
-                         where ul.Password == "UnitTestPassword"
+                         where ul.PasswordHash == "UnitTestPassword"
                          select ul).FirstOrDefault();
 
 
@@ -92,7 +92,7 @@ namespace T5.Brothership.PL.Test
                                    select u).FirstOrDefault();
 
                 var LoginDeleted = (from ul in oDc.UserLogins
-                                    where ul.Password == "UnitTestPassword"
+                                    where ul.PasswordHash == "UnitTestPassword"
                                     select ul).FirstOrDefault();
 
                 Assert.IsNull(UserDeleted);

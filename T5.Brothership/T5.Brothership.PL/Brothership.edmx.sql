@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/24/2017 13:04:07
+-- Date Created: 03/01/2017 15:56:54
 -- Generated from EDMX file: C:\Users\zzdia\Source\Repos\AgileDevFVTC\T5.Brothership\T5.Brothership.PL\Brothership.edmx
 -- --------------------------------------------------
 
@@ -20,29 +20,23 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_Game_Category]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Games] DROP CONSTRAINT [FK_Game_Category];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Rating_RatingID]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserRatings] DROP CONSTRAINT [FK_Rating_RatingID];
+IF OBJECT_ID(N'[dbo].[FK_UserIntegration_IntegrationType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserIntegrations] DROP CONSTRAINT [FK_UserIntegration_IntegrationType];
 GO
 IF OBJECT_ID(N'[dbo].[FK_User_Nationality]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_Nationality];
 GO
-IF OBJECT_ID(N'[dbo].[FK_User_UserID]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_UserID];
+IF OBJECT_ID(N'[dbo].[FK_Rating_RatingID]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserRatings] DROP CONSTRAINT [FK_Rating_RatingID];
 GO
-IF OBJECT_ID(N'[dbo].[FK_User_UserTypeID]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_UserTypeID];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserGameJunc_Game]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserGameJunc] DROP CONSTRAINT [FK_UserGameJunc_Game];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserGameJunc_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserGameJunc] DROP CONSTRAINT [FK_UserGameJunc_User];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserIntegration_IntegrationType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserIntegrations] DROP CONSTRAINT [FK_UserIntegration_IntegrationType];
+IF OBJECT_ID(N'[dbo].[FK_UserSocial_SocialType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserSocialJuncs] DROP CONSTRAINT [FK_UserSocial_SocialType];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserIntegration_UserID]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserIntegrations] DROP CONSTRAINT [FK_UserIntegration_UserID];
+GO
+IF OBJECT_ID(N'[dbo].[FK_User_UserID]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_UserID];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserRated_UserID]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserRatings] DROP CONSTRAINT [FK_UserRated_UserID];
@@ -50,11 +44,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserRater_UserID]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserRatings] DROP CONSTRAINT [FK_UserRater_UserID];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UserSocial_SocialType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserSocialJuncs] DROP CONSTRAINT [FK_UserSocial_SocialType];
+IF OBJECT_ID(N'[dbo].[FK_User_UserTypeID]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_UserTypeID];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserSocial_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserSocialJuncs] DROP CONSTRAINT [FK_UserSocial_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserGameJunc_Game]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserGameJunc] DROP CONSTRAINT [FK_UserGameJunc_Game];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserGameJunc_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserGameJunc] DROP CONSTRAINT [FK_UserGameJunc_User];
 GO
 
 -- --------------------------------------------------
@@ -79,9 +79,6 @@ GO
 IF OBJECT_ID(N'[dbo].[SocialMediaTypes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SocialMediaTypes];
 GO
-IF OBJECT_ID(N'[dbo].[UserGameJunc]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserGameJunc];
-GO
 IF OBJECT_ID(N'[dbo].[UserIntegrations]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserIntegrations];
 GO
@@ -99,6 +96,9 @@ IF OBJECT_ID(N'[dbo].[UserSocialJuncs]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[UserTypes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserTypes];
+GO
+IF OBJECT_ID(N'[dbo].[UserGameJunc]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserGameJunc];
 GO
 
 -- --------------------------------------------------
@@ -160,7 +160,8 @@ GO
 -- Creating table 'UserLogins'
 CREATE TABLE [dbo].[UserLogins] (
     [UserID] int IDENTITY(1,1) NOT NULL,
-    [Password] varchar(25)  NOT NULL
+    [PasswordHash] varchar(64)  NOT NULL,
+    [Salt] nvarchar(64)  NOT NULL
 );
 GO
 

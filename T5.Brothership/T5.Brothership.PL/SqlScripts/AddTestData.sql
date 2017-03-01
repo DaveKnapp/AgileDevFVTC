@@ -21,7 +21,6 @@ GO
 --ADD Test Data
 BEGIN TRANSACTION
 	SET IDENTITY_INSERT Nationalities ON;
-
 	INSERT INTO Nationalities (ID, "Description")
 		VALUES(1, 'US and A')
 	SET IDENTITY_INSERT Nationalities OFF;
@@ -32,7 +31,7 @@ BEGIN TRANSACTION
 	SET IDENTITY_INSERT UserTypes OFF;
 
 SET IDENTITY_INSERT UserLogins ON;
-	INSERT INTO UserLogins(UserID, "Password")
+	INSERT INTO UserLogins(UserID, PasswordHash)
 		VALUES(1,'Password'),
 			  (2,'Password'),
 			  (3,'Password'),

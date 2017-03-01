@@ -42,7 +42,7 @@ namespace T5.Brothership.BL
                             join un in oDc.Nationalities on u.NationalityID equals un.ID
                             join ut in oDc.UserTypes on u.UserTypeID equals ut.ID
                             where (u.UserName == username || u.Email == username) //handles username or login
-                            && ul.Password == password
+                            && ul.PasswordHash == password
                             select new
                             {
                                 u,
@@ -59,7 +59,7 @@ namespace T5.Brothership.BL
                 this.DateJoined = user.u.DateJoined;
                 this.DOB = user.u.DOB;
                 this.Gender = user.u.Gender;
-                this.Password = user.ul.Password;
+                this.Password = user.ul.PasswordHash;
                 this.Nationality = user.un.Description;
                 this.UserType = user.ut.Description;
 

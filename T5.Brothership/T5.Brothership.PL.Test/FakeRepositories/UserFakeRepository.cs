@@ -80,7 +80,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,
                 UserTypeID = 1,
-                UserLogin = new UserLogin { Password = "Password", UserID = 1}
+                UserLogin = new UserLogin { PasswordHash = "Password", UserID = 1}
             });
         }
     }

@@ -5,8 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.PL.Repositories;
 using System.IO;
-using System.Data.SqlClient;
-using Microsoft.SqlServer.Dts.ManagedConnections;
 using System.Linq;
 
 namespace T5.Brothership.PL.Test.RepositoryIntigration
@@ -39,7 +37,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
                 Email = "expectedUser@gmail.com",
                 NationalityID = 1,
                 Gender = "M",
-                UserLogin = new UserLogin { Password = "PasswordTest" },
+                UserLogin = new UserLogin { PasswordHash = "PasswordTest" },
                 UserName = "TEstUserName",
                 ProfileImagePath = "TestUserImage.png",
                 UserTypeID = 1
@@ -129,6 +127,21 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             }
 
             Assert.AreEqual(expectedUser.Email, actualUser.Email);
+        }
+
+        [TestMethod, TestCategory("IntigrationTest")]
+        public void GetByUsernameOrEmail_WasCorrectUserFound_ReturnsNotNull()
+        {
+            string expextedUserName = "TestUserThree";
+            string expectedEmail = "TestingUser3@yahoo.com";
+
+            User actualUser;
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            {
+                actualUser = userRepo.GetByUsernameOrEmail(expextedUserName, expectedEmail);
+            }
+
+            Assert.IsNotNull(actualUser);
         }
 
         private void AssertUsersEqual(User expected, User actual)
