@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D0A4047C-395B-4863-947A-793D2CCF76DD}</ProjectGuid>
+    <ProjectGuid>{C92C4E62-0D50-4323-A73C-06778157C913}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>T5.Brothership.BL.Test</RootNamespace>
@@ -52,10 +52,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CuserTest.cs" />
     <Compile Include="ManagerUnitTests\UserManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserLoginTest.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\T5.Brothership.BL\T5.Brothership.BL.csproj">
       <Project>{10faa319-de6f-4d41-a77f-0368ea2b03bd}</Project>
