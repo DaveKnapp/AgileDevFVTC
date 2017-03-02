@@ -12,12 +12,13 @@ namespace T5.Brothership.Entities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserLogin
+    public partial class UserSocialJunc
     {
         public int UserID { get; set; }
-        //public string PasswordHash { get; set; }
-        public string Salt { get; set; }
+        public int SocialMediaTypeID { get; set; }
+        public string URL { get; set; }
     
+        public virtual SocialMediaType SocialMediaType { get; set; }
         public virtual User User { get; set; }
     }
 }

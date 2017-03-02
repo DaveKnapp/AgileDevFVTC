@@ -21,6 +21,7 @@ GO
 --ADD Test Data
 BEGIN TRANSACTION
 	SET IDENTITY_INSERT Nationalities ON;
+
 	INSERT INTO Nationalities (ID, "Description")
 		VALUES(1, 'US and A')
 	SET IDENTITY_INSERT Nationalities OFF;
@@ -31,12 +32,13 @@ BEGIN TRANSACTION
 	SET IDENTITY_INSERT UserTypes OFF;
 
 SET IDENTITY_INSERT UserLogins ON;
-	INSERT INTO UserLogins(UserID, PasswordHash)
-		VALUES(1,'Password'),
-			  (2,'Password'),
-			  (3,'Password'),
-			  (4,'Password'),
-			  (5,'Password')
+--Passwords are Password
+	INSERT INTO UserLogins(UserID, "PasswordHash",Salt)
+		VALUES(1,'5Efg7nxAjJdkjIsZECyAWGA10mMixUnUiatbAgfcX3g=','b9qo1clGZ0q/99JkBJevOJGjU6JGUhmy'),
+			  (2,'qaNdZwpUFt18tcaJtAJBr4rTkwmy6uwvB1zlm4MLh7g= ', 'QBKzLfLzbtRIS19vkbguqgPakJ+BKQre'),
+			  (3,'/HOXKid5g4YaNZNitnwyYnnoy7CecL6lxaDil4fjHmE=', 'xbiS4ItBbOzkl/9PfDJzvs8IYK6aiH6q'),
+			  (4,'zAhNMBQ4/Ld4Qg19Sm3vukDyyu+rYnRAgIBw5t2wjTM=', 'yA2zLBkEQzjGT8wBUoNf6OcVt+J+/2gV'),
+			  (5,'VCexSa7lVH7IvZ4qsABqRcnjWJLte24mPCaTK4DbHNY=', 'VuQePlIuVbuwkygTSwbHCjkTsqy5cLgB')
 SET IDENTITY_INSERT UserLogins OFF;
 
 

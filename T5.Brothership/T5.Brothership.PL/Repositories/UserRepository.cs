@@ -14,10 +14,10 @@ namespace T5.Brothership.PL.Repositories
         {
         }
 
-        public User GetByUsernameOrEmail(string userName, string email )
+        public User GetByUsernameOrEmail(string userNameOrEmail)
         {//TODO is there a better way to do this?  should type DbContext be different in contructor?
             brothershipEntities context = DbContext as brothershipEntities;
-            return context.Users.FirstOrDefault(p => p.UserName == userName || p.Email == email);
+            return context.Users.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
         }
     }
 }

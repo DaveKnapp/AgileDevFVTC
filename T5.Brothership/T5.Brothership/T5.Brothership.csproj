@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -169,11 +170,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -187,6 +189,10 @@
     <ProjectReference Include="..\T5.Brothership.BL\T5.Brothership.BL.csproj">
       <Project>{eae9dcfe-cad3-4d9c-bbf7-c90148aff3a0}</Project>
       <Name>T5.Brothership.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\T5.Brothership.Entities\T5.Brothership.Entities.csproj">
+      <Project>{1300b598-b232-48ca-9ce8-c728a0a51d59}</Project>
+      <Name>T5.Brothership.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

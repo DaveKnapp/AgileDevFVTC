@@ -15,7 +15,7 @@ namespace T5.Brothership.BL.Test.HelpersUnitTest
         [TestMethod, TestCategory("UnitTest")]
         public void IsPasswordMatch_MatchingPasswords_Returns()
         {
-            string expectedPassword = "secret";
+            string expectedPassword = "Password";
 
             PasswordHelper passwordManager = new PasswordHelper();
 

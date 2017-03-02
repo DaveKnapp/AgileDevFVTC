@@ -9,6 +9,6 @@ namespace T5.Brothership.PL.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-
+        User GetByUsernameOrEmail(string userNameOrEmail);
     }
 }

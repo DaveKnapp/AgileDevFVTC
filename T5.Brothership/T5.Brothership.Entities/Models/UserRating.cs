@@ -12,12 +12,15 @@ namespace T5.Brothership.Entities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserLogin
+    public partial class UserRating
     {
-        public int UserID { get; set; }
-        //public string PasswordHash { get; set; }
-        public string Salt { get; set; }
+        public int RaterUserID { get; set; }
+        public int UserBeingRatedID { get; set; }
+        public string Comment { get; set; }
+        public int RatingID { get; set; }
     
+        public virtual Rating Rating { get; set; }
         public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

@@ -32,12 +32,13 @@ BEGIN TRANSACTION
 	SET IDENTITY_INSERT UserTypes OFF;
 
 SET IDENTITY_INSERT UserLogins ON;
+--Passwords are Password
 	INSERT INTO UserLogins(UserID, "PasswordHash",Salt)
-		VALUES(1,'Password','none'),
-			  (2,'Password', 'none'),
-			  (3,'Password', 'none'),
-			  (4,'Password', 'none'),
-			  (5,'Password', 'none')
+		VALUES(1,'5Efg7nxAjJdkjIsZECyAWGA10mMixUnUiatbAgfcX3g=','b9qo1clGZ0q/99JkBJevOJGjU6JGUhmy'),
+			  (2,'qaNdZwpUFt18tcaJtAJBr4rTkwmy6uwvB1zlm4MLh7g= ', 'QBKzLfLzbtRIS19vkbguqgPakJ+BKQre'),
+			  (3,'/HOXKid5g4YaNZNitnwyYnnoy7CecL6lxaDil4fjHmE=', 'xbiS4ItBbOzkl/9PfDJzvs8IYK6aiH6q'),
+			  (4,'zAhNMBQ4/Ld4Qg19Sm3vukDyyu+rYnRAgIBw5t2wjTM=', 'yA2zLBkEQzjGT8wBUoNf6OcVt+J+/2gV'),
+			  (5,'VCexSa7lVH7IvZ4qsABqRcnjWJLte24mPCaTK4DbHNY=', 'VuQePlIuVbuwkygTSwbHCjkTsqy5cLgB')
 SET IDENTITY_INSERT UserLogins OFF;
 
 

@@ -37,7 +37,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
                 Email = "expectedUser@gmail.com",
                 NationalityID = 1,
                 Gender = "M",
-                UserLogin = new UserLogin { PasswordHash = "PasswordTest" },
+                UserLogin = new UserLogin { PasswordHash = "PasswordTest", Salt= "none"},
                 UserName = "TEstUserName",
                 ProfileImagePath = "TestUserImage.png",
                 UserTypeID = 1
@@ -129,19 +129,33 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             Assert.AreEqual(expectedUser.Email, actualUser.Email);
         }
 
+        //TODO(Dave) Add test for email
         [TestMethod, TestCategory("IntigrationTest")]
-        public void GetByUsernameOrEmail_WasCorrectUserFound_ReturnsNotNull()
+        public void GetByUsernameOrEmail_WasUserFound_ReturnsNotNull()
         {
             string expextedUserName = "TestUserThree";
-            string expectedEmail = "TestingUser3@yahoo.com";
 
             User actualUser;
             using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
             {
-                actualUser = userRepo.GetByUsernameOrEmail(expextedUserName, expectedEmail);
+                actualUser = userRepo.GetByUsernameOrEmail(expextedUserName);
             }
 
             Assert.IsNotNull(actualUser);
+        }
+
+        [TestMethod, TestCategory("IntigrationTest")]
+        public void GetByUsernameOrEmail_NoUserFound_ReturnsNull()
+        {
+            string expextedUserName = "NoUserFound";
+
+            User actualUser;
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            {
+                actualUser = userRepo.GetByUsernameOrEmail(expextedUserName);
+            }
+
+            Assert.IsNull(actualUser);
         }
 
         private void AssertUsersEqual(User expected, User actual)

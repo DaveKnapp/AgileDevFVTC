@@ -1,0 +1,90 @@
+﻿@model T5.Brothership.Entities.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Welcome @Model.UserName</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfileImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfileImagePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateJoined)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateJoined)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NationalityID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NationalityID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Logout", "Logout","Login") 
+  
+</p>

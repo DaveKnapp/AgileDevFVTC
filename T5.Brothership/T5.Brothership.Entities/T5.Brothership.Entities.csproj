@@ -30,7 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,71 +49,64 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\T5.Brothership.PL\Brothership.cs">
-      <Link>Models\Brothership.cs</Link>
+    <Compile Include="Models\brothership.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Brothership.tt</DependentUpon>
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\Game.cs">
-      <Link>Models\Game.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\Game.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\GameCategory.cs">
-      <Link>Models\GameCategory.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\GameCategory.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\IntegrationType.cs">
-      <Link>Models\IntegrationType.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\IntegrationType.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\Nationality.cs">
-      <Link>Models\Nationality.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\InvalidUser.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Nationality.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\Rating.cs">
-      <Link>Models\Rating.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\Rating.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\SocialMediaType.cs">
-      <Link>Models\SocialMediaType.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\SocialMediaType.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\User.cs">
-      <Link>Models\User.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\UserIntegration.cs">
-      <Link>Models\UserIntegration.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\UserIntegration.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\UserLogin.cs">
-      <Link>Models\UserLogin.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\UserLogin.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\UserRating.cs">
-      <Link>Models\UserRating.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\UserRating.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\UserSocialJunc.cs">
-      <Link>Models\UserSocialJunc.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\UserSocialJunc.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
-    <Compile Include="..\T5.Brothership.PL\UserType.cs">
-      <Link>Models\UserType.cs</Link>
-      <DependentUpon>Brothership.tt</DependentUpon>
+    <Compile Include="Models\UserType.cs">
+      <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\T5.Brothership.PL\Brothership.tt">
-      <Link>Models\Brothership.tt</Link>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Models\brothership.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Brothership.cs</LastGenOutput>
+      <LastGenOutput>brothership.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,12 +12,18 @@ namespace T5.Brothership.Entities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserLogin
+    public partial class GameCategory
     {
-        public int UserID { get; set; }
-        //public string PasswordHash { get; set; }
-        public string Salt { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public GameCategory()
+        {
+            this.Games = new HashSet<Game>();
+        }
     
-        public virtual User User { get; set; }
+        public int ID { get; set; }
+        public string Description { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Game> Games { get; set; }
     }
 }

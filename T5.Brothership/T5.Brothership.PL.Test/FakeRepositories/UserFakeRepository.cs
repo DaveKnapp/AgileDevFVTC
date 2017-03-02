@@ -83,5 +83,10 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 UserLogin = new UserLogin { PasswordHash = "Password", UserID = 1}
             });
         }
+
+        public User GetByUsernameOrEmail(string userNameOrEmail)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
