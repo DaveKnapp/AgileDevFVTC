@@ -4,6 +4,70 @@
     ViewBag.Title = "Login";
 }
 
+@{
+    ViewBag.Title = "Home Page";
+
+    try
+    {
+        /*if (Request.Cookies["UserInfo"] != null)
+        {
+            HttpCookie _userInfoCookies = Request.Cookies["UserInfo"];
+            <text>
+                Welcome, @_userInfoCookies["Username"] <br />
+                Please go to the About Page to view more info.
+            </text>
+        }*/
+
+        if (IsPost)
+        {
+            string username = Request.Form["Username"];
+            string password = Request.Form["Password"];
+            CUser oUser = new CUser();
+
+            oUser.Login(username, password);
+
+            if (Request.Cookies["UserInfo"] != null)
+            {//Delete cookie if it already exists
+                Response.Cookies["UserInfo"].Expires = DateTime.Now.AddDays(-1);
+            }
+
+            <text>
+                Welcome, @oUser.UserName <br />
+                Please go to the About Page to view more info.
+            </text>
+
+            //Making a cookie
+            HttpCookie _userInfoCookies = new HttpCookie("UserInfo");
+
+            //adding info to cookie
+            _userInfoCookies["Id"] = oUser.Id.ToString();
+            _userInfoCookies["Username"] = oUser.UserName;
+            _userInfoCookies["Email"] = oUser.Email;
+            _userInfoCookies["Bio"] = oUser.Bio;
+            _userInfoCookies["ProfileImagePath"] = oUser.ProfileImagePath;
+            _userInfoCookies["DateJoined"] = oUser.DateJoined.ToShortDateString();
+            _userInfoCookies["DOB"] = oUser.DOB.ToShortDateString();
+            _userInfoCookies["Gender"] = oUser.Gender;
+            _userInfoCookies["Nationality"] = oUser.Nationality;
+            _userInfoCookies["UserType"] = oUser.UserType;
+
+            //_userInfoCookies["Expire"] = "5 Days";
+            //_userInfoCookies.Expires = DateTime.Now.AddDays(5);
+
+            Response.Cookies.Add(_userInfoCookies);
+        }
+    }
+    catch (Exception ex)
+    {
+        <text>
+            Error: @ex.Message;
+        </text>
+    }
+
+
+
+}
+
 @*<h2>Login</h2>*@
 
 
@@ -11,27 +75,27 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+
+    <div class="form-horizontal bodyPadding">
         <h4>Login</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", Type="password" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
+        <div class="form-group row">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Login" class="btn btn-default" />
                 <h4>@ViewBag.Message</h4>
