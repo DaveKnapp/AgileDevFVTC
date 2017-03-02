@@ -129,9 +129,9 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             Assert.AreEqual(expectedUser.Email, actualUser.Email);
         }
 
-        //TODO(Dave) Add test for email
+       
         [TestMethod, TestCategory("IntigrationTest")]
-        public void GetByUsernameOrEmail_WasUserFound_ReturnsNotNull()
+        public void GetByUsername_WasUserFound_ReturnsNotNull()
         {
             string expextedUserName = "TestUserThree";
 
@@ -139,6 +139,21 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
             {
                 actualUser = userRepo.GetByUsernameOrEmail(expextedUserName);
+            }
+
+            Assert.IsNotNull(actualUser);
+        }
+
+        // (TH) - Added this test for email.
+        [TestMethod, TestCategory("IntigrationTest")]
+        public void GetByEmail_WasUserFound_ReturnsNotNull()
+        {
+            string expextedEmail = "TestingUser3@yahoo.com";
+
+            User actualUser;
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            {
+                actualUser = userRepo.GetByUsernameOrEmail(expextedEmail);
             }
 
             Assert.IsNotNull(actualUser);
