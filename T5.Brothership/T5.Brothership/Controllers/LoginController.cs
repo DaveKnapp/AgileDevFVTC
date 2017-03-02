@@ -13,7 +13,14 @@ namespace T5.Brothership.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            if (Session["CurrentUser"] == null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Details");
+            }
         }
 
         [HttpPost]
@@ -38,7 +45,7 @@ namespace T5.Brothership.Controllers
         public ActionResult Details()
         {
             User user = Session["CurrentUser"] as User;
-            
+
             if (user == null)
             {
                 return RedirectToAction("Login");
