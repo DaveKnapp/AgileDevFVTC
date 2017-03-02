@@ -1,86 +1,4 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-    
-    try
-    {
-        /*if (Request.Cookies["UserInfo"] != null)
-        {
-            HttpCookie _userInfoCookies = Request.Cookies["UserInfo"];
-            <text>
-                Welcome, @_userInfoCookies["Username"] <br />
-                Please go to the About Page to view more info.
-            </text>
-        }*/
-
-        if (IsPost)
-        {
-            string username = Request.Form["Username"];
-            string password = Request.Form["Password"];
-            CUser oUser = new CUser();
-
-            oUser.Login(username, password);
-
-            if (Request.Cookies["UserInfo"] != null)
-            {//Delete cookie if it already exists
-                Response.Cookies["UserInfo"].Expires = DateTime.Now.AddDays(-1);
-            }
-
-            <text>
-                Welcome, @oUser.UserName <br />
-                Please go to the About Page to view more info.
-            </text>
-
-            //Making a cookie
-            HttpCookie _userInfoCookies = new HttpCookie("UserInfo");
-
-            //adding info to cookie
-            _userInfoCookies["Id"] = oUser.Id.ToString();
-            _userInfoCookies["Username"] = oUser.UserName;
-            _userInfoCookies["Email"] = oUser.Email;
-            _userInfoCookies["Bio"] = oUser.Bio;
-            _userInfoCookies["ProfileImagePath"] = oUser.ProfileImagePath;
-            _userInfoCookies["DateJoined"] = oUser.DateJoined.ToShortDateString();
-            _userInfoCookies["DOB"] = oUser.DOB.ToShortDateString();
-            _userInfoCookies["Gender"] = oUser.Gender;
-            _userInfoCookies["Nationality"] = oUser.Nationality;
-            _userInfoCookies["UserType"] = oUser.UserType;
-
-            //_userInfoCookies["Expire"] = "5 Days";
-            //_userInfoCookies.Expires = DateTime.Now.AddDays(5);
-
-            Response.Cookies.Add(_userInfoCookies);
-        }
-    }
-    catch (Exception ex)
-    {
-            <text>
-                Error: @ex.Message;
-            </text>            
-    }
-
-
-    
-}
-
-<div class="container-fluid">
-    <form method="post">
-        <fieldset>
-            <legend>Login</legend>
-            <div>
-                <label for="Username">Username:</label>
-                <input type="text" name="Username" value="" />
-            </div>
-            <div>
-                <label for="Password">Password:</label>
-                <input type="password" name="Password" value="" />
-            </div>
-            <div>
-                <label>&nbsp;</label>
-                <input type="submit" value="Submit" class="submit" />
-            </div>
-        </fieldset>
-    </form>
-</div>
+﻿
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>
@@ -88,5 +6,5 @@
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-</div>
+
 
