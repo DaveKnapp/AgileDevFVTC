@@ -19,7 +19,7 @@ namespace T5.Brothership.Entities.Models
         {
             this.UserIntegrations = new HashSet<UserIntegration>();
             this.UserRatings = new HashSet<UserRating>();
-            this.UserRatings1 = new HashSet<UserRating>();
+            this.RatedByUser = new HashSet<UserRating>();
             this.UserSocialJuncs = new HashSet<UserSocialJunc>();
             this.Games = new HashSet<Game>();
         }
@@ -42,7 +42,7 @@ namespace T5.Brothership.Entities.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRating> UserRatings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRating> UserRatings1 { get; set; }
+        public virtual ICollection<UserRating> RatedByUser { get; set; }
         public virtual UserType UserType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSocialJunc> UserSocialJuncs { get; set; }

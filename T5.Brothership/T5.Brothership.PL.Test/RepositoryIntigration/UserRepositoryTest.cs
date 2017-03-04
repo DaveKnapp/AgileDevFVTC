@@ -95,19 +95,32 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
         }
 
         [TestCategory("IntigrationTest"), TestMethod]
-        public void Delete_WasRecordDeleted_GetReturnsNull()
+        public void DeleteById_WasRecordDeleted_GetReturnsNull()
         {
-            throw new NotImplementedException();
-            //TODO Fix this my adding cascading delete
-            //User actualUser;
-            //using (UserRepository userRepo = new UserRepository())
-            //{
-            //    userRepo.Delete(1);
-            //    userRepo.Save();
-            //    actualUser = userRepo.GetByID(1);
-            //}
+            User actualUser;
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            {
+                userRepo.Delete(1);
+                userRepo.SaveChanges();
+                actualUser = userRepo.GetById(1);
+            }
 
-            //Assert.IsNull(actualUser);
+            Assert.IsNull(actualUser);
+        }
+
+        [TestCategory("IntigrationTest"), TestMethod]
+        public void DeleteByUser_WasRecordDeleted_GetReturnsNull()
+        {
+            User actualUser;
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            {
+                actualUser =  userRepo.GetById(1);
+                userRepo.Delete(actualUser);
+                userRepo.SaveChanges();
+                actualUser = userRepo.GetById(1);
+            }
+
+            Assert.IsNull(actualUser);
         }
 
         [TestCategory("IntigrationTest"), TestMethod]

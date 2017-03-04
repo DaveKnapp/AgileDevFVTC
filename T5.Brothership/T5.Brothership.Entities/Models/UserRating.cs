@@ -20,7 +20,7 @@ namespace T5.Brothership.Entities.Models
         public int RatingID { get; set; }
     
         public virtual Rating Rating { get; set; }
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
+        public virtual User UserBeingRated { get; set; }
+        public virtual User RaterUser { get; set; }
     }
 }

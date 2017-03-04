@@ -12,15 +12,31 @@ namespace T5.Brothership.PL.Repositories
     {
         public UserRepository(DbContext dbContext) : base(dbContext)
         {
-            
+
+        }
+
+        public override void Delete(int id)
+        {
+            User user = DbSet.FirstOrDefault(p => p.ID == id);
+
+            DbContext.Set<UserRating>().RemoveRange(user.RatedByUser);
+            DbContext.Set<UserRating>().RemoveRange(user.UserRatings);
+            DbContext.Set<UserLogin>().Remove(user.UserLogin);
+
+            DbContext.SaveChanges();
+        }
+
+        public override void Delete(User user)
+        {
+            DbContext.Set<UserRating>().RemoveRange(user.RatedByUser);
+            DbContext.Set<UserRating>().RemoveRange(user.UserRatings);
+            DbContext.Set<UserLogin>().Remove(user.UserLogin);
+
+            DbContext.SaveChanges();
         }
 
         public User GetByUsernameOrEmail(string userNameOrEmail)
         {
-            //brothershipEntities context = DbContext as brothershipEntities;
-            //return context.Users.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
-            
-            // TH - Leaving the code above in case we run into issues with the code below. 
             return DbSet.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
         }
     }

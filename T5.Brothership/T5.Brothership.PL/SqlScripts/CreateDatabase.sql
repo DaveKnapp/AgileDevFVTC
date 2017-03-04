@@ -120,14 +120,10 @@ CREATE TABLE UserType
 	"Description" varchar(45) NOT NULL
 	)
 
-
-
 CREATE TABLE IntegrationType
    (ID int IDENTITY PRIMARY KEY NOT NULL,
 	"Description" varchar(45) NOT NULL
 	)
-
-
 
 CREATE TABLE UserRating
    (RaterUserID int IDENTITY NOT NULL,

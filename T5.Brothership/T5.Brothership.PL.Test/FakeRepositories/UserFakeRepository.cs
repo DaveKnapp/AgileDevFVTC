@@ -34,7 +34,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
         }
 
         public void Dispose()
-        {//TODO is this how to dispose?
+        {
             _fakeUsers = null;
         }
 
@@ -50,7 +50,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void SaveChanges()
         {
-            
+
         }
 
         public void Update(User entity)
@@ -62,6 +62,11 @@ namespace T5.Brothership.PL.Test.FakeRepositories
         private int GenerateUserId()
         {
             return _fakeUsers.Max(p => p.ID);
+        }
+
+        public User GetByUsernameOrEmail(string userNameOrEmail)
+        {
+            return _fakeUsers.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
         }
 
         private void InitializeUsers()
@@ -80,13 +85,101 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,
                 UserTypeID = 1,
-                UserLogin = new UserLogin { PasswordHash = "Password", UserID = 1}
+                UserLogin = new UserLogin
+                {
+                    PasswordHash = "5Efg7nxAjJdkjIsZECyAWGA10mMixUnUiatbAgfcX3g=",
+                    UserID = 1,
+                    Salt = "b9qo1clGZ0q/99JkBJevOJGjU6JGUhmy"
+                }
             });
-        }
 
-        public User GetByUsernameOrEmail(string userNameOrEmail)
-        {
-            throw new NotImplementedException();
+            _fakeUsers.Add(new User
+            {
+                ID = 2,
+                UserName = "TestUserTwo",
+                Email = "TestingUser2@yahoo.com",
+                Bio = "Hello I am the second test user",
+                ProfileImagePath = "../Images/TestUserTwo/Profile.png",
+                DateJoined = new DateTime(2017, 2, 22),
+                DOB = new DateTime(1980, 1, 27),
+                Gender = "F",
+                UserType = new UserType { ID = 1, Description = "User" },
+                Nationality = new Nationality { ID = 1, Description = "US and A" },
+                NationalityID = 1,
+                UserTypeID = 1,
+                UserLogin = new UserLogin
+                {
+                    PasswordHash = "qaNdZwpUFt18tcaJtAJBr4rTkwmy6uwvB1zlm4MLh7g=",
+                    UserID = 2,
+                    Salt = "QBKzLfLzbtRIS19vkbguqgPakJ+BKQre"
+                }
+            });
+
+            _fakeUsers.Add(new User
+            {
+                ID = 3,
+                UserName = "TestUserThree",
+                Email = "TestingUser3@yahoo.com",
+                Bio = "'Hello I am the Third test user",
+                ProfileImagePath = "../Images/TestUserThree/Profile.png",
+                DateJoined = new DateTime(2017, 1, 5),
+                DOB = new DateTime(1990, 6, 1),
+                Gender = "M",
+                UserType = new UserType { ID = 1, Description = "User" },
+                Nationality = new Nationality { ID = 1, Description = "US and A" },
+                NationalityID = 1,
+                UserTypeID = 1,
+                UserLogin = new UserLogin
+                {
+                    PasswordHash = "/HOXKid5g4YaNZNitnwyYnnoy7CecL6lxaDil4fjHmE=",
+                    UserID = 3,
+                    Salt = "xbiS4ItBbOzkl/9PfDJzvs8IYK6aiH6q",
+                }
+            });
+
+            _fakeUsers.Add(new User
+            {
+                ID = 4,
+                UserName = "TestUserFour",
+                Email = "TestingUser4@yahoo.com",
+                Bio = "Hello I am the Fourth test user",
+                ProfileImagePath = "../Images/TestUserFour/Profile.png",
+                DateJoined = new DateTime(2017, 1, 23),
+                DOB = new DateTime(1991, 4, 27),
+                Gender = "M",
+                UserType = new UserType { ID = 1, Description = "User" },
+                Nationality = new Nationality { ID = 1, Description = "US and A" },
+                NationalityID = 1,
+                UserTypeID = 1,
+                UserLogin = new UserLogin
+                {
+                    PasswordHash = "zAhNMBQ4/Ld4Qg19Sm3vukDyyu+rYnRAgIBw5t2wjTM=",
+                    UserID = 4,
+                    Salt = "yA2zLBkEQzjGT8wBUoNf6OcVt+J+/2gV"
+                }
+            });
+
+            _fakeUsers.Add(new User
+            {
+                ID = 5,
+                UserName = "TestUserFive",
+                Email = "TestingUser5@yahoo.com",
+                Bio = "Hello I am the Fifth test user",
+                ProfileImagePath = "../Images/TestUserFive/Profile.png",
+                DateJoined = new DateTime(2017, 1, 19),
+                DOB = new DateTime(1962, 7, 9),
+                Gender = "F",
+                UserType = new UserType { ID = 1, Description = "User" },
+                Nationality = new Nationality { ID = 1, Description = "US and A" },
+                NationalityID = 1,
+                UserTypeID = 1,
+                UserLogin = new UserLogin
+                {
+                    PasswordHash = "VCexSa7lVH7IvZ4qsABqRcnjWJLte24mPCaTK4DbHNY=",
+                    UserID = 1,
+                    Salt = "VuQePlIuVbuwkygTSwbHCjkTsqy5cLgB"
+                }
+            });
         }
     }
 }

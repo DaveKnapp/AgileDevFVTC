@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/01/2017 15:56:54
+-- Date Created: 03/03/2017 20:49:23
 -- Generated from EDMX file: C:\Users\zzdia\Source\Repos\AgileDevFVTC\T5.Brothership\T5.Brothership.PL\Brothership.edmx
 -- --------------------------------------------------
 
@@ -167,7 +167,7 @@ GO
 
 -- Creating table 'UserRatings'
 CREATE TABLE [dbo].[UserRatings] (
-    [RaterUserID] int IDENTITY(1,1) NOT NULL,
+    [RaterUserID] int  NOT NULL,
     [UserBeingRatedID] int  NOT NULL,
     [Comment] varchar(255)  NULL,
     [RatingID] int  NOT NULL
@@ -378,7 +378,7 @@ ADD CONSTRAINT [FK_UserIntegration_UserID]
     FOREIGN KEY ([UserID])
     REFERENCES [dbo].[Users]
         ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [ID] in table 'Users'
@@ -387,7 +387,7 @@ ADD CONSTRAINT [FK_User_UserID]
     FOREIGN KEY ([ID])
     REFERENCES [dbo].[UserLogins]
         ([UserID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [UserBeingRatedID] in table 'UserRatings'
@@ -435,7 +435,7 @@ ADD CONSTRAINT [FK_UserSocial_User]
     FOREIGN KEY ([UserID])
     REFERENCES [dbo].[Users]
         ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [Games_ID] in table 'UserGameJunc'

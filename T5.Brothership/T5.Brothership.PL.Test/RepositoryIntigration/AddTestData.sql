@@ -64,7 +64,6 @@ SET IDENTITY_INSERT UserLogins OFF;
 			  (5, 'Five Stars')
 	SET IDENTITY_INSERT Ratings OFF;
 
-	SET IDENTITY_INSERT UserRatings ON;
 		INSERT INTO UserRatings(RaterUserID, UserBeingRatedID, Comment, RatingID)
 			VALUES(1,2,'10/10 would watch again', 5),
 				  (3,2,'Okay', 4),
@@ -74,7 +73,7 @@ SET IDENTITY_INSERT UserLogins OFF;
 				  (4,5,'5/5 would watch again', 5),
 				  (5,3,'Best stream ever', 5),
 				  (3,1,'boring', 2)
-	SET IDENTITY_INSERT UserRatings OFF;
+
 
 	SET IDENTITY_INSERT SocialMediaTypes ON;
 	INSERT INTO SocialMediaTypes(ID, "Description")

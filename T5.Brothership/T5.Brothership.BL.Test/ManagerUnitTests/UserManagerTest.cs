@@ -32,7 +32,12 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,
                 UserTypeID = 1,
-                UserLogin = new UserLogin { PasswordHash = "Password", UserID = 1 }
+                UserLogin = new UserLogin
+                {
+                    PasswordHash = "5Efg7nxAjJdkjIsZECyAWGA10mMixUnUiatbAgfcX3g=",
+                    UserID = 1,
+                    Salt = "b9qo1clGZ0q/99JkBJevOJGjU6JGUhmy"
+                }
             };
 
             User actualUser;
@@ -47,13 +52,64 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
         [TestCategory("UnitTest"), TestMethod]
         public void GetById_UserNotFound_ReturnsNull()
         {
-            User actualUser;
+            User user;
             using (UserManager userManager = new UserManager(new FakeBrothershipUnitOfWork()))
             {
-                actualUser = userManager.GetById(99);
+                user = userManager.GetById(99);
             }
 
-            Assert.IsNull(actualUser);
+            Assert.IsNull(user);
+        }
+
+        [TestCategory("UnitTest"), TestMethod]
+        public void Login_CorrectPassord_ReturnsUser()
+        {
+            User user;
+            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                user = userManager.Login("TestUserOne", "Password");
+            }
+
+            Assert.IsNotNull(user);
+        }
+
+        [TestCategory("UnitTest"), TestMethod]
+        public void Login_InCorrect_ReturnsInvalidUser()
+        {
+            User user;
+
+            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                user = userManager.Login("TestUserOne", "lkjasdlfjl");
+            }
+
+            Assert.IsTrue(user is InvalidUser);
+        }
+
+        [TestCategory("UnitTest"), TestMethod]
+        public void Login_InvalidUsername_ReturnsInvalidUser()
+        {
+            User user;
+
+            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                user = userManager.Login("NotARealEmail@gmail.com", "Password");
+            }
+
+            Assert.IsTrue(user is InvalidUser);
+        }
+
+        [TestCategory("UnitTest"), TestMethod]
+        public void Login_InvalidEmail_ReturnsInvalidUser()
+        {
+            User user;
+
+            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                user = userManager.Login("MrT", "Password");
+            }
+
+            Assert.IsTrue(user is InvalidUser);
         }
 
         private void AssertUsersEqual(User expected, User actual)

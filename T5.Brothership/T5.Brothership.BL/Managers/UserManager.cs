@@ -11,7 +11,7 @@ using T5.Brothership.BL.Helpers;
 
 namespace T5.Brothership.BL.Managers
 {
-    public class UserManager:IDisposable
+    public class UserManager : IDisposable
     {//Business logic goes in this class
         IBrothershipUnitOfWork _unitOfWork = new BrothershipUnitOfWork();
 
@@ -23,7 +23,7 @@ namespace T5.Brothership.BL.Managers
         {
             _unitOfWork = unitOfWork;
         }
-        
+
         public void Dispose()
         {
             _unitOfWork.Dispose();
@@ -35,13 +35,12 @@ namespace T5.Brothership.BL.Managers
         }
 
         public User Login(string userNameOrEmail, string password)
-        {//TODO(Dave) Add tests
-            //TODO(Dave) Refactor?  Is this how I want to do this?
+        {
             User user = _unitOfWork.Users.GetByUsernameOrEmail(userNameOrEmail);
 
             if (user == null)
             {
-               return new InvalidUser();
+                return new InvalidUser();
             }
 
             var passwordHelper = new PasswordHelper();
@@ -51,8 +50,10 @@ namespace T5.Brothership.BL.Managers
             {
                 return user;
             }
-
-            return new InvalidUser();
+            else
+            {
+                return new InvalidUser();
+            }
         }
     }
 }
