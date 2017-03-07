@@ -7,7 +7,7 @@ using T5.Brothership.PL.Repositories;
 using System.IO;
 using System.Linq;
 
-namespace T5.Brothership.PL.Test.RepositoryIntigration
+namespace T5.Brothership.PL.Test.RepositoryIntegration
 {
     /// <summary>
     /// Summary description for UserRepositoryTest
@@ -26,7 +26,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             }
 
         }
-        [TestCategory("IntigrationTest"), TestMethod]
+        [TestCategory("IntegrationTest"), TestMethod]
         public void Insert_WasRecordInserted_ActualUserNotNull()
         {
             User expectedUser = new User
@@ -54,7 +54,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             Assert.AreEqual(expectedUser.UserName, actualUser.UserName);
         }
 
-        [TestCategory("IntigrationTest"), TestMethod]
+        [TestCategory("IntegrationTest"), TestMethod]
         public void GetByID_WasDataGot_ActualUserNotNull()
         {
             User expectedUser = new User
@@ -80,7 +80,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             Assert.AreEqual(expectedUser.ID, actualUser.ID);
         }
 
-        [TestCategory("IntigrationTest"), TestMethod]
+        [TestCategory("IntegrationTest"), TestMethod]
         public void GetAll_NumberOfRecords_EqualsActual()
         {
             int expectedNumberOfUsers = 5;
@@ -94,7 +94,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             Assert.AreEqual(expectedNumberOfUsers, actualNumberOfusers);
         }
 
-        [TestCategory("IntigrationTest"), TestMethod]
+        [TestCategory("IntegrationTest"), TestMethod]
         public void DeleteById_WasRecordDeleted_GetReturnsNull()
         {
             User actualUser;
@@ -108,7 +108,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             Assert.IsNull(actualUser);
         }
 
-        [TestCategory("IntigrationTest"), TestMethod]
+        [TestCategory("IntegrationTest"), TestMethod]
         public void DeleteByUser_WasRecordDeleted_GetReturnsNull()
         {
             User actualUser;
@@ -123,7 +123,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             Assert.IsNull(actualUser);
         }
 
-        [TestCategory("IntigrationTest"), TestMethod]
+        [TestCategory("IntegrationTest"), TestMethod]
         public void Update_WasRecordUpdated_DBContainsUpdatedUser()
         {
             User expectedUser;
@@ -143,7 +143,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
         }
 
        
-        [TestMethod, TestCategory("IntigrationTest")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void GetByUsername_WasUserFound_ReturnsNotNull()
         {
             string expextedUserName = "TestUserThree";
@@ -158,7 +158,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
         }
 
         // (TH) - Added this test for email.
-        [TestMethod, TestCategory("IntigrationTest")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void GetByEmail_WasUserFound_ReturnsNotNull()
         {
             string expextedEmail = "TestingUser3@yahoo.com";
@@ -172,7 +172,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             Assert.IsNotNull(actualUser);
         }
 
-        [TestMethod, TestCategory("IntigrationTest")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void GetByUsernameOrEmail_NoUserFound_ReturnsNull()
         {
             string expextedUserName = "NoUserFound";
@@ -184,6 +184,19 @@ namespace T5.Brothership.PL.Test.RepositoryIntigration
             }
 
             Assert.IsNull(actualUser);
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetAll_Count_EqualsActualCount()
+        {
+            int expectedCount = 5;
+            int actualCount;
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            {
+                actualCount = userRepo.GetAll().Count();
+            }
+
+            Assert.AreEqual(expectedCount, actualCount);
         }
 
         private void AssertUsersEqual(User expected, User actual)

@@ -10,11 +10,12 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 {
     internal class UserFakeRepository : IUserRepository
     {
+        private List<User> _fakeUsers = new List<User>();
+
         public UserFakeRepository()
         {
             InitializeUsers();
         }
-        private List<User> _fakeUsers = new List<User>();
 
         public void Add(User entity)
         {
@@ -59,14 +60,14 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             _fakeUsers[userIndex] = entity;
         }
 
-        private int GenerateUserId()
-        {
-            return _fakeUsers.Max(p => p.ID);
-        }
-
         public User GetByUsernameOrEmail(string userNameOrEmail)
         {
             return _fakeUsers.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
+        }
+
+        private int GenerateUserId()
+        {
+            return _fakeUsers.Max(p => p.ID);
         }
 
         private void InitializeUsers()

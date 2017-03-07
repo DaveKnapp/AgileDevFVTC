@@ -8,7 +8,7 @@ namespace T5.Brothership.BL.Test
     [TestClass]
     public class utLoginTest
     {
-        [TestMethod]
+      //  [TestMethod]  Note(Dave): I think we could delete this test.  Logic has been moved to other classes.
         public void UserLoginTest()
         {
             CUser oUser = new CUser();

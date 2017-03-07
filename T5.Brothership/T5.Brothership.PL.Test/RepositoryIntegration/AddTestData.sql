@@ -55,6 +55,10 @@ SET IDENTITY_INSERT UserLogins OFF;
 		VALUES(1, 'Twitch')
 	SET IDENTITY_INSERT IntegrationTypes OFF;
 
+	INSERT INTO UserIntegrations(UserID, IntegrationTypeID, Token)
+		VALUES(1,1,'lkjlk23jkl2332l32kj4'),
+			  (3,1,'lkjlkjlk;jlkjlk3jlkjlkj')
+
 	SET IDENTITY_INSERT Ratings ON;
 		INSERT INTO Ratings(ID, "Description")
 		VALUES(1, 'One Star'),
@@ -85,7 +89,10 @@ SET IDENTITY_INSERT UserLogins OFF;
 	INSERT INTO UserSocialJuncs(UserID, SocialMediaTypeID, "URL")
 		VALUES (1,1, 'youtube.com/channel/TestUserOne'),
 			   (1,2, 'twitter.com/TestUserOne'),
-			   (1,3, 'instagram.com/TestUserOne')
+			   (1,3, 'instagram.com/TestUserOne'),
+			   (2,1, 'instagram.com/TestUserTwo'),
+			   (2,2, 'instagram.com/TestUserTwo'),
+			   (3,3, 'instagram.com/TestUserThree')
 
 	-- BEGIN GAME DATA INSERTS (To be updated or removed later if game API can be obtained)
 	SET IDENTITY_INSERT GameCategories ON;
