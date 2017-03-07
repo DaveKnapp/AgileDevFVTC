@@ -11,7 +11,7 @@ namespace T5.Brothership.PL.Repositories
     {
         IQueryable<UserIntegration> GetAll();
         UserIntegration GetById(int userId, int integrationTypeId);
-        IQueryable<UserIntegration> GetAllUserIntegrations(int userId);
+        IQueryable<UserIntegration> GetAllByUser(int userId);
         void Add(UserIntegration entity);
         void Update(UserIntegration entity);
         void Delete(UserIntegration entity);

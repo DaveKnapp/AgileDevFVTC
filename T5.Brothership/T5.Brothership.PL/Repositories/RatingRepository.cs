@@ -8,7 +8,6 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.PL.Repositories
 {
-    //TODO Add integration test
     public class RatingRepository : BaseRepositoy<Rating>, IRatingRepository
     {
         public RatingRepository(DbContext dbContext) : base(dbContext)

@@ -41,7 +41,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             return _fakeUserIntegrations.AsQueryable();
         }
 
-        public IQueryable<UserIntegration> GetAllUserIntegrations(int userID)
+        public IQueryable<UserIntegration> GetAllByUser(int userID)
         {
             return _fakeUserIntegrations.Where(p => p.UserID == userID).AsQueryable();
         }

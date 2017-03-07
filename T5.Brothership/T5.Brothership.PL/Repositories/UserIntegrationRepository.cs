@@ -9,8 +9,7 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.PL.Repositories
 {
-    //TODO Add integration test
-    public class UserIntegrationRepository : IUserIntegrationRepository
+    public class UserIntegrationRepository : IUserIntegrationRepository, IDisposable
     {
         protected DbContext DbContext { get; set; }
         protected DbSet<UserIntegration> DbSet { get; set; }
@@ -82,9 +81,14 @@ namespace T5.Brothership.PL.Repositories
             return DbSet.FirstOrDefault(p => p.UserID == userId && p.IntegrationTypeID == p.IntegrationTypeID);
         }
 
-        public IQueryable<UserIntegration> GetAllUserIntegrations(int userID)
+        public IQueryable<UserIntegration> GetAllByUser(int userID)
         {
             return DbSet.Where(p => p.UserID == userID);
+        }
+
+        public void Dispose()
+        {
+            DbContext.Dispose();
         }
     }
 }

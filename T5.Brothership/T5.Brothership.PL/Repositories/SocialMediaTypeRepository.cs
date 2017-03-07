@@ -8,7 +8,6 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.PL.Repositories
 {
-    //TODO Add integration test
     public class SocialMediaTypeRepository : BaseRepositoy<SocialMediaType>, ISocialMediaTypeRepository
     {
         public SocialMediaTypeRepository(DbContext dbContext) : base(dbContext)

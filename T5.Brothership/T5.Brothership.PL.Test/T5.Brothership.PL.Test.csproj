@@ -84,7 +84,11 @@
     <Compile Include="RepositoryIntegration\FilePaths.cs" />
     <Compile Include="RepositoryIntegration\IntegrationTypeRepoTest.cs" />
     <Compile Include="RepositoryIntegration\NationalityRepositoryTest.cs" />
+    <Compile Include="RepositoryIntegration\RatingRepositoryTest.cs" />
+    <Compile Include="RepositoryIntegration\SocialMediaTypeRepoTest.cs" />
+    <Compile Include="RepositoryIntegration\UserIntegrationRepoTest.cs" />
     <Compile Include="RepositoryIntegration\UserRepositoryTest.cs" />
+    <Compile Include="RepositoryIntegration\UserTypeRepoTest.cs" />
     <Compile Include="utUserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
