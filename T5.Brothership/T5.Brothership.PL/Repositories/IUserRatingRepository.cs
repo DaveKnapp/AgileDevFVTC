@@ -11,7 +11,7 @@ namespace T5.Brothership.PL.Repositories
     {
         IQueryable<UserRating> GetAll();
         UserRating GetById(int raterId, int userBeingRatedId);
-        IQueryable<UserRating> GetAllUserRatings(int ratedUserId);
+        IQueryable<UserRating> GetAllByUserId(int ratedUserId);
         void Add(UserRating entity);
         void Update(UserRating entity);
         void Delete(UserRating entity);

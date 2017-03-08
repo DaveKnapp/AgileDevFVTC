@@ -23,7 +23,6 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             _fakeUserTypes.Add(entity);
         }
 
-
         public void Delete(int id)
         {
             UserType userType = _fakeUserTypes.Single(p => p.ID == id);

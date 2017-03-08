@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.PL.Repositories;
 using System.Linq;
+using System.IO;
 
 namespace T5.Brothership.PL.Test.RepositoryIntegration
 {
@@ -15,7 +16,17 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
     public class UserIntegrationRepoTest
     {
 
-        
+        [TestInitialize]
+        public void Initialize()
+        {
+            string script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
+
+            using (brothershipEntities dataContext = new brothershipEntities())
+            {
+                dataContext.Database.ExecuteSqlCommand(script);
+            }
+        }
+
         [TestMethod, TestCategory("IntegrationTest")]
         public void GetAll_Count_EqualActual()
         {
@@ -89,7 +100,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             UserIntegration expectedUserIntegration = new UserIntegration
             {
-                UserID = 2,
+                UserID = 3,
                 IntegrationTypeID = 1,
                 Token = "asdlkfjsdlafjldasjf"
             };
@@ -98,6 +109,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             using (var userIntegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
             {
                 userIntegrationRepo.Update(expectedUserIntegration);
+                userIntegrationRepo.SaveChanges();
                 actualUserIntegration = userIntegrationRepo.GetById(expectedUserIntegration.UserID, expectedUserIntegration.IntegrationTypeID);
             }
 

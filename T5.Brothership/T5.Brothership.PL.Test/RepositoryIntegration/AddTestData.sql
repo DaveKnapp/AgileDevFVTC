@@ -118,7 +118,7 @@ SET IDENTITY_INSERT UserLogins OFF;
 	SET IDENTITY_INSERT Games ON;
 	INSERT INTO Games(ID, Title, igdbID, CategoryID)
 		VALUES	-- Fighting Games
-				(1, 'Street Figher V', null, 1),
+				(1, 'Street Fighter V', null, 1),
 				(2, 'Mortal Kombat X', null, 1),
 				(3, 'Injustice: Gods Among Us', null, 1),
 				-- Action/Adventure Games

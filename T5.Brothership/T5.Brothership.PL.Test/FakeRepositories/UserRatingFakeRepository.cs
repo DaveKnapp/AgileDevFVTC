@@ -41,7 +41,12 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             return _fakeUserRatings.AsQueryable();
         }
 
-        public IQueryable<UserRating> GetAllUserRatings(int ratedUserId)
+        public IQueryable<UserRating> GetAllByUser(int ratedUserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<UserRating> GetAllByUserId(int ratedUserId)
         {
             return _fakeUserRatings.Where(p => p.UserBeingRatedID == ratedUserId).AsQueryable();
         }

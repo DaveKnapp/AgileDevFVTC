@@ -9,8 +9,7 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.PL.Repositories
 {
-    //TODO Add integration test
-    public class UserSocialMediaRepository : IUserSocialMediaRepository
+    public class UserSocialMediaRepository : IUserSocialMediaRepository, IDisposable
     {
         protected DbContext DbContext { get; set; }
         protected DbSet<UserSocialJunc> DbSet { get; set; }
@@ -85,6 +84,11 @@ namespace T5.Brothership.PL.Repositories
         public IQueryable<UserSocialJunc> GetAllByUser(int userId)
         {
             return DbSet.Where(p => p.UserID == userId);
+        }
+
+        public void Dispose()
+        {
+            DbContext.Dispose();
         }
     }
 }

@@ -77,6 +77,8 @@
     <Compile Include="IBrothershipUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepositoy.cs" />
+    <Compile Include="Repositories\GameRepository.cs" />
+    <Compile Include="Repositories\IGameRepository.cs" />
     <Compile Include="Repositories\IIntegrationTypeRepository.cs" />
     <Compile Include="Repositories\INationalityRepository.cs" />
     <Compile Include="Repositories\IntegrationTypeRepository.cs" />

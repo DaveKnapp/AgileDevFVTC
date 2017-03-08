@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="DatabaseIntegrationTest.cs" />
     <Compile Include="FakeBrothershipUnitOfWork.cs" />
+    <Compile Include="FakeRepositories\GameFakeRepository.cs" />
     <Compile Include="FakeRepositories\UserIntegrationFakeRepository.cs" />
     <Compile Include="FakeRepositories\IntegrationTypeFakeRepository.cs" />
     <Compile Include="FakeRepositories\NationalityFakeRepository.cs" />
@@ -82,12 +83,15 @@
     <Compile Include="FakeRepositories\UserSocialMediaFakeRepository.cs" />
     <Compile Include="FakeRepositories\UserTypeFakeRepository.cs" />
     <Compile Include="RepositoryIntegration\FilePaths.cs" />
+    <Compile Include="RepositoryIntegration\GameRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\IntegrationTypeRepoTest.cs" />
     <Compile Include="RepositoryIntegration\NationalityRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\RatingRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\SocialMediaTypeRepoTest.cs" />
     <Compile Include="RepositoryIntegration\UserIntegrationRepoTest.cs" />
+    <Compile Include="RepositoryIntegration\UserRatingRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\UserRepositoryTest.cs" />
+    <Compile Include="RepositoryIntegration\UserSocialMediaRepoTest.cs" />
     <Compile Include="RepositoryIntegration\UserTypeRepoTest.cs" />
     <Compile Include="utUserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
