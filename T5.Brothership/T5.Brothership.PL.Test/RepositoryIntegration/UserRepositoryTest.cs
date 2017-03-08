@@ -9,9 +9,6 @@ using System.Linq;
 
 namespace T5.Brothership.PL.Test.RepositoryIntegration
 {
-    /// <summary>
-    /// Summary description for UserRepositoryTest
-    /// </summary>
     [TestClass]
     public class UserRepositoryTest
     {
@@ -57,7 +54,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualsActualCount()
+        public void GetAll_AllUsersReturned_CountEqualsActualCount()
         {
             const int expectedCount = 5;
             int actualCount;
@@ -67,20 +64,6 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             }
 
             Assert.AreEqual(expectedCount, actualCount);
-        }
-
-        [TestCategory("IntegrationTest"), TestMethod]
-        public void GetAll_NumberOfRecords_EqualsActual()
-        {
-            const int expectedNumberOfUsers = 5;
-
-            int actualNumberOfusers;
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
-            {
-                actualNumberOfusers = userRepo.GetAll().Count();
-            }
-
-            Assert.AreEqual(expectedNumberOfUsers, actualNumberOfusers);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
@@ -98,7 +81,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestCategory("IntegrationTest"), TestMethod]
-        public void GetByID_WasDataGot_ActualUserNotNull()
+        public void GetByID_WasDataGot_ActualEqualsExpectedData()
         {
             var expectedUser = new User
             {
@@ -153,7 +136,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestCategory("IntegrationTest"), TestMethod]
-        public void Insert_WasRecordInserted_ActualUserEqualsData()
+        public void Insert_WasRecordInserted_ActualUserEqualsExpectedData()
         {
             var expectedUser = new User
             {
@@ -181,7 +164,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestCategory("IntegrationTest"), TestMethod]
-        public void Update_WasRecordUpdated_DBContainsUpdatedUser()
+        public void Update_WasUserUpdated_ActualEqualsExpectedData()
         {
             User expectedUser;
             User actualUser;

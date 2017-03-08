@@ -12,7 +12,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
     {
         List<Rating> _fakeRatings = new List<Rating>();
 
-        RatingFakeRepository()
+        public RatingFakeRepository()
         {
             InitializedFakeRatings();
         }

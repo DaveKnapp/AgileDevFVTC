@@ -9,15 +9,22 @@ using System.Linq;
 
 namespace T5.Brothership.PL.Test.RepositoryIntegration
 {
-    /// <summary>
-    /// Summary description for SocialMediaTypeRepoTest
-    /// </summary>
     [TestClass]
     public class SocialMediaTypeRepoTest
     {
+        [TestInitialize]
+        public void Initialize()
+        {
+            var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
+
+            using (brothershipEntities dataContext = new brothershipEntities())
+            {
+                dataContext.Database.ExecuteSqlCommand(script);
+            }
+        }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Add_ActualAddedData_EqualsExpectedData()
+        public void Add_WasSocialMediaTypeAdded_ActualEqualsExpectedData()
         {
             var expectedSocialMediaType = new SocialMediaType
             {
@@ -36,7 +43,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteByEntity_WasDeleted_actualDataNull()
+        public void DeleteByEntity_WasDeleted_ActualDataIdNull()
         {
             SocialMediaType actualSocialMediaType;
             var typeToDelete = AddandGetTestSocialMediaType();
@@ -52,7 +59,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteById_WasDeleted_actualDataNull()
+        public void DeleteById_WasDeleted_ActualDataIsNull()
         {
             var typeIdToDelete = AddandGetTestSocialMediaType().ID;
             SocialMediaType actualSocialMediaType;
@@ -68,7 +75,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
+        public void GetAll_AllMediaTypesReturned_CountEqualsActual()
         {
             const int expectedCount = 3;
             int actualCount;
@@ -81,7 +88,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
+        public void GetById_CorrectDataGot_ActualEqualsExpectedData()
         {
             var expectedSocialMediaType = new SocialMediaType
             {
@@ -97,19 +104,9 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
             AssertSocialMediaTypesEqual(expectedSocialMediaType, actualSocialMediaType);
         }
-        [TestInitialize]
-        public void Initialize()
-        {
-            var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
-
-            using (brothershipEntities dataContext = new brothershipEntities())
-            {
-                dataContext.Database.ExecuteSqlCommand(script);
-            }
-        }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
+        public void Update_WasSocialMediaTypeUpdated_ActualEqualsExpectedData()
         {
             var expectedSocialMediaType = new SocialMediaType
             {

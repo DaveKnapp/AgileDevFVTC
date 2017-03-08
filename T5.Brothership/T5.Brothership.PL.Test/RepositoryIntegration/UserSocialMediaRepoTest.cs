@@ -9,9 +9,6 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.PL.Test.RepositoryIntegration
 {
-    /// <summary>
-    /// Summary description for UserSocialMediaRepoTest
-    /// </summary>
     [TestClass]
     public class UserSocialMediaRepoTest
     {
@@ -27,7 +24,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Add_ActualAddedData_EqualsExpectedData()
+        public void Add_ActualAddedData_ActualEqualsExpectedData()
         {
             var expectedUserSocialMedia = new UserSocialJunc
             {
@@ -49,7 +46,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteByEntity_WasDeleted_actualDataNull()
+        public void DeleteByEntity_WasDeleted_ActualDataIsNull()
         {
             UserSocialJunc actualUserSocialMedia;
             var userSocialMediaToDelete = AddandGetTestUserSocialMedia();
@@ -65,7 +62,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteById_WasDeleted_actualDataNull()
+        public void DeleteById_WasDeleted_ActualDataIsNull()
         {
             var userSocialMediaToDelete = AddandGetTestUserSocialMedia();
             UserSocialJunc actualSocialMedia;
@@ -81,20 +78,20 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
+        public void GetAll_AllUserSocialMediasReturned_CountEqualActual()
         {
             const int expectedCount = 6;
             int actualCount;
-            using (var UserSocialMedoRepo = new UserSocialMediaRepository(new brothershipEntities()))
+            using (var UserSocialMediaRepo = new UserSocialMediaRepository(new brothershipEntities()))
             {
-                actualCount = UserSocialMedoRepo.GetAll().Count();
+                actualCount = UserSocialMediaRepo.GetAll().Count();
             }
 
             Assert.AreEqual(expectedCount, actualCount);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAllByUser_Count_EqualActual()
+        public void GetAllByUser_AllUserSocialMediasReturned_CountEqualsActual()
         {
             const int expectedUserId = 1;
             const int expectedCount = 3;
@@ -108,7 +105,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
+        public void GetById_CorrectDataGot_ActualEqualsExpectedData()
         {
             var expectedUserSocialMedia = new UserSocialJunc
             {
@@ -127,7 +124,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
+        public void Update_WasUSerSocialMediaUpdated_ActualDataEqualsExpected()
         {
             var expectedUserSocialMedia = new UserSocialJunc
             {

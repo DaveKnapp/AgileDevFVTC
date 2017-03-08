@@ -25,7 +25,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Add_ActualAddedData_EqualsExpectedData()
+        public void Add_WasUserTypeAdded_ActualEqualsExpectedData()
         {
             var expectedUserType = new UserType
             {
@@ -44,7 +44,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteByEntity_WasDeleted_actualDataNull()
+        public void DeleteByEntity_WasDeleted_ActualDataIsNull()
         {
             UserType actualUserType;
             var typeToDelete = AddandGetTestUserType();
@@ -60,7 +60,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteById_WasDeleted_actualDataNull()
+        public void DeleteById_WasDeleted_actualDataIsNull()
         {
             var typeIdToDelete = AddandGetTestUserType().ID;
             UserType actualUserType;
@@ -76,7 +76,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
+        public void GetAll_AllUserTypesReturned_CountEqualActual()
         {
             const int expectedCount = 1;
             int actualCount;
@@ -90,7 +90,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
+        public void GetById_CorrectDataGot_ActualEqualExpectedData()
         {
             var expectedUserType = new UserType
             {
@@ -108,7 +108,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
+        public void Update_WasUserTypeUpdated_ActualEqualsExpectedData()
         {
             var expectedUserType = new UserType
             {

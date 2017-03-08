@@ -24,7 +24,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Add_ActualAddedData_EqualsExpectedData()
+        public void Add_WasRatingAdded_ActualEqualsExpectedData()
         {
             var expectedRating = new Rating
             {
@@ -43,7 +43,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteByEntity_WasDeleted_actualDataNull()
+        public void DeleteByEntity_WasDeleted_ActualDataIsNull()
         {
             Rating actualRating;
             var typeToDelete = AddandGetTestRating();
@@ -59,7 +59,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteById_WasDeleted_actualDataNull()
+        public void DeleteById_WasDeleted_ActualDataIsNull()
         {
             var typeIdToDelete = AddandGetTestRating().ID;
             Rating actualRating;
@@ -75,7 +75,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
+        public void GetAll_AllRatingsReturned_CountEqualsActual()
         {
             const int expectedCount = 5;
             int actualCount;
@@ -88,7 +88,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
+        public void GetById_CorrectDataGot_EqualsExpectedData()
         {
             var expectedRating = new Rating
             {
@@ -106,7 +106,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
+        public void Update_WasRatingUpdated_ActualEqualsExpectedData()
         {
             var expectedRating = new Rating
             {
@@ -118,6 +118,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             using (var ratingRepo = new RatingRepository(new brothershipEntities()))
             {
                 ratingRepo.Update(expectedRating);
+                ratingRepo.SaveChanges();
                 actualRating = ratingRepo.GetById(expectedRating.ID);
             }
 
@@ -145,6 +146,5 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             Assert.AreEqual(expected.ID, actual.ID);
             Assert.AreEqual(expected.Description, actual.Description);
         }
-
     }
 }

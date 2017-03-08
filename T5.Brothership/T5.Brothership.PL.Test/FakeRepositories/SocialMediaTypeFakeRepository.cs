@@ -12,7 +12,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
     {
        private List<SocialMediaType> _fakeSocialMediaTypes = new List<SocialMediaType>();
 
-        SocialMediaTypeFakeRepository()
+        public SocialMediaTypeFakeRepository()
         {
             InitializeFakeSocialMediaTypes();
         }

@@ -9,9 +9,6 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.PL.Test.RepositoryIntegration
 {
-    /// <summary>
-    /// Summary description for IntegrationTypeRepoTest
-    /// </summary>
     [TestClass]
     public class IntegrationTypeRepoTest
     {
@@ -20,7 +17,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
 
-            using (brothershipEntities dataContext = new brothershipEntities())
+            using (var dataContext = new brothershipEntities())
             {
                 dataContext.Database.ExecuteSqlCommand(script);
             }
@@ -46,7 +43,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteByEntity_WasDeleted_actualDataNull()
+        public void DeleteByEntity_WasDeleted_ActualDataIsNull()
         {
             IntegrationType actualIntegrationType;
             var typeToDelete = AddandGetTestIntegrationType();
@@ -62,7 +59,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteById_WasDeleted_actualDataNull()
+        public void DeleteById_WasDeleted_ActualDataIsNull()
         {
             var typeIdToDelete = AddandGetTestIntegrationType().ID;
             IntegrationType actualIntegrationType;
@@ -78,7 +75,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
+        public void GetAll_AllIntegrationTypesReturned_CountEqualsActual()
         {
             const int expectedCount = 1;
             int actualCount;
@@ -91,7 +88,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
+        public void GetById_CorrectDataGot_ActualEqualsExpectedData()
         {
             var expectedIntegrationType = new IntegrationType
             {
@@ -109,7 +106,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
+        public void Update_ActualUpdatedData_ActualEqualsExpectedData()
         {
             var expectedIntegrationType = new IntegrationType
             {
@@ -121,6 +118,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             using (var integrationTypeRepo = new IntegrationTypeRepository(new brothershipEntities()))
             {
                 integrationTypeRepo.Update(expectedIntegrationType);
+                integrationTypeRepo.SaveChanges();
                 actualIntegrationType = integrationTypeRepo.GetById(expectedIntegrationType.ID);
             }
 

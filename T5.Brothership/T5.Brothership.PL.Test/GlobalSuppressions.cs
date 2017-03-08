@@ -32,4 +32,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CC0052:Make field readonly", Justification = "<Pending>", Scope = "member", Target = "~F:T5.Brothership.PL.Test.FakeRepositories.UserIntegrationFakeRepository._fakeUserIntegrations")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CC0052:Make field readonly", Justification = "<Pending>", Scope = "member", Target = "~F:T5.Brothership.PL.Test.FakeRepositories.UserRatingFakeRepository._fakeUserRatings")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CC0052:Make field readonly", Justification = "<Pending>", Scope = "member", Target = "~F:T5.Brothership.PL.Test.FakeRepositories.UserSocialMediaFakeRepository._fakeUserSocialMedias")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0021:Use nameof", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.RepositoryIntegration.UserTypeRepositoryTest.GetById_CorrectDataGot_ActualEqualExpectedData")]
 

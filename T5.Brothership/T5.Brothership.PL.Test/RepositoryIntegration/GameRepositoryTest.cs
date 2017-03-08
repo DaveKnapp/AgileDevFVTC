@@ -24,7 +24,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Add_ActualAddedData_EqualsExpectedData()
+        public void Add_WasDataAdded_ActualEqualsExpected()
         {
             var expectedGame = new Game
             {
@@ -45,7 +45,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteByEntity_WasDeleted_actualDataNull()
+        public void DeleteByEntity_WasDeleted_ActualGameIsNull()
         {
             Game actualGame;
             var typeToDelete = AddandGetTestGame();
@@ -61,7 +61,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteById_WasDeleted_actualDataNull()
+        public void DeleteById_WasDeleted_ActualGameDataIsNull()
         {
             var typeIdToDelete = AddandGetTestGame().ID;
             Game actualGame;
@@ -77,7 +77,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
+        public void GetAll_AllGamesReturned_CountEqualsActual()
         {
             const int expectedCount = 45;
             int actualCount;
@@ -91,7 +91,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
+        public void GetById_CorrectDataGot_ActualEqualsExpected()
         {
             var expectedGame = new Game
             {
@@ -111,7 +111,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
+        public void Update_WasGameUpdatad_ExpectedEqualsActual()
         {
             var expectedGame = new Game
             {
@@ -125,6 +125,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             using (var gameRepo = new GameRepository(new brothershipEntities()))
             {
                 gameRepo.Update(expectedGame);
+                gameRepo.SaveChanges();
                 actualGame = gameRepo.GetById(expectedGame.ID);
             }
 

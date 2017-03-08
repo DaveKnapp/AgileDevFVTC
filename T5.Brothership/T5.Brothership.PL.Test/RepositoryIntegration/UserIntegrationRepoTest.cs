@@ -27,12 +27,12 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Add_ActualAddedData_EqualsExpectedData()
+        public void Add_ActualAddedData_ActualEqualsExpectedData()
         {
             var expectedUserIntegration = new UserIntegration
             {
-                UserID = 0x2,
-                IntegrationTypeID = 0x1,
+                UserID = 2,
+                IntegrationTypeID = 1,
                 Token = "asdlkfjsdlafjldasjf"
             };
 
@@ -49,7 +49,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteByEntity_WasDeleted_actualDataNull()
+        public void DeleteByEntity_WasDeleted_ActualDataIsNull()
         {
             UserIntegration actualUserIntegration;
             var userIntegrationToDelete = AddandGetTestUserIntegration();
@@ -65,7 +65,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteById_WasDeleted_actualDataNull()
+        public void DeleteById_WasDeleted_ActualDataIsNull()
         {
             var userIntegrationToDelete = AddandGetTestUserIntegration();
             UserIntegration actualUserIntegration;
@@ -81,9 +81,9 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
+        public void GetAll_AllUserIntegrationsReturned_CountEqualsActual()
         {
-            const int expectedCount = 0x2;
+            const int expectedCount = 2;
             int actualCount;
             using (var userInegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
             {
@@ -94,10 +94,10 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAllByUser_Count_EqualActual()
+        public void GetAllByUser_AllUserIntegrationsReturned_CountEqualsActual()
         {
-            const int expectedUserId = 0x3;
-            const int expectedCount = 0x1;
+            const int expectedUserId = 3;
+            const int expectedCount = 1;
             int actualCount;
             using (var userInegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
             {
@@ -108,31 +108,31 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
+        public void GetById_CorrectDataGot_ActualEqualsExpectedData()
         {
             var expectedUserInegration = new UserIntegration
             {
-                UserID = 0x3,
-                IntegrationTypeID = 0x1,
+                UserID = 3,
+                IntegrationTypeID = 1,
                 Token = "lkjlkjlk;jlkjlk3jlkjlkj"
             };
-            UserIntegration actualRating;
+            UserIntegration actualUserIntegration;
 
             using (var userInegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
             {
-                actualRating = userInegrationRepo.GetById(expectedUserInegration.UserID, expectedUserInegration.IntegrationTypeID);
+                actualUserIntegration = userInegrationRepo.GetById(expectedUserInegration.UserID, expectedUserInegration.IntegrationTypeID);
             }
 
-            AssertUserInegrationsEqual(expectedUserInegration, actualRating);
+            AssertUserInegrationsEqual(expectedUserInegration, actualUserIntegration);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
+        public void Update_WasUserIntegrationUpdated_ActualEqualsExpectedData()
         {
             var expectedUserIntegration = new UserIntegration
             {
-                UserID = 0x3,
-                IntegrationTypeID = 0x1,
+                UserID = 3,
+                IntegrationTypeID = 1,
                 Token = "asdlkfjsdlafjldasjf"
             };
             UserIntegration actualUserIntegration;
@@ -151,8 +151,8 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             var userIntegration = new UserIntegration
             {
-                UserID = 0x4,
-                IntegrationTypeID = 0x1,
+                UserID = 4,
+                IntegrationTypeID = 1,
                 Token = "asdfwewrewreaw34"
             };
 

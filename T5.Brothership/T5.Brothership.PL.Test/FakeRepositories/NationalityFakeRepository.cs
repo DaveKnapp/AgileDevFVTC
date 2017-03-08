@@ -12,7 +12,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
     {
         List<Nationality> _fakeNationalities = new List<Nationality>();
 
-        NationalityFakeRepository()
+       public NationalityFakeRepository()
         {
             InitializeFakeNationalities();
         }

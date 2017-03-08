@@ -9,15 +9,22 @@ using System.IO;
 
 namespace T5.Brothership.PL.Test.RepositoryIntegration
 {
-    /// <summary>
-    /// Summary description for UserRatingRepositoryTest
-    /// </summary>
     [TestClass]
     public class UserRatingRepositoryTest
     {
+        [TestInitialize]
+        public void Initialize()
+        {
+            var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
+
+            using (brothershipEntities dataContext = new brothershipEntities())
+            {
+                dataContext.Database.ExecuteSqlCommand(script);
+            }
+        }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Add_ActualAddedData_EqualsExpectedData()
+        public void Add_WasRatingAdded_ActualEqualsExpectedData()
         {
             var expectedUserRating = new UserRating
             {
@@ -40,39 +47,39 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteByEntity_WasDeleted_actualDataNull()
+        public void DeleteByEntity_WasDeleted_ActualDataIsNull()
         {
             UserRating actualUserRating;
-            var userRatinToDelete = AddandGetTestUserRating();
+            var userRatingToDelete = AddandGetTestUserRating();
 
             using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
             {
-                userRatingRepo.Delete(userRatinToDelete);
+                userRatingRepo.Delete(userRatingToDelete);
                 userRatingRepo.SaveChanges();
-                actualUserRating = userRatingRepo.GetById(userRatinToDelete.RaterUserID, userRatinToDelete.UserBeingRatedID);
+                actualUserRating = userRatingRepo.GetById(userRatingToDelete.RaterUserID, userRatingToDelete.UserBeingRatedID);
             }
 
             Assert.IsNull(actualUserRating);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteById_WasDeleted_actualDataNull()
+        public void DeleteById_WasDeleted_ActualDataIsNull()
         {
             var userIntegrationToDelete = AddandGetTestUserRating();
-            UserRating actualUserIntegration;
+            UserRating actualUserRating;
 
             using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
             {
                 userRatingRepo.Delete(userIntegrationToDelete.RaterUserID, userIntegrationToDelete.UserBeingRatedID);
                 userRatingRepo.SaveChanges();
-                actualUserIntegration = userRatingRepo.GetById(userIntegrationToDelete.RaterUserID, userIntegrationToDelete.UserBeingRatedID);
+                actualUserRating = userRatingRepo.GetById(userIntegrationToDelete.RaterUserID, userIntegrationToDelete.UserBeingRatedID);
             }
 
-            Assert.IsNull(actualUserIntegration);
+            Assert.IsNull(actualUserRating);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
+        public void GetAll_AllUserRatingsReturned_CountEqualsActual()
         {
             const int expectedCount = 8;
             int actualCount;
@@ -85,7 +92,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAllByUser_Count_EqualActual()
+        public void GetAllByUser_AllUserRatingsReturned_CountEqualsActual()
         {
             const int expectedUserId = 2;
             const int expectedCount = 3;
@@ -99,7 +106,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
+        public void GetById_CorrectDataGot_ActualEqualsExpectedData()
         {
             var expectedUserRating = new UserRating
             {
@@ -117,19 +124,9 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
             AssertUserRatingsEqual(expectedUserRating, actualUserRating);
         }
-        [TestInitialize]
-        public void Initialize()
-        {
-            var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
-
-            using (brothershipEntities dataContext = new brothershipEntities())
-            {
-                dataContext.Database.ExecuteSqlCommand(script);
-            }
-        }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
+        public void Update_WasRatingUpdated_ActualEqualsExpectedData()
         {
             var expectedUserRating = new UserRating
             {
@@ -160,10 +157,10 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 RatingID = 5
             };
 
-            using (var userRatinRepo = new UserRatingRepository(new brothershipEntities()))
+            using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
             {
-                userRatinRepo.Add(userRating);
-                userRatinRepo.SaveChanges();
+                userRatingRepo.Add(userRating);
+                userRatingRepo.SaveChanges();
             }
 
             return userRating;

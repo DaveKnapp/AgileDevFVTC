@@ -12,9 +12,19 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
     [TestClass]
     public class NationalityRepositoryTest
     {
+        [TestInitialize]
+        public void Initialize()
+        {
+            var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
+
+            using (brothershipEntities dataContext = new brothershipEntities())
+            {
+                dataContext.Database.ExecuteSqlCommand(script);
+            }
+        }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Add_ActualAddedData_EqualsExpectedData()
+        public void Add_ActualAddedData_ActualEqualsExpectedData()
         {
             var expectedNationality = new Nationality
             {
@@ -33,7 +43,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteByEntity_WasDeleted_actualDataNull()
+        public void DeleteByEntity_WasDeleted_ActualDataIsNull()
         {
             Nationality actualNationality;
             var typeToDelete = AddandGetTestNationality();
@@ -49,7 +59,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void DeleteById_WasDeleted_actualDataNull()
+        public void DeleteById_WasDeleted_ActualDataIsNull()
         {
             var typeIdToDelete = AddandGetTestNationality().ID;
             Nationality actualNationality;
@@ -65,7 +75,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
+        public void GetAll_AllNationalitiesReturned_CountEqualsActual()
         {
             const int expectedCount = 1;
             int actualCount;
@@ -78,7 +88,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
+        public void GetById_CorrectDataGot_ActualEqualsExpectedData()
         {
             var expectedNationality = new Nationality
             {
@@ -94,19 +104,9 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
             AssertNationalitysEqual(expectedNationality, actualNationality);
         }
-        [TestInitialize]
-        public void Initialize()
-        {
-            var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
-
-            using (brothershipEntities dataContext = new brothershipEntities())
-            {
-                dataContext.Database.ExecuteSqlCommand(script);
-            }
-        }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
+        public void Update_WasNationalityUpdated_ActualEqualsExpectedData()
         {
             var expectedNationality = new Nationality
             {
@@ -118,6 +118,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             using (var nationalityRepo = new NationalityRepository(new brothershipEntities()))
             {
                 nationalityRepo.Update(expectedNationality);
+                nationalityRepo.SaveChanges();
                 actualNationality = nationalityRepo.GetById(expectedNationality.ID);
             }
 
