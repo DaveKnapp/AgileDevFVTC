@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CUser.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\HashedPassword.cs" />
     <Compile Include="Helpers\PasswordHasher.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />

@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            string script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
+            var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
 
             using (brothershipEntities dataContext = new brothershipEntities())
             {
@@ -24,40 +24,9 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
-        {
-            int expectedCount = 5;
-            int actualCount;
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
-            {
-                actualCount = ratingRepo.GetAll().Count();
-            }
-
-            Assert.AreEqual(expectedCount, actualCount);
-        }
-
-        [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
-        {
-            Rating expectedRating = new Rating
-            {
-                ID = 1,
-                Description = "One Star"
-            };
-            Rating actualRating;
-
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
-            {
-                actualRating = ratingRepo.GetById(expectedRating.ID);
-            }
-
-            AssertRatingsEqual(expectedRating, actualRating);
-        }
-
-        [TestMethod, TestCategory("IntegrationTest")]
         public void Add_ActualAddedData_EqualsExpectedData()
         {
-            Rating expectedRating = new Rating
+            var expectedRating = new Rating
             {
                 Description = "ZeroStars"
             };
@@ -74,29 +43,10 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
-        {
-            Rating expectedRating = new Rating
-            {
-                ID = 1,
-                Description = "Beam"
-            };
-            Rating actualRating;
-
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
-            {
-                ratingRepo.Update(expectedRating);
-                actualRating = ratingRepo.GetById(expectedRating.ID);
-            }
-
-            AssertRatingsEqual(expectedRating, actualRating);
-        }
-
-        [TestMethod, TestCategory("IntegrationTest")]
         public void DeleteByEntity_WasDeleted_actualDataNull()
         {
             Rating actualRating;
-            Rating typeToDelete = AddandGetTestRating();
+            var typeToDelete = AddandGetTestRating();
 
             using (var ratingRepo = new RatingRepository(new brothershipEntities()))
             {
@@ -111,7 +61,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestMethod, TestCategory("IntegrationTest")]
         public void DeleteById_WasDeleted_actualDataNull()
         {
-            int typeIdToDelete = AddandGetTestRating().ID;
+            var typeIdToDelete = AddandGetTestRating().ID;
             Rating actualRating;
 
             using (var ratingRepo = new RatingRepository(new brothershipEntities()))
@@ -122,6 +72,56 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             }
 
             Assert.IsNull(actualRating);
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetAll_Count_EqualActual()
+        {
+            const int expectedCount = 5;
+            int actualCount;
+            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            {
+                actualCount = ratingRepo.GetAll().Count();
+            }
+
+            Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetById_CorrectDataGot_EqualExpectedData()
+        {
+            var expectedRating = new Rating
+            {
+                ID = 1,
+                Description = "One Star"
+            };
+            Rating actualRating;
+
+            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            {
+                actualRating = ratingRepo.GetById(expectedRating.ID);
+            }
+
+            AssertRatingsEqual(expectedRating, actualRating);
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void Update_ActualUpdatedData_EqualsExpectedData()
+        {
+            var expectedRating = new Rating
+            {
+                ID = 1,
+                Description = "Beam"
+            };
+            Rating actualRating;
+
+            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            {
+                ratingRepo.Update(expectedRating);
+                actualRating = ratingRepo.GetById(expectedRating.ID);
+            }
+
+            AssertRatingsEqual(expectedRating, actualRating);
         }
 
         private Rating AddandGetTestRating()

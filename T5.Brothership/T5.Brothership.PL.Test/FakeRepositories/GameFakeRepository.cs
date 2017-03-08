@@ -25,13 +25,13 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Delete(int id)
         {
-            Game userType = _fakeGames.Single(p => p.ID == id);
+            var userType = _fakeGames.Single(p => p.ID == id);
             _fakeGames.Remove(userType);
         }
 
         public void Delete(Game entity)
         {
-            Game userType = _fakeGames.Single(p => p.ID == entity.ID);
+            var userType = _fakeGames.Single(p => p.ID == entity.ID);
             _fakeGames.Remove(userType);
         }
 
@@ -56,7 +56,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(Game entity)
         {
-            int gameIndex = _fakeGames.IndexOf(entity);
+            var gameIndex = _fakeGames.IndexOf(entity);
             _fakeGames[gameIndex] = entity;
         }
 

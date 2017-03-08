@@ -13,14 +13,7 @@ namespace T5.Brothership.Controllers
 
         public ActionResult Login()
         {
-            if (Session["CurrentUser"] == null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Details");
-            }
+            return Session["CurrentUser"] == null ? (ActionResult)View() : RedirectToAction(nameof(Details));
         }
 
         [HttpPost]
@@ -34,7 +27,7 @@ namespace T5.Brothership.Controllers
                 if (!(user is InvalidUser))
                 {
                     Session.Add("CurrentUser", user);
-                    return RedirectToAction("Details");
+                    return RedirectToAction(nameof(Details));
                 }
             }
 
@@ -44,11 +37,11 @@ namespace T5.Brothership.Controllers
 
         public ActionResult Details()
         {
-            User user = Session["CurrentUser"] as User;
+            var user = Session["CurrentUser"] as User;
 
             if (user == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction(nameof(Login));
             }
 
             return View(user);
@@ -57,7 +50,7 @@ namespace T5.Brothership.Controllers
         public ActionResult LogOut()
         {
             Session["CurrentUser"] = null;
-            return RedirectToAction("Login");
+            return RedirectToAction(nameof(Login));
         }
     }
 }

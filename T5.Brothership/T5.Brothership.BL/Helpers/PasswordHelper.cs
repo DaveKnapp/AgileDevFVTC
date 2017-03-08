@@ -9,7 +9,7 @@ namespace T5.Brothership.BL.Helpers
 {
     public class PasswordHelper
     {
-        private PasswordHasher passwordHasher;
+        private readonly PasswordHasher passwordHasher;
 
         public PasswordHelper()
         {
@@ -18,7 +18,7 @@ namespace T5.Brothership.BL.Helpers
 
         public HashedPassword GeneratePasswordHash(string _plainTextPassword)
         {
-            HashedPassword hashedPassword = new HashedPassword();
+            var hashedPassword = new HashedPassword();
             hashedPassword.Salt = passwordHasher.GenerateSalt();
             hashedPassword.Password = passwordHasher.GenrateHash(_plainTextPassword + hashedPassword.Salt);
 

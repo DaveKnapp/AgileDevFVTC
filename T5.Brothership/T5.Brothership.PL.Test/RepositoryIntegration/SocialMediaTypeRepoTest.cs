@@ -15,52 +15,11 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
     [TestClass]
     public class SocialMediaTypeRepoTest
     {
-        [TestInitialize]
-        public void Initialize()
-        {
-            string script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
-
-            using (brothershipEntities dataContext = new brothershipEntities())
-            {
-                dataContext.Database.ExecuteSqlCommand(script);
-            }
-        }
-
-        [TestMethod, TestCategory("IntegrationTest")]
-        public void GetAll_Count_EqualActual()
-        {
-            int expectedCount = 3;
-            int actualCount;
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
-            {
-                actualCount = socialMediaTypeRepo.GetAll().Count();
-            }
-
-            Assert.AreEqual(expectedCount, actualCount);
-        }
-
-        [TestMethod, TestCategory("IntegrationTest")]
-        public void GetById_CorrectDataGot_EqualExpectedData()
-        {
-            SocialMediaType expectedSocialMediaType = new SocialMediaType
-            {
-                ID = 1,
-                Description = "Youtube"
-            };
-            SocialMediaType actualSocialMediaType;
-
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
-            {
-                actualSocialMediaType = socialMediaTypeRepo.GetById(expectedSocialMediaType.ID);
-            }
-
-            AssertSocialMediaTypesEqual(expectedSocialMediaType, actualSocialMediaType);
-        }
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void Add_ActualAddedData_EqualsExpectedData()
         {
-            SocialMediaType expectedSocialMediaType = new SocialMediaType
+            var expectedSocialMediaType = new SocialMediaType
             {
                 Description = "NewType"
             };
@@ -77,29 +36,10 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Update_ActualUpdatedData_EqualsExpectedData()
-        {
-            SocialMediaType expectedSocialMediaType = new SocialMediaType
-            {
-                ID = 1,
-                Description = "NewType"
-            };
-            SocialMediaType actualSocialMediaType;
-
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
-            {
-                socialMediaTypeRepo.Update(expectedSocialMediaType);
-                actualSocialMediaType = socialMediaTypeRepo.GetById(expectedSocialMediaType.ID);
-            }
-
-            AssertSocialMediaTypesEqual(expectedSocialMediaType, actualSocialMediaType);
-        }
-
-        [TestMethod, TestCategory("IntegrationTest")]
         public void DeleteByEntity_WasDeleted_actualDataNull()
         {
             SocialMediaType actualSocialMediaType;
-            SocialMediaType typeToDelete = AddandGetTestSocialMediaType();
+            var typeToDelete = AddandGetTestSocialMediaType();
 
             using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
             {
@@ -114,7 +54,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestMethod, TestCategory("IntegrationTest")]
         public void DeleteById_WasDeleted_actualDataNull()
         {
-            int typeIdToDelete = AddandGetTestSocialMediaType().ID;
+            var typeIdToDelete = AddandGetTestSocialMediaType().ID;
             SocialMediaType actualSocialMediaType;
 
             using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
@@ -125,6 +65,66 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             }
 
             Assert.IsNull(actualSocialMediaType);
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetAll_Count_EqualActual()
+        {
+            const int expectedCount = 3;
+            int actualCount;
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            {
+                actualCount = socialMediaTypeRepo.GetAll().Count();
+            }
+
+            Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetById_CorrectDataGot_EqualExpectedData()
+        {
+            var expectedSocialMediaType = new SocialMediaType
+            {
+                ID = 1,
+                Description = "Youtube"
+            };
+            SocialMediaType actualSocialMediaType;
+
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            {
+                actualSocialMediaType = socialMediaTypeRepo.GetById(expectedSocialMediaType.ID);
+            }
+
+            AssertSocialMediaTypesEqual(expectedSocialMediaType, actualSocialMediaType);
+        }
+        [TestInitialize]
+        public void Initialize()
+        {
+            var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
+
+            using (brothershipEntities dataContext = new brothershipEntities())
+            {
+                dataContext.Database.ExecuteSqlCommand(script);
+            }
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void Update_ActualUpdatedData_EqualsExpectedData()
+        {
+            var expectedSocialMediaType = new SocialMediaType
+            {
+                ID = 1,
+                Description = "NewType"
+            };
+            SocialMediaType actualSocialMediaType;
+
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            {
+                socialMediaTypeRepo.Update(expectedSocialMediaType);
+                actualSocialMediaType = socialMediaTypeRepo.GetById(expectedSocialMediaType.ID);
+            }
+
+            AssertSocialMediaTypesEqual(expectedSocialMediaType, actualSocialMediaType);
         }
 
         private SocialMediaType AddandGetTestSocialMediaType()

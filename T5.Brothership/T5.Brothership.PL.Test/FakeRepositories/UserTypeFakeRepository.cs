@@ -10,7 +10,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 {
     internal class UserTypeFakeRepository : IUserTypeRepository
     {
-        List<UserType> _fakeUserTypes = new List<UserType>();
+        private List<UserType> _fakeUserTypes = new List<UserType>();
 
         public UserTypeFakeRepository()
         {
@@ -25,13 +25,13 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Delete(int id)
         {
-            UserType userType = _fakeUserTypes.Single(p => p.ID == id);
+            var userType = _fakeUserTypes.Single(p => p.ID == id);
             _fakeUserTypes.Remove(userType);
         }
 
         public void Delete(UserType entity)
         {
-            UserType userType = _fakeUserTypes.Single(p => p.ID == entity.ID);
+            var userType = _fakeUserTypes.Single(p => p.ID == entity.ID);
             _fakeUserTypes.Remove(userType);
         }
 
@@ -46,8 +46,13 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(UserType entity)
         {
-            int userTypeIndex = _fakeUserTypes.IndexOf(entity);
+            var userTypeIndex = _fakeUserTypes.IndexOf(entity);
             _fakeUserTypes[userTypeIndex] = entity;
+        }
+
+        private int GenerateUserTypeId()
+        {
+            return _fakeUserTypes.Max(p => p.ID);
         }
 
         IQueryable<UserType> IRepository<UserType>.GetAll()
@@ -58,11 +63,6 @@ namespace T5.Brothership.PL.Test.FakeRepositories
         UserType IRepository<UserType>.GetById(int id)
         {
             return _fakeUserTypes.FirstOrDefault(p => p.ID == id);
-        }
-
-        private int GenerateUserTypeId()
-        {
-            return _fakeUserTypes.Max(p => p.ID);
         }
 
         private void InitializeFakeUserTypes()

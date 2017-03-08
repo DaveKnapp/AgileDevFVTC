@@ -11,9 +11,6 @@ namespace T5.Brothership.PL.Repositories
 {
     public class UserIntegrationRepository : IUserIntegrationRepository, IDisposable
     {
-        protected DbContext DbContext { get; set; }
-        protected DbSet<UserIntegration> DbSet { get; set; }
-
         public UserIntegrationRepository(DbContext dbContext)
         {
             if (dbContext == null)
@@ -21,6 +18,9 @@ namespace T5.Brothership.PL.Repositories
             DbContext = dbContext;
             DbSet = DbContext.Set<UserIntegration>();
         }
+
+        protected DbContext DbContext { get; set; }
+        protected DbSet<UserIntegration> DbSet { get; set; }
 
         public void Add(UserIntegration entity)
         {
@@ -56,6 +56,28 @@ namespace T5.Brothership.PL.Repositories
             Delete(entity);
         }
 
+        public void Dispose()
+        {
+            DbContext.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+
+        public IQueryable<UserIntegration> GetAll()
+        {
+            return DbSet;
+        }
+
+        public IQueryable<UserIntegration> GetAllByUser(int userID)
+        {
+            return DbSet.Where(p => p.UserID == userID);
+        }
+
+        public UserIntegration GetById(int userId, int integrationId)
+        {
+            return DbSet.FirstOrDefault(p => p.UserID == userId && p.IntegrationTypeID == p.IntegrationTypeID);
+        }
+
         public void SaveChanges()
         {
             DbContext.SaveChanges();
@@ -69,26 +91,6 @@ namespace T5.Brothership.PL.Repositories
                 DbSet.Attach(entity);
             }
             dbEntityEntry.State = EntityState.Modified;
-        }
-
-        public IQueryable<UserIntegration> GetAll()
-        {
-            return DbSet;
-        }
-
-        public UserIntegration GetById(int userId, int integrationId)
-        {
-            return DbSet.FirstOrDefault(p => p.UserID == userId && p.IntegrationTypeID == p.IntegrationTypeID);
-        }
-
-        public IQueryable<UserIntegration> GetAllByUser(int userID)
-        {
-            return DbSet.Where(p => p.UserID == userID);
-        }
-
-        public void Dispose()
-        {
-            DbContext.Dispose();
         }
     }
 }

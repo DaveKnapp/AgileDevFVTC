@@ -25,13 +25,13 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Delete(int id)
         {
-            Rating rating = _fakeRatings.Single(p => p.ID == id);
+            var rating = _fakeRatings.Single(p => p.ID == id);
             _fakeRatings.Remove(rating);
         }
 
         public void Delete(Rating entity)
         {
-            Rating rating = _fakeRatings.Single(p => p.ID == entity.ID);
+            var rating = _fakeRatings.Single(p => p.ID == entity.ID);
             _fakeRatings.Remove(rating);
         }
 
@@ -56,7 +56,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(Rating entity)
         {
-            int entityIndex = _fakeRatings.IndexOf(entity);
+            var entityIndex = _fakeRatings.IndexOf(entity);
             _fakeRatings[entityIndex] = entity;
         }
 

@@ -89,6 +89,7 @@ namespace T5.Brothership.PL.Repositories
         public void Dispose()
         {
             DbContext.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

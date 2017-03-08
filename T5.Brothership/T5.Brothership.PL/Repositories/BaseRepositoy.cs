@@ -8,7 +8,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace T5.Brothership.PL.Repositories
 {
-    public interface IRepository<T>: IDisposable where T :class 
+    public interface IRepository<T> : IDisposable where T : class
     {
         IQueryable<T> GetAll();
         T GetById(int id);
@@ -33,16 +33,6 @@ namespace T5.Brothership.PL.Repositories
 
         protected DbSet<T> DbSet { get; set; }
 
-        public virtual IQueryable<T> GetAll()
-        {
-            return DbSet;
-        }
-
-        public virtual T GetById(int id)
-        {
-            return DbSet.Find(id);
-        }
-
         public virtual void Add(T entity)
         {
             DbEntityEntry dbEntityEntry = DbContext.Entry(entity);
@@ -54,16 +44,6 @@ namespace T5.Brothership.PL.Repositories
             {
                 DbSet.Add(entity);
             }
-        }
-
-        public virtual void Update(T entity)
-        {
-            DbEntityEntry dbEntityEntry = DbContext.Entry(entity);
-            if (dbEntityEntry.State == EntityState.Detached)
-            {
-                DbSet.Attach(entity);
-            }
-            dbEntityEntry.State = EntityState.Modified;
         }
 
         public virtual void Delete(T entity)
@@ -90,11 +70,32 @@ namespace T5.Brothership.PL.Repositories
         public void Dispose()
         {
             DbContext.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        public virtual IQueryable<T> GetAll()
+        {
+            return DbSet;
+        }
+
+        public virtual T GetById(int id)
+        {
+            return DbSet.Find(id);
         }
 
         public void SaveChanges()
         {
             DbContext.SaveChanges();
+        }
+
+        public virtual void Update(T entity)
+        {
+            DbEntityEntry dbEntityEntry = DbContext.Entry(entity);
+            if (dbEntityEntry.State == EntityState.Detached)
+            {
+                DbSet.Attach(entity);
+            }
+            dbEntityEntry.State = EntityState.Modified;
         }
     }
 }

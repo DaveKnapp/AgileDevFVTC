@@ -18,7 +18,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
         [TestCategory("UnitTest"), TestMethod]
         public void GetById_UserFound_ReturnsCorrectUser()
         {
-            User expectedUser = new User
+            var expectedUser = new User
             {
                 ID = 1,
                 UserName = "TestUserOne",

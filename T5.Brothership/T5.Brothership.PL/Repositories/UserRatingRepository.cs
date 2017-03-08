@@ -11,8 +11,6 @@ namespace T5.Brothership.PL.Repositories
 {
     public class UserRatingRepository : IUserRatingRepository, IDisposable
     {
-        protected DbContext DbContext { get; set; }
-        protected DbSet<UserRating> DbSet { get; set; }
 
         public UserRatingRepository(DbContext dbContext)
         {
@@ -21,6 +19,8 @@ namespace T5.Brothership.PL.Repositories
             DbContext = dbContext;
             DbSet = DbContext.Set<UserRating>();
         }
+        protected DbContext DbContext { get; set; }
+        protected DbSet<UserRating> DbSet { get; set; }
 
         public void Add(UserRating entity)
         {
@@ -56,6 +56,27 @@ namespace T5.Brothership.PL.Repositories
             Delete(entity);
         }
 
+        public void Dispose()
+        {
+            DbContext.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        public IQueryable<UserRating> GetAll()
+        {
+            return DbSet;
+        }
+
+        public IQueryable<UserRating> GetAllByUserId(int ratedUserId)
+        {
+            return DbSet.Where(p => p.UserBeingRatedID == ratedUserId);
+        }
+
+        public UserRating GetById(int raterId, int userBeingRatedId)
+        {
+            return DbSet.FirstOrDefault(p => p.RaterUserID == raterId && p.UserBeingRatedID == userBeingRatedId);
+        }
+
         public void SaveChanges()
         {
             DbContext.SaveChanges();
@@ -69,26 +90,6 @@ namespace T5.Brothership.PL.Repositories
                 DbSet.Attach(entity);
             }
             dbEntityEntry.State = EntityState.Modified;
-        }
-
-        public IQueryable<UserRating> GetAll()
-        {
-            return DbSet;
-        }
-
-        public UserRating GetById(int raterId, int userBeingRatedId)
-        {
-            return DbSet.FirstOrDefault(p => p.RaterUserID == raterId && p.UserBeingRatedID == userBeingRatedId);
-        }
-
-        public IQueryable<UserRating> GetAllByUserId(int ratedUserId)
-        {
-            return DbSet.Where(p => p.UserBeingRatedID == ratedUserId);
-        }
-
-        public void Dispose()
-        {
-            DbContext.Dispose();
         }
     }
 }

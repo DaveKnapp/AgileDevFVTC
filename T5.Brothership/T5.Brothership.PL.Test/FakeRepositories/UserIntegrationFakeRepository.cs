@@ -10,7 +10,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 {
     internal class UserIntegrationFakeRepository : IUserIntegrationRepository
     {
-        List<UserIntegration> _fakeUserIntegrations = new List<UserIntegration>();
+        private List<UserIntegration> _fakeUserIntegrations = new List<UserIntegration>();
 
         public UserIntegrationFakeRepository()
         {
@@ -48,7 +48,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public UserIntegration GetById(int userId, int integrationTypeId)
         {
-            return _fakeUserIntegrations.FirstOrDefault(p => p.UserID == userId && 
+            return _fakeUserIntegrations.FirstOrDefault(p => p.UserID == userId &&
                                                         p.IntegrationTypeID == integrationTypeId);
         }
 
@@ -58,7 +58,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(UserIntegration entity)
         {
-            int entityIndex = _fakeUserIntegrations.IndexOf(entity);
+            var entityIndex = _fakeUserIntegrations.IndexOf(entity);
             _fakeUserIntegrations[entityIndex] = entity;
         }
 

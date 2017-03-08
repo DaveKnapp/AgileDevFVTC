@@ -25,7 +25,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Delete(int id)
         {
-            User user = _fakeUsers.Single(p => p.ID == id);
+            var user = _fakeUsers.Single(p => p.ID == id);
             _fakeUsers.Remove(user);
         }
 
@@ -49,6 +49,11 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             return _fakeUsers.FirstOrDefault(p => p.ID == id);
         }
 
+        public User GetByUsernameOrEmail(string userNameOrEmail)
+        {
+            return _fakeUsers.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
+        }
+
         public void SaveChanges()
         {
 
@@ -56,13 +61,8 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(User entity)
         {
-            int userIndex = _fakeUsers.IndexOf(entity);
+            var userIndex = _fakeUsers.IndexOf(entity);
             _fakeUsers[userIndex] = entity;
-        }
-
-        public User GetByUsernameOrEmail(string userNameOrEmail)
-        {
-            return _fakeUsers.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
         }
 
         private int GenerateUserId()

@@ -25,13 +25,13 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Delete(int id)
         {
-            Nationality nationality = _fakeNationalities.Single(p => p.ID == id);
+            var nationality = _fakeNationalities.Single(p => p.ID == id);
             _fakeNationalities.Remove(nationality);
         }
 
         public void Delete(Nationality entity)
         {
-            Nationality nationality = _fakeNationalities.Single(p => p.ID == entity.ID);
+            var nationality = _fakeNationalities.Single(p => p.ID == entity.ID);
             _fakeNationalities.Remove(nationality);
         }
 
@@ -56,7 +56,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(Nationality entity)
         {
-            int entityIndex = _fakeNationalities.IndexOf(entity);
+            var entityIndex = _fakeNationalities.IndexOf(entity);
             _fakeNationalities[entityIndex] = entity;
         }
 

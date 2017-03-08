@@ -10,65 +10,7 @@ namespace T5.Brothership.PL.Test
     public class utUserTest
     {
 
-        //NOTE(Dave): I removed the test method attribute from these tests since they didn't pass.  Can we delete this test class? 
-       // [TestMethod]
-        public void LoadUserLoginTest()
-        {
-            brothershipEntities oDc = new brothershipEntities();
-
-            //Use LINQ to select user login info
-            var login = (from u in oDc.Users
-                             join ul in oDc.UserLogins on u.ID equals ul.UserID
-                             where u.UserName == "TestUserOne"
-                             select new
-                             {
-                                 u.UserName,
-                                 ul.PasswordHash
-                             }).FirstOrDefault();
-
-            //checks the password based on username
-            Assert.AreEqual(login.PasswordHash ,"Password");
-        }
-
-       // [TestMethod]
-        public void InsertUserLoginTest()
-        {
-
-            //This is how you insert user
-            brothershipEntities context = new brothershipEntities();
-
-            UserLogin expectedUser = new UserLogin { PasswordHash = "password" };
-            context.UserLogins.Add(expectedUser);
-
-            context.SaveChanges();
-
-            expectedUser.User = new User
-            {
-                ID = expectedUser.UserID,
-                Bio = "Hello",
-                DateJoined = DateTime.Now,
-                DOB = new DateTime(1990, 4, 1),
-                Email = @"MrTestUser@gmail.com",
-                NationalityID = 1,
-                ProfileImagePath = @"MrTestUser.png",
-                UserName = "MrTestUser",
-                UserTypeID = 1,
-                Gender = "m"
-            };
-
-            context.SaveChanges();
-
-            var actualUser = context.UserLogins.FirstOrDefault(p => p.UserID == expectedUser.UserID);
-
-            Assert.AreEqual(expectedUser.UserID, actualUser.UserID);
-            Assert.AreEqual(expectedUser.User.ID, actualUser.User.ID);
-            Assert.AreEqual(expectedUser.User.Nationality, actualUser.User.Nationality);
-            Assert.AreEqual(expectedUser.User.Bio, actualUser.User.Bio);
-            Assert.AreEqual(expectedUser.User.UserName, actualUser.User.UserName);
-            Assert.AreEqual(expectedUser.User.ProfileImagePath, actualUser.User.ProfileImagePath);
-        }
-
-      //  [TestMethod]
+        //  [TestMethod]
         public void DeleteUserLoginTest()
         {
             brothershipEntities oDc = new brothershipEntities();
@@ -106,7 +48,45 @@ namespace T5.Brothership.PL.Test
             }
         }
 
-    //    [TestMethod]
+        // [TestMethod]
+        public void InsertUserLoginTest()
+        {
+
+            //This is how you insert user
+            brothershipEntities context = new brothershipEntities();
+
+            UserLogin expectedUser = new UserLogin { PasswordHash = "password" };
+            context.UserLogins.Add(expectedUser);
+
+            context.SaveChanges();
+
+            expectedUser.User = new User
+            {
+                ID = expectedUser.UserID,
+                Bio = "Hello",
+                DateJoined = DateTime.Now,
+                DOB = new DateTime(1990, 4, 1),
+                Email = @"MrTestUser@gmail.com",
+                NationalityID = 1,
+                ProfileImagePath = @"MrTestUser.png",
+                UserName = "MrTestUser",
+                UserTypeID = 1,
+                Gender = "m"
+            };
+
+            context.SaveChanges();
+
+            var actualUser = context.UserLogins.FirstOrDefault(p => p.UserID == expectedUser.UserID);
+
+            Assert.AreEqual(expectedUser.UserID, actualUser.UserID);
+            Assert.AreEqual(expectedUser.User.ID, actualUser.User.ID);
+            Assert.AreEqual(expectedUser.User.Nationality, actualUser.User.Nationality);
+            Assert.AreEqual(expectedUser.User.Bio, actualUser.User.Bio);
+            Assert.AreEqual(expectedUser.User.UserName, actualUser.User.UserName);
+            Assert.AreEqual(expectedUser.User.ProfileImagePath, actualUser.User.ProfileImagePath);
+        }
+
+        //    [TestMethod]
         public void InsertUserTest()
         {//this one has no referential integrity errors
             brothershipEntities oDc = new brothershipEntities();
@@ -135,6 +115,26 @@ namespace T5.Brothership.PL.Test
                            select u).ToList();
 
             Assert.AreEqual(UserStart.Count + 1, UserEnd.Count);
+        }
+
+        //NOTE(Dave): I removed the test method attribute from these tests since they didn't pass.  Can we delete this test class? 
+        // [TestMethod]
+        public void LoadUserLoginTest()
+        {
+            brothershipEntities oDc = new brothershipEntities();
+
+            //Use LINQ to select user login info
+            var login = (from u in oDc.Users
+                         join ul in oDc.UserLogins on u.ID equals ul.UserID
+                         where u.UserName == "TestUserOne"
+                         select new
+                         {
+                             u.UserName,
+                             ul.PasswordHash
+                         }).FirstOrDefault();
+
+            //checks the password based on username
+            Assert.AreEqual(login.PasswordHash, "Password");
         }
     }
 }

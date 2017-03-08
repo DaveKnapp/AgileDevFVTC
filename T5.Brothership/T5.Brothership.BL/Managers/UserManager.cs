@@ -27,6 +27,7 @@ namespace T5.Brothership.BL.Managers
         public void Dispose()
         {
             _unitOfWork.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public User GetById(int id)
@@ -36,7 +37,7 @@ namespace T5.Brothership.BL.Managers
 
         public User Login(string userNameOrEmail, string password)
         {
-            User user = _unitOfWork.Users.GetByUsernameOrEmail(userNameOrEmail);
+            var user = _unitOfWork.Users.GetByUsernameOrEmail(userNameOrEmail);
 
             if (user == null)
             {
@@ -44,16 +45,9 @@ namespace T5.Brothership.BL.Managers
             }
 
             var passwordHelper = new PasswordHelper();
-            HashedPassword hashedPassword = new HashedPassword { Password = user.UserLogin.PasswordHash, Salt = user.UserLogin.Salt };
+            var hashedPassword = new HashedPassword { Password = user.UserLogin.PasswordHash, Salt = user.UserLogin.Salt };
 
-            if (passwordHelper.IsPasswordMatch(password, hashedPassword))
-            {
-                return user;
-            }
-            else
-            {
-                return new InvalidUser();
-            }
+            return passwordHelper.IsPasswordMatch(password, hashedPassword) ? user : new InvalidUser();
         }
     }
 }

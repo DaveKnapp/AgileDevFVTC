@@ -10,7 +10,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 {
     internal class UserSocialMediaFakeRepository : IUserSocialMediaRepository
     {
-        List<UserSocialJunc> _fakeUserSocialMedias = new List<UserSocialJunc>();
+        private List<UserSocialJunc> _fakeUserSocialMedias = new List<UserSocialJunc>();
 
         public UserSocialMediaFakeRepository()
         {
@@ -57,7 +57,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(UserSocialJunc entity)
         {
-            int entityIndex = _fakeUserSocialMedias.IndexOf(entity);
+            var entityIndex = _fakeUserSocialMedias.IndexOf(entity);
             _fakeUserSocialMedias[entityIndex] = entity;
         }
 

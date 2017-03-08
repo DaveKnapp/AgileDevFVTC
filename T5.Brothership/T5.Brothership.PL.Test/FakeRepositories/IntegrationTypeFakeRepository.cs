@@ -14,7 +14,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public IntegrationTypeFakeRepository()
         {
-            _InitializeFakeIntegrationTypes();
+            InitializeFakeIntegrationTypes();
         }
 
         public void Add(IntegrationType entity)
@@ -25,13 +25,13 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Delete(int id)
         {
-            IntegrationType integrationType = _fakeIntegrationTypes.Single(p => p.ID == id);
+            var integrationType = _fakeIntegrationTypes.Single(p => p.ID == id);
             _fakeIntegrationTypes.Remove(integrationType);
         }
 
         public void Delete(IntegrationType entity)
         {
-            IntegrationType integrationType = _fakeIntegrationTypes.Single(p => p.ID == entity.ID);
+            var integrationType = _fakeIntegrationTypes.Single(p => p.ID == entity.ID);
             _fakeIntegrationTypes.Remove(integrationType);
         }
 
@@ -56,16 +56,11 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(IntegrationType entity)
         {
-            int entityIndex = _fakeIntegrationTypes.IndexOf(entity);
+            var entityIndex = _fakeIntegrationTypes.IndexOf(entity);
             _fakeIntegrationTypes[entityIndex] = entity;
         }
 
-        private int GenerateIntegrationTypeId()
-        {
-            return _fakeIntegrationTypes.Max(p => p.ID);
-        }
-
-        private void _InitializeFakeIntegrationTypes()
+        private void InitializeFakeIntegrationTypes()
         {
             _fakeIntegrationTypes.Add(new IntegrationType
             {
@@ -84,6 +79,11 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 3,
                 Description = "Twitter"
             });
+        }
+
+        private int GenerateIntegrationTypeId()
+        {
+            return _fakeIntegrationTypes.Max(p => p.ID);
         }
     }
 }

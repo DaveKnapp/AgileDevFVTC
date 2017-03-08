@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using T5.Brothership.PL.Repositories;
 
 namespace T5.Brothership.PL
-{
+{//TODO Add more repos
     public class BrothershipUnitOfWork : IBrothershipUnitOfWork
     {
         private brothershipEntities dbContext = new brothershipEntities();
@@ -26,7 +26,6 @@ namespace T5.Brothership.PL
 
         public void Commit()
         {
-            
         }
 
         public void Dispose()

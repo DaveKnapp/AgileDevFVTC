@@ -10,7 +10,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 {
     public class SocialMediaTypeFakeRepository : ISocialMediaTypeRepository
     {
-        List<SocialMediaType> _fakeSocialMediaTypes = new List<SocialMediaType>();
+       private List<SocialMediaType> _fakeSocialMediaTypes = new List<SocialMediaType>();
 
         SocialMediaTypeFakeRepository()
         {
@@ -25,13 +25,13 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Delete(int id)
         {
-            SocialMediaType socialMediaType = _fakeSocialMediaTypes.Single(p => p.ID == id);
+            var socialMediaType = _fakeSocialMediaTypes.Single(p => p.ID == id);
             _fakeSocialMediaTypes.Remove(socialMediaType);
         }
 
         public void Delete(SocialMediaType entity)
         {
-            SocialMediaType socialMediaType = _fakeSocialMediaTypes.Single(p => p.ID == entity.ID);
+            var socialMediaType = _fakeSocialMediaTypes.Single(p => p.ID == entity.ID);
             _fakeSocialMediaTypes.Remove(socialMediaType);
         }
 
@@ -56,7 +56,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(SocialMediaType entity)
         {
-            int entityIndex = _fakeSocialMediaTypes.IndexOf(entity);
+            var entityIndex = _fakeSocialMediaTypes.IndexOf(entity);
             _fakeSocialMediaTypes[entityIndex] = entity;
         }
 

@@ -10,7 +10,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 {
     internal class UserRatingFakeRepository : IUserRatingRepository
     {
-        List<UserRating> _fakeUserRatings = new List<UserRating>();
+        private List<UserRating> _fakeUserRatings = new List<UserRating>();
 
         public UserRatingFakeRepository()
         {
@@ -41,11 +41,6 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             return _fakeUserRatings.AsQueryable();
         }
 
-        public IQueryable<UserRating> GetAllByUser(int ratedUserId)
-        {
-            throw new NotImplementedException();
-        }
-
         public IQueryable<UserRating> GetAllByUserId(int ratedUserId)
         {
             return _fakeUserRatings.Where(p => p.UserBeingRatedID == ratedUserId).AsQueryable();
@@ -63,7 +58,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(UserRating entity)
         {
-            int entityIndex = _fakeUserRatings.IndexOf(entity);
+            var entityIndex = _fakeUserRatings.IndexOf(entity);
             _fakeUserRatings[entityIndex] = entity;
         }
 

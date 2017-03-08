@@ -10,7 +10,7 @@ namespace T5.Brothership.BL.Helpers
 {
     public class PasswordHasher
     {
-        private RNGCryptoServiceProvider cryptoProcider;
+        private readonly RNGCryptoServiceProvider cryptoProcider;
 
         public PasswordHasher()
         {
@@ -21,29 +21,31 @@ namespace T5.Brothership.BL.Helpers
         {
             const int SALT_SIZE = 24;
             // Lets create a byte array to store the salt bytes
-            byte[] saltBytes = new byte[SALT_SIZE];
+            var saltBytes = new byte[SALT_SIZE];
 
             // lets generate the salt in the byte array
             cryptoProcider.GetNonZeroBytes(saltBytes);
 
             // Let us get some string representation for this salt
-            string saltString = Convert.ToBase64String(saltBytes);
+            var saltString = Convert.ToBase64String(saltBytes);
 
             // Now we have our salt string ready lets return it to the caller
             return saltString;
         }
         public string GenrateHash(string password)
         {
-            SHA256 sha = new SHA256CryptoServiceProvider();
+            using (SHA256 sha = new SHA256CryptoServiceProvider())
+            {
 
-            // Let us use SHA256 algorithm to 
-            // generate the hash from this salted password
-            
-            byte[] dataBytes = Encoding.UTF8.GetBytes(password);
-            byte[] resultBytes = sha.ComputeHash(dataBytes);
+                // Let us use SHA256 algorithm to
+                // generate the hash from this salted password
 
-            // return the hash string to the caller
-            return Convert.ToBase64String(resultBytes);
+                var dataBytes = Encoding.UTF8.GetBytes(password);
+                var resultBytes = sha.ComputeHash(dataBytes);
+
+                // return the hash string to the caller
+                return Convert.ToBase64String(resultBytes);
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace T5.Brothership.PL.Repositories
 
         public override void Delete(int id)
         {
-            User user = DbSet.FirstOrDefault(p => p.ID == id);
+            var user = DbSet.FirstOrDefault(p => p.ID == id);
 
             DbContext.Set<UserRating>().RemoveRange(user.RatedByUser);
             DbContext.Set<UserRating>().RemoveRange(user.UserRatings);
