@@ -10,7 +10,6 @@ namespace T5.Brothership.Controllers
 {
     public class LoginController : Controller
     {
-
         public ActionResult Login()
         {
             return Session["CurrentUser"] == null ? (ActionResult)View() : RedirectToAction(nameof(Details));
