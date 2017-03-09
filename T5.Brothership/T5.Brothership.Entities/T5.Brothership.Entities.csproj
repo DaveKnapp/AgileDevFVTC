@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelMetaData\UserLoginMetaData.cs" />
+    <Compile Include="ModelMetaData\UserMetaData.cs" />
     <Compile Include="Models\brothership.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -76,6 +78,7 @@
     <Compile Include="Models\Nationality.cs">
       <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartialModels.cs" />
     <Compile Include="Models\Rating.cs">
       <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
