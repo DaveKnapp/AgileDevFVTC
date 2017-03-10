@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace T5.Brothership.Entities.ModelMetaData
+namespace T5.Brothership.Entities.Models
 {
-    internal interface UserMetaData
+    public interface UserMetaData
     {
         [ScaffoldColumn(false)]
         int ID { get; set; }
@@ -25,10 +25,10 @@ namespace T5.Brothership.Entities.ModelMetaData
         [ScaffoldColumn(false)]
         string ProfileImagePath { get; set; }
 
-        [ScaffoldColumn(false)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
         DateTime DateJoined { get; set; }
 
-        [DataType(DataType.DateTime), Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
         DateTime DOB { get; set; }
 
         //TODO Update Database to include a table for gender values?

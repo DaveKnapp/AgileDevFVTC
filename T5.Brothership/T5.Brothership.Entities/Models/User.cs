@@ -11,7 +11,8 @@ namespace T5.Brothership.Entities.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -29,6 +30,7 @@ namespace T5.Brothership.Entities.Models
         public string Email { get; set; }
         public string Bio { get; set; }
         public string ProfileImagePath { get; set; }
+
         public System.DateTime DateJoined { get; set; }
         public System.DateTime DOB { get; set; }
         public string Gender { get; set; }
