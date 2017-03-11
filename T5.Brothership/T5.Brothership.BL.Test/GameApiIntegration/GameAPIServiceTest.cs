@@ -19,11 +19,11 @@ namespace T5.Brothership.BL.Test.GameApi
             var games = new List<Game>();
             using (var gameService = new GameAPIService())
             {
-                games = await gameService.SearchGamesAsync(searchTerm);
+                games = await gameService.SearchByTitleAsync(searchTerm);
             }
             foreach (var game in games)
             {
-                Debug.WriteLine(game.Title);
+                Debug.WriteLine("ID =" + game.igdbID + " Title =" + game.Title);
             }
             Assert.IsTrue(games.Count >= 1);
         }
@@ -37,7 +37,7 @@ namespace T5.Brothership.BL.Test.GameApi
 
             using (var gameService = new GameAPIService())
             {
-                games = await gameService.SearchGamesAsync(searchTerm);
+                games = await gameService.SearchByTitleAsync(searchTerm);
             }
 
             foreach (var game in games)
@@ -46,6 +46,23 @@ namespace T5.Brothership.BL.Test.GameApi
             }
 
             Assert.IsTrue(games.Count >= 1);
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public async Task GetById_GetCorrectGame_ExpectedGameEqualsActual()
+        {
+            const int expectedAPIId = 8534;
+            const string expectedTitle = "Zelda's Adventure";
+
+            var actualGame = new Game();
+
+            using (var gameService = new GameAPIService())
+            {
+                actualGame = await gameService.GetById(expectedAPIId);
+            }
+
+            Assert.AreEqual(expectedAPIId, actualGame.igdbID, null, "Expected ID:" + expectedAPIId + "Actual ID:" + actualGame.igdbID);
+            Assert.AreEqual(expectedTitle, actualGame.Title, null, "Expected Title:" + expectedTitle + "Actual Title:" + actualGame.Title);
         }
     }
 }

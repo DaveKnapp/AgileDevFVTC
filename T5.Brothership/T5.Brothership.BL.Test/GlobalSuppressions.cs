@@ -6,4 +6,7 @@
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0021:Use nameof", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.BL.Test.ManagerUnitTests.UserMangerTest.GetById_UserFound_ReturnsCorrectUser")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.BL.Test.ManagerUnitTests.UserMangerTest.AssertUsersEqual(T5.Brothership.Entities.Models.User,T5.Brothership.Entities.Models.User)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "CC0061:Async method can be terminating with 'Async' name.", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.BL.Test.GameApi.GameAPIServiceTest.SearchGamesAsync_DidRetrieveGames_CountGreaterThanOne~System.Threading.Tasks.Task")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "CC0061:Async method can be terminating with 'Async' name.", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.BL.Test.GameApi.GameAPIServiceTest.SearchGamesAsync_OnlyRetrievedGamesWithSearchTerm_AllGamesContainSearchTerm~System.Threading.Tasks.Task")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "CC0061:Async method can be terminating with 'Async' name.", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.BL.Test.GameApi.GameAPIServiceTest.GetById_GetCorrectGame_ExpectedGameEqualsActual~System.Threading.Tasks.Task")]
 

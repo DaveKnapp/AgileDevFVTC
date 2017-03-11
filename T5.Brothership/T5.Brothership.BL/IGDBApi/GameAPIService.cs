@@ -13,7 +13,7 @@ namespace T5.Brothership.BL.IGDBApi
     {
         private readonly HttpClient client = new HttpClient();
 
-        //TODO Change game table in database to include more fields for GameAPI data
+        //TODO Change game table in database to include more fields for GameAPI data like  CoverImageURL
         public GameAPIService()
         {
             client = CreateClient();
@@ -32,15 +32,13 @@ namespace T5.Brothership.BL.IGDBApi
 
             return client;
         }
-        public async Task<List<Game>> SearchGamesAsync(string gameName)
+        public async Task<List<Game>> SearchByTitleAsync(string gameName, int limit = 10, int offset = 0)
         {
             string[] fields = { "name", "cover" };
-            int offset = 0;
-            int limit = 10;
 
-            HttpResponseMessage responseMessage = await client.GetAsync("games/?fields=" + GetFieldsString(fields) + "&limit=" + limit
-                                                                        + "&offset=" + offset + "&search=" + gameName).ConfigureAwait(false);
-            string json = responseMessage.Content.ReadAsStringAsync().Result;
+            var responseMessage = await client.GetAsync("games/?fields=" + GetFieldsString(fields) + "&limit=" + limit
+                                                                        + "&offset=" + offset + "&search=" + gameName);
+            var json = responseMessage.Content.ReadAsStringAsync().Result;
             var response = JsonConvert.DeserializeObject<List<IGDBGame>>(json);
 
             var games = new List<Game>();
@@ -54,6 +52,23 @@ namespace T5.Brothership.BL.IGDBApi
                 });
             }
             return games;
+        }
+
+        public async Task<Game> GetById(int id)
+        {
+            string[] fields = { "name", "cover" };
+            var responseMessage = await client.GetAsync("games/" + id + "?fields=" + GetFieldsString(fields));
+            var json = responseMessage.Content.ReadAsStringAsync().Result;
+            var response = JsonConvert.DeserializeObject<List<IGDBGame>>(json);
+            var igdbGame = response[0];
+
+            var game = new Game
+            {
+                igdbID = igdbGame.id,
+                Title = igdbGame.name,
+            };
+
+            return game;
         }
 
         private string GetFieldsString(string[] fields)
