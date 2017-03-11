@@ -60,6 +60,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="GameApiIntegration\GameAPIServiceTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HelpersUnitTest\PasswordHelperTest.cs" />
     <Compile Include="ManagerUnitTests\UserManagerTest.cs" />
