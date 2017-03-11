@@ -12,10 +12,12 @@
 {
 @Html.AntiForgeryToken()
 <!-- section log in -->
-<section id="login" class="section">
+<div id="login" class="section">
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                <!--Unsure about this welcome message.  Could be displayed as a splash page on login.
+                    could stay as a friendly welcome to both new and returning users.-->
                 <div class="heading">
                     <h3><span>Welcome Back!</span></h3>
                 </div>
@@ -31,36 +33,39 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <h4><i class="fa fa-envelope"></i><strong>Log In</strong></h4>
-
+                <div class="row">
+                    <h4 class="col-sm-4 col-sm-offset-2"><i class="fa fa-envelope"></i><strong>&nbsp;Login</strong></h4>
+                </div>
                 <!-- start log in form -->
                 <div class="lform loginform" id="login-form">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group row">
-                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-sm-2 col-sm-offset-2" })
+                            <div class="col-sm-6">
                                 @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group row">
-                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
+                        <div class="form-group row top-margin">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-sm-2 col-sm-offset-2" })
+                            <div class="col-sm-6">
                                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", Type = "password" } })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="top-margin">
+                    <div class="row">
+                        <div class="top-margin col-sm-2 col-sm-offset-2">
                             <input type="submit" value="Login" class="btn btn-lg btn-theme" />
                             <h4>@ViewBag.Message</h4>
                         </div>
+                    </div>
                 </div>
                 <!-- END log in form -->
             </div>
         </div>
     </div>
-</section>
-                }
+</div>
+}
 <!-- end section login -->
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
