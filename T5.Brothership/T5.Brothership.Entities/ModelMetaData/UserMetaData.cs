@@ -31,9 +31,7 @@ namespace T5.Brothership.Entities.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
         DateTime DOB { get; set; }
 
-        //TODO Update Database to include a table for gender values?
-        string Gender { get; set; }
-
+        int GenderId { get; set; }
 
         int UserTypeID { get; set; }
         int NationalityID { get; set; }

@@ -38,5 +38,6 @@ namespace T5.Brothership.PL
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserSocialJunc> UserSocialJuncs { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<Gender> Genders { get; set; }
     }
 }

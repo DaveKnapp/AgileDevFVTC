@@ -11,8 +11,7 @@ namespace T5.Brothership.Entities.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -30,12 +29,11 @@ namespace T5.Brothership.Entities.Models
         public string Email { get; set; }
         public string Bio { get; set; }
         public string ProfileImagePath { get; set; }
-
         public System.DateTime DateJoined { get; set; }
         public System.DateTime DOB { get; set; }
-        public string Gender { get; set; }
         public int UserTypeID { get; set; }
         public int NationalityID { get; set; }
+        public short GenderId { get; set; }
     
         public virtual Nationality Nationality { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -50,5 +48,6 @@ namespace T5.Brothership.Entities.Models
         public virtual ICollection<UserSocialJunc> UserSocialJuncs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Game> Games { get; set; }
+        public virtual Gender Gender { get; set; }
     }
 }

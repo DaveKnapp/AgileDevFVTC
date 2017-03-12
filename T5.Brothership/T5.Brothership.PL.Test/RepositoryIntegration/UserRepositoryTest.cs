@@ -92,7 +92,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 ProfileImagePath = "../Images/TestUserOne/profile.png",
                 DateJoined = new DateTime(2017, 2, 20),
                 DOB = new DateTime(1988, 11, 12),
-                Gender = "M",
+                GenderId = 1,
                 UserTypeID = 1,
                 NationalityID = 1
             };
@@ -145,7 +145,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 DOB = new DateTime(1990, 3, 2),
                 Email = "expectedUser@gmail.com",
                 NationalityID = 1,
-                Gender = "M",
+                GenderId = 1,
                 UserLogin = new UserLogin { PasswordHash = "PasswordTest", Salt = "none" },
                 UserName = "TEstUserName",
                 ProfileImagePath = "TestUserImage.png",
@@ -189,7 +189,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             Assert.AreEqual(expected.DateJoined, actual.DateJoined);
             Assert.AreEqual(expected.DOB, actual.DOB);
             Assert.AreEqual(expected.Email, actual.Email);
-            Assert.AreEqual(expected.Gender, actual.Gender);
+            Assert.AreEqual(expected.GenderId, actual.GenderId);
             Assert.AreEqual(expected.NationalityID, actual.NationalityID);
             Assert.AreEqual(expected.ProfileImagePath, actual.ProfileImagePath);
             Assert.AreEqual(expected.UserName, actual.UserName);

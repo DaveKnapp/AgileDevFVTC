@@ -18,6 +18,7 @@
     <EntitySet Name="Users" EntityType="brothershipModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserSocialJuncs" EntityType="brothershipModel.Store.UserSocialJuncs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserTypes" EntityType="brothershipModel.Store.UserTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Genders" EntityType="brothershipModel.Store.Genders" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserGameJunc" EntityType="brothershipModel.Store.UserGameJunc" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_Game_Category" Association="brothershipModel.Store.FK_Game_Category">
       <End Role="GameCategory" EntitySet="GameCategories" />
@@ -71,6 +72,10 @@
       <End Role="User" EntitySet="Users" />
       <End Role="UserGameJunc" EntitySet="UserGameJunc" />
     </AssociationSet>
+    <AssociationSet Name="GenderUser" Association="brothershipModel.Store.GenderUser">
+      <End Role="Gender" EntitySet="Genders" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="GameCategories">
     <Key>
@@ -87,6 +92,7 @@
     <Property Name="Title" Type="varchar" Nullable="false" MaxLength="70" />
     <Property Name="igdbID" Type="int" Nullable="true" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="CoverImgUrl" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="IntegrationTypes">
     <Key>
@@ -154,9 +160,9 @@
     <Property Name="ProfileImagePath" Type="varchar" Nullable="false" MaxLength="60" />
     <Property Name="DateJoined" Type="datetime" Nullable="false" />
     <Property Name="DOB" Type="datetime" Nullable="false" />
-    <Property Name="Gender" Type="char" Nullable="false" MaxLength="1" />
     <Property Name="UserTypeID" Type="int" Nullable="false" />
     <Property Name="NationalityID" Type="int" Nullable="false" />
+    <Property Name="GenderId" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="UserSocialJuncs">
     <Key>
@@ -173,6 +179,13 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Description" Type="varchar" Nullable="false" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="Genders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="UserGameJunc">
     <Key>
@@ -322,6 +335,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="GenderUser">
+    <End Role="Gender" Type="brothershipModel.Store.Genders" Multiplicity="1" />
+    <End Role="User" Type="brothershipModel.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="GenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserGameJunc_Game">
     <End Role="Game" Type="brothershipModel.Store.Games" Multiplicity="1" />
     <End Role="UserGameJunc" Type="brothershipModel.Store.UserGameJunc" Multiplicity="*" />
@@ -411,6 +436,11 @@
             <End Role="Game" EntitySet="Games" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Genders" EntityType="brothershipModel.Gender" />
+          <AssociationSet Name="GenderUser" Association="brothershipModel.GenderUser">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="GameCategory">
           <Key>
@@ -430,6 +460,7 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="GameCategory" Relationship="brothershipModel.FK_Game_Category" FromRole="Game" ToRole="GameCategory" />
           <NavigationProperty Name="Users" Relationship="brothershipModel.UserGameJunc" FromRole="Game" ToRole="User" />
+          <Property Name="CoverImgUrl" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="IntegrationType">
           <Key>
@@ -507,7 +538,6 @@
           <Property Name="ProfileImagePath" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="DateJoined" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DOB" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="UserTypeID" Type="Int32" Nullable="false" />
           <Property Name="NationalityID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Nationality" Relationship="brothershipModel.FK_User_Nationality" FromRole="User" ToRole="Nationality" />
@@ -518,6 +548,8 @@
           <NavigationProperty Name="UserType" Relationship="brothershipModel.FK_User_UserTypeID" FromRole="User" ToRole="UserType" />
           <NavigationProperty Name="UserSocialJuncs" Relationship="brothershipModel.FK_UserSocial_User" FromRole="User" ToRole="UserSocialJunc" />
           <NavigationProperty Name="Games" Relationship="brothershipModel.UserGameJunc" FromRole="User" ToRole="Game" />
+          <NavigationProperty Name="Gender" Relationship="brothershipModel.GenderUser" FromRole="User" ToRole="Gender" />
+          <Property Name="GenderId" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="UserSocialJunc">
           <Key>
@@ -685,6 +717,26 @@
           <End Type="brothershipModel.Game" Role="Game" Multiplicity="*" />
           <End Type="brothershipModel.User" Role="User" Multiplicity="*" />
         </Association>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Users" Relationship="brothershipModel.GenderUser" FromRole="Gender" ToRole="User" />
+          <Property Name="Description" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="GenderUser">
+          <End Type="brothershipModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="brothershipModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -706,6 +758,7 @@
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="igdbID" ColumnName="igdbID" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="CoverImgUrl" ColumnName="CoverImgUrl" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -779,9 +832,9 @@
           <ScalarProperty Name="ProfileImagePath" ColumnName="ProfileImagePath" />
           <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
           <ScalarProperty Name="DOB" ColumnName="DOB" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
           <ScalarProperty Name="NationalityID" ColumnName="NationalityID" />
+          <ScalarProperty Name="GenderId" ColumnName="GenderId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -798,6 +851,14 @@
       <EntityTypeMapping TypeName="IsTypeOf(brothershipModel.UserType)">
         <MappingFragment StoreEntitySet="UserTypes">
           <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genders">
+      <EntityTypeMapping TypeName="IsTypeOf(brothershipModel.Gender)">
+        <MappingFragment StoreEntitySet="Genders">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Description" ColumnName="Description" />
         </MappingFragment>
       </EntityTypeMapping>

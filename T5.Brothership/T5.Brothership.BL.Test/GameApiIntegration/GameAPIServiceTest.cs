@@ -58,7 +58,7 @@ namespace T5.Brothership.BL.Test.GameApi
 
             using (var gameService = new GameAPIService())
             {
-                actualGame = await gameService.GetById(expectedAPIId);
+                actualGame = await gameService.GetByIdAsync(expectedAPIId);
             }
 
             Assert.AreEqual(expectedAPIId, actualGame.igdbID, null, "Expected ID:" + expectedAPIId + "Actual ID:" + actualGame.igdbID);

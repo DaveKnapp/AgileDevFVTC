@@ -58,7 +58,7 @@ namespace T5.Brothership.BL
                 this.ProfileImagePath = user.u.ProfileImagePath;
                 this.DateJoined = user.u.DateJoined;
                 this.DOB = user.u.DOB;
-                this.Gender = user.u.Gender;
+          //      this.Gender = user.u.Gender;
                 this.Password = user.ul.PasswordHash;
                 this.Nationality = user.un.Description;
                 this.UserType = user.ut.Description;

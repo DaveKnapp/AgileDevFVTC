@@ -13,7 +13,6 @@ namespace T5.Brothership.BL.IGDBApi
     {
         private readonly HttpClient client = new HttpClient();
 
-        //TODO Change game table in database to include more fields for GameAPI data like  CoverImageURL
         public GameAPIService()
         {
             client = CreateClient();
@@ -54,7 +53,7 @@ namespace T5.Brothership.BL.IGDBApi
             return games;
         }
 
-        public async Task<Game> GetById(int id)
+        public async Task<Game> GetByIdAsync(int id)
         {
             string[] fields = { "name", "cover" };
             var responseMessage = await client.GetAsync("games/" + id + "?fields=" + GetFieldsString(fields));

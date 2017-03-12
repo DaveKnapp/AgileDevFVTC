@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/03/2017 20:49:23
+-- Date Created: 03/11/2017 23:10:16
 -- Generated from EDMX file: C:\Users\zzdia\Source\Repos\AgileDevFVTC\T5.Brothership\T5.Brothership.PL\Brothership.edmx
 -- --------------------------------------------------
 
@@ -56,6 +56,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserGameJunc_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserGameJunc] DROP CONSTRAINT [FK_UserGameJunc_User];
 GO
+IF OBJECT_ID(N'[dbo].[FK_GenderUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_GenderUser];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -97,6 +100,9 @@ GO
 IF OBJECT_ID(N'[dbo].[UserTypes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserTypes];
 GO
+IF OBJECT_ID(N'[dbo].[Genders]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Genders];
+GO
 IF OBJECT_ID(N'[dbo].[UserGameJunc]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserGameJunc];
 GO
@@ -117,7 +123,8 @@ CREATE TABLE [dbo].[Games] (
     [ID] int IDENTITY(1,1) NOT NULL,
     [Title] varchar(70)  NOT NULL,
     [igdbID] int  NULL,
-    [CategoryID] int  NOT NULL
+    [CategoryID] int  NOT NULL,
+    [CoverImgUrl] nvarchar(max)  NULL
 );
 GO
 
@@ -183,9 +190,9 @@ CREATE TABLE [dbo].[Users] (
     [ProfileImagePath] varchar(60)  NOT NULL,
     [DateJoined] datetime  NOT NULL,
     [DOB] datetime  NOT NULL,
-    [Gender] char(1)  NOT NULL,
     [UserTypeID] int  NOT NULL,
-    [NationalityID] int  NOT NULL
+    [NationalityID] int  NOT NULL,
+    [GenderId] smallint  NOT NULL
 );
 GO
 
@@ -201,6 +208,13 @@ GO
 CREATE TABLE [dbo].[UserTypes] (
     [ID] int IDENTITY(1,1) NOT NULL,
     [Description] varchar(45)  NOT NULL
+);
+GO
+
+-- Creating table 'Genders'
+CREATE TABLE [dbo].[Genders] (
+    [Id] smallint IDENTITY(1,1) NOT NULL,
+    [Description] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -285,6 +299,12 @@ GO
 ALTER TABLE [dbo].[UserTypes]
 ADD CONSTRAINT [PK_UserTypes]
     PRIMARY KEY CLUSTERED ([ID] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Genders'
+ALTER TABLE [dbo].[Genders]
+ADD CONSTRAINT [PK_Genders]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- Creating primary key on [Games_ID], [Users_ID] in table 'UserGameJunc'
@@ -460,6 +480,21 @@ GO
 CREATE INDEX [IX_FK_UserGameJunc_User]
 ON [dbo].[UserGameJunc]
     ([Users_ID]);
+GO
+
+-- Creating foreign key on [GenderId] in table 'Users'
+ALTER TABLE [dbo].[Users]
+ADD CONSTRAINT [FK_GenderUser]
+    FOREIGN KEY ([GenderId])
+    REFERENCES [dbo].[Genders]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GenderUser'
+CREATE INDEX [IX_FK_GenderUser]
+ON [dbo].[Users]
+    ([GenderId]);
 GO
 
 -- --------------------------------------------------

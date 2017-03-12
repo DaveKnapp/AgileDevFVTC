@@ -27,7 +27,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
                 ProfileImagePath = "../Images/TestUserOne/Pofile.png",
                 DateJoined = new DateTime(2017, 2, 23),
                 DOB = new DateTime(1988, 11, 12),
-                Gender = "M",
+                GenderId = 1,
                 UserType = new UserType { ID = 1, Description = "User" },
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,

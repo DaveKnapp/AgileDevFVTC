@@ -71,7 +71,7 @@ namespace T5.Brothership.PL.Test
                 ProfileImagePath = @"MrTestUser.png",
                 UserName = "MrTestUser",
                 UserTypeID = 1,
-                Gender = "m"
+                GenderId = 1
             };
 
             context.SaveChanges();
@@ -104,7 +104,7 @@ namespace T5.Brothership.PL.Test
             newUser.DOB = DateTime.Parse("01/01/1990");
             newUser.Bio = "UnitTestBio";
             newUser.ProfileImagePath = "UnitTestPath";
-            newUser.Gender = "U";
+           // newUser.Gender = ;
             //Add nationality
 
             //Insert it all then test each individually
