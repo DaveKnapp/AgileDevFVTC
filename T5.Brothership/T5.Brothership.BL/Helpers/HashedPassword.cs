@@ -9,7 +9,7 @@ namespace T5.Brothership.BL.Helpers
 {
     public class HashedPassword
     {
-            public string Password { get; set; }
+            public string PasswordHash { get; set; }
             public string Salt { get; set; }
     }
 }

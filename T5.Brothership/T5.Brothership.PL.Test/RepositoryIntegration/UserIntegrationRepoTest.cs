@@ -18,11 +18,9 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            var script = File.ReadAllText(FilePaths.ADD_TEST_DATA_SCRIPT_PATH);
-
-            using (brothershipEntities dataContext = new brothershipEntities())
+            using (var dbContext = new brothershipEntities())
             {
-                dataContext.Database.ExecuteSqlCommand(script);
+                SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
         }
 

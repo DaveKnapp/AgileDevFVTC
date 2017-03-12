@@ -20,6 +20,7 @@ namespace T5.Brothership.PL
         IUserRatingRepository UserRatings { get; }
         IUserSocialMediaRepository UserSocialMedias { get; }
         IUserTypeRepository UserTypes { get; }
+        IGenderRepository Genders { get; }
 
         void Commit();
     }

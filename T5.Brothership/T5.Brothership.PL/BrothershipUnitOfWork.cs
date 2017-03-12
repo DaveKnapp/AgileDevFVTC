@@ -22,6 +22,7 @@ namespace T5.Brothership.PL
         private UserRatingRepository _userRatings;
         private UserSocialMediaRepository _userSocialMedias;
         private UserTypeRepository _userTypes;
+        private GenderRepository _genders;
 
         public IGameRepository Games
         {
@@ -140,6 +141,18 @@ namespace T5.Brothership.PL
                     _userTypes = new UserTypeRepository(dbContext);
                 }
                 return _userTypes;
+            }
+        }
+
+        public IGenderRepository Genders
+        {
+            get
+            {
+                if (_genders == null)
+                {
+                    _genders = new GenderRepository(dbContext);
+                }
+                return _genders;
             }
         }
 

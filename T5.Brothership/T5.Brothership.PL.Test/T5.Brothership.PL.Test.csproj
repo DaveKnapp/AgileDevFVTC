@@ -84,7 +84,6 @@
     <Compile Include="FakeRepositories\UserSocialMediaFakeRepository.cs" />
     <Compile Include="FakeRepositories\UserTypeFakeRepository.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="RepositoryIntegration\FilePaths.cs" />
     <Compile Include="RepositoryIntegration\GameRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\GenderRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\IntegrationTypeRepoTest.cs" />
@@ -96,6 +95,7 @@
     <Compile Include="RepositoryIntegration\UserRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\UserSocialMediaRepoTest.cs" />
     <Compile Include="RepositoryIntegration\UserTypeRepoTest.cs" />
+    <Compile Include="SqlScriptRunner.cs" />
     <Compile Include="utUserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ForReference\user.sql" />
-    <Content Include="RepositoryIntegration\AddTestData.sql" />
+    <Content Include="AddTestData.sql" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

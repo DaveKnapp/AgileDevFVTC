@@ -21,6 +21,7 @@ namespace T5.Brothership.PL.Test
         private UserRatingFakeRepository _userRatings;
         private UserSocialMediaFakeRepository _userSocialMedias;
         private UserTypeFakeRepository _userTypes;
+        private GenderFakeRepo _genders;
 
         public IGameRepository Games
         {
@@ -139,6 +140,18 @@ namespace T5.Brothership.PL.Test
                     _userTypes = new UserTypeFakeRepository();
                 }
                 return _userTypes;
+            }
+        }
+
+        public IGenderRepository Genders
+        {
+            get
+            {
+                if (_genders == null)
+                {
+                    _genders = new GenderFakeRepo();
+                }
+                return _genders;
             }
         }
 

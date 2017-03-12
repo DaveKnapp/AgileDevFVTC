@@ -20,7 +20,7 @@ namespace T5.Brothership.BL.Helpers
         {
             var hashedPassword = new HashedPassword();
             hashedPassword.Salt = passwordHasher.GenerateSalt();
-            hashedPassword.Password = passwordHasher.GenrateHash(_plainTextPassword + hashedPassword.Salt);
+            hashedPassword.PasswordHash = passwordHasher.GenrateHash(_plainTextPassword + hashedPassword.Salt);
 
             return hashedPassword;
         }
@@ -30,7 +30,7 @@ namespace T5.Brothership.BL.Helpers
             //byte[] bytes = Encoding.ASCII.GetBytes(password);
             //password = Encoding.Convert(Encoding.ASCII, Encoding.UTF8, bytes);
 
-            return hash.Password == passwordHasher.GenrateHash(password + hash.Salt);
+            return hash.PasswordHash == passwordHasher.GenrateHash(password + hash.Salt);
         }
 
     }
