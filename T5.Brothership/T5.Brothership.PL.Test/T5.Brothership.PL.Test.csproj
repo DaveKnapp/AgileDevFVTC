@@ -73,6 +73,7 @@
     <Compile Include="DatabaseIntegrationTest.cs" />
     <Compile Include="FakeBrothershipUnitOfWork.cs" />
     <Compile Include="FakeRepositories\GameFakeRepository.cs" />
+    <Compile Include="FakeRepositories\GenderFakeRepo.cs" />
     <Compile Include="FakeRepositories\UserIntegrationFakeRepository.cs" />
     <Compile Include="FakeRepositories\IntegrationTypeFakeRepository.cs" />
     <Compile Include="FakeRepositories\NationalityFakeRepository.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="RepositoryIntegration\FilePaths.cs" />
     <Compile Include="RepositoryIntegration\GameRepositoryTest.cs" />
+    <Compile Include="RepositoryIntegration\GenderRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\IntegrationTypeRepoTest.cs" />
     <Compile Include="RepositoryIntegration\NationalityRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\RatingRepositoryTest.cs" />

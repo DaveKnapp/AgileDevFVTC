@@ -33,4 +33,6 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CC0052:Make field readonly", Justification = "<Pending>", Scope = "member", Target = "~F:T5.Brothership.PL.Test.FakeRepositories.UserRatingFakeRepository._fakeUserRatings")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CC0052:Make field readonly", Justification = "<Pending>", Scope = "member", Target = "~F:T5.Brothership.PL.Test.FakeRepositories.UserSocialMediaFakeRepository._fakeUserSocialMedias")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0021:Use nameof", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.RepositoryIntegration.UserTypeRepositoryTest.GetById_CorrectDataGot_ActualEqualExpectedData")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.RepositoryIntegration.GenderRepositoryTest.AddandGetTestGender~T5.Brothership.Entities.Models.Gender")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.RepositoryIntegration.GenderRepositoryTest.AssertGendersEqual(T5.Brothership.Entities.Models.Gender,T5.Brothership.Entities.Models.Gender)")]
 
