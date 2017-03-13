@@ -7,7 +7,8 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.PL.Repositories
 {
-    public interface IGameRepository: IRepository<Game>
+    public interface IGameRepository : IRepository<Game>
     {
+        Game GetGameByIgdbId(int id);
     }
 }

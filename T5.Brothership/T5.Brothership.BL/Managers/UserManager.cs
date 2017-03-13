@@ -53,22 +53,52 @@ namespace T5.Brothership.BL.Managers
         public void Add(User user, string password)
         {
             throw new NotImplementedException();
-            
+            //TODO(Dave) Finish Method
+
             var newUser = user;
+
+            newUser.UserLogin = CreateUserLogin(password);
+
+            //Add User
+            newUser.DateJoined = DateTime.Now;
+            _unitOfWork.Users.Add(user);
+            _unitOfWork.Commit();
+
+            //Add gamesToDb if not exist
+            using (var gameManager = new GameManager())
+            {
+               var newGamesAdded = gameManager.AddGamesByIgdbIdIfNotExist(CreateIgdbIdArray(user.Games));
+            }
+
+            //Add user games
+           
+        }
+
+        private int[] CreateIgdbIdArray(ICollection<Game> games)
+        {
+            List<int> gameDbIds = new List<int>();
+
+            foreach (var game in games)
+            {
+                if (game.igdbID != null)
+                {
+                    gameDbIds.Add((int)game.igdbID);
+                }
+            }
+
+            return gameDbIds.ToArray();
+        }
+
+        private UserLogin CreateUserLogin(string password)
+        {
             var passwordHelper = new PasswordHelper();
             var hashedPassword = passwordHelper.GeneratePasswordHash(password);
 
-            newUser.UserLogin = new UserLogin
+            return new UserLogin
             {
                 PasswordHash = hashedPassword.PasswordHash,
                 Salt = hashedPassword.Salt
             };
-
-            //Add games if not exist
-            //Add user games
-            newUser.DateJoined = DateTime.Now;
-            _unitOfWork.Users.Add(user);
-            _unitOfWork.Commit();
         }
     }
 }

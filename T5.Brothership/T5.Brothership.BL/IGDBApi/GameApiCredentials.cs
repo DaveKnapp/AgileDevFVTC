@@ -8,6 +8,6 @@ namespace T5.Brothership.BL.IGDBApi
 {
    internal static class GameApiCredentials
     {
-        public const string API_KEY = @"JFYqPDKB0Nmshri2MORqS9808XWTp1rGMb6jsn2kCWpUvXFd16";
+        internal const string API_KEY = @"JFYqPDKB0Nmshri2MORqS9808XWTp1rGMb6jsn2kCWpUvXFd16";
     }
 }

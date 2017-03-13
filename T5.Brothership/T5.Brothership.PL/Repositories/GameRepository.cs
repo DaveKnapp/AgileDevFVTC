@@ -13,5 +13,10 @@ namespace T5.Brothership.PL.Repositories
         public GameRepository(DbContext dbContext) : base(dbContext)
         {
         }
+
+        public Game GetGameByIgdbId(int id)
+        {//TODO Add Tests
+            return DbSet.FirstOrDefault(p => p.igdbID == id);
+        }
     }
 }

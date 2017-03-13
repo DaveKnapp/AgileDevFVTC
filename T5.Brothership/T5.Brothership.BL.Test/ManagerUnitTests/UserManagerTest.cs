@@ -112,6 +112,23 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             Assert.IsTrue(user is InvalidUser);
         }
 
+        [TestCategory("UnitTest"), TestMethod]
+        public void Add_AllCorrectDataAdded_expectedDataEqualsActual()
+        {
+            var expectedPassword = "TestUserPassord";
+            var expectedUser = new User
+            {
+
+            };
+
+            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                userManager.Add(expectedUser,expectedPassword);
+            }
+
+            Assert.Fail();
+        }
+
         private void AssertUsersEqual(User expected, User actual)
         {
             Assert.AreEqual(expected.ID, actual.ID);

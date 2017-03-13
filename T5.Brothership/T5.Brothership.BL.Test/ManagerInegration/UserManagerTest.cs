@@ -25,7 +25,7 @@ namespace T5.Brothership.BL.Test.ManagerInegration
         [TestMethod, TestCategory("IntegrationTest")]
         public void Add_WasDataAdded_expectedDataEqualsActualData()
         {
-            string expectedUserPassword = "TestPassword";
+            const string expectedUserPassword = "TestPassword";
             User expectedUser = new User
             {
                 UserName = "SuperFly",
@@ -46,6 +46,7 @@ namespace T5.Brothership.BL.Test.ManagerInegration
             }
 
             Assert.IsNotNull(actualUser);
+            Assert.AreNotEqual(actualUser.ID, 0);
         }
     }
 }
