@@ -11,9 +11,16 @@ namespace T5.Brothership.PL.Test.FakeRepositories
     internal class GameFakeRepository : IGameRepository
     {
         List<Game> _fakeGames = new List<Game>();
+        FakeBrothershipUnitOfWork _unitOfWork;
 
         public GameFakeRepository()
         {
+            InitializeFakeGames();
+        }
+
+        public GameFakeRepository(FakeBrothershipUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
             InitializeFakeGames();
         }
 
@@ -50,7 +57,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             return _fakeGames.FirstOrDefault(p => p.ID == id);
         }
 
-        public Game GetGameByIgdbId(int id)
+        public Game GetByIgdbId(int id)
         {
             return _fakeGames.FirstOrDefault(p => p.igdbID == id);
         }

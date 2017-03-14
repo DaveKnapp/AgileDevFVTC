@@ -92,7 +92,7 @@
     <Property Name="Title" Type="varchar" Nullable="false" MaxLength="70" />
     <Property Name="igdbID" Type="int" Nullable="true" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
-    <Property Name="CoverImgUrl" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ImgCloudinaryId" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="IntegrationTypes">
     <Key>
@@ -460,7 +460,7 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="GameCategory" Relationship="brothershipModel.FK_Game_Category" FromRole="Game" ToRole="GameCategory" />
           <NavigationProperty Name="Users" Relationship="brothershipModel.UserGameJunc" FromRole="Game" ToRole="User" />
-          <Property Name="CoverImgUrl" Type="String" Nullable="true" />
+          <Property Name="ImgCloudinaryId" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="IntegrationType">
           <Key>
@@ -758,7 +758,7 @@
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="igdbID" ColumnName="igdbID" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-          <ScalarProperty Name="CoverImgUrl" ColumnName="CoverImgUrl" />
+          <ScalarProperty Name="ImgCloudinaryId" ColumnName="ImgCloudinaryId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -14,6 +14,7 @@ namespace T5.Brothership.BL.Managers
     public class UserManager : IDisposable
     {
         IBrothershipUnitOfWork _unitOfWork = new BrothershipUnitOfWork();
+        GameManager _gameManager = new GameManager();
 
         public UserManager()
         {
@@ -22,11 +23,13 @@ namespace T5.Brothership.BL.Managers
         public UserManager(IBrothershipUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+            _gameManager = new GameManager(_unitOfWork);
         }
 
         public void Dispose()
         {
             _unitOfWork.Dispose();
+            _gameManager.Dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -50,33 +53,23 @@ namespace T5.Brothership.BL.Managers
             return passwordHelper.IsPasswordMatch(password, hashedPassword) ? user : new InvalidUser();
         }
 
-        public void Add(User user, string password)
+        public async void Add(User user, string password)
         {
-            throw new NotImplementedException();
-            //TODO(Dave) Finish Method
-
             var newUser = user;
 
             newUser.UserLogin = CreateUserLogin(password);
-
-            //Add User
             newUser.DateJoined = DateTime.Now;
+
+            await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(user.Games));
+            newUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(user.Games));
+
             _unitOfWork.Users.Add(user);
             _unitOfWork.Commit();
-
-            //Add gamesToDb if not exist
-            using (var gameManager = new GameManager())
-            {
-               var newGamesAdded = gameManager.AddGamesByIgdbIdIfNotExist(CreateIgdbIdArray(user.Games));
-            }
-
-            //Add user games
-           
         }
 
         private int[] CreateIgdbIdArray(ICollection<Game> games)
         {
-            List<int> gameDbIds = new List<int>();
+            var gameDbIds = new List<int>();
 
             foreach (var game in games)
             {

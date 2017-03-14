@@ -6,6 +6,7 @@ using T5.Brothership.BL.Managers;
 using T5.Brothership.PL.Test;
 using T5.Brothership.PL;
 using T5.Brothership.Entities.Models;
+using System.Linq;
 
 namespace T5.Brothership.BL.Test.ManagerUnitTests
 {
@@ -115,18 +116,63 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
         [TestCategory("UnitTest"), TestMethod]
         public void Add_AllCorrectDataAdded_expectedDataEqualsActual()
         {
-            var expectedPassword = "TestUserPassord";
-            var expectedUser = new User
-            {
-
-            };
+            var expectedPassword = "TestAddedUserPassord";
+            User expectedUser = CreatExpectedAddedUser();
+            User actualUser;
 
             using (var userManager = new UserManager(new FakeBrothershipUnitOfWork()))
             {
-                userManager.Add(expectedUser,expectedPassword);
+                userManager.Add(expectedUser, expectedPassword);
+                actualUser = userManager.GetById(expectedUser.ID);
             }
 
-            Assert.Fail();
+            AssertUsersEqual(expectedUser, actualUser);
+        }
+
+        private static User CreatExpectedAddedUser()
+        {
+            var expectedUser = new User
+            {
+                UserName = "AddedUserName",
+                Email = "AddedUser@yahoo.com",
+                Bio = "This is my bio.  I was just added",
+                ProfileImagePath = "../Images/AddedUser/Pofile.png",
+                DOB = new DateTime(1980, 2, 10),
+                GenderId = 1,
+                NationalityID = 1,
+                UserTypeID = 1,
+                UserLogin = new UserLogin
+                {
+                    PasswordHash = "5Efg7nxAjJdkjIsZECyAWGA10mMixUnUiatbAgfcX3g=",
+                    Salt = "b9qo1clGZ0q/99JkBJevOJGjU6JGUhmy"
+                }
+            };
+
+            expectedUser.Games.Add(new Game
+            {
+                igdbID = 20122
+            });
+
+            expectedUser.Games.Add(new Game
+            {
+                igdbID = 18915
+            });
+
+            expectedUser.Games.Add(new Game
+            {
+                igdbID = 18868
+            });
+
+            expectedUser.Games.Add(new Game
+            {
+                igdbID = 21962
+            });
+
+            expectedUser.Games.Add(new Game
+            {
+                igdbID = 22788
+            });
+            return expectedUser;
         }
 
         private void AssertUsersEqual(User expected, User actual)
@@ -141,12 +187,13 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             Assert.AreEqual(expected.ProfileImagePath, actual.ProfileImagePath);
             Assert.AreEqual(expected.UserName, actual.UserName);
             Assert.AreEqual(expected.UserTypeID, actual.UserTypeID);
-            Assert.AreEqual(expected.Nationality.ID, actual.Nationality.ID);
-            Assert.AreEqual(expected.Nationality.Description, actual.Nationality.Description);
-            Assert.AreEqual(expected.UserType.ID, actual.UserType.ID);
-            Assert.AreEqual(expected.UserType.Description, actual.UserType.Description);
             Assert.AreEqual(expected.UserLogin.UserID, actual.UserLogin.UserID);
             Assert.AreEqual(expected.UserLogin.PasswordHash, actual.UserLogin.PasswordHash);
+
+            foreach (var game in expected.Games)
+            {
+                Assert.IsNotNull(actual.Games.Where(p => p.igdbID == game.igdbID));
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace T5.Brothership.PL.Test
             {
                 if (_gameRepository == null)
                 {
-                    _gameRepository = new GameFakeRepository();
+                    _gameRepository = new GameFakeRepository(this);
                 }
                 return _gameRepository;
             }
@@ -113,7 +113,7 @@ namespace T5.Brothership.PL.Test
             {
                 if (_userRepository == null)
                 {
-                    _userRepository = new UserFakeRepository();
+                    _userRepository = new UserFakeRepository(this);
                 }
                 return _userRepository;
             }

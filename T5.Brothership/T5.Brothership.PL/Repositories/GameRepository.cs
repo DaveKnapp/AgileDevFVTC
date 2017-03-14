@@ -14,7 +14,7 @@ namespace T5.Brothership.PL.Repositories
         {
         }
 
-        public Game GetGameByIgdbId(int id)
+        public Game GetByIgdbId(int id)
         {//TODO Add Tests
             return DbSet.FirstOrDefault(p => p.igdbID == id);
         }

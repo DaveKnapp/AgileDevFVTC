@@ -12,6 +12,7 @@ namespace T5.Brothership.BL.Managers
     public class GameManager : IDisposable
     {
         IBrothershipUnitOfWork _unitOfWork = new BrothershipUnitOfWork();
+        IGameAPIService _gameApiService = new GameAPIService();
 
         public GameManager()
         {
@@ -22,38 +23,51 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork = unitOfWork;
         }
 
+        public GameManager(IBrothershipUnitOfWork unitOfWork, IGameAPIService gameApiService)
+        {
+            _gameApiService = gameApiService;
+            _unitOfWork = unitOfWork;
+        }
+
         public void Dispose()
         {
             _unitOfWork.Dispose();
+            _gameApiService.Dispose();
             GC.SuppressFinalize(this);
         }
 
-        public Game AddGameByIgdbIdIfNotExist(int? igdbID)
+        public List<Game> GetByIgdbIds(int[] gameIds)
         {
-
-            throw new NotImplementedException();
-            if (igdbID == null)
-            {
-                return null;
-            }
-     
-        }
-
-        public List<Game> AddGamesByIgdbIdIfNotExist(int[] igdbIDs)
-        {
-            throw new NotImplementedException();
-
             var games = new List<Game>();
-
-            foreach (var gameId in igdbIDs)
+            foreach (var id in gameIds)
             {
-               Game game = AddGameByIgdbIdIfNotExist(gameId);
-                if (game != null)
-                {
-                    games.Add(game);
-                }
+                //TODO(Dave)Make repo method to return multiple games from id
+                _unitOfWork.Games.GetByIgdbId(id);
             }
             return games;
+        }
+
+        public async Task AddGameIfNotExistAsync(int igdbID)
+        {
+            if (!(_unitOfWork.Games.GetByIgdbId((int)igdbID) == null))
+            {
+                await AddGameToDatabase(igdbID);
+            }
+        }
+
+        public async Task AddGamesIfNotExistsAsync(int[] igdbIDs)
+        {
+            foreach (var gameId in igdbIDs)
+            {
+                await AddGameIfNotExistAsync(gameId);
+            }
+        }
+
+        private async Task AddGameToDatabase(int igdbID)
+        {
+            var game = await _gameApiService.GetByIdAsync((int)igdbID);
+            _unitOfWork.Games.Add(game);
+            _unitOfWork.Games.SaveChanges();
         }
     }
 }

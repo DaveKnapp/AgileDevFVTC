@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/11/2017 23:10:16
+-- Date Created: 03/14/2017 11:56:22
 -- Generated from EDMX file: C:\Users\zzdia\Source\Repos\AgileDevFVTC\T5.Brothership\T5.Brothership.PL\Brothership.edmx
 -- --------------------------------------------------
 
@@ -124,7 +124,7 @@ CREATE TABLE [dbo].[Games] (
     [Title] varchar(70)  NOT NULL,
     [igdbID] int  NULL,
     [CategoryID] int  NOT NULL,
-    [CoverImgUrl] nvarchar(max)  NULL
+    [ImgCloudinaryId] nvarchar(max)  NULL
 );
 GO
 

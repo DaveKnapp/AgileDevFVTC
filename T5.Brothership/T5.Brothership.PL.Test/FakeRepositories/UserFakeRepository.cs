@@ -7,13 +7,20 @@ using T5.Brothership.Entities.Models;
 using T5.Brothership.PL.Repositories;
 
 namespace T5.Brothership.PL.Test.FakeRepositories
-{
+{//TODO:(Dave) Improve Repo fakes
     internal class UserFakeRepository : IUserRepository
     {
         private List<User> _fakeUsers = new List<User>();
+        private FakeBrothershipUnitOfWork _unitOfWork;
 
         public UserFakeRepository()
         {
+            InitializeUsers();
+        }
+
+        public UserFakeRepository(FakeBrothershipUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
             InitializeUsers();
         }
 
@@ -27,6 +34,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
         {
             var user = _fakeUsers.Single(p => p.ID == id);
             _fakeUsers.Remove(user);
+
         }
 
         public void Delete(User entity)

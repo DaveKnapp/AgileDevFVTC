@@ -24,7 +24,7 @@ namespace T5.Brothership.Entities.Models
         public string Title { get; set; }
         public Nullable<int> igdbID { get; set; }
         public int CategoryID { get; set; }
-        public string CoverImgUrl { get; set; }
+        public string ImgCloudinaryId { get; set; }
     
         public virtual GameCategory GameCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

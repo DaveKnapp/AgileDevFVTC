@@ -11,4 +11,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.BL.IGDBApi.GameAPIService.GetFieldsString(System.String[])~System.String")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.BL.Managers.UserManager.CreateUserLogin(System.String)~T5.Brothership.Entities.Models.UserLogin")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.BL.Managers.GameManager.AddGamesByIgdbIdIfNotExist(System.Int32)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.BL.Managers.UserManager.CreateIgdbIdArray(System.Collections.Generic.ICollection{T5.Brothership.Entities.Models.Game})~System.Int32[]")]
 

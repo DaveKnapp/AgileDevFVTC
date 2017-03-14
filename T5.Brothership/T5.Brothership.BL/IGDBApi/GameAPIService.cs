@@ -9,7 +9,7 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.IGDBApi
 {//TODO Is this the best name?
-    public class GameAPIService : IDisposable
+    public class GameAPIService : IDisposable, IGameAPIService
     {
         private readonly HttpClient client = new HttpClient();
 

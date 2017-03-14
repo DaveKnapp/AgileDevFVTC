@@ -8,7 +8,7 @@ using T5.Brothership.PL.Test;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.BL.Managers;
 
-namespace T5.Brothership.BL.Test.ManagerInegration
+namespace T5.Brothership.BL.Test.ManagerIntegration
 {
     [TestClass]
     public class UserManagerTest

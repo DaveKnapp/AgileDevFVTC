@@ -9,6 +9,6 @@ namespace T5.Brothership.PL.Repositories
 {
     public interface IGameRepository : IRepository<Game>
     {
-        Game GetGameByIgdbId(int id);
+        Game GetByIgdbId(int id);
     }
 }
