@@ -39,7 +39,72 @@ namespace T5.Brothership.BL.Test
         {
             _fakeGames.Add(new Game
             {
-                //TODO Add data
+               igdbID = 7346,
+               Title = "The Legend of Zelda: Breath of the Wild",
+               ImgCloudinaryId = "jk9el4ksl4c7qwaex2y5",
+            });
+
+            _fakeGames.Add(new Game
+            {
+                igdbID = 18017,
+                Title = "The Legend of Zelda: Twilight Princess HD",
+                ImgCloudinaryId = "klebtdw8yafmdcyc8ljl",
+            });
+
+            _fakeGames.Add(new Game
+            {
+                igdbID = 11194,
+                Title = "The Legend of Zelda: Tri Force Heroes",
+                ImgCloudinaryId = "dtj80vlbzqbywzcdcdiv",
+            });
+
+            _fakeGames.Add(new Game
+            {
+                igdbID = 8593,
+                Title = "The Legend of Zelda: Majora's Mask 3D",
+                ImgCloudinaryId = "zpy6tbjyuhdtg4gvjl4n",
+            });
+
+            _fakeGames.Add(new Game
+            {
+                igdbID = 5314,
+                Title = "Hyrule Warriors",
+                ImgCloudinaryId = "qucn5uwcxryxsgsyoco5",
+            });
+
+            _fakeGames.Add(new Game
+            {
+                igdbID = 2909,
+                Title = "The Legend of Zelda: A Link Between Worlds",
+                ImgCloudinaryId = "r9ezsk5yhljc83dfjeqc",
+            });
+
+            _fakeGames.Add(new Game
+            {
+                igdbID = 2276,
+                Title = "The Legend of Zelda: The Wind Waker HD",
+                ImgCloudinaryId = "xcivov9txngp8jyd0cyd",
+            });
+
+            _fakeGames.Add(new Game
+            {
+                igdbID = 1035,
+                Title = "The Legend of Zelda: The Minish Cap",
+                ImgCloudinaryId = "rtsxyofw5svqq8tixtru",
+            });
+
+            _fakeGames.Add(new Game
+            {
+                igdbID = 534,
+                Title = "The Legend of Zelda: Skyward Sword",
+                ImgCloudinaryId = "acupjubv0zatshopxcpn",
+            });
+
+            _fakeGames.Add(new Game
+            {
+                igdbID = 1039,
+                Title = "The Legend of Zelda: Ocarina of Time 3D",
+                ImgCloudinaryId = "y2nz1vsmqyrvm7twqrh0",
             });
         }
     }

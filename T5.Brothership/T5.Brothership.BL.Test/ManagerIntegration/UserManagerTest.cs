@@ -7,6 +7,7 @@ using T5.Brothership.PL;
 using T5.Brothership.PL.Test;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.BL.Managers;
+using System.Threading.Tasks;
 
 namespace T5.Brothership.BL.Test.ManagerIntegration
 {
@@ -23,7 +24,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public void Add_WasDataAdded_expectedDataEqualsActualData()
+        public async Task Add_WasDataAdded_expectedDataEqualsActualData()
         {
             const string expectedUserPassword = "TestPassword";
             User expectedUser = new User
@@ -41,12 +42,14 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
             User actualUser;
             using (UserManager userManger = new UserManager())
             {
-                userManger.Add(expectedUser, expectedUserPassword);
-                actualUser = userManger.GetById(expectedUser.ID);
+                await userManger.Add(expectedUser, expectedUserPassword);
+                actualUser = userManger.GetById(expectedUser.ID); 
             }
 
             Assert.IsNotNull(actualUser);
             Assert.AreNotEqual(actualUser.ID, 0);
         }
+
+        //TODO(DAVE) Add GetBy Id Test
     }
 }

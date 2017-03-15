@@ -129,10 +129,9 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
             _fakeGames.Add(new Game
             {
-                ID = 7,
-                Title = "Plants vs Zombies",
-                igdbID = 8707,
-                CategoryID = 14
+                igdbID = 1039,
+                Title = "The Legend of Zelda: Ocarina of Time 3D",
+                ImgCloudinaryId = "y2nz1vsmqyrvm7twqrh0",
             });
         }
     }

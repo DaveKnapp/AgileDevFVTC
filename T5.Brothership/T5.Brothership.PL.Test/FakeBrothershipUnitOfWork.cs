@@ -113,7 +113,7 @@ namespace T5.Brothership.PL.Test
             {
                 if (_userRepository == null)
                 {
-                    _userRepository = new UserFakeRepository(this);
+                    _userRepository = new UserFakeRepository();
                 }
                 return _userRepository;
             }

@@ -7,6 +7,7 @@ using T5.Brothership.PL.Test;
 using T5.Brothership.PL;
 using T5.Brothership.Entities.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace T5.Brothership.BL.Test.ManagerUnitTests
 {
@@ -114,22 +115,25 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
         }
 
         [TestCategory("UnitTest"), TestMethod]
-        public void Add_AllCorrectDataAdded_expectedDataEqualsActual()
+        public async Task Add_AllCorrectDataAdded_expectedDataEqualsActual()
         {
             var expectedPassword = "TestAddedUserPassord";
-            User expectedUser = CreatExpectedAddedUser();
+            var expectedUser = CreateExpectedAddedUser();
             User actualUser;
 
-            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork()))
+            using (var fakeUnitOfWork = new FakeBrothershipUnitOfWork())
             {
-                userManager.Add(expectedUser, expectedPassword);
-                actualUser = userManager.GetById(expectedUser.ID);
+                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiServiceFake()))
+                {
+                    await userManager.Add(expectedUser, expectedPassword);
+                    actualUser = fakeUnitOfWork.Users.GetByUsernameOrEmail(expectedUser.UserName);
+                }
             }
 
             AssertUsersEqual(expectedUser, actualUser);
         }
 
-        private static User CreatExpectedAddedUser()
+        private static User CreateExpectedAddedUser()
         {
             var expectedUser = new User
             {
@@ -150,27 +154,27 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
 
             expectedUser.Games.Add(new Game
             {
-                igdbID = 20122
+                igdbID = 18017
             });
 
             expectedUser.Games.Add(new Game
             {
-                igdbID = 18915
+                igdbID = 11194
             });
 
             expectedUser.Games.Add(new Game
             {
-                igdbID = 18868
+                igdbID = 2909
             });
 
             expectedUser.Games.Add(new Game
             {
-                igdbID = 21962
+                igdbID = 2276
             });
 
             expectedUser.Games.Add(new Game
             {
-                igdbID = 22788
+                igdbID = 534
             });
             return expectedUser;
         }
@@ -189,6 +193,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             Assert.AreEqual(expected.UserTypeID, actual.UserTypeID);
             Assert.AreEqual(expected.UserLogin.UserID, actual.UserLogin.UserID);
             Assert.AreEqual(expected.UserLogin.PasswordHash, actual.UserLogin.PasswordHash);
+            Assert.AreEqual(actual.Games.Count, actual.Games.Count);
 
             foreach (var game in expected.Games)
             {

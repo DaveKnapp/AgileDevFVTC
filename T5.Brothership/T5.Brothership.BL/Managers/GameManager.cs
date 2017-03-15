@@ -11,11 +11,14 @@ namespace T5.Brothership.BL.Managers
 {
     public class GameManager : IDisposable
     {
-        IBrothershipUnitOfWork _unitOfWork = new BrothershipUnitOfWork();
-        IGameAPIService _gameApiService = new GameAPIService();
+        IBrothershipUnitOfWork _unitOfWork;
+        IGameAPIService _gameApiService;
 
         public GameManager()
         {
+            _unitOfWork = new BrothershipUnitOfWork();
+            _gameApiService = new GameAPIService();
+
         }
 
         public GameManager(IBrothershipUnitOfWork unitOfWork)
@@ -31,8 +34,8 @@ namespace T5.Brothership.BL.Managers
 
         public void Dispose()
         {
-            _unitOfWork.Dispose();
-            _gameApiService.Dispose();
+            _unitOfWork?.Dispose();
+            _gameApiService?.Dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -42,14 +45,18 @@ namespace T5.Brothership.BL.Managers
             foreach (var id in gameIds)
             {
                 //TODO(Dave)Make repo method to return multiple games from id
-                _unitOfWork.Games.GetByIgdbId(id);
+                var game = _unitOfWork.Games.GetByIgdbId(id);
+                if (game != null)
+                {
+                    games.Add(_unitOfWork.Games.GetByIgdbId(id));
+                }
             }
             return games;
         }
 
         public async Task AddGameIfNotExistAsync(int igdbID)
         {
-            if (!(_unitOfWork.Games.GetByIgdbId((int)igdbID) == null))
+            if ((_unitOfWork.Games.GetByIgdbId((int)igdbID) == null))
             {
                 await AddGameToDatabase(igdbID);
             }

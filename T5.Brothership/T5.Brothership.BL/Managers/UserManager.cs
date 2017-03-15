@@ -8,22 +8,31 @@ using T5.Brothership.PL.Repositories;
 using T5.Brothership.PL;
 using System.Data.Entity;
 using T5.Brothership.BL.Helpers;
+using T5.Brothership.BL.IGDBApi;
 
 namespace T5.Brothership.BL.Managers
 {
     public class UserManager : IDisposable
     {
-        IBrothershipUnitOfWork _unitOfWork = new BrothershipUnitOfWork();
-        GameManager _gameManager = new GameManager();
+        IBrothershipUnitOfWork _unitOfWork;
+        GameManager _gameManager;
 
         public UserManager()
         {
+            _unitOfWork = new BrothershipUnitOfWork();
+            _gameManager = new GameManager();
         }
 
         public UserManager(IBrothershipUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _gameManager = new GameManager(_unitOfWork);
+        }
+
+        public UserManager(IBrothershipUnitOfWork unitOfWork, IGameAPIService gameApiService)
+        {
+            _unitOfWork = unitOfWork;
+            _gameManager = new GameManager(_unitOfWork, gameApiService);
         }
 
         public void Dispose()
@@ -53,7 +62,7 @@ namespace T5.Brothership.BL.Managers
             return passwordHelper.IsPasswordMatch(password, hashedPassword) ? user : new InvalidUser();
         }
 
-        public async void Add(User user, string password)
+        public async Task Add(User user, string password)
         {
             var newUser = user;
 
@@ -63,9 +72,11 @@ namespace T5.Brothership.BL.Managers
             await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(user.Games));
             newUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(user.Games));
 
-            _unitOfWork.Users.Add(user);
+            _unitOfWork.Users.Add(newUser);
             _unitOfWork.Commit();
         }
+
+        //TODO(Dave) Add get user method
 
         private int[] CreateIgdbIdArray(ICollection<Game> games)
         {
