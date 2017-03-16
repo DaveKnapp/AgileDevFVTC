@@ -6,7 +6,7 @@ using T5.Brothership.PL.Test;
 namespace T5.Brothership.BL.Test.ManagerUnitTests
 {
     [TestClass]
-    public class RatingManagerTest
+    public class UserRatingManagerTest
     {
         //TODO Add tests for
         //public List<UserRating> GetAllByUserId(int ratedUserId)

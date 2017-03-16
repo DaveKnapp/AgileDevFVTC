@@ -75,7 +75,7 @@
     <Compile Include="HelpersUnitTest\PasswordHelperTest.cs" />
     <Compile Include="ManagerIntegration\UserManagerTest.cs" />
     <Compile Include="ManagerUnitTests\GameManagerTest.cs" />
-    <Compile Include="ManagerUnitTests\RatingManagerTest.cs" />
+    <Compile Include="ManagerUnitTests\UserRatingManagerTest.cs" />
     <Compile Include="ManagerUnitTests\UserManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserLoginTest.cs" />
