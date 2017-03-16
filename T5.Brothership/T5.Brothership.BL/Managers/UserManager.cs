@@ -91,6 +91,11 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork.Users.Update(currentUser);
         }
 
+        public List<User> GetAllUsers()
+        {
+            return _unitOfWork.Users.GetAll().ToList();
+        }
+
         private int[] CreateIgdbIdArray(ICollection<Game> games)
         {
             var gameDbIds = new List<int>();
