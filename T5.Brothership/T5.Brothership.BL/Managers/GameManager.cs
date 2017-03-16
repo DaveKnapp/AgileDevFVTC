@@ -42,10 +42,11 @@ namespace T5.Brothership.BL.Managers
         public List<Game> GetByIgdbIds(int[] gameIds)
         {
             var games = new List<Game>();
+
             foreach (var id in gameIds)
             {
-                //TODO(Dave)Make repo method to return multiple games from id
                 var game = _unitOfWork.Games.GetByIgdbId(id);
+
                 if (game != null)
                 {
                     games.Add(_unitOfWork.Games.GetByIgdbId(id));
@@ -56,7 +57,7 @@ namespace T5.Brothership.BL.Managers
 
         public async Task AddGameIfNotExistAsync(int igdbID)
         {
-            if ((_unitOfWork.Games.GetByIgdbId((int)igdbID) == null))
+            if (_unitOfWork.Games.GetByIgdbId(igdbID) == null)
             {
                 await AddGameToDatabase(igdbID);
             }
@@ -72,7 +73,7 @@ namespace T5.Brothership.BL.Managers
 
         private async Task AddGameToDatabase(int igdbID)
         {
-            var game = await _gameApiService.GetByIdAsync((int)igdbID);
+            var game = await _gameApiService.GetByIdAsync(igdbID);
             _unitOfWork.Games.Add(game);
             _unitOfWork.Games.SaveChanges();
         }

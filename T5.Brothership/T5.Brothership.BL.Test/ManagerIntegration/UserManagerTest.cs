@@ -24,7 +24,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public async Task Add_WasDataAdded_expectedDataEqualsActualData()
+        public async Task Add_WasDataAdded_ExpectedDataEqualsActualData()
         {
             const string expectedUserPassword = "TestPassword";
             User expectedUser = new User
@@ -43,13 +43,89 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
             using (UserManager userManger = new UserManager())
             {
                 await userManger.Add(expectedUser, expectedUserPassword);
-                actualUser = userManger.GetById(expectedUser.ID); 
+                actualUser = userManger.GetById(expectedUser.ID);
             }
 
             Assert.IsNotNull(actualUser);
             Assert.AreNotEqual(actualUser.ID, 0);
         }
 
-        //TODO(DAVE) Add GetBy Id Test
+        [TestMethod, TestCategory("IntegrationTest")]
+        public async Task GetById_WasCorrentDataReturned_ExpectedDataEqualsActualData()
+        {
+            var expectedUser = new User
+            {
+                ID = 1,
+                UserName = "TestUserOne",
+                Email = "Testing123@yahoo.com",
+                Bio = "This is my bio",
+                ProfileImagePath = "../Images/TestUserOne/profile.png",
+                DateJoined = new DateTime(2017, 2, 20),
+                DOB = new DateTime(1988, 11, 12),
+                GenderId = 1,
+                UserTypeID = 1,
+                NationalityID = 1
+            };
+
+            User actualUser;
+            using (UserManager userManger = new UserManager())
+            {
+                userManger.GetById(expectedUser.ID);
+                actualUser = userManger.GetById(expectedUser.ID);
+                AssertUsersEqual(expectedUser, actualUser);
+                //TODO(Dave) Add assert for games
+            }
+        }
+
+        [TestCategory("IntegrationTest"), TestMethod]
+        public  void Update_WasDataUpdated_ExpectedDataEqualsActual()
+        {
+            using (var userManager = new UserManager())
+            {
+                const int expectedCount = 4;
+                const int userId = 1;
+
+                var expectedUser = new User
+                {
+                    ID = 1,
+                    Bio = "UpdatedBio",
+                    DateJoined = DateTime.Now,
+                    DOB = new DateTime(1999, 3, 22),
+                    Email = "UserOneUpdatedEmail",
+                    GenderId = 2,
+                    ProfileImagePath = "UpdatedImagePath.jpg",
+
+                    Games = new List<Game>{ new Game {igdbID = 4325},
+                                                     new Game {igdbID = 1277},
+                                                     new Game {igdbID = 2276},
+                                                     new Game {igdbID = 1039}}
+                };
+
+                userManager.Update(expectedUser);
+
+                var actualUser = userManager.GetById(userId);
+
+                AssertUsersEqual(expectedUser, actualUser);
+                Assert.AreEqual(expectedCount, actualUser.Games.Count);
+
+                foreach (var game in expectedUser.Games)
+                {
+                    Assert.IsTrue(actualUser.Games.Contains(game));
+                }
+            }
+        }
+        private void AssertUsersEqual(User expected, User actual)
+        {
+            Assert.AreEqual(expected.ID, actual.ID);
+            Assert.AreEqual(expected.Bio, actual.Bio);
+            Assert.AreEqual(expected.DateJoined, actual.DateJoined);
+            Assert.AreEqual(expected.DOB, actual.DOB);
+            Assert.AreEqual(expected.Email, actual.Email);
+            Assert.AreEqual(expected.GenderId, actual.GenderId);
+            Assert.AreEqual(expected.NationalityID, actual.NationalityID);
+            Assert.AreEqual(expected.ProfileImagePath, actual.ProfileImagePath);
+            Assert.AreEqual(expected.UserName, actual.UserName);
+            Assert.AreEqual(expected.UserTypeID, actual.UserTypeID);
+        }
     }
 }

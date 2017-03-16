@@ -11,9 +11,7 @@ using System.Threading.Tasks;
 
 namespace T5.Brothership.BL.Test.ManagerUnitTests
 {
-    /// <summary>
-    /// Summary description for UserMangerTest
-    /// </summary>
+    //TODO Add game Manager integtration test.
     [TestClass]
     public class UserMangerTest
     {
@@ -131,6 +129,39 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             }
 
             AssertUsersEqual(expectedUser, actualUser);
+        }
+
+        [TestCategory("UnitTest"), TestMethod]
+        public async Task Update_WasDataUpdated_ExpectedDataEqualsActual()
+        {
+            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork(), new GameApiServiceFake()))
+            {
+                const int userId = 1;
+                var expectedUser = userManager.GetById(userId);
+
+                expectedUser.Bio = "UpdatedBio";
+                expectedUser.DateJoined = DateTime.Now;
+                expectedUser.DOB = new DateTime(1999, 3, 22);
+                expectedUser.Email = "UserOneUpdatedEmail";
+                expectedUser.GenderId = 2;
+                expectedUser.ProfileImagePath = "UpdatedImagePath.jpg";
+                expectedUser.Games = new List<Game>{ new Game {igdbID = 4325},
+                                                     new Game {igdbID = 5314},
+                                                     new Game {igdbID = 2276},
+                                                     new Game {igdbID = 1039}};
+
+                userManager.Update(expectedUser);
+
+                var actualUser = userManager.GetById(userId);
+
+                AssertUsersEqual(expectedUser, actualUser);
+                Assert.AreEqual(expectedUser.Games.Count(), actualUser.Games.Count());
+
+                foreach (var game in expectedUser.Games)
+                {
+                    Assert.IsTrue(actualUser.Games.Contains(game));
+                }
+            }
         }
 
         private static User CreateExpectedAddedUser()

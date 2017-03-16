@@ -92,7 +92,9 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                     PasswordHash = "5Efg7nxAjJdkjIsZECyAWGA10mMixUnUiatbAgfcX3g=",
                     UserID = 1,
                     Salt = "b9qo1clGZ0q/99JkBJevOJGjU6JGUhmy"
-                }
+                },
+                Games = CreateUserOneGames()
+
             });
 
             _fakeUsers.Add(new User
@@ -182,6 +184,37 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                     Salt = "VuQePlIuVbuwkygTSwbHCjkTsqy5cLgB"
                 }
             });
+        }
+
+        private ICollection<Game> CreateUserOneGames()
+        {
+            List<Game> games = new List<Game>();
+
+            games.Add(new Game
+            {
+                ID = 2,
+                Title = "Batlefield 1",
+                igdbID = 4325,
+                CategoryID = 4
+            });
+
+            games.Add(new Game
+            {
+                ID = 3,
+                Title = "Civilization V",
+                igdbID = 523,
+                CategoryID = 6
+            });
+
+            games.Add(new Game
+            {
+                ID = 4,
+                Title = "Resident Evil 7",
+                igdbID = 324,
+                CategoryID = 5
+            });
+
+            return games;
         }
     }
 }

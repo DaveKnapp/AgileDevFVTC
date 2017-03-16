@@ -36,3 +36,7 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.RepositoryIntegration.GenderRepositoryTest.AddandGetTestGender~T5.Brothership.Entities.Models.Gender")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.RepositoryIntegration.GenderRepositoryTest.AssertGendersEqual(T5.Brothership.Entities.Models.Gender,T5.Brothership.Entities.Models.Gender)")]
 
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.utUserTest.DeleteUserLoginTest")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.utUserTest.InsertUserLoginTest")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.utUserTest.InsertUserTest")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CC0091:Use static method", Justification = "<Pending>", Scope = "member", Target = "~M:T5.Brothership.PL.Test.utUserTest.LoadUserLoginTest")]

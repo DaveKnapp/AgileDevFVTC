@@ -37,8 +37,8 @@ namespace T5.Brothership.BL.Managers
 
         public void Dispose()
         {
-            _unitOfWork.Dispose();
-            _gameManager.Dispose();
+            _unitOfWork?.Dispose();
+            _gameManager?.Dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -76,7 +76,20 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork.Commit();
         }
 
-        //TODO(Dave) Add get user method
+        public async void Update(User updatedUser)
+        {
+            //TODO Dave Finish
+            throw new NotImplementedException();
+            var currentUser = _unitOfWork.Users.GetById(updatedUser.ID);
+            currentUser = updatedUser;
+            currentUser.Games.Clear();
+
+      //      await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(updatedUser.Games));
+
+            currentUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(updatedUser.Games));
+
+            _unitOfWork.Users.Update(currentUser);
+        }
 
         private int[] CreateIgdbIdArray(ICollection<Game> games)
         {
@@ -104,5 +117,6 @@ namespace T5.Brothership.BL.Managers
                 Salt = hashedPassword.Salt
             };
         }
+
     }
 }

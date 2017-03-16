@@ -9,9 +9,6 @@ using System.IO;
 
 namespace T5.Brothership.PL.Test.RepositoryIntegration
 {
-    /// <summary>
-    /// Summary description for UserIntegrationRepoTest
-    /// </summary>
     [TestClass]
     public class UserIntegrationRepoTest
     {

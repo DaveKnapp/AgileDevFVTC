@@ -120,7 +120,7 @@ SET IDENTITY_INSERT UserLogins OFF;
 				(15, 'Hack and Slash')
 
 	SET IDENTITY_INSERT GameCategories OFF;
-
+	
 	SET IDENTITY_INSERT Games ON;
 	INSERT INTO Games(ID, Title, igdbID, CategoryID)
 		VALUES	-- Fighting Games
@@ -164,7 +164,7 @@ SET IDENTITY_INSERT UserLogins OFF;
 				(29, 'The Sims 4', null, 10),
 				(30, 'Planet Coaster', null, 10),
 				-- MOBA Games
-				(31, 'League of Legends', null, 11),
+				(31, 'League of Legends', 115, 11),
 				(32, 'DOTA 2', null, 11),
 				(33, 'Heroes of the Storm', null, 11),
 				-- MMO Games
@@ -172,11 +172,11 @@ SET IDENTITY_INSERT UserLogins OFF;
 				(35, 'Elder Scrolls Online', null, 12),
 				(36, 'Guild Wars 2', null, 12),
 				-- Puzzle Games
-				(37, 'Limbo', null, 13),
+				(37, 'Limbo', 1331, 13),
 				(38, 'Portal 2', null, 13),
 				(39, 'Scribblenauts Unlimited', null, 13),
 				-- Tower Defense Games
-				(40, 'Plants vs. Zombies', null, 14),
+				(40, 'Plants vs. Zombies', 1277, 14),
 				(41, 'Kingdom Rush', null, 14),
 				(42, 'Sanctum 2', null, 14),
 				-- Hack and Slash Games
@@ -185,4 +185,8 @@ SET IDENTITY_INSERT UserLogins OFF;
 				(45, 'Grim Dawn', null, 15)
 	SET IDENTITY_INSERT Games OFF;
 
+	INSERT INTO UserGameJunc(Users_ID, Games_ID)
+		VALUES(1,40),
+			(1,37),
+			(1,31)
 COMMIT TRANSACTION

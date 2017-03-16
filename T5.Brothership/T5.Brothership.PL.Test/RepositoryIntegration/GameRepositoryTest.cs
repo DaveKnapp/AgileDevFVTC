@@ -130,6 +130,28 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             AssertGamesEqual(expectedGame, actualGame);
         }
 
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetByIgdbId_WasCorrectGameGot_ExpectedDataEqualsActual()
+        {
+            var expectedGame = new Game
+            {
+                ID = 40,
+                igdbID = 1277,
+                CategoryID = 14,
+                Title = "Plants vs. Zombies"
+            };
+            Game actualGame;
+
+            using (var gameRepo = new GameRepository(new brothershipEntities()))
+            {
+                gameRepo.GetByIgdbId((int)expectedGame.igdbID);
+                gameRepo.SaveChanges();
+                actualGame = gameRepo.GetById(expectedGame.ID);
+            }
+
+            AssertGamesEqual(expectedGame, actualGame);
+        }
+
         private Game AddandGetTestGame()
         {
             var gameType = new Game
