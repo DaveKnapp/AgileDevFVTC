@@ -207,6 +207,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\brothership.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\fonts\customicon\Icons.eot" />
@@ -221,8 +222,10 @@
     <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\brothership - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\brothership - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\brothership - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

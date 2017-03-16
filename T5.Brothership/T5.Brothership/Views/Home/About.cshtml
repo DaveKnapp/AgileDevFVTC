@@ -1,28 +1,6 @@
 ﻿@{
-    ViewBag.Title = "About";
-
-    HttpCookie _userInfoCookies = Request.Cookies["UserInfo"];
-    string Username = _userInfoCookies["Username"];
-    string Id = _userInfoCookies["Id"];
-    string Email = _userInfoCookies["Email"];
-    string Bio = _userInfoCookies["Bio"];
-    string ProfileImagePath = _userInfoCookies["ProfileImagePath"];
-    string DateJoined = _userInfoCookies["DateJoined"];
-    string DOB = _userInfoCookies["DOB"];
-    string Gender = _userInfoCookies["Gender"];
-    string Nationality = _userInfoCookies["Nationality"];
-    string UserType = _userInfoCookies["UserType"];    
+    ViewBag.Title = "About";      
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p>Your User ID is : @Id</p>
-<p>Your Username is : @Username</p>
-<p>Your Email is : @Email</p>
-<p>Your Bio is : @Bio</p>
-<p>Your ProfileImagePath is : @ProfileImagePath</p>
-<p>Your DateJoined is : @DateJoined</p>
-<p>Your DOB is : @DOB</p>
-<p>Your Gender is : @Gender</p>
-<p>Your Nationality is : @Nationality</p>
-<p>Your User Type is : @UserType</p>

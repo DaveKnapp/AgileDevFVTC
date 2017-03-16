@@ -10,6 +10,7 @@ namespace T5.Brothership.Controllers
 {
     public class LoginController : Controller
     {
+        UserManager _usermanager = new UserManager();
         public ActionResult Login()
         {
             return Session["CurrentUser"] == null ? (ActionResult)View() : RedirectToAction(nameof(Details));
@@ -41,7 +42,9 @@ namespace T5.Brothership.Controllers
             if (user == null)
             {
                 return RedirectToAction(nameof(Login));
+            
             }
+            user = _usermanager.GetById(user.ID);
 
             return View(user);
         }
