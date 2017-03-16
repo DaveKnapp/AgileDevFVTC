@@ -77,6 +77,13 @@ namespace T5.Brothership.PL.Repositories
             return DbSet.FirstOrDefault(p => p.RaterUserID == raterId && p.UserBeingRatedID == userBeingRatedId);
         }
 
+        public int UserAverageRating(int ratedUserId)
+        {
+            int averageRating = 0;
+
+            return averageRating;
+        }
+
         public void SaveChanges()
         {
             DbContext.SaveChanges();
@@ -91,5 +98,6 @@ namespace T5.Brothership.PL.Repositories
             }
             dbEntityEntry.State = EntityState.Modified;
         }
+
     }
 }
