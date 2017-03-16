@@ -137,7 +137,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             using (var userManager = new UserManager(new FakeBrothershipUnitOfWork(), new GameApiServiceFake()))
             {
                 const int userId = 1;
-                var expectedUser = userManager.GetById(userId);
+                var expectedUser = new User();
 
                 expectedUser.Bio = "UpdatedBio";
                 expectedUser.DateJoined = DateTime.Now;

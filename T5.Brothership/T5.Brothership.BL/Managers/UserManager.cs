@@ -79,16 +79,15 @@ namespace T5.Brothership.BL.Managers
         public async void Update(User updatedUser)
         {
             //TODO Dave Finish
-            throw new NotImplementedException();
-            var currentUser = _unitOfWork.Users.GetById(updatedUser.ID);
-            currentUser = updatedUser;
-            currentUser.Games.Clear();
+            //throw new NotImplementedException();
 
-      //      await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(updatedUser.Games));
+            updatedUser.Games.Clear();
 
-            currentUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(updatedUser.Games));
+            await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(updatedUser.Games));
 
-            _unitOfWork.Users.Update(currentUser);
+            updatedUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(updatedUser.Games));
+
+            _unitOfWork.Users.Update(updatedUser);
         }
 
         private int[] CreateIgdbIdArray(ICollection<Game> games)
