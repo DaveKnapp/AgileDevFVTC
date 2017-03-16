@@ -1,0 +1,13 @@
+home pages
+	https://blackrockdigital.github.io/startbootstrap-heroic-features/
+
+gallery pages
+	https://blackrockdigital.github.io/startbootstrap-thumbnail-gallery/
+	
+pofile pages
+	https://blackrockdigital.github.io/startbootstrap-business-frontpage/
+	https://blackrockdigital.github.io/startbootstrap-portfolio-item/
+full site template
+	https://bootstrapmade.com/demo/Groovin/
+	https://bootstrapmade.com/demo/Knight/
+	https://bootstrapmade.com/demo/Day/
