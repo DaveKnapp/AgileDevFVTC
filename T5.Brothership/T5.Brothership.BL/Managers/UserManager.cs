@@ -76,14 +76,26 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork.Commit();
         }
 
-        public async void Update(User updatedUser)
+        public async Task Update(User updatedUser)
         {
             //TODO Dave Finish
             //throw new NotImplementedException();
 
-            updatedUser.Games.Clear();
 
-            await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(updatedUser.Games));
+            User currentUser = _unitOfWork.Users.GetById(updatedUser.ID);
+            currentUser.Bio = updatedUser.Bio;
+            currentUser.DOB = updatedUser.DOB;
+            currentUser.Email = updatedUser.Email;
+            currentUser.GenderId = updatedUser.GenderId;
+            currentUser.NationalityID = updatedUser.NationalityID;
+            currentUser.UserTypeID = updatedUser.UserTypeID;
+            currentUser.ProfileImagePath = updatedUser.ProfileImagePath;
+
+            currentUser.Games.Clear();
+            currentUser.Games = updatedUser.Games;
+
+            List<Game> games = updatedUser.Games.ToList();
+            await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(games));
 
             updatedUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(updatedUser.Games));
 

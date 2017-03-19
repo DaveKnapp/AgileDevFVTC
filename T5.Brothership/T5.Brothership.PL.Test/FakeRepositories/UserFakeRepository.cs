@@ -62,8 +62,9 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Update(User entity)
         {
-            var userIndex = _fakeUsers.IndexOf(entity);
-            _fakeUsers[userIndex] = entity;
+            var user = _fakeUsers.FirstOrDefault(p => p.ID == entity.ID);
+            var index = _fakeUsers.IndexOf(user);
+            _fakeUsers[index] = entity;
         }
 
         private int GenerateUserId()
@@ -195,7 +196,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 2,
                 Title = "Batlefield 1",
                 igdbID = 4325,
-                CategoryID = 4
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 5 } }
             });
 
             games.Add(new Game
@@ -203,7 +204,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 3,
                 Title = "Civilization V",
                 igdbID = 523,
-                CategoryID = 6
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 11 } }
             });
 
             games.Add(new Game
@@ -211,7 +212,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 4,
                 Title = "Resident Evil 7",
                 igdbID = 324,
-                CategoryID = 5
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 31 } }
             });
 
             return games;

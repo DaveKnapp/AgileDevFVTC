@@ -17,7 +17,6 @@
         <EntityTypeShape EntityType="brothershipModel.User" Width="1.5" PointX="5.25" PointY="2.875" />
         <EntityTypeShape EntityType="brothershipModel.UserSocialJunc" Width="1.5" PointX="7.5" PointY="1.5" />
         <EntityTypeShape EntityType="brothershipModel.UserType" Width="1.5" PointX="3" PointY="0.875" />
-        <AssociationConnector Association="brothershipModel.FK_Game_Category" />
         <AssociationConnector Association="brothershipModel.FK_UserIntegration_IntegrationType" />
         <AssociationConnector Association="brothershipModel.FK_User_Nationality" />
         <AssociationConnector Association="brothershipModel.FK_Rating_RatingID" />
@@ -31,6 +30,7 @@
         <AssociationConnector Association="brothershipModel.UserGameJunc" />
         <EntityTypeShape EntityType="brothershipModel.Gender" Width="1.5" PointX="1.25" PointY="2.125" />
         <AssociationConnector Association="brothershipModel.GenderUser" />
+        <AssociationConnector Association="brothershipModel.GameCategoryJunc" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

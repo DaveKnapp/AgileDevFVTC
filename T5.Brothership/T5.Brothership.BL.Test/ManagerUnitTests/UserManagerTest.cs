@@ -136,23 +136,25 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
         {
             using (var userManager = new UserManager(new FakeBrothershipUnitOfWork(), new GameApiServiceFake()))
             {
-                const int userId = 1;
-                var expectedUser = new User();
+                var expectedUser = new User
+                {
+                    ID = 1,
+                    Bio = "UpdatedBio",
+                    DateJoined = DateTime.Now,
+                    DOB = new DateTime(1999, 3, 22),
+                    Email = "UserOneUpdatedEmail",
+                    UserTypeID =1,
+                    GenderId = 2,
+                    ProfileImagePath = "UpdatedImagePath.jpg",
+                    Games = new List<Game>{ new Game {igdbID = 2909},
+                                                     new Game {igdbID = 1035},
+                                                     new Game {igdbID = 534},
+                                                     new Game {igdbID = 1039}}
+                };
 
-                expectedUser.Bio = "UpdatedBio";
-                expectedUser.DateJoined = DateTime.Now;
-                expectedUser.DOB = new DateTime(1999, 3, 22);
-                expectedUser.Email = "UserOneUpdatedEmail";
-                expectedUser.GenderId = 2;
-                expectedUser.ProfileImagePath = "UpdatedImagePath.jpg";
-                expectedUser.Games = new List<Game>{ new Game {igdbID = 4325},
-                                                     new Game {igdbID = 5314},
-                                                     new Game {igdbID = 2276},
-                                                     new Game {igdbID = 1039}};
+                await userManager.Update(expectedUser);
 
-                userManager.Update(expectedUser);
-
-                var actualUser = userManager.GetById(userId);
+                var actualUser = userManager.GetById(expectedUser.ID);
 
                 AssertUsersEqual(expectedUser, actualUser);
                 Assert.AreEqual(expectedUser.Games.Count(), actualUser.Games.Count());
@@ -217,13 +219,10 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             Assert.AreEqual(expected.DateJoined, actual.DateJoined);
             Assert.AreEqual(expected.DOB, actual.DOB);
             Assert.AreEqual(expected.Email, actual.Email);
-            Assert.AreEqual(expected.Gender, actual.Gender);
             Assert.AreEqual(expected.NationalityID, actual.NationalityID);
             Assert.AreEqual(expected.ProfileImagePath, actual.ProfileImagePath);
             Assert.AreEqual(expected.UserName, actual.UserName);
             Assert.AreEqual(expected.UserTypeID, actual.UserTypeID);
-            Assert.AreEqual(expected.UserLogin.UserID, actual.UserLogin.UserID);
-            Assert.AreEqual(expected.UserLogin.PasswordHash, actual.UserLogin.PasswordHash);
             Assert.AreEqual(actual.Games.Count, actual.Games.Count);
 
             foreach (var game in expected.Games)

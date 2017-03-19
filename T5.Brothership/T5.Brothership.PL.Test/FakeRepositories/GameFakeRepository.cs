@@ -74,7 +74,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         private int GenerateGameId()
         {
-            return _fakeGames.Max(p => p.ID);
+            return _fakeGames.Max(p => p.ID) + 1;
         }
 
         private void InitializeFakeGames()
@@ -84,7 +84,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 1,
                 Title = "Street Fighter V",
                 igdbID = 43253,
-                CategoryID = 1
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 4} }
             });
 
             _fakeGames.Add(new Game
@@ -92,7 +92,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 2,
                 Title = "Batlefield 1",
                 igdbID = 4325,
-                CategoryID = 4
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 5 } }
             });
 
             _fakeGames.Add(new Game
@@ -100,7 +100,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 3,
                 Title = "Civilization V",
                 igdbID = 523,
-                CategoryID = 6
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 11 } }
             });
 
             _fakeGames.Add(new Game
@@ -108,7 +108,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 4,
                 Title = "Resident Evil 7",
                 igdbID = 324,
-                CategoryID = 5
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 31 } }
             });
 
             _fakeGames.Add(new Game
@@ -116,7 +116,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 5,
                 Title = "Madden 17",
                 igdbID = 2342,
-                CategoryID = 7
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 13 } }
             });
 
             _fakeGames.Add(new Game
@@ -124,7 +124,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 ID = 6,
                 Title = "DOTA 2",
                 igdbID = null,
-                CategoryID = 11
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 11} }
             });
 
             _fakeGames.Add(new Game
@@ -132,6 +132,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 igdbID = 1039,
                 Title = "The Legend of Zelda: Ocarina of Time 3D",
                 ImgCloudinaryId = "y2nz1vsmqyrvm7twqrh0",
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 31 } }
             });
         }
     }

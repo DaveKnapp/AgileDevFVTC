@@ -20,10 +20,7 @@
     <EntitySet Name="UserTypes" EntityType="brothershipModel.Store.UserTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Genders" EntityType="brothershipModel.Store.Genders" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserGameJunc" EntityType="brothershipModel.Store.UserGameJunc" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_Game_Category" Association="brothershipModel.Store.FK_Game_Category">
-      <End Role="GameCategory" EntitySet="GameCategories" />
-      <End Role="Game" EntitySet="Games" />
-    </AssociationSet>
+    <EntitySet Name="GameCategoryJunc" EntityType="brothershipModel.Store.GameCategoryJunc" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_UserIntegration_IntegrationType" Association="brothershipModel.Store.FK_UserIntegration_IntegrationType">
       <End Role="IntegrationType" EntitySet="IntegrationTypes" />
       <End Role="UserIntegration" EntitySet="UserIntegrations" />
@@ -76,6 +73,14 @@
       <End Role="Gender" EntitySet="Genders" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
+    <AssociationSet Name="FK_GameCategoryJunc_Game" Association="brothershipModel.Store.FK_GameCategoryJunc_Game">
+      <End Role="Game" EntitySet="Games" />
+      <End Role="GameCategoryJunc" EntitySet="GameCategoryJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GameCategoryJunc_GameCategory" Association="brothershipModel.Store.FK_GameCategoryJunc_GameCategory">
+      <End Role="GameCategory" EntitySet="GameCategories" />
+      <End Role="GameCategoryJunc" EntitySet="GameCategoryJunc" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="GameCategories">
     <Key>
@@ -91,7 +96,6 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="varchar" Nullable="false" MaxLength="70" />
     <Property Name="igdbID" Type="int" Nullable="true" />
-    <Property Name="CategoryID" Type="int" Nullable="false" />
     <Property Name="ImgCloudinaryId" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="IntegrationTypes">
@@ -195,18 +199,14 @@
     <Property Name="Games_ID" Type="int" Nullable="false" />
     <Property Name="Users_ID" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Game_Category">
-    <End Role="GameCategory" Type="brothershipModel.Store.GameCategories" Multiplicity="1" />
-    <End Role="Game" Type="brothershipModel.Store.Games" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="GameCategory">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Game">
-        <PropertyRef Name="CategoryID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <EntityType Name="GameCategoryJunc">
+    <Key>
+      <PropertyRef Name="Games_ID" />
+      <PropertyRef Name="GameCategories_ID" />
+    </Key>
+    <Property Name="Games_ID" Type="int" Nullable="false" />
+    <Property Name="GameCategories_ID" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="FK_UserIntegration_IntegrationType">
     <End Role="IntegrationType" Type="brothershipModel.Store.IntegrationTypes" Multiplicity="1" />
     <End Role="UserIntegration" Type="brothershipModel.Store.UserIntegrations" Multiplicity="*" />
@@ -371,6 +371,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_GameCategoryJunc_Game">
+    <End Role="Game" Type="brothershipModel.Store.Games" Multiplicity="1" />
+    <End Role="GameCategoryJunc" Type="brothershipModel.Store.GameCategoryJunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Game">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GameCategoryJunc">
+        <PropertyRef Name="Games_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GameCategoryJunc_GameCategory">
+    <End Role="GameCategoryJunc" Type="brothershipModel.Store.GameCategoryJunc" Multiplicity="*" />
+    <End Role="GameCategory" Type="brothershipModel.Store.GameCategories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="GameCategory">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GameCategoryJunc">
+        <PropertyRef Name="GameCategories_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -388,10 +412,6 @@
           <EntitySet Name="Users" EntityType="brothershipModel.User" />
           <EntitySet Name="UserSocialJuncs" EntityType="brothershipModel.UserSocialJunc" />
           <EntitySet Name="UserTypes" EntityType="brothershipModel.UserType" />
-          <AssociationSet Name="FK_Game_Category" Association="brothershipModel.FK_Game_Category">
-            <End Role="GameCategory" EntitySet="GameCategories" />
-            <End Role="Game" EntitySet="Games" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserIntegration_IntegrationType" Association="brothershipModel.FK_UserIntegration_IntegrationType">
             <End Role="IntegrationType" EntitySet="IntegrationTypes" />
             <End Role="UserIntegration" EntitySet="UserIntegrations" />
@@ -441,6 +461,10 @@
             <End Role="Gender" EntitySet="Genders" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="GameCategoryJunc" Association="brothershipModel.GameCategoryJunc">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="GameCategory" EntitySet="GameCategories" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="GameCategory">
           <Key>
@@ -448,7 +472,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Games" Relationship="brothershipModel.FK_Game_Category" FromRole="GameCategory" ToRole="Game" />
+          <NavigationProperty Name="Games" Relationship="brothershipModel.GameCategoryJunc" FromRole="GameCategory" ToRole="Game" />
         </EntityType>
         <EntityType Name="Game">
           <Key>
@@ -457,10 +481,9 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
           <Property Name="igdbID" Type="Int32" />
-          <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="GameCategory" Relationship="brothershipModel.FK_Game_Category" FromRole="Game" ToRole="GameCategory" />
-          <NavigationProperty Name="Users" Relationship="brothershipModel.UserGameJunc" FromRole="Game" ToRole="User" />
-          <Property Name="ImgCloudinaryId" Type="String" Nullable="true" />
+          <NavigationProperty Name="Users" ToRole="User" FromRole="Game" Relationship="brothershipModel.UserGameJunc" />
+          <Property Name="ImgCloudinaryId" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="GameCategories" Relationship="brothershipModel.GameCategoryJunc" FromRole="Game" ToRole="GameCategory" />
         </EntityType>
         <EntityType Name="IntegrationType">
           <Key>
@@ -570,18 +593,6 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Users" Relationship="brothershipModel.FK_User_UserTypeID" FromRole="UserType" ToRole="User" />
         </EntityType>
-        <Association Name="FK_Game_Category">
-          <End Type="brothershipModel.GameCategory" Role="GameCategory" Multiplicity="1" />
-          <End Type="brothershipModel.Game" Role="Game" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GameCategory">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Game">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserIntegration_IntegrationType">
           <End Type="brothershipModel.IntegrationType" Role="IntegrationType" Multiplicity="1" />
           <End Type="brothershipModel.UserIntegration" Role="UserIntegration" Multiplicity="*" />
@@ -723,7 +734,7 @@
           </Key>
           <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Users" Relationship="brothershipModel.GenderUser" FromRole="Gender" ToRole="User" />
-          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
         <Association Name="GenderUser">
           <End Type="brothershipModel.Gender" Role="Gender" Multiplicity="1" />
@@ -736,6 +747,10 @@
               <PropertyRef Name="GenderId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="GameCategoryJunc">
+          <End Type="brothershipModel.Game" Role="Game" Multiplicity="*" />
+          <End Type="brothershipModel.GameCategory" Role="GameCategory" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -757,7 +772,6 @@
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="igdbID" ColumnName="igdbID" />
-          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="ImgCloudinaryId" ColumnName="ImgCloudinaryId" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -869,6 +883,14 @@
       </EndProperty>
       <EndProperty Name="User">
         <ScalarProperty Name="ID" ColumnName="Users_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GameCategoryJunc" TypeName="brothershipModel.GameCategoryJunc" StoreEntitySet="GameCategoryJunc">
+      <EndProperty Name="Game">
+        <ScalarProperty Name="ID" ColumnName="Games_ID" />
+      </EndProperty>
+      <EndProperty Name="GameCategory">
+        <ScalarProperty Name="ID" ColumnName="GameCategories_ID" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

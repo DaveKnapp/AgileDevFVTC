@@ -78,7 +78,6 @@
     <Compile Include="ManagerUnitTests\UserRatingManagerTest.cs" />
     <Compile Include="ManagerUnitTests\UserManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserLoginTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

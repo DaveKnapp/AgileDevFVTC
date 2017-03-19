@@ -32,8 +32,8 @@ namespace T5.Brothership.BL.IGDBApi
             return client;
         }
         public async Task<List<Game>> SearchByTitleAsync(string gameName, int limit = 10, int offset = 0)
-        {
-            string[] fields = { "name", "cover" };
+        {//TODO(Dave) Refacotr
+            string[] fields = { "name", "cover", "genres" };
 
             var responseMessage = await client.GetAsync("games/?fields=" + GetFieldsString(fields) + "&limit=" + limit
                                                                         + "&offset=" + offset + "&search=" + gameName);
@@ -44,11 +44,18 @@ namespace T5.Brothership.BL.IGDBApi
 
             foreach (var game in response)
             {
-                games.Add(new Game
+                Game newgame = new Game
                 {
                     igdbID = game.id,
                     Title = game.name,
-                });
+                };
+
+                foreach (var categoryId in game.genres)
+                {
+                    newgame.GameCategories.Add(new GameCategory { ID = categoryId });
+                }
+
+                games.Add(newgame);
             }
             return games;
         }

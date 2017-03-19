@@ -26,7 +26,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             var expectedGame = new Game
             {
-                CategoryID = 12,
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 12 } },
                 igdbID = 243242,
                 Title = "Best Test Game",
             };
@@ -94,7 +94,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var expectedGame = new Game
             {
                 ID = 4,
-                CategoryID = 2,
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 31 } },
                 igdbID = null,
                 Title = "Fallout 4",
             };
@@ -115,7 +115,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             {
                 ID = 2,
                 igdbID = 3452354,
-                CategoryID = 12,
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 312 } },
                 Title = "Test Updated Title"
             };
             Game actualGame;
@@ -137,7 +137,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             {
                 ID = 40,
                 igdbID = 1277,
-                CategoryID = 14,
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 15 } },
                 Title = "Plants vs. Zombies"
             };
             Game actualGame;
@@ -154,28 +154,32 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
         private Game AddandGetTestGame()
         {
-            var gameType = new Game
+            var game = new Game
             {
-                CategoryID = 11,
                 igdbID = 23434,
                 Title = "Test Game",
             };
+            game.GameCategories.Add(new GameCategory { ID = 11 });
 
             using (var gameRepo = new GameRepository(new brothershipEntities()))
             {
-                gameRepo.Add(gameType);
+                gameRepo.Add(game);
                 gameRepo.SaveChanges();
             }
 
-            return gameType;
+            return game;
         }
 
         private void AssertGamesEqual(Game expected, Game actual)
         {
             Assert.AreEqual(expected.ID, actual.ID);
             Assert.AreEqual(expected.igdbID, actual.igdbID);
-            Assert.AreEqual(expected.CategoryID, actual.CategoryID);
             Assert.AreEqual(expected.Title, actual.Title);
+
+            foreach (var category in expected.GameCategories)
+            {
+                Assert.IsTrue(actual.GameCategories.Contains(category));
+            }
         }
     }
 }

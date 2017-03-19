@@ -52,7 +52,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         private int GenerateUserTypeId()
         {
-            return _fakeUserTypes.Max(p => p.ID);
+            return _fakeUserTypes.Max(p => p.ID) + 1;
         }
 
         IQueryable<UserType> IRepository<UserType>.GetAll()

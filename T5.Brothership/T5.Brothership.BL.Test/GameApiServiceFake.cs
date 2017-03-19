@@ -25,8 +25,8 @@ namespace T5.Brothership.BL.Test
         public async Task<Game> GetByIdAsync(int id)
         {
             await Task.Delay(1);
-            return _fakeGames.FirstOrDefault(p => p.igdbID == id);
-
+            Game game = _fakeGames.FirstOrDefault(p => p.igdbID == id);
+            return game;
         }
 
         public async Task<List<Game>> SearchByTitleAsync(string gameName, int limit = 10, int offset = 0)

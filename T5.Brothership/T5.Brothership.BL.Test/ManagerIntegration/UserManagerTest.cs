@@ -78,7 +78,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
         }
 
         [TestCategory("IntegrationTest"), TestMethod]
-        public  void Update_WasDataUpdated_ExpectedDataEqualsActual()
+        public async Task Update_WasDataUpdated_ExpectedDataEqualsActual()
         {
             using (var userManager = new UserManager())
             {
@@ -89,7 +89,6 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
                 {
                     ID = 1,
                     Bio = "UpdatedBio",
-                    DateJoined = DateTime.Now,
                     DOB = new DateTime(1999, 3, 22),
                     Email = "UserOneUpdatedEmail",
                     GenderId = 2,
@@ -101,7 +100,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
                                                      new Game {igdbID = 1039}}
                 };
 
-                userManager.Update(expectedUser);
+                await userManager.Update(expectedUser);
 
                 var actualUser = userManager.GetById(userId);
 

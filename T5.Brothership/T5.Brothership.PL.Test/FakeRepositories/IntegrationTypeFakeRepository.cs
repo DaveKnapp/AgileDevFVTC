@@ -83,7 +83,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         private int GenerateIntegrationTypeId()
         {
-            return _fakeIntegrationTypes.Max(p => p.ID);
+            return _fakeIntegrationTypes.Max(p => p.ID) + 1;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace T5.Brothership.BL.IGDBApi
         public int id { get; set; }
         public string name { get; set; }
         public Cover cover { get; set; }
+        public int[] genres { get; set; }
     }
 
     public class Cover

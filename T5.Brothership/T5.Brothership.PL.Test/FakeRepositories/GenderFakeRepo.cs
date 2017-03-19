@@ -19,6 +19,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         public void Add(Gender entity)
         {
+            entity.Id = GenerateId();
             _fakeGenders.Add(entity);
         }
 
@@ -59,11 +60,18 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             _fakeGenders[entityIndex] = entity;
         }
 
+
+        private short GenerateId()
+        {
+            return (short)(_fakeGenders.Max(p => p.Id) + 1);
+        }
+
+
         private void InitializeFakeGenders()
         {
             _fakeGenders.Add(new Gender
             {
-                Id =1,
+                Id = 1,
                 Description = "Male"
             });
 

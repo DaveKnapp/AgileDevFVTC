@@ -18,16 +18,17 @@ namespace T5.Brothership.Entities.Models
         public Game()
         {
             this.Users = new HashSet<User>();
+            this.GameCategories = new HashSet<GameCategory>();
         }
     
         public int ID { get; set; }
         public string Title { get; set; }
         public Nullable<int> igdbID { get; set; }
-        public int CategoryID { get; set; }
         public string ImgCloudinaryId { get; set; }
     
-        public virtual GameCategory GameCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GameCategory> GameCategories { get; set; }
     }
 }

@@ -10,9 +10,9 @@ BEGIN TRANSACTION
 	DELETE FROM UserTypes
 	DELETE FROM Nationalities
 	DELETE FROM Games
+	DELETE FROM GameCategories
 	DELETE FROM IntegrationTypes
 	DELETE FROM SocialMediaTypes
-	DELETE FROM GameCategories
 	DELETE FROM Ratings
 	DELETE FROM Genders
 
@@ -100,89 +100,93 @@ SET IDENTITY_INSERT UserLogins OFF;
 			   (2,2, 'instagram.com/TestUserTwo'),
 			   (3,3, 'instagram.com/TestUserThree')
 
-	-- BEGIN GAME DATA INSERTS (To be updated or removed later if game API can be obtained)
+	-- (Dave) Added game categories might be missing som
 	SET IDENTITY_INSERT GameCategories ON;
 	INSERT INTO GameCategories(ID, "Description")
-		VALUES	(1, 'Fighting'),
-				(2, 'Action/Adventure'),
-				(3, 'RPG'),
-				(4, 'First-Person Shooter'),
-				(5, 'Survival Horror'),
-				(6, 'Strategy'),
-				(7, 'Sports'),
-				(8, 'Racing'),
-				(9, 'Stealth'),
-				(10, 'Simulation'),
-				(11, 'MOBA'),
-				(12, 'MMO'),
-				(13, 'Puzzle'),
-				(14, 'Tower Defense'),
-				(15, 'Hack and Slash')
-
+	 VALUES (33,'Arcade'),
+		    (32,'Indie'),
+			(31,'Adventure'),
+			(30,'Pinball'),
+			(26,'Quiz/Trivia'),
+			(25,'Hack and slash/Beat ''em up'),
+			(24,'Tactical'),
+			(16,'Turn-based strategy (TBS)'),
+			(15,'Strategy'),
+			(14,'Sport'),
+			(13,'Simulator'),
+			(12,'Role-playing (RPG)'),
+			(11,'Real Time Strategy (RTS)'),
+			(10,'Racing'),
+			(9,'Puzzle'),
+			(8,'Platform'),
+			(7,'Music'),
+			(5,'Shooter'),
+			(4,'Fighting'),
+			(2,'Point-and-click')
 	SET IDENTITY_INSERT GameCategories OFF;
-	
+	--TODO Add game category junk
 	SET IDENTITY_INSERT Games ON;
-	INSERT INTO Games(ID, Title, igdbID, CategoryID)
+	INSERT INTO Games(ID, Title, igdbID)
 		VALUES	-- Fighting Games
-				(1, 'Street Fighter V', null, 1),
-				(2, 'Mortal Kombat X', null, 1),
-				(3, 'Injustice: Gods Among Us', null, 1),
+				(1, 'Street Fighter V', null),
+				(2, 'Mortal Kombat X', null),
+				(3, 'Injustice: Gods Among Us', null),
 				-- Action/Adventure Games
-				(4, 'Fallout 4', null, 2),
-				(5, 'Uncharted 4', null, 2),
-				(6, 'Grand Theft Auto V', null, 2),
+				(4, 'Fallout 4', null),
+				(5, 'Uncharted 4', null),
+				(6, 'Grand Theft Auto V', null),
 				-- RPG Games
-				(7, 'The Witcher 3: Wild Hunt', null, 3),
-				(8, 'Final Fantasy XV', null, 3),
-				(9, 'Elder Scrolls V: Skyrim', null, 3),
+				(7, 'The Witcher 3: Wild Hunt', null),
+				(8, 'Final Fantasy XV', null),
+				(9, 'Elder Scrolls V: Skyrim', null),
 				-- First-Person Shooter Games
-				(10, 'Battlefield 1', null, 4),
-				(11, 'Overwatch', null, 4),
-				(12, 'Counter-Strike: Global Offensive', null, 4),
+				(10, 'Battlefield 1', null),
+				(11, 'Overwatch', null),
+				(12, 'Counter-Strike: Global Offensive', null),
 				-- Survival Horror Games
-				(13, 'Resident Evil 7', null, 5),
-				(14, 'Alien Isolation', null, 5),
-				(15, 'Dying Light: The Following', null, 5),
+				(13, 'Resident Evil 7', null),
+				(14, 'Alien Isolation', null),
+				(15, 'Dying Light: The Following', null),
 				-- Strategy Games
-				(16, 'Civilization V', null, 6),
-				(17, 'Starcraft II', null, 6),
-				(18, 'XCOM 2', null, 6),
+				(16, 'Civilization V', null),
+				(17, 'Starcraft II', null),
+				(18, 'XCOM 2', null),
 				-- Sports Games
-				(19, 'Madden 17', null, 7),
-				(20, 'NBA 2K17', null, 7),
-				(21, 'Rocket League', null, 7),
+				(19, 'Madden 17', null),
+				(20, 'NBA 2K17', null),
+				(21, 'Rocket League', null),
 				-- Racing Games
-				(22, 'DiRT Rally', null, 8),
-				(23, 'F1 2016', null, 8),
-				(24, 'Need for Speed', null, 8),
+				(22, 'DiRT Rally', null),
+				(23, 'F1 2016', null),
+				(24, 'Need for Speed', null),
 				-- Stealth Games
-				(25, 'Dishonored 2', null, 9),
-				(26, 'Metal Gear Solid V: The Phantom Pain', null, 9),
-				(27, 'Hitman', null, 9),
+				(25, 'Dishonored 2', null),
+				(26, 'Metal Gear Solid V: The Phantom Pain', null),
+				(27, 'Hitman', null),
 				-- Simulation Games
-				(28, 'Arma III', null, 10),
-				(29, 'The Sims 4', null, 10),
-				(30, 'Planet Coaster', null, 10),
+				(28, 'Arma III', null),
+				(29, 'The Sims 4', null),
+				(30, 'Planet Coaster', null),
 				-- MOBA Games
-				(31, 'League of Legends', 115, 11),
-				(32, 'DOTA 2', null, 11),
-				(33, 'Heroes of the Storm', null, 11),
+				(31, 'League of Legends', 115),
+				(32, 'DOTA 2', null),
+				(33, 'Heroes of the Storm', null),
 				-- MMO Games
-				(34, 'World of Warcraft', null, 12),
-				(35, 'Elder Scrolls Online', null, 12),
-				(36, 'Guild Wars 2', null, 12),
+				(34, 'World of Warcraft', null),
+				(35, 'Elder Scrolls Online', null),
+				(36, 'Guild Wars 2', null),
 				-- Puzzle Games
-				(37, 'Limbo', 1331, 13),
-				(38, 'Portal 2', null, 13),
-				(39, 'Scribblenauts Unlimited', null, 13),
+				(37, 'Limbo', 1331),
+				(38, 'Portal 2', null),
+				(39, 'Scribblenauts Unlimited', null),
 				-- Tower Defense Games
-				(40, 'Plants vs. Zombies', 1277, 14),
-				(41, 'Kingdom Rush', null, 14),
-				(42, 'Sanctum 2', null, 14),
+				(40, 'Plants vs. Zombies', 1277),
+				(41, 'Kingdom Rush', null),
+				(42, 'Sanctum 2', null),
 				-- Hack and Slash Games
-				(43, 'Diablo 3', null, 15),
-				(44, 'Path of Exile', null, 15),
-				(45, 'Grim Dawn', null, 15)
+				(43, 'Diablo 3', null),
+				(44, 'Path of Exile', null),
+				(45, 'Grim Dawn', null)
 	SET IDENTITY_INSERT Games OFF;
 
 	INSERT INTO UserGameJunc(Users_ID, Games_ID)

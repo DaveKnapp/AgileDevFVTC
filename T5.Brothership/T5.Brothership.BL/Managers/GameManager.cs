@@ -74,8 +74,12 @@ namespace T5.Brothership.BL.Managers
         private async Task AddGameToDatabase(int igdbID)
         {
             var game = await _gameApiService.GetByIdAsync(igdbID);
-            _unitOfWork.Games.Add(game);
-            _unitOfWork.Games.SaveChanges();
+
+            if (game != null)
+            {
+                _unitOfWork.Games.Add(game);
+                _unitOfWork.Games.SaveChanges();
+            }
         }
     }
 }
