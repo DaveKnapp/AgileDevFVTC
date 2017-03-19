@@ -24,6 +24,7 @@ namespace T5.Brothership.BL.Managers
         public GameManager(IBrothershipUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+            _gameApiService = new GameAPIService();
         }
 
         public GameManager(IBrothershipUnitOfWork unitOfWork, IGameAPIService gameApiService)

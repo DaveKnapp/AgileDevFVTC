@@ -8,6 +8,7 @@ using T5.Brothership.PL.Test;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.BL.Managers;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace T5.Brothership.BL.Test.ManagerIntegration
 {
@@ -92,7 +93,11 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
                     DOB = new DateTime(1999, 3, 22),
                     Email = "UserOneUpdatedEmail",
                     GenderId = 2,
+                    DateJoined = new DateTime(2017,2,20),
                     ProfileImagePath = "UpdatedImagePath.jpg",
+                    UserTypeID = 1,
+                    UserName = "TestUserOne",
+                    NationalityID = 1,
 
                     Games = new List<Game>{ new Game {igdbID = 4325},
                                                      new Game {igdbID = 1277},
@@ -105,11 +110,12 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
                 var actualUser = userManager.GetById(userId);
 
                 AssertUsersEqual(expectedUser, actualUser);
+
                 Assert.AreEqual(expectedCount, actualUser.Games.Count);
 
                 foreach (var game in expectedUser.Games)
                 {
-                    Assert.IsTrue(actualUser.Games.Contains(game));
+                    Assert.IsNotNull(actualUser.Games.FirstOrDefault(p => p.igdbID == game.igdbID));
                 }
             }
         }

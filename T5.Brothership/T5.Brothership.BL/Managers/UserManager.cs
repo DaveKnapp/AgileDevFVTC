@@ -20,7 +20,7 @@ namespace T5.Brothership.BL.Managers
         public UserManager()
         {
             _unitOfWork = new BrothershipUnitOfWork();
-            _gameManager = new GameManager();
+            _gameManager = new GameManager(_unitOfWork);
         }
 
         public UserManager(IBrothershipUnitOfWork unitOfWork)
@@ -78,10 +78,6 @@ namespace T5.Brothership.BL.Managers
 
         public async Task Update(User updatedUser)
         {
-            //TODO Dave Finish
-            //throw new NotImplementedException();
-
-
             User currentUser = _unitOfWork.Users.GetById(updatedUser.ID);
             currentUser.Bio = updatedUser.Bio;
             currentUser.DOB = updatedUser.DOB;
@@ -92,14 +88,13 @@ namespace T5.Brothership.BL.Managers
             currentUser.ProfileImagePath = updatedUser.ProfileImagePath;
 
             currentUser.Games.Clear();
-            currentUser.Games = updatedUser.Games;
 
-            List<Game> games = updatedUser.Games.ToList();
-            await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(games));
+            await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(updatedUser.Games));
 
-            updatedUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(updatedUser.Games));
+            currentUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(updatedUser.Games));
 
-            _unitOfWork.Users.Update(updatedUser);
+            _unitOfWork.Users.Update(currentUser);
+
         }
 
         public List<User> GetAllUsers()
