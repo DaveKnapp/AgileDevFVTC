@@ -139,8 +139,9 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
                 var expectedUser = new User
                 {
                     ID = 1,
+                    UserName = "TestUserOne",
                     Bio = "UpdatedBio",
-                    DateJoined = DateTime.Now,
+                    DateJoined = new DateTime(2017, 2, 23),
                     DOB = new DateTime(1999, 3, 22),
                     Email = "UserOneUpdatedEmail",
                     UserTypeID =1,
@@ -158,11 +159,6 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
 
                 AssertUsersEqual(expectedUser, actualUser);
                 Assert.AreEqual(expectedUser.Games.Count(), actualUser.Games.Count());
-
-                foreach (var game in expectedUser.Games)
-                {
-                    Assert.IsTrue(actualUser.Games.Contains(game));
-                }
             }
         }
 
@@ -227,7 +223,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
 
             foreach (var game in expected.Games)
             {
-                Assert.IsNotNull(actual.Games.Where(p => p.igdbID == game.igdbID));
+                Assert.IsNotNull(actual.Games.FirstOrDefault(p => p.igdbID == game.igdbID));
             }
         }
     }

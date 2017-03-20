@@ -95,7 +95,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var expectedGame = new Game
             {
                 ID = 4,
-                GameCategories = new List<GameCategory> { new GameCategory { ID = 31 } },
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 31, Description = "Adventure" } },
                 igdbID = null,
                 Title = "Fallout 4",
             };
@@ -137,7 +137,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             {
                 ID = 40,
                 igdbID = 1277,
-                GameCategories = new List<GameCategory> { new GameCategory { ID = 15 } },
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 11, Description = "Real Time Strategy (RTS)" } },
                 Title = "Plants vs. Zombies"
             };
             Game actualGame;
@@ -158,7 +158,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 igdbID = 23434,
                 Title = "Test Game",
             };
-            game.GameCategories.Add(new GameCategory { ID = 11, Description = "Real Time Strategy(RTS)" });
+            game.GameCategories.Add(new GameCategory { ID = 11, Description = "Real Time Strategy (RTS)"});
 
             using (var gameRepo = new GameRepository(new brothershipEntities()))
             {
@@ -177,7 +177,8 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
             foreach (var category in expected.GameCategories)
             {
-                Assert.IsTrue(actual.GameCategories.Contains(category));
+                Assert.IsTrue(category.ID == actual.GameCategories.FirstOrDefault(p => p.ID == category.ID).ID);
+                Assert.IsTrue(category.Description == actual.GameCategories.FirstOrDefault(p => p.ID == category.ID).Description);
             }
         }
     }

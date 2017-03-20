@@ -101,7 +101,6 @@ SET IDENTITY_INSERT UserLogins OFF;
 			   (2,2, 'instagram.com/TestUserTwo'),
 			   (3,3, 'instagram.com/TestUserThree')
 
-	-- (Dave) Added game categories might be missing som
 	SET IDENTITY_INSERT GameCategories ON;
 	INSERT INTO GameCategories(ID, "Description")
 	 VALUES (33,'Arcade'),
@@ -125,7 +124,7 @@ SET IDENTITY_INSERT UserLogins OFF;
 			(4,'Fighting'),
 			(2,'Point-and-click')
 	SET IDENTITY_INSERT GameCategories OFF;
-	--TODO Add game category junk
+
 	SET IDENTITY_INSERT Games ON;
 	INSERT INTO Games(ID, Title, igdbID)
 		VALUES	-- Fighting Games
@@ -190,6 +189,52 @@ SET IDENTITY_INSERT UserLogins OFF;
 				(45, 'Grim Dawn', null)
 	SET IDENTITY_INSERT Games OFF;
 
+	INSERT INTO GameCategoryJunc(Games_ID, GameCategories_ID)
+		VALUES (1,4),
+			   (2,4),
+			   (3,4),
+			   (4,31),
+			   (5,31),
+			   (6,31),
+			   (7,12),
+			   (8,12),
+			   (9,12),
+			   (10,5),
+			   (11,5),
+			   (12,5),
+			   (13,31),
+			   (14,31),
+			   (15,31),
+			   (16,15),
+			   (17,15),
+			   (18,15),
+			   (19,14),
+			   (20,14),
+			   (21,14),
+			   (22,10),
+			   (23,10),
+			   (24,10),
+			   (25,31),
+			   (26,31),
+			   (27,31),
+			   (28,13),
+			   (29,13),
+			   (30,13),
+			   (31,11),
+			   (32,11),
+			   (33,11),
+			   (34,12),
+			   (35,12),
+			   (36,12),
+			   (37,9),
+			   (38,9),
+			   (39,9),
+			   (40,11),
+			   (41,11),
+			   (42,11),
+			   (43,25),
+			   (44,25),
+			   (45,25)
 	INSERT INTO UserGameJunc(Users_ID, Games_ID)
 		VALUES(1,40),
 			(1,37),
