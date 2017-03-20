@@ -8,9 +8,9 @@ using T5.Brothership.Entities.ModelMetaData;
 
 namespace T5.Brothership.Entities.Models
 {
-    [MetadataTypeAttribute(typeof(UserMetaData))]
+    [MetadataType(typeof(UserMetaData))]
     public partial class User { }
 
-    [MetadataTypeAttribute(typeof(UserLoginMetaData))]
+    [MetadataType(typeof(UserLoginMetaData))]
     public partial class UserLogin { }
 }

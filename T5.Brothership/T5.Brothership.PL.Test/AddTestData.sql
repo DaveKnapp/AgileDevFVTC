@@ -25,7 +25,10 @@ BEGIN TRANSACTION
 	SET IDENTITY_INSERT Nationalities ON;
 
 	INSERT INTO Nationalities (ID, "Description")
-		VALUES(1, 'US and A')
+		VALUES(1, 'US and A'),
+			  (2, 'Earth'),
+			  (3, 'Canada')
+
 	SET IDENTITY_INSERT Nationalities OFF;
 
 	SET IDENTITY_INSERT Genders ON;

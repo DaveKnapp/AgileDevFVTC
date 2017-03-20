@@ -69,7 +69,7 @@ namespace T5.Brothership.PL.Test.FakeRepositories
 
         private int GenerateUserId()
         {
-            return _fakeUsers.Max(p => p.ID);
+            return _fakeUsers.Max(p => p.ID) + 1;
         }
 
         private void InitializeUsers()

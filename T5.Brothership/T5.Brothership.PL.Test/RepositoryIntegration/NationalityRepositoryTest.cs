@@ -75,7 +75,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestMethod, TestCategory("IntegrationTest")]
         public void GetAll_AllNationalitiesReturned_CountEqualsActual()
         {
-            const int expectedCount = 1;
+            const int expectedCount = 3;
             int actualCount;
             using (var nationalityRepo = new NationalityRepository(new brothershipEntities()))
             {

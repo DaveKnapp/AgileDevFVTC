@@ -8,6 +8,7 @@ using T5.Brothership.PL;
 using T5.Brothership.Entities.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using T5.Brothership.BL.Exceptions;
 
 namespace T5.Brothership.BL.Test.ManagerUnitTests
 {
@@ -131,6 +132,24 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             AssertUsersEqual(expectedUser, actualUser);
         }
 
+        [TestCategory("UnitTest"), TestMethod,
+         ExpectedExceptionAttribute(typeof(UsernameAlreadyExistsException))]
+        public async Task Add_UsernameInUse_ThrowsUserNameAlreadyExistsException()
+        {
+            var expectedPassword = "TestAddedUserPassord";
+            var expectedUser = CreateExpectedAddedUser();
+
+            using (var fakeUnitOfWork = new FakeBrothershipUnitOfWork())
+            {
+                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiServiceFake()))
+                {
+                    await userManager.Add(expectedUser, expectedPassword);
+                    await userManager.Add(expectedUser, expectedPassword);
+                }
+            }
+
+        }
+
         [TestCategory("UnitTest"), TestMethod]
         public async Task Update_WasDataUpdated_ExpectedDataEqualsActual()
         {
@@ -144,7 +163,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
                     DateJoined = new DateTime(2017, 2, 23),
                     DOB = new DateTime(1999, 3, 22),
                     Email = "UserOneUpdatedEmail",
-                    UserTypeID =1,
+                    UserTypeID = 1,
                     GenderId = 2,
                     ProfileImagePath = "UpdatedImagePath.jpg",
                     Games = new List<Game>{ new Game {igdbID = 2909},
@@ -162,7 +181,46 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             }
         }
 
-        private static User CreateExpectedAddedUser()
+        [TestCategory("UnitTest"), TestMethod]
+        public void UserNameExists_UserExists_ReturnsTrue()
+        {
+            const string userName = "ThisNameIsInUse";
+
+            using (var fakeUnitOfwork = new FakeBrothershipUnitOfWork())
+            {
+                fakeUnitOfwork.Users.Add(new User
+                {
+                    UserName = userName,
+                    UserLogin = new UserLogin()
+                });
+
+                using (UserManager userManger = new UserManager(fakeUnitOfwork))
+                {
+                    Assert.IsTrue(userManger.UserNameExists(userName));
+                }
+            }
+        }
+
+        public void UserNameExists_UserNotExists_ReturnsFalse()
+        {
+            const string userName = "ThisNameNotInUse";
+
+            using (var fakeUnitOfwork = new FakeBrothershipUnitOfWork())
+            {
+                fakeUnitOfwork.Users.Add(new User
+                {
+                    UserName = userName,
+                    UserLogin = new UserLogin()
+                });
+
+                using (UserManager userManger = new UserManager(fakeUnitOfwork))
+                {
+                    Assert.IsFalse(userManger.UserNameExists(userName));
+                }
+            }
+        }
+
+        private User CreateExpectedAddedUser()
         {
             var expectedUser = new User
             {

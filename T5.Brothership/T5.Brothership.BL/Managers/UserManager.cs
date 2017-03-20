@@ -9,6 +9,7 @@ using T5.Brothership.PL;
 using System.Data.Entity;
 using T5.Brothership.BL.Helpers;
 using T5.Brothership.BL.IGDBApi;
+using T5.Brothership.BL.Exceptions;
 
 namespace T5.Brothership.BL.Managers
 {
@@ -64,7 +65,13 @@ namespace T5.Brothership.BL.Managers
 
         public async Task Add(User user, string password)
         {
+            //TODO Create Test for username in use
             var newUser = user;
+
+            if (UserNameExists(user.UserName))
+            {
+                throw new UsernameAlreadyExistsException("UserName is being used by another user");
+            }
 
             newUser.UserLogin = CreateUserLogin(password);
             newUser.DateJoined = DateTime.Now;
@@ -74,6 +81,11 @@ namespace T5.Brothership.BL.Managers
 
             _unitOfWork.Users.Add(newUser);
             _unitOfWork.Commit();
+        }
+
+        public bool UserNameExists(string userName)
+        {
+            return _unitOfWork.Users.GetByUsernameOrEmail(userName) != null;
         }
 
         public async Task Update(User updatedUser)

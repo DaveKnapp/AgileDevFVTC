@@ -13,6 +13,7 @@ namespace T5.Brothership.Entities.Models
         int ID { get; set; }
 
         [Required(ErrorMessage = "User name is required"),
+         Display(Name = "Username"),
          StringLength(25, ErrorMessage = "User name must be less than 25 characters")]
         string UserName { get; set; }
 
@@ -31,9 +32,12 @@ namespace T5.Brothership.Entities.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
         DateTime DOB { get; set; }
 
+        [Display(Name = "Gender")]
         int GenderId { get; set; }
 
         int UserTypeID { get; set; }
+
+        [Display(Name = "Nationality")]
         int NationalityID { get; set; }
     }
 }
