@@ -26,7 +26,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             var expectedGame = new Game
             {
-                GameCategories = new List<GameCategory> { new GameCategory { ID = 12 } },
+                GameCategories = new List<GameCategory> { new GameCategory { ID = 12, Description = "Role-playing (RPG)" } },
                 igdbID = 243242,
                 Title = "Best Test Game",
             };
@@ -66,12 +66,13 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
             using (var gameRepo = new GameRepository(new brothershipEntities()))
             {
+                Game game = gameRepo.GetById(typeIdToDelete);
+                game.GameCategories.Clear();
                 gameRepo.Delete(typeIdToDelete);
                 gameRepo.SaveChanges();
                 actualGame = gameRepo.GetById(typeIdToDelete);
+                Assert.IsNull(actualGame);
             }
-
-            Assert.IsNull(actualGame);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
@@ -103,9 +104,8 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             using (var gameRepo = new GameRepository(new brothershipEntities()))
             {
                 actualGame = gameRepo.GetById(expectedGame.ID);
+                AssertGamesEqual(expectedGame, actualGame);
             }
-
-            AssertGamesEqual(expectedGame, actualGame);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
@@ -147,9 +147,8 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 gameRepo.GetByIgdbId((int)expectedGame.igdbID);
                 gameRepo.SaveChanges();
                 actualGame = gameRepo.GetById(expectedGame.ID);
+                AssertGamesEqual(expectedGame, actualGame);
             }
-
-            AssertGamesEqual(expectedGame, actualGame);
         }
 
         private Game AddandGetTestGame()
@@ -159,7 +158,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 igdbID = 23434,
                 Title = "Test Game",
             };
-            game.GameCategories.Add(new GameCategory { ID = 11 });
+            game.GameCategories.Add(new GameCategory { ID = 11, Description = "Real Time Strategy(RTS)" });
 
             using (var gameRepo = new GameRepository(new brothershipEntities()))
             {

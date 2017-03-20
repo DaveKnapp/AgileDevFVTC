@@ -749,8 +749,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="GameCategoryJunc">
-          <End Type="brothershipModel.Game" Role="Game" Multiplicity="*" />
-          <End Type="brothershipModel.GameCategory" Role="GameCategory" Multiplicity="*" />
+          <End Type="brothershipModel.Game" Role="Game" Multiplicity="*" >
+          </End>
+          <End Type="brothershipModel.GameCategory" Role="GameCategory" Multiplicity="*" >
+          </End>
         </Association>
       </Schema>
     </edmx:ConceptualModels>

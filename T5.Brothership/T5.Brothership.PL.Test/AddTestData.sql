@@ -1,8 +1,9 @@
 --Delete all data in tables
-BEGIN TRANSACTION 
+BEGIN TRANSACTION
 
 	DELETE FROM UserRatings
 	DELETE FROM UserSocialJuncs
+	DELETE FROM GameCategoryJunc
 	DELETE FROM UserIntegrations
 	DELETE FROM UserGameJunc
 	DELETE FROM Users
