@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -33,7 +33,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
             UserSocialJunc actualUserSocialMedia;
 
-            using (var userSocialMediaRepo = new UserSocialMediaRepository(new brothershipEntities()))
+            using (var userSocialMediaRepo = new UserSocialMediaRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userSocialMediaRepo.Add(expectedUserSocialMedia);
                 userSocialMediaRepo.SaveChanges();
@@ -49,7 +49,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             UserSocialJunc actualUserSocialMedia;
             var userSocialMediaToDelete = AddandGetTestUserSocialMedia();
 
-            using (var userSocialMediaRepo = new UserSocialMediaRepository(new brothershipEntities()))
+            using (var userSocialMediaRepo = new UserSocialMediaRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userSocialMediaRepo.Delete(userSocialMediaToDelete);
                 userSocialMediaRepo.SaveChanges();
@@ -65,7 +65,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var userSocialMediaToDelete = AddandGetTestUserSocialMedia();
             UserSocialJunc actualSocialMedia;
 
-            using (var userSocialMediaRepo = new UserSocialMediaRepository(new brothershipEntities()))
+            using (var userSocialMediaRepo = new UserSocialMediaRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userSocialMediaRepo.Delete(userSocialMediaToDelete.UserID, userSocialMediaToDelete.SocialMediaTypeID);
                 userSocialMediaRepo.SaveChanges();
@@ -80,7 +80,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             const int expectedCount = 6;
             int actualCount;
-            using (var UserSocialMediaRepo = new UserSocialMediaRepository(new brothershipEntities()))
+            using (var UserSocialMediaRepo = new UserSocialMediaRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = UserSocialMediaRepo.GetAll().Count();
             }
@@ -94,7 +94,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             const int expectedUserId = 1;
             const int expectedCount = 3;
             int actualCount;
-            using (var userSocialMediasRepo = new UserSocialMediaRepository(new brothershipEntities()))
+            using (var userSocialMediasRepo = new UserSocialMediaRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = userSocialMediasRepo.GetAllByUser(expectedUserId).Count();
             }
@@ -113,7 +113,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             UserSocialJunc actualUserSocialMedia;
 
-            using (var userSocialMediaRepo = new UserSocialMediaRepository(new brothershipEntities()))
+            using (var userSocialMediaRepo = new UserSocialMediaRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualUserSocialMedia = userSocialMediaRepo.GetById(expectedUserSocialMedia.UserID, expectedUserSocialMedia.SocialMediaTypeID);
             }
@@ -132,7 +132,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             UserSocialJunc actualUserSocialMedia;
 
-            using (var userSocialMediaRepo = new UserSocialMediaRepository(new brothershipEntities()))
+            using (var userSocialMediaRepo = new UserSocialMediaRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userSocialMediaRepo.Update(expectedUserSocialMedia);
                 userSocialMediaRepo.SaveChanges();
@@ -151,7 +151,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 URL = "youtube.com/TestUserTwo"
             };
 
-            using (var userSocialMediaRepo = new UserSocialMediaRepository(new brothershipEntities()))
+            using (var userSocialMediaRepo = new UserSocialMediaRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userSocialMediaRepo.Add(userSocialMedia);
                 userSocialMediaRepo.SaveChanges();

@@ -18,7 +18,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -41,7 +41,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
             };
 
             User actualUser;
-            using (UserManager userManger = new UserManager())
+            using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 await userManger.Add(expectedUser, expectedUserPassword);
                 actualUser = userManger.GetById(expectedUser.ID);
@@ -69,7 +69,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
             };
 
             User actualUser;
-            using (UserManager userManger = new UserManager())
+            using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userManger.GetById(expectedUser.ID);
                 actualUser = userManger.GetById(expectedUser.ID);
@@ -81,7 +81,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
         [TestCategory("IntegrationTest"), TestMethod]
         public async Task Update_WasDataUpdated_ExpectedDataEqualsActual()
         {
-            using (var userManager = new UserManager())
+            using (var userManager = new UserManager(new BrothershipUnitOfWork(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 const int expectedCount = 4;
                 const int userId = 1;
@@ -93,7 +93,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
                     DOB = new DateTime(1999, 3, 22),
                     Email = "UserOneUpdatedEmail",
                     GenderId = 2,
-                    DateJoined = new DateTime(2017,2,20),
+                    DateJoined = new DateTime(2017, 2, 20),
                     ProfileImagePath = "UpdatedImagePath.jpg",
                     UserTypeID = 1,
                     UserName = "TestUserOne",

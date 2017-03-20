@@ -11,7 +11,7 @@ namespace T5.Brothership.PL
     public class BrothershipUnitOfWork : IBrothershipUnitOfWork
     {
         //NOTE(Dave) If we have problems we might have to disable lazy loading
-        private brothershipEntities dbContext = new brothershipEntities();
+        private brothershipEntities _dbContext;
         private UserRepository _userRepository;
         private GameRepository _gameRepository;
         private IntegrationTypeRepository _integrationTypes;
@@ -23,14 +23,22 @@ namespace T5.Brothership.PL
         private UserSocialMediaRepository _userSocialMedias;
         private UserTypeRepository _userTypes;
         private GenderRepository _genders;
+        public BrothershipUnitOfWork()
+        {
+            _dbContext =new brothershipEntities();
+        }
 
+        public BrothershipUnitOfWork(string connectionString)
+        {
+            _dbContext = new brothershipEntities(connectionString);
+        }
         public IGameRepository Games
         {
             get
             {
                 if (_gameRepository == null)
                 {
-                    _gameRepository = new GameRepository(dbContext);
+                    _gameRepository = new GameRepository(_dbContext);
                 }
                 return _gameRepository;
             }
@@ -42,7 +50,7 @@ namespace T5.Brothership.PL
             {
                 if (_integrationTypes == null)
                 {
-                    _integrationTypes = new IntegrationTypeRepository(dbContext);
+                    _integrationTypes = new IntegrationTypeRepository(_dbContext);
                 }
                 return _integrationTypes;
             }
@@ -54,7 +62,7 @@ namespace T5.Brothership.PL
             {
                 if (_nationalities == null)
                 {
-                    _nationalities = new NationalityRepository(dbContext);
+                    _nationalities = new NationalityRepository(_dbContext);
                 }
                 return _nationalities;
             }
@@ -66,7 +74,7 @@ namespace T5.Brothership.PL
             {
                 if (_ratings == null)
                 {
-                    _ratings = new RatingRepository(dbContext);
+                    _ratings = new RatingRepository(_dbContext);
                 }
                 return _ratings;
             }
@@ -78,7 +86,7 @@ namespace T5.Brothership.PL
             {
                 if (_socialMediaTypes == null)
                 {
-                    _socialMediaTypes = new SocialMediaTypeRepository(dbContext);
+                    _socialMediaTypes = new SocialMediaTypeRepository(_dbContext);
                 }
                 return _socialMediaTypes;
             }
@@ -90,7 +98,7 @@ namespace T5.Brothership.PL
             {
                 if (_userIntegrations == null)
                 {
-                    _userIntegrations = new UserIntegrationRepository(dbContext);
+                    _userIntegrations = new UserIntegrationRepository(_dbContext);
                 }
                 return _userIntegrations;
             }
@@ -102,7 +110,7 @@ namespace T5.Brothership.PL
             {
                 if (_userRatings == null)
                 {
-                    _userRatings = new UserRatingRepository(dbContext);
+                    _userRatings = new UserRatingRepository(_dbContext);
                 }
                 return _userRatings;
             }
@@ -114,7 +122,7 @@ namespace T5.Brothership.PL
             {
                 if (_userRepository == null)
                 {
-                    _userRepository = new UserRepository(dbContext);
+                    _userRepository = new UserRepository(_dbContext);
                 }
                 return _userRepository;
             }
@@ -126,7 +134,7 @@ namespace T5.Brothership.PL
             {
                 if (_userSocialMedias == null)
                 {
-                    _userSocialMedias = new UserSocialMediaRepository(dbContext);
+                    _userSocialMedias = new UserSocialMediaRepository(_dbContext);
                 }
                 return _userSocialMedias;
             }
@@ -138,7 +146,7 @@ namespace T5.Brothership.PL
             {
                 if (_userTypes == null)
                 {
-                    _userTypes = new UserTypeRepository(dbContext);
+                    _userTypes = new UserTypeRepository(_dbContext);
                 }
                 return _userTypes;
             }
@@ -150,7 +158,7 @@ namespace T5.Brothership.PL
             {
                 if (_genders == null)
                 {
-                    _genders = new GenderRepository(dbContext);
+                    _genders = new GenderRepository(_dbContext);
                 }
                 return _genders;
             }
@@ -158,7 +166,7 @@ namespace T5.Brothership.PL
 
         public void Commit()
         {
-            dbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public void Dispose()
@@ -171,9 +179,9 @@ namespace T5.Brothership.PL
         {
             if (disposing)
             {
-                if (dbContext != null)
+                if (_dbContext != null)
                 {
-                    dbContext.Dispose();
+                    _dbContext.Dispose();
                 }
             }
         }

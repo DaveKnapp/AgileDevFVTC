@@ -73,7 +73,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Brothership.edmx</DependentUpon>
     </Compile>
+    <Compile Include="brothershipEntitiesPartial.cs" />
     <Compile Include="BrothershipUnitOfWork.cs" />
+    <Compile Include="ConnectionStrings.cs" />
     <Compile Include="IBrothershipUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepositoy.cs" />

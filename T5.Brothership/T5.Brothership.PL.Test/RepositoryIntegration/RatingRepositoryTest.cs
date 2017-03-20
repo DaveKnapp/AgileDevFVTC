@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -30,7 +30,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Rating actualRating;
 
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            using (var ratingRepo = new RatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 ratingRepo.Add(expectedRating);
                 ratingRepo.SaveChanges();
@@ -46,7 +46,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             Rating actualRating;
             var typeToDelete = AddandGetTestRating();
 
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            using (var ratingRepo = new RatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 ratingRepo.Delete(typeToDelete);
                 ratingRepo.SaveChanges();
@@ -62,7 +62,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var typeIdToDelete = AddandGetTestRating().ID;
             Rating actualRating;
 
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            using (var ratingRepo = new RatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 ratingRepo.Delete(typeIdToDelete);
                 ratingRepo.SaveChanges();
@@ -77,7 +77,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             const int expectedCount = 5;
             int actualCount;
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            using (var ratingRepo = new RatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = ratingRepo.GetAll().Count();
             }
@@ -95,7 +95,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Rating actualRating;
 
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            using (var ratingRepo = new RatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualRating = ratingRepo.GetById(expectedRating.ID);
             }
@@ -113,7 +113,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Rating actualRating;
 
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            using (var ratingRepo = new RatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 ratingRepo.Update(expectedRating);
                 ratingRepo.SaveChanges();
@@ -130,7 +130,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 Description = "TestRating"
             };
 
-            using (var ratingRepo = new RatingRepository(new brothershipEntities()))
+            using (var ratingRepo = new RatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 ratingRepo.Add(ratingType);
                 ratingRepo.SaveChanges();

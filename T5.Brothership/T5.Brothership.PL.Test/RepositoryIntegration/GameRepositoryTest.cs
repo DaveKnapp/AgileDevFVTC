@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.PL.Repositories;
+using T5.Brothership.PL;
 using System.IO;
 using System.Linq;
 
@@ -15,7 +16,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext = new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -32,7 +33,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Game actualGame;
 
-            using (var gameRepo = new GameRepository(new brothershipEntities()))
+            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 gameRepo.Add(expectedGame);
                 gameRepo.SaveChanges();
@@ -48,7 +49,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             Game actualGame;
             var typeToDelete = AddandGetTestGame();
 
-            using (var gameRepo = new GameRepository(new brothershipEntities()))
+            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 gameRepo.Delete(typeToDelete);
                 gameRepo.SaveChanges();
@@ -64,7 +65,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var typeIdToDelete = AddandGetTestGame().ID;
             Game actualGame;
 
-            using (var gameRepo = new GameRepository(new brothershipEntities()))
+            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 Game game = gameRepo.GetById(typeIdToDelete);
                 game.GameCategories.Clear();
@@ -81,7 +82,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             const int expectedCount = 45;
             int actualCount;
 
-            using (var gameRepo = new GameRepository(new brothershipEntities()))
+            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 actualCount = gameRepo.GetAll().Count();
             }
@@ -101,7 +102,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Game actualGame;
 
-            using (var gameRepo = new GameRepository(new brothershipEntities()))
+            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 actualGame = gameRepo.GetById(expectedGame.ID);
                 AssertGamesEqual(expectedGame, actualGame);
@@ -120,7 +121,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Game actualGame;
 
-            using (var gameRepo = new GameRepository(new brothershipEntities()))
+            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 gameRepo.Update(expectedGame);
                 gameRepo.SaveChanges();
@@ -142,7 +143,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Game actualGame;
 
-            using (var gameRepo = new GameRepository(new brothershipEntities()))
+            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 gameRepo.GetByIgdbId((int)expectedGame.igdbID);
                 gameRepo.SaveChanges();
@@ -158,9 +159,9 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 igdbID = 23434,
                 Title = "Test Game",
             };
-            game.GameCategories.Add(new GameCategory { ID = 11, Description = "Real Time Strategy (RTS)"});
+            game.GameCategories.Add(new GameCategory { ID = 11, Description = "Real Time Strategy (RTS)" });
 
-            using (var gameRepo = new GameRepository(new brothershipEntities()))
+            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 gameRepo.Add(game);
                 gameRepo.SaveChanges();

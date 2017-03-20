@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -26,7 +26,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         public void DeleteById_WasRecordDeleted_GetReturnsNull()
         {
             User actualUser;
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            using (UserRepository userRepo = new UserRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userRepo.Delete(1);
                 userRepo.SaveChanges();
@@ -40,7 +40,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         public void DeleteByUser_WasRecordDeleted_GetReturnsNull()
         {
             User actualUser;
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            using (UserRepository userRepo = new UserRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualUser = userRepo.GetById(1);
                 userRepo.Delete(actualUser);
@@ -56,7 +56,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             const int expectedCount = 5;
             int actualCount;
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            using (UserRepository userRepo = new UserRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = userRepo.GetAll().Count();
             }
@@ -70,7 +70,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             const string expextedEmail = "TestingUser3@yahoo.com";
 
             User actualUser;
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            using (UserRepository userRepo = new UserRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualUser = userRepo.GetByUsernameOrEmail(expextedEmail);
             }
@@ -96,7 +96,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
 
             var actualUser = new User();
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            using (UserRepository userRepo = new UserRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualUser = userRepo.GetById(expectedUser.ID);
             }
@@ -111,7 +111,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             const string expextedUserName = "TestUserThree";
 
             User actualUser;
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            using (UserRepository userRepo = new UserRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualUser = userRepo.GetByUsernameOrEmail(expextedUserName);
             }
@@ -125,7 +125,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             const string expextedUserName = "NoUserFound";
 
             User actualUser;
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            using (UserRepository userRepo = new UserRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualUser = userRepo.GetByUsernameOrEmail(expextedUserName);
             }
@@ -151,7 +151,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
 
             var actualUser = new User();
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            using (UserRepository userRepo = new UserRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userRepo.Add(expectedUser);
                 userRepo.SaveChanges();
@@ -167,7 +167,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             User expectedUser;
             User actualUser;
 
-            using (UserRepository userRepo = new UserRepository(new brothershipEntities()))
+            using (UserRepository userRepo = new UserRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 expectedUser = userRepo.GetById(1);
                 expectedUser.Email = "UpdatedEmail@gmail.com";

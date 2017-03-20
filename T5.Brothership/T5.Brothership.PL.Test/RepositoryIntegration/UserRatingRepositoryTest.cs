@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -34,7 +34,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
             UserRating actualUserRating;
 
-            using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
+            using (var userRatingRepo = new UserRatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userRatingRepo.Add(expectedUserRating);
                 userRatingRepo.SaveChanges();
@@ -50,7 +50,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             UserRating actualUserRating;
             var userRatingToDelete = AddandGetTestUserRating();
 
-            using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
+            using (var userRatingRepo = new UserRatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userRatingRepo.Delete(userRatingToDelete);
                 userRatingRepo.SaveChanges();
@@ -66,7 +66,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var userIntegrationToDelete = AddandGetTestUserRating();
             UserRating actualUserRating;
 
-            using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
+            using (var userRatingRepo = new UserRatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userRatingRepo.Delete(userIntegrationToDelete.RaterUserID, userIntegrationToDelete.UserBeingRatedID);
                 userRatingRepo.SaveChanges();
@@ -81,7 +81,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             const int expectedCount = 8;
             int actualCount;
-            using (var userRatingRepoRepo = new UserRatingRepository(new brothershipEntities()))
+            using (var userRatingRepoRepo = new UserRatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = userRatingRepoRepo.GetAll().Count();
             }
@@ -95,7 +95,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             const int expectedUserId = 2;
             const int expectedCount = 3;
             int actualCount;
-            using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
+            using (var userRatingRepo = new UserRatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = userRatingRepo.GetAllByUserId(expectedUserId).Count();
             }
@@ -115,7 +115,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             UserRating actualUserRating;
 
-            using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
+            using (var userRatingRepo = new UserRatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualUserRating = userRatingRepo.GetById(expectedUserRating.RaterUserID, expectedUserRating.UserBeingRatedID);
             }
@@ -135,7 +135,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             UserRating actualUserRating;
 
-            using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
+            using (var userRatingRepo = new UserRatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userRatingRepo.Update(expectedUserRating);
                 userRatingRepo.SaveChanges();
@@ -155,7 +155,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 RatingID = 5
             };
 
-            using (var userRatingRepo = new UserRatingRepository(new brothershipEntities()))
+            using (var userRatingRepo = new UserRatingRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userRatingRepo.Add(userRating);
                 userRatingRepo.SaveChanges();

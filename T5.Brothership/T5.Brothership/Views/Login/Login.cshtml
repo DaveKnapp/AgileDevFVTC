@@ -8,9 +8,7 @@
 
 
 
-@using (Html.BeginForm())
-{
-@Html.AntiForgeryToken()
+
 <!-- section log in -->
 <div id="login" class="section">
     <div class="container">
@@ -36,8 +34,12 @@
                 <div class="row">
                     <h4 class="col-sm-4 col-sm-offset-2"><i class="fa fa-envelope"></i><strong>&nbsp;Login</strong></h4>
                 </div>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
                 <!-- start log in form -->
-                <div class="lform loginform" id="login-form">
+                    <div class="lform loginform" id="login-form">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group row">
                             @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-sm-2 col-sm-offset-2" })
@@ -53,19 +55,23 @@
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    <div class="row">
-                        <div class="top-margin col-sm-2 col-sm-offset-2">
-                            <input type="submit" value="Login" class="btn btn-lg btn-theme" />
-                            <h4>@ViewBag.Message</h4>
+                        <div class="row">
+                            <div class="top-margin col-sm-2 col-sm-offset-2">
+                                <input type="submit" value="Login" class="btn btn-lg btn-theme" />
+                                <h4>@ViewBag.Message</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
                 <!-- END log in form -->
             </div>
         </div>
+        @Html.ActionLink("Create Account", "Create", "Account")
     </div>
 </div>
-}
+
+
+
 <!-- end section login -->
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

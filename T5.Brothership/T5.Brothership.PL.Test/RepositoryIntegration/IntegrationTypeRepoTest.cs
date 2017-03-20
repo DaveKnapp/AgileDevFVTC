@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -30,7 +30,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             IntegrationType actualIntegrationType;
 
-            using (var integrationTypeRepo = new IntegrationTypeRepository(new brothershipEntities()))
+            using (var integrationTypeRepo = new IntegrationTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 integrationTypeRepo.Add(expectedIntegrationType);
                 integrationTypeRepo.SaveChanges();
@@ -46,7 +46,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             IntegrationType actualIntegrationType;
             var typeToDelete = AddandGetTestIntegrationType();
 
-            using (var integrationTypeRepo = new IntegrationTypeRepository(new brothershipEntities()))
+            using (var integrationTypeRepo = new IntegrationTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 integrationTypeRepo.Delete(typeToDelete);
                 integrationTypeRepo.SaveChanges();
@@ -62,7 +62,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var typeIdToDelete = AddandGetTestIntegrationType().ID;
             IntegrationType actualIntegrationType;
 
-            using (var integrationTypeRepo = new IntegrationTypeRepository(new brothershipEntities()))
+            using (var integrationTypeRepo = new IntegrationTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 integrationTypeRepo.Delete(typeIdToDelete);
                 integrationTypeRepo.SaveChanges();
@@ -77,7 +77,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             const int expectedCount = 1;
             int actualCount;
-            using (var integrationTypeRepo = new IntegrationTypeRepository(new brothershipEntities()))
+            using (var integrationTypeRepo = new IntegrationTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = integrationTypeRepo.GetAll().Count();
             }
@@ -95,7 +95,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             IntegrationType actualIntegrationType;
 
-            using (var integrationTypeRepo = new IntegrationTypeRepository(new brothershipEntities()))
+            using (var integrationTypeRepo = new IntegrationTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualIntegrationType = integrationTypeRepo.GetById(expectedIntegrationType.ID);
             }
@@ -113,7 +113,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             IntegrationType actualIntegrationType;
 
-            using (var integrationTypeRepo = new IntegrationTypeRepository(new brothershipEntities()))
+            using (var integrationTypeRepo = new IntegrationTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 integrationTypeRepo.Update(expectedIntegrationType);
                 integrationTypeRepo.SaveChanges();
@@ -131,7 +131,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 Description = "TestType"
             };
 
-            using (var integrationTypeRepo = new IntegrationTypeRepository(new brothershipEntities()))
+            using (var integrationTypeRepo = new IntegrationTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 integrationTypeRepo.Add(integrationType);
                 integrationTypeRepo.SaveChanges();

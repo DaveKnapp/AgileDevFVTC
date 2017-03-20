@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -30,7 +30,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             SocialMediaType actualSocialMediaType;
 
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 socialMediaTypeRepo.Add(expectedSocialMediaType);
                 socialMediaTypeRepo.SaveChanges();
@@ -46,7 +46,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             SocialMediaType actualSocialMediaType;
             var typeToDelete = AddandGetTestSocialMediaType();
 
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 socialMediaTypeRepo.Delete(typeToDelete);
                 socialMediaTypeRepo.SaveChanges();
@@ -62,7 +62,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var typeIdToDelete = AddandGetTestSocialMediaType().ID;
             SocialMediaType actualSocialMediaType;
 
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 socialMediaTypeRepo.Delete(typeIdToDelete);
                 socialMediaTypeRepo.SaveChanges();
@@ -77,7 +77,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             const int expectedCount = 3;
             int actualCount;
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = socialMediaTypeRepo.GetAll().Count();
             }
@@ -95,7 +95,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             SocialMediaType actualSocialMediaType;
 
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualSocialMediaType = socialMediaTypeRepo.GetById(expectedSocialMediaType.ID);
             }
@@ -113,7 +113,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             SocialMediaType actualSocialMediaType;
 
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 socialMediaTypeRepo.Update(expectedSocialMediaType);
                 actualSocialMediaType = socialMediaTypeRepo.GetById(expectedSocialMediaType.ID);
@@ -129,7 +129,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 Description = "TestType"
             };
 
-            using (var socialMediaTypeRepo = new SocialMediaTypeRepository(new brothershipEntities()))
+            using (var socialMediaTypeRepo = new SocialMediaTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 socialMediaTypeRepo.Add(socialMediaTypeType);
                 socialMediaTypeRepo.SaveChanges();

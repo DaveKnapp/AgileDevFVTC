@@ -14,7 +14,7 @@ namespace T5.Brothership.PL.Test
         [TestMethod, TestCategory("IntegrationTest")]
         public void IsDatabaseConnected_DatabaseConnected_StateEqualsOpen()
         {
-            using (brothershipEntities dbContext = new brothershipEntities())
+            using (brothershipEntities dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 dbContext.Database.Connection.Open();
                 Assert.IsTrue(dbContext.Database.Connection.State == System.Data.ConnectionState.Open);

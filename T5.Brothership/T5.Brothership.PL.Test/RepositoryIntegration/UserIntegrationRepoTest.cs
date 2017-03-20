@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -33,7 +33,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
             UserIntegration actualUserIntegration;
 
-            using (var userIntegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
+            using (var userIntegrationRepo = new UserIntegrationRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userIntegrationRepo.Add(expectedUserIntegration);
                 userIntegrationRepo.SaveChanges();
@@ -49,7 +49,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             UserIntegration actualUserIntegration;
             var userIntegrationToDelete = AddandGetTestUserIntegration();
 
-            using (var userIntegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
+            using (var userIntegrationRepo = new UserIntegrationRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userIntegrationRepo.Delete(userIntegrationToDelete);
                 userIntegrationRepo.SaveChanges();
@@ -65,7 +65,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var userIntegrationToDelete = AddandGetTestUserIntegration();
             UserIntegration actualUserIntegration;
 
-            using (var userIntegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
+            using (var userIntegrationRepo = new UserIntegrationRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userIntegrationRepo.Delete(userIntegrationToDelete.UserID, userIntegrationToDelete.IntegrationTypeID);
                 userIntegrationRepo.SaveChanges();
@@ -80,7 +80,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             const int expectedCount = 2;
             int actualCount;
-            using (var userInegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
+            using (var userInegrationRepo = new UserIntegrationRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = userInegrationRepo.GetAll().Count();
             }
@@ -94,7 +94,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             const int expectedUserId = 3;
             const int expectedCount = 1;
             int actualCount;
-            using (var userInegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
+            using (var userInegrationRepo = new UserIntegrationRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = userInegrationRepo.GetAllByUser(expectedUserId).Count();
             }
@@ -113,7 +113,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             UserIntegration actualUserIntegration;
 
-            using (var userInegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
+            using (var userInegrationRepo = new UserIntegrationRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualUserIntegration = userInegrationRepo.GetById(expectedUserInegration.UserID, expectedUserInegration.IntegrationTypeID);
             }
@@ -132,7 +132,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             UserIntegration actualUserIntegration;
 
-            using (var userIntegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
+            using (var userIntegrationRepo = new UserIntegrationRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userIntegrationRepo.Update(expectedUserIntegration);
                 userIntegrationRepo.SaveChanges();
@@ -151,7 +151,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 Token = "asdfwewrewreaw34"
             };
 
-            using (var userIntegrationRepo = new UserIntegrationRepository(new brothershipEntities()))
+            using (var userIntegrationRepo = new UserIntegrationRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userIntegrationRepo.Add(userIntegration);
                 userIntegrationRepo.SaveChanges();

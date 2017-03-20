@@ -16,7 +16,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -31,7 +31,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             UserType actualUserType;
 
-            using (var userTypeRepo = new UserTypeRepository(new brothershipEntities()))
+            using (var userTypeRepo = new UserTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userTypeRepo.Add(expectedUserType);
                 userTypeRepo.SaveChanges();
@@ -47,7 +47,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             UserType actualUserType;
             var typeToDelete = AddandGetTestUserType();
 
-            using (var userTypeRepo = new UserTypeRepository(new brothershipEntities()))
+            using (var userTypeRepo = new UserTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userTypeRepo.Delete(typeToDelete);
                 userTypeRepo.SaveChanges();
@@ -63,7 +63,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var typeIdToDelete = AddandGetTestUserType().ID;
             UserType actualUserType;
 
-            using (var userTypeRepo = new UserTypeRepository(new brothershipEntities()))
+            using (var userTypeRepo = new UserTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userTypeRepo.Delete(typeIdToDelete);
                 userTypeRepo.SaveChanges();
@@ -79,7 +79,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             const int expectedCount = 1;
             int actualCount;
 
-            using (var userTypeRepo = new UserTypeRepository(new brothershipEntities()))
+            using (var userTypeRepo = new UserTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualCount = userTypeRepo.GetAll().Count();
             }
@@ -97,7 +97,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             UserType actualUserType;
 
-            using (var userTypeRepo = new UserTypeRepository(new brothershipEntities()))
+            using (var userTypeRepo = new UserTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 actualUserType = userTypeRepo.GetById(expectedUserType.ID);
             }
@@ -115,7 +115,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             UserType actualUserType;
 
-            using (var userTypeRepo = new UserTypeRepository(new brothershipEntities()))
+            using (var userTypeRepo = new UserTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userTypeRepo.Update(expectedUserType);
                 actualUserType = userTypeRepo.GetById(expectedUserType.ID);
@@ -131,7 +131,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 Description = "TestUserType"
             };
 
-            using (var userTypeRepo = new UserTypeRepository(new brothershipEntities()))
+            using (var userTypeRepo = new UserTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {
                 userTypeRepo.Add(userTypeType);
                 userTypeRepo.SaveChanges();

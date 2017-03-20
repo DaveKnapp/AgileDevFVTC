@@ -96,7 +96,6 @@
     <Compile Include="RepositoryIntegration\UserSocialMediaRepoTest.cs" />
     <Compile Include="RepositoryIntegration\UserTypeRepoTest.cs" />
     <Compile Include="SqlScriptRunner.cs" />
-    <Compile Include="utUserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

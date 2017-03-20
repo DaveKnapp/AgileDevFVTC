@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities())
+            using (var dbContext =  new brothershipEntities("brothershipEntitiesTest"))
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -30,7 +30,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Nationality actualNationality;
 
-            using (var nationalityRepo = new NationalityRepository(new brothershipEntities()))
+            using (var nationalityRepo = new NationalityRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 nationalityRepo.Add(expectedNationality);
                 nationalityRepo.SaveChanges();
@@ -46,7 +46,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             Nationality actualNationality;
             var typeToDelete = AddandGetTestNationality();
 
-            using (var nationalityRepo = new NationalityRepository(new brothershipEntities()))
+            using (var nationalityRepo = new NationalityRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 nationalityRepo.Delete(typeToDelete);
                 nationalityRepo.SaveChanges();
@@ -62,7 +62,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var typeIdToDelete = AddandGetTestNationality().ID;
             Nationality actualNationality;
 
-            using (var nationalityRepo = new NationalityRepository(new brothershipEntities()))
+            using (var nationalityRepo = new NationalityRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 nationalityRepo.Delete(typeIdToDelete);
                 nationalityRepo.SaveChanges();
@@ -77,7 +77,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             const int expectedCount = 3;
             int actualCount;
-            using (var nationalityRepo = new NationalityRepository(new brothershipEntities()))
+            using (var nationalityRepo = new NationalityRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 actualCount = nationalityRepo.GetAll().Count();
             }
@@ -95,7 +95,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Nationality actualNationality;
 
-            using (var nationalityRepo = new NationalityRepository(new brothershipEntities()))
+            using (var nationalityRepo = new NationalityRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 actualNationality = nationalityRepo.GetById(expectedNationality.ID);
             }
@@ -113,7 +113,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Nationality actualNationality;
 
-            using (var nationalityRepo = new NationalityRepository(new brothershipEntities()))
+            using (var nationalityRepo = new NationalityRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 nationalityRepo.Update(expectedNationality);
                 nationalityRepo.SaveChanges();
@@ -130,7 +130,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 Description = "TestType"
             };
 
-            using (var nationalityRepo = new NationalityRepository(new brothershipEntities()))
+            using (var nationalityRepo = new NationalityRepository( new brothershipEntities("brothershipEntitiesTest")))
             {
                 nationalityRepo.Add(nationalityType);
                 nationalityRepo.SaveChanges();
