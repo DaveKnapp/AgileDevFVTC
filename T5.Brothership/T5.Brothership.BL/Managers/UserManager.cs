@@ -106,7 +106,7 @@ namespace T5.Brothership.BL.Managers
             currentUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(updatedUser.Games));
 
             _unitOfWork.Users.Update(currentUser);
-
+            _unitOfWork.Commit();
         }
 
         public List<User> GetAllUsers()

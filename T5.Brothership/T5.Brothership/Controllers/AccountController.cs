@@ -34,21 +34,23 @@ namespace T5.Brothership.Controllers
         {
             //TODO(Dave) Add uploading of profile image
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
-            userViewModel.User.ProfileImagePath = "Default";
+            var newUser = userViewModel.NewUser;
+            newUser.ProfileImagePath = "Default";
 
-            //TODO(Dave) refactor make setter user type more clear
-            userViewModel.User.UserTypeID = 1;
+            //TODO(Dave) refactor make setting user type more clear
+            newUser.UserTypeID = 1;
 
             if (ModelState.IsValid)
             {
-                if (_userManger.UserNameExists(userViewModel.User.UserName))
+                if (_userManger.UserNameExists(userViewModel.NewUser.UserName))
                 {
                     TempData["error"] = "Username currently being used";
+                    //TODO(Dave) make it so the information the user submitted stays on form after validation fails
                     return RedirectToAction(nameof(Create));
                 }
                 else
                 {
-                    await _userManger.Add(userViewModel.User, userViewModel.Password);
+                    await _userManger.Add(newUser, userViewModel.Password);
                     return View("AccountCreated");
                 }
             }
@@ -56,6 +58,50 @@ namespace T5.Brothership.Controllers
             {
                 ViewBag.Message = "An error occurred when creating the account.";
                 return View(nameof(Create));
+            }
+        }
+
+        public ActionResult Update()
+        {
+            var user = Session["CurrentUser"] as User;
+
+            if (user != null)
+            {
+                var userViewModel = new UpdateUserViewModel
+                {
+                    CurrentUser = _userManger.GetById(user.ID),
+                    Nationalities = _nationalityManager.GetAll(),
+                    Genders = _genderManager.GetAll()
+                };
+                return View(userViewModel);
+            }
+            else
+            {
+                ViewBag.Message = TempData["error"];
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Update(UpdateUserViewModel userViewModel)
+        {
+            var currentUser = userViewModel.CurrentUser;
+            currentUser.ID = (Session["CurrentUser"] as User).ID;
+            //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
+            currentUser.ProfileImagePath = "Default";
+
+            currentUser.UserTypeID = 1;
+
+            var val = ModelState.Values;
+            if (ModelState.IsValid)
+            {
+                await _userManger.Update(currentUser);
+                return View("AccountUpdated");
+            }
+            else
+            {
+                TempData["error"] = "An error occurred when updating the account.";
+                return RedirectToAction(nameof(Update));
             }
         }
     }

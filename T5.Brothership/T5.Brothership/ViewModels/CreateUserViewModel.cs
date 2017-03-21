@@ -9,7 +9,7 @@ namespace T5.Brothership.ViewModels
 {
     public class CreateUserViewModel
     {
-        public User User { get; set; }
+        public User NewUser { get; set; }
 
         [Required, DataType(DataType.Password),
          StringLength(20, ErrorMessage = "Password must be less than 20 and greater than 5 characters", MinimumLength = 5)]

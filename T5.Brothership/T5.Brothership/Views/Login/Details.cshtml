@@ -58,7 +58,7 @@
             @Html.DisplayFor(model => model.DOB)
         </dd>
 
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.Gender.Description)
         </dt>
@@ -85,7 +85,8 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Logout", "Logout","Login") 
-  
-</p>
+
+@Html.ActionLink("Logout", "Logout", "Login") <br />
+@Html.ActionLink("Update Account info", "Update", "Account")
+
+
