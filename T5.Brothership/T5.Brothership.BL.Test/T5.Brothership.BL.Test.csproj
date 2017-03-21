@@ -75,9 +75,11 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HelpersUnitTest\PasswordHelperTest.cs" />
     <Compile Include="ManagerIntegration\UserManagerTest.cs" />
-    <Compile Include="ManagerUnitTests\GameManagerTest.cs" />
-    <Compile Include="ManagerUnitTests\UserRatingManagerTest.cs" />
-    <Compile Include="ManagerUnitTests\UserManagerTest.cs" />
+    <Compile Include="ManagerUnitTests\GameManagerUnitTest.cs" />
+    <Compile Include="ManagerUnitTests\GenderManagerUnitTest.cs" />
+    <Compile Include="ManagerUnitTests\NationalitymanagerUnitTest.cs" />
+    <Compile Include="ManagerUnitTests\UserRatingManagerUnitTest.cs" />
+    <Compile Include="ManagerUnitTests\UserManagerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ using System.Linq;
 namespace T5.Brothership.BL.Test.ManagerUnitTests
 {
     [TestClass]
-    public class GameManagerTest
+    public class GameManagerUnitTest
     {
         [TestMethod, TestCategory("UnitTest")]
         public void GetByIgdbIds_WasDataGot_CountEqualsActual()

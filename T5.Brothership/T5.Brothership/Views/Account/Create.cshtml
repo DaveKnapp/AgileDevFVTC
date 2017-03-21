@@ -1,4 +1,4 @@
-﻿@model T5.Brothership.ViewModels.UserViewModel
+﻿@model T5.Brothership.ViewModels.CreateUserViewModel
 
 @{
     ViewBag.Title = "Create Account";
@@ -9,9 +9,10 @@
 
 @using (Html.BeginForm())
 {
+   
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        <h4>User</h4>
+        <h4 class="text-danger">@ViewBag.Message</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -19,6 +20,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.User.UserName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.User.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -31,21 +40,13 @@
         </div>
 
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.User.ProfileImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.User.ProfileImagePath, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.User.ProfileImagePath, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.User.DateJoined, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.User.DateJoined, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.User.DateJoined, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.User.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -54,22 +55,6 @@
                 @Html.ValidationMessageFor(model => model.User.DOB, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.User.UserTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.User.UserTypeID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.User.UserTypeID, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.User.NationalityID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User.NationalityID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User.NationalityID, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.User.NationalityID, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -82,7 +67,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.User.GenderId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.User.GenderId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.User.GenderId, new SelectList(Model.Genders, "ID", "Description"),
+                    new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.User.GenderId, "", new { @class = "text-danger" })
             </div>
         </div>

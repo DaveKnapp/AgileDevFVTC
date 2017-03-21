@@ -91,7 +91,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
                     ID = 1,
                     Bio = "UpdatedBio",
                     DOB = new DateTime(1999, 3, 22),
-                    Email = "UserOneUpdatedEmail",
+                    Email = "UserOneUpdatedEmail@gmail.com",
                     GenderId = 2,
                     DateJoined = new DateTime(2017, 2, 20),
                     ProfileImagePath = "UpdatedImagePath.jpg",

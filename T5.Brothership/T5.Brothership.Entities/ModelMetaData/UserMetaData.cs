@@ -14,13 +14,13 @@ namespace T5.Brothership.Entities.Models
 
         [Required(ErrorMessage = "User name is required"),
          Display(Name = "Username"),
-         StringLength(25, ErrorMessage = "User name must be less than 25 characters")]
+         StringLength(25, ErrorMessage = "User name must be less than 25 and more than 5 characters", MinimumLength = 5)]
         string UserName { get; set; }
 
-        [Required(ErrorMessage = "Email is required"), StringLength(45)]
+        [Required(ErrorMessage = "Email is required"), StringLength(45), EmailAddress]
         string Email { get; set; }
 
-        [StringLength(350, ErrorMessage = "Bio is limited to 350 characters")]
+        [StringLength(350, ErrorMessage = "Bio is limited to 350 characters"), DataType(DataType.MultilineText)]
         string Bio { get; set; }
 
         [ScaffoldColumn(false)]

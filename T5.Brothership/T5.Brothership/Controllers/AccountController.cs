@@ -14,25 +14,37 @@ namespace T5.Brothership.Controllers
     {
         readonly UserManager _userManger = new UserManager();
         readonly NationalityManager _nationalityManager = new NationalityManager();
+        readonly GenderManager _genderManager = new GenderManager();
+
+
         public ActionResult Create()
         {
-            var userViewModel = new UserViewModel
+            var userViewModel = new CreateUserViewModel
             {
-                Nationalities = _nationalityManager.GetAll()
+                Nationalities = _nationalityManager.GetAll(),
+                Genders = _genderManager.GetAll()
             };
 
+            ViewBag.Message = TempData["error"];
             return View(userViewModel);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(UserViewModel userViewModel)
+        public async Task<ActionResult> Create(CreateUserViewModel userViewModel)
         {
+            //TODO(Dave) Add uploading of profile image
+            //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
+            userViewModel.User.ProfileImagePath = "Default";
+
+            //TODO(Dave) refactor make setter user type more clear
+            userViewModel.User.UserTypeID = 1;
+
             if (ModelState.IsValid)
             {
                 if (_userManger.UserNameExists(userViewModel.User.UserName))
                 {
-                    ViewBag.Message = "Username is currently in use.";
-                    return View();
+                    TempData["error"] = "Username currently being used";
+                    return RedirectToAction(nameof(Create));
                 }
                 else
                 {
