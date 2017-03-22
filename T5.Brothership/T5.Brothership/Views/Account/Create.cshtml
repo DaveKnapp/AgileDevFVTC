@@ -4,12 +4,14 @@
     ViewBag.Title = "Create Account";
 }
 
+
+
 <h2>Create Account</h2>
 
 
 @using (Html.BeginForm())
 {
-   
+
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         <h4 class="text-danger">@ViewBag.Message</h4>
@@ -50,12 +52,12 @@
 
 
         @*<div class="form-group">
-            @Html.LabelFor(model => model.User.ProfileImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User.ProfileImagePath, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User.ProfileImagePath, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+                @Html.LabelFor(model => model.User.ProfileImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.User.ProfileImagePath, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.User.ProfileImagePath, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.NewUser.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -69,7 +71,7 @@
             @Html.LabelFor(model => model.NewUser.NationalityID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.NewUser.NationalityID, new SelectList(Model.Nationalities, "ID", "Description"),
-                    new { htmlAttributes = new { @class = "form-control" } })
+                        new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
@@ -77,7 +79,7 @@
             @Html.LabelFor(model => model.NewUser.GenderId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.NewUser.GenderId, new SelectList(Model.Genders, "ID", "Description"),
-                    new { htmlAttributes = new { @class = "form-control" } })
+                        new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NewUser.GenderId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -85,11 +87,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NewUser.Bio, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-              
+
                 @Html.EditorFor(model => model.NewUser.Bio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NewUser.Bio,"", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.NewUser.Bio, "", new { @class = "text-danger" })
             </div>
         </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -99,6 +102,39 @@
     </div>
 }
 
+<!--- Search -->
+
+@{
+    AjaxOptions options = new AjaxOptions
+    {
+        UpdateTargetId = "searchResult",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "LoadingGif",
+        HttpMethod = "Get"
+    };
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+@using (Ajax.BeginForm("SearchIGDB", "Game", options))
+{
+
+    <div>
+        @Html.TextBox("keyword", null, new { id = "Search" })
+        <button type="submit" value="Search">Search</button>
+    </div>
+}
+
+<div style="border:solid; height:14em; width:50%; overflow-y:scroll;">
+    <div id="LoadingGif" style="display:none;">
+        <img  style="margin-left:auto; display:block; margin-right:auto; margin-top:2em;" src="~/images/ajax-loader.gif" />
+    </div>
+    <ul style="list-style:none" id="searchResult">
+        @Html.Action("SearchIGDB", "Game", new { keyword = "" })
+    </ul>
+</div>
+
+
+<!--- End Search -->
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")

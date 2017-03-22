@@ -36,7 +36,7 @@ namespace T5.Brothership.BL.IGDBApi
             string[] fields = { "name", "cover", "genres" };
 
             var responseMessage = await client.GetAsync("games/?fields=" + GetFieldsString(fields) + "&limit=" + limit
-                                                                        + "&offset=" + offset + "&search=" + gameName);
+                                                                        + "&offset=" + offset + "&search=" + gameName).ConfigureAwait(false);
             var json = responseMessage.Content.ReadAsStringAsync().Result;
             var response = JsonConvert.DeserializeObject<List<IGDBGame>>(json);
 
@@ -48,11 +48,16 @@ namespace T5.Brothership.BL.IGDBApi
                 {
                     igdbID = game.id,
                     Title = game.name,
+                    ImgCloudinaryId = game.cover == null? string.Empty :  game.cover.cloudinary_id
                 };
 
-                foreach (var categoryId in game.genres)
+                if (game.genres != null)
                 {
-                    newgame.GameCategories.Add(new GameCategory { ID = categoryId });
+                    foreach (var categoryId in game.genres)
+                    {
+                        newgame.GameCategories.Add(new GameCategory { ID = categoryId });
+
+                    }
                 }
 
                 games.Add(newgame);
