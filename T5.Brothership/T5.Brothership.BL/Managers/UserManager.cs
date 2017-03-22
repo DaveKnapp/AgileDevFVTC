@@ -141,5 +141,26 @@ namespace T5.Brothership.BL.Managers
             };
         }
 
+        public void UpdatePassword(string currentPassword, string newPassword, User user)
+        {//TODO(Dave) Add integration test
+            var currentUser = _unitOfWork.Users.GetByUsernameOrEmail(user.UserName);
+
+            var passwordHelper = new PasswordHelper();
+            var hashedPassword = new HashedPassword { PasswordHash = currentUser.UserLogin.PasswordHash, Salt = currentUser.UserLogin.Salt };
+
+            if ( passwordHelper.IsPasswordMatch(currentPassword, hashedPassword))
+            {
+                UserLogin login = CreateUserLogin(newPassword);
+                currentUser.UserLogin.PasswordHash = login.PasswordHash;
+                currentUser.UserLogin.Salt = login.Salt;
+
+                _unitOfWork.Users.Update(currentUser);
+                _unitOfWork.Commit();
+            }
+            else
+            {
+                throw new InvalidPasswordException("Password is incorrect");
+            }
+        }
     }
 }

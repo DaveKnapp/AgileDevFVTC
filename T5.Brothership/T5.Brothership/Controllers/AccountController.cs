@@ -104,5 +104,52 @@ namespace T5.Brothership.Controllers
                 return RedirectToAction(nameof(Update));
             }
         }
+
+        public ActionResult ChangePassword()
+        {
+            User currentUser = Session["CurrentUser"] as User;
+
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Login");
+
+            }
+            else
+            {
+                currentUser = _userManger.GetById(currentUser.ID);
+                var viewModel = new ChangePasswordViewModel
+                {
+                    UserName = currentUser.UserName
+                };
+
+                ViewBag.Message = TempData["error"];
+                return View(viewModel);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordViewModel passwordViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = Session["CurrentUser"] as User;
+
+                if (user != null)
+                {
+                    _userManger.UpdatePassword(passwordViewModel.CurrentPassword, passwordViewModel.NewPassword, user);
+                    return View("PasswordUpdated");
+                }
+                else
+                {
+                    return View(nameof(UserLogin), passwordViewModel);
+                }
+            }
+            else
+            {
+                TempData["error"] = "An error occurred when updating your password.";
+                return RedirectToAction(nameof(ChangePassword));
+            }
+
+        }
     }
 }

@@ -201,24 +201,56 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             }
         }
 
+        [TestMethod, TestCategory("UnitTest")]
         public void UserNameExists_UserNotExists_ReturnsFalse()
         {
             const string userName = "ThisNameNotInUse";
 
             using (var fakeUnitOfwork = new FakeBrothershipUnitOfWork())
             {
-                fakeUnitOfwork.Users.Add(new User
-                {
-                    UserName = userName,
-                    UserLogin = new UserLogin()
-                });
-
                 using (UserManager userManger = new UserManager(fakeUnitOfwork))
                 {
                     Assert.IsFalse(userManger.UserNameExists(userName));
                 }
             }
         }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void UpdatePassword_DoesPasswordChange_LoginSucessfulWithNewPassword()
+        {
+            const string userName = "TestUserOne";
+            const string currentPassword = "Password";
+            const string newPassword = "NewPassword";
+            User user;
+
+            using (UserManager userManger = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                user = userManger.Login(userName, currentPassword);
+
+                userManger.UpdatePassword(currentPassword, newPassword, user);
+                Assert.IsFalse(userManger.Login(userName, newPassword) is InvalidUser);
+            }
+        }
+
+
+        [TestMethod, TestCategory("UnitTest"),
+         ExpectedExceptionAttribute(typeof(InvalidPasswordException))]
+        public void UpdatePassword_IncorrectCurrentPassword_ThrowsInvalidPasswordExcception()
+        {
+            const string userName = "TestUserOne";
+            const string correctPassword = "Password";
+            const string wrongPassword = "Wrong";
+            const string newPassword = "NewPassword";
+            User user;
+
+            using (UserManager userManger = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                user = userManger.Login(userName, correctPassword);
+
+                userManger.UpdatePassword(wrongPassword, newPassword, user);
+            }
+        }
+
 
         private User CreateExpectedAddedUser()
         {
