@@ -281,6 +281,8 @@
     <Content Include="Views\Account\Update.cshtml" />
     <Content Include="Views\Account\AccountUpdated.cshtml" />
     <Content Include="Views\Game\SearchIGDB.cshtml" />
+    <Content Include="Views\Shared\LoginLink.cshtml" />
+    <Content Include="Views\Shared\AccountMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
