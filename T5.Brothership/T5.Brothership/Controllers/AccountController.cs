@@ -74,11 +74,11 @@ namespace T5.Brothership.Controllers
                     Nationalities = _nationalityManager.GetAll(),
                     Genders = _genderManager.GetAll()
                 };
+                ViewBag.Message = TempData["error"];
                 return View(userViewModel);
             }
             else
             {
-                ViewBag.Message = TempData["error"];
                 return RedirectToAction("Login", "Login");
             }
         }
