@@ -21,6 +21,7 @@ namespace T5.Brothership.Controllers
         {
             var userViewModel = new CreateUserViewModel
             {
+                NewUser = new User(),
                 Nationalities = _nationalityManager.GetAll(),
                 Genders = _genderManager.GetAll()
             };
