@@ -59,6 +59,9 @@
                             <div class="top-margin col-sm-2 col-sm-offset-2">
                                 <input type="submit" value="Login" class="btn btn-lg btn-theme" />
                             </div>
+                            <div class="top-margin col-sm-2">
+                                <input type="button" value="Sign Up" class="btn btn-lg btn-theme" onclick="location.href='@Url.Action("Create", "Account")'" /> 
+                            </div>
                         </div>
                     </div>
                 }
@@ -66,7 +69,7 @@
                 <!-- END log in form -->
             </div>
         </div>
-        @Html.ActionLink("Create Account", "Create", "Account")
+        
     </div>
 </div>
 

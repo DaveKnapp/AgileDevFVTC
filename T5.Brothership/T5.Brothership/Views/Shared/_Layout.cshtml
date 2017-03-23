@@ -47,12 +47,13 @@
                                 <li class="current">
                                     @Html.Action("LoginLink", "Login")
                                 </li>
+                                <li>@Html.Action("SignupLink", "Login")</li>
                                 <li>@Html.Action("LogoutLink", "Login")</li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                                 <li>@Html.ActionLink("Streamers", "About", "Home")</li>
-                                <li>@Html.ActionLink("Games", "SearchIGDB", "Game")</li>
+                                <li>@Html.ActionLink("Games", "Contact", "Home")</li>
                             </ul>
                         </nav>
                     </div><!-- /.navbar-collapse -->

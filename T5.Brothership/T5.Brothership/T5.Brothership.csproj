@@ -290,6 +290,7 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\PasswordUpdated.cshtml" />
     <Content Include="Views\Shared\LogoutLink.cshtml" />
+    <Content Include="Views\Shared\SignupLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

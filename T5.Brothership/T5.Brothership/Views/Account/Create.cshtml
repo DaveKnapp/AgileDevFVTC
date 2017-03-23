@@ -6,45 +6,45 @@
 
 
 
-<h2>Create Account</h2>
+<h2 class="text-center">Create Account</h2>
 
-
-@using (Html.BeginForm())
-{
+<div class="cform container jumbotron">
+    @using (Html.BeginForm(new { @class = "contactForm" }))
+    {
 
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
+    <div>
         <h4 class="text-danger">@ViewBag.Message</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.NewUser.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group row">
+            @Html.LabelFor(model => model.NewUser.UserName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.NewUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NewUser.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group row">
+            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NewUser.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group row">
+            @Html.LabelFor(model => model.NewUser.Email, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.NewUser.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NewUser.Email, "", new { @class = "text-danger" })
             </div>
@@ -59,34 +59,34 @@
                 </div>
             </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NewUser.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group row">
+            @Html.LabelFor(model => model.NewUser.DOB, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.NewUser.DOB, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NewUser.DOB, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NewUser.NationalityID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group row">
+            @Html.LabelFor(model => model.NewUser.NationalityID, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+            <div class="col-md-6">
                 @Html.DropDownListFor(model => model.NewUser.NationalityID, new SelectList(Model.Nationalities, "ID", "Description"),
-                        new { htmlAttributes = new { @class = "form-control" } })
+                    new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NewUser.GenderId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group row">
+            @Html.LabelFor(model => model.NewUser.GenderId, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+            <div class="col-md-6">
                 @Html.DropDownListFor(model => model.NewUser.GenderId, new SelectList(Model.Genders, "ID", "Description"),
-                        new { htmlAttributes = new { @class = "form-control" } })
+                    new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NewUser.GenderId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NewUser.Bio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group row">
+            @Html.LabelFor(model => model.NewUser.Bio, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+            <div class="col-md-6">
 
                 @Html.EditorFor(model => model.NewUser.Bio, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NewUser.Bio, "", new { @class = "text-danger" })
@@ -94,14 +94,14 @@
         </div>
 
 
-        <div class="form-group">
+        <div class="form-group row">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-lg btn-theme" />
             </div>
         </div>
     </div>
-}
-
+    }
+</div>
 <!--- Search -->
 
 @{
@@ -135,6 +135,7 @@
 
 
 <!--- End Search -->
+
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")
