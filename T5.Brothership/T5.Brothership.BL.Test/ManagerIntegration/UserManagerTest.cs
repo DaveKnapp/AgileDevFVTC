@@ -18,7 +18,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext =  new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
+            using (var dbContext =  DataContextCreator.CreateTestContext())
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -41,7 +41,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
             };
 
             User actualUser;
-            using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
+            using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
             {
                 await userManger.Add(expectedUser, expectedUserPassword);
                 actualUser = userManger.GetById(expectedUser.ID);
@@ -69,7 +69,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
             };
 
             User actualUser;
-            using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
+            using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
             {
                 userManger.GetById(expectedUser.ID);
                 actualUser = userManger.GetById(expectedUser.ID);
@@ -81,7 +81,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
         [TestCategory("IntegrationTest"), TestMethod]
         public async Task Update_WasDataUpdated_ExpectedDataEqualsActual()
         {
-            using (var userManager = new UserManager(new BrothershipUnitOfWork(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
+            using (var userManager = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
             {
                 const int expectedCount = 4;
                 const int userId = 1;
