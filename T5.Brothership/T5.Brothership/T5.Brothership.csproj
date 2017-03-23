@@ -286,6 +286,7 @@
     <Content Include="Views\Shared\AccountMenu.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\PasswordUpdated.cshtml" />
+    <Content Include="Views\Shared\LogoutLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -69,5 +69,18 @@ namespace T5.Brothership.Controllers
                 return PartialView("AccountMenu", currentUser);
             }
         }
+        [ChildActionOnly]
+        public PartialViewResult LogoutLink()
+        {
+            User currentUser = Session["CurrentUser"] as User;
+            if (currentUser == null)
+            {
+                return null;
+            }
+            else
+            {
+                return PartialView("LogoutLink");
+            }
+        }
     }
 }

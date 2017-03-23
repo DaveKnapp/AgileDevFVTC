@@ -5,89 +5,97 @@
 }
 
 @*<h2>Details</h2>*@
-
+<!--
 <div class="container">
     <h4>Welcome @Model.UserName</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Bio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Bio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfileImagePath)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProfileImagePath)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateJoined)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateJoined)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DOB)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DOB)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserType.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserType.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nationality.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nationality.Description)
-        </dd>
-
+        <dt>@Html.DisplayNameFor(model => model.UserName)</dt>
+        <dd>@Html.DisplayFor(model => model.UserName)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Bio)</dt>
+        <dd>@Html.DisplayFor(model => model.Bio)</dd>
+        <dt>@Html.DisplayNameFor(model => model.ProfileImagePath)</dt>
+        <dd>@Html.DisplayFor(model => model.ProfileImagePath)</dd>
+        <dt>@Html.DisplayNameFor(model => model.DateJoined)</dt>
+        <dd>@Html.DisplayFor(model => model.DateJoined)</dd>
+        <dt>@Html.DisplayNameFor(model => model.DOB)</dt>
+        <dd>@Html.DisplayFor(model => model.DOB)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Gender.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.Gender.Description)</dd>
+        <dt>@Html.DisplayNameFor(model => model.UserType.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.UserType.Description)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Nationality.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.Nationality.Description)</dd>
     </dl>
 </div>
 
 @Html.ActionLink("Logout", "Logout", "Login") <br />
 @Html.ActionLink("Update account", "Update", "Account") <br />
+-->
+
+<!-- Page Content -->
+<div class="container">
+    <!-- Portfolio Item Row --> 
+    <div class="row">
+
+        <div class="col-md-3">
+            <p>@Html.ActionLink("Update account", "Update", "Account")</p>
+            <img class="img-responsive" src="http://placehold.it/500x300" alt="">
+            <h4>@Html.DisplayNameFor(model => model.UserName)</h4>
+            <p>@Html.DisplayFor(model => model.UserName)</p>
+            <h4>@Html.DisplayNameFor(model => model.Bio)</h4>
+            <p>@Html.DisplayFor(model => model.Bio)</p>
+            <h4>@Html.DisplayNameFor(model => model.DateJoined)</h4>
+            <p>@Html.DisplayFor(model => model.DateJoined)</p>
+            <h4>@Html.DisplayNameFor(model => model.DOB)</h4>
+            <p>@Html.DisplayFor(model => model.DOB)</p>
+            <h4>@Html.DisplayNameFor(model => model.Gender)</h4>
+            <p>@Html.DisplayFor(model => model.Gender.Description)</p>
+            <h4>@Html.DisplayNameFor(model => model.UserType)</h4>
+            <p>@Html.DisplayFor(model => model.UserType.Description)</p>
+            <h4>@Html.DisplayNameFor(model => model.Nationality)</h4>
+            <p>@Html.DisplayFor(model => model.Nationality.Description)</p>
+        </div>
+
+        <div class="col-md-9">
+            <h3>Games</h3>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                </div>
+            </div>
+            <h3>Ratings</h3>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <h5>UserXYZ Says</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eros nisl, dapibus sed justo non, luctus scelerisque augue. Pellentesque vel augue orci...</p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h5>UserTest Says</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eros nisl, dapibus sed justo non, luctus scelerisque augue. Pellentesque vel augue orci...</p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h5>SomeUser Says</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eros nisl, dapibus sed justo non, luctus scelerisque augue. Pellentesque vel augue orci...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
