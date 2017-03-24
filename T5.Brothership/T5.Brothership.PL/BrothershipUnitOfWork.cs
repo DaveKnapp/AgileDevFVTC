@@ -28,9 +28,9 @@ namespace T5.Brothership.PL
             _dbContext =new brothershipEntities();
         }
 
-        public BrothershipUnitOfWork(string connectionString)
+        public BrothershipUnitOfWork(brothershipEntities dbContext)
         {
-            _dbContext = new brothershipEntities(connectionString);
+            _dbContext = dbContext;
         }
         public IGameRepository Games
         {
