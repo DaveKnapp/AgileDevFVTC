@@ -164,7 +164,10 @@ namespace T5.Brothership.BL.Managers
         }        
     }
 
-    public class FrontPageUser //there might be a better place to move this and almost definitley a better way to do this
+    #region FrontPage
+    //there might be a better place to move this and almost definitley a better way to do this
+    //this can be moved to a different class if needed
+    public class FrontPageUser
     {
         public string FeaturedUserName { get; set; }
         public string FeaturedUserImagePath { get; set; }
@@ -185,13 +188,10 @@ namespace T5.Brothership.BL.Managers
             List<User> premiumUsers = users.GetAllUsers(); //This will need to be changed to a get premium users method (which needs to be written)
             List<User> popularUsers = users.GetAllUsers(); //This will need to be changed to a get popular users method (which needs to be written)
             int premiumUserNum = Convert.ToInt32(rnd.Next(premiumUsers.Count));
-            int popularUserNum = Convert.ToInt32(rnd.Next(popularUsers.Count));
-            
-            
-            
+            int popularUserNum = Convert.ToInt32(rnd.Next(popularUsers.Count));            
 
-            //To create a random list of 4 premium users and 4 popular users
-            for (int i = 0; i <= 3; i++)
+            //To create a random list of premium users and popular users
+            for (int i = 0; i <= 3; i++) //EDIT THIS TO CHANGE HOW MANY USERS APPEAR
             {//might need to add a userid field so the profile can be viewed
                 FrontPageUser user = new FrontPageUser();               
                 
@@ -214,4 +214,5 @@ namespace T5.Brothership.BL.Managers
             }
         }
     }
+    #endregion
 }
