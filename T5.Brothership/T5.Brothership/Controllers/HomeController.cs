@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using T5.Brothership.BL.Managers;
+using T5.Brothership.Entities;
 
 namespace T5.Brothership.Controllers
 {
     public class HomeController : Controller
     {
+        FrontPageUserList frontPageUsers;
         public ActionResult Index()
         {
-            return View();
+            frontPageUsers = new FrontPageUserList();
+            frontPageUsers.Load();
+            return View(frontPageUsers); 
         }
 
         public ActionResult About()

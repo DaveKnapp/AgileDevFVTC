@@ -161,6 +161,57 @@ namespace T5.Brothership.BL.Managers
             {
                 throw new InvalidPasswordException("Password is incorrect");
             }
+        }        
+    }
+
+    public class FrontPageUser //there might be a better place to move this and almost definitley a better way to do this
+    {
+        public string FeaturedUserName { get; set; }
+        public string FeaturedUserImagePath { get; set; }
+        //public int FeaturedUserId { get; set; } //In case we need it
+        public string PopularUserName { get; set; }
+        public string PopularImagePath { get; set; }
+        //public int PopularUserId { get; set; } //In case we need it
+    }
+
+    public class FrontPageUserList : List<FrontPageUser>
+    {
+
+        public void Load()
+        {
+            UserManager users = new UserManager();
+            Random rnd = new Random();
+            List<int> previousSelections = new List<int>();
+            List<User> premiumUsers = users.GetAllUsers(); //This will need to be changed to a get premium users method (which needs to be written)
+            List<User> popularUsers = users.GetAllUsers(); //This will need to be changed to a get popular users method (which needs to be written)
+            int premiumUserNum = Convert.ToInt32(rnd.Next(premiumUsers.Count));
+            int popularUserNum = Convert.ToInt32(rnd.Next(popularUsers.Count));
+            
+            
+            
+
+            //To create a random list of 4 premium users and 4 popular users
+            for (int i = 0; i <= 3; i++)
+            {//might need to add a userid field so the profile can be viewed
+                FrontPageUser user = new FrontPageUser();               
+                
+
+                while (previousSelections.Contains(premiumUserNum))
+                    premiumUserNum = Convert.ToInt32(rnd.Next(premiumUsers.Count));
+
+                while (previousSelections.Contains(popularUserNum))
+                    popularUserNum = Convert.ToInt32(rnd.Next(popularUsers.Count));
+
+                user.FeaturedUserName = premiumUsers[premiumUserNum].UserName;
+                user.FeaturedUserImagePath = premiumUsers[premiumUserNum].ProfileImagePath;
+
+                user.PopularUserName = popularUsers[popularUserNum].UserName;
+                user.PopularImagePath = popularUsers[popularUserNum].ProfileImagePath;
+
+                previousSelections.Add(premiumUserNum);
+                previousSelections.Add(popularUserNum);
+                this.Add(user);
+            }
         }
     }
 }

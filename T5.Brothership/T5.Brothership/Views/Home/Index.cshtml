@@ -1,46 +1,35 @@
-﻿<div class="container">
+﻿@model IEnumerable<T5.Brothership.BL.Managers.FrontPageUser>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
     <img class="img-responsive center-block" src="~/images/brothershiptransparent.gif" alt="Brothership Logo" />
     <h2 class="text-center">Featured Streamers</h2>
 
     <div class="row">
-        <div class="col-md-3 col-sm-6">
-            <h4>XYZ</h4>
-            <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <h4>TestUserOne</h4>
-            <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <h4>OtherUser</h4>
-            <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <h4>Fun-Guy</h4>
-            <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-        </div>
+
+        @foreach (var item in Model)
+            {
+            <div class="col-md-3 col-sm-6">
+                <h4>@Html.DisplayFor(modelItem => item.FeaturedUserName)</h4>
+                <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                @* Once we get the Image storing working: src="~/@item.FeaturedUserImagePath" *@
+            </div>
+            }
     </div>
 
     <h2 class="text-center">Popular Streamers</h2>
     <div class="row">
-        <div class="col-md-3 col-sm-6">
-            <h4>Streamy</h4>
-            <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <h4>Brother</h4>
-            <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <h4>Sister-Ship</h4>
-            <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <h4>Fun-Guy</h4>
-            <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-        </div>
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 col-sm-6">
+                <h4>@Html.DisplayFor(modelItem => item.PopularUserName)</h4>
+                <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                @* Once we get the Image storing working: src="~/@item.PopularUserImagePath" *@
+            </div>
+        }
     </div>
 </div>
-
-
-
