@@ -15,8 +15,8 @@ namespace T5.Brothership.BL.Managers
 {
     public class UserManager : IDisposable
     {
-        IBrothershipUnitOfWork _unitOfWork;
         GameManager _gameManager;
+        IBrothershipUnitOfWork _unitOfWork;
 
         public UserManager()
         {
@@ -35,32 +35,11 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork = unitOfWork;
             _gameManager = new GameManager(_unitOfWork, gameApiService);
         }
-
         public void Dispose()
         {
             _unitOfWork?.Dispose();
             _gameManager?.Dispose();
             GC.SuppressFinalize(this);
-        }
-
-        public User GetById(int id)
-        {
-            return _unitOfWork.Users.GetById(id);
-        }
-
-        public User Login(string userNameOrEmail, string password)
-        {
-            var user = _unitOfWork.Users.GetByUsernameOrEmail(userNameOrEmail);
-
-            if (user == null)
-            {
-                return new InvalidUser();
-            }
-
-            var passwordHelper = new PasswordHelper();
-            var hashedPassword = new HashedPassword { PasswordHash = user.UserLogin.PasswordHash, Salt = user.UserLogin.Salt };
-
-            return passwordHelper.IsPasswordMatch(password, hashedPassword) ? user : new InvalidUser();
         }
 
         public async Task Add(User user, string password)
@@ -83,9 +62,30 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork.Commit();
         }
 
-        public bool UserNameExists(string userName)
+
+        public List<User> GetAllUsers()
         {
-            return _unitOfWork.Users.GetByUsernameOrEmail(userName) != null;
+            return _unitOfWork.Users.GetAll().ToList();
+        }
+
+        public User GetById(int id)
+        {
+            return _unitOfWork.Users.GetById(id);
+        }
+
+        public User Login(string userNameOrEmail, string password)
+        {
+            var user = _unitOfWork.Users.GetByUsernameOrEmail(userNameOrEmail);
+
+            if (user == null)
+            {
+                return new InvalidUser();
+            }
+
+            var passwordHelper = new PasswordHelper();
+            var hashedPassword = new HashedPassword { PasswordHash = user.UserLogin.PasswordHash, Salt = user.UserLogin.Salt };
+
+            return passwordHelper.IsPasswordMatch(password, hashedPassword) ? user : new InvalidUser();
         }
 
         public async Task Update(User updatedUser)
@@ -109,9 +109,77 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork.Commit();
         }
 
-        public List<User> GetAllUsers()
+        public void UpdatePassword(string currentPassword, string newPassword, User user)
+        {//TODO(Dave) Add integration test
+            var currentUser = _unitOfWork.Users.GetByUsernameOrEmail(user.UserName);
+
+            var passwordHelper = new PasswordHelper();
+            var hashedPassword = new HashedPassword { PasswordHash = currentUser.UserLogin.PasswordHash, Salt = currentUser.UserLogin.Salt };
+
+            if (passwordHelper.IsPasswordMatch(currentPassword, hashedPassword))
+            {
+                UserLogin login = CreateUserLogin(newPassword);
+                currentUser.UserLogin.PasswordHash = login.PasswordHash;
+                currentUser.UserLogin.Salt = login.Salt;
+
+                _unitOfWork.Users.Update(currentUser);
+                _unitOfWork.Commit();
+            }
+            else
+            {
+                throw new InvalidPasswordException("Password is incorrect");
+            }
+        }
+
+        public bool UserNameExists(string userName)
         {
-            return _unitOfWork.Users.GetAll().ToList();
+            return _unitOfWork.Users.GetByUsernameOrEmail(userName) != null;
+        }
+
+        public List<User> GetRandomFeaturedUsers(int randomCount, int topUserCount, List<User> usersToExclude = null)
+        {
+            //TODO INtegraion test
+            //TODO(Dave)UnitTest
+            //TODO(Dave) Create Method in repo to get featured
+            var premiumUsers = _unitOfWork.Users.GetAll().ToList();
+            return GetRandomUsersFromList(premiumUsers, randomCount, usersToExclude);
+        }
+
+        public List<User> GetRandomPopularUsers(int randomCount, int topUserCount, List<User> usersToExclude = null)
+        {
+            //TODO INtegraion test
+            //TODO(Dave)UnitTest
+            //TODO(Dave) Create Method in repo to get popular
+            var popularUsers = _unitOfWork.Users.GetAll().ToList();
+            return GetRandomUsersFromList(popularUsers, randomCount, usersToExclude);
+        }
+
+        private List<User> GetRandomUsersFromList(List<User> users, int qtyUsersToReturn, List<User> usersToExclude = null)
+        {
+            //if (usersToExclude == null)
+            //{
+            //    usersToExclude = new List<User>();
+            //}
+            //This is the same as above
+            usersToExclude = usersToExclude ?? new List<User>();
+
+            var randomUsers = new User[qtyUsersToReturn];
+            Random rand = new Random();
+
+            for (int i = 0; i < randomUsers.Length; i++)
+            {
+                User randomUser;
+                do
+                {
+                    int randomIndex = rand.Next(users.Count - 1);
+                    randomUser = users[randomIndex];
+
+                } while (randomUsers.Contains(randomUser) || usersToExclude.Contains(randomUser));
+
+                randomUsers[i] = randomUser;
+            }
+
+            return randomUsers.ToList();
         }
 
         private int[] CreateIgdbIdArray(ICollection<Game> games)
@@ -140,35 +208,18 @@ namespace T5.Brothership.BL.Managers
                 Salt = hashedPassword.Salt
             };
         }
-
-        public void UpdatePassword(string currentPassword, string newPassword, User user)
-        {//TODO(Dave) Add integration test
-            var currentUser = _unitOfWork.Users.GetByUsernameOrEmail(user.UserName);
-
-            var passwordHelper = new PasswordHelper();
-            var hashedPassword = new HashedPassword { PasswordHash = currentUser.UserLogin.PasswordHash, Salt = currentUser.UserLogin.Salt };
-
-            if ( passwordHelper.IsPasswordMatch(currentPassword, hashedPassword))
-            {
-                UserLogin login = CreateUserLogin(newPassword);
-                currentUser.UserLogin.PasswordHash = login.PasswordHash;
-                currentUser.UserLogin.Salt = login.Salt;
-
-                _unitOfWork.Users.Update(currentUser);
-                _unitOfWork.Commit();
-            }
-            else
-            {
-                throw new InvalidPasswordException("Password is incorrect");
-            }
-        }        
     }
 
+    //TODO Remove region
     #region FrontPage
     //there might be a better place to move this and almost definitley a better way to do this
     //this can be moved to a different class if needed
     public class FrontPageUser
     {
+        //Note:(Dave)  I moved this class to a viewModel in the viewmodel folder in the MVC project
+        //In my opinion this class is a little confusing.  The name is FrontPageUser, but it contains two users, featured and popular.
+        //I think you are bettor just using the user class since your using most of the properties anyway.
+      
         public string FeaturedUserName { get; set; }
         public string FeaturedUserImagePath { get; set; }
         //public int FeaturedUserId { get; set; } //In case we need it
@@ -182,19 +233,26 @@ namespace T5.Brothership.BL.Managers
 
         public void Load()
         {
+            //Note:(Dave)  This method Does two things it gets premium users and gets popular users. What if we want a different qty of Featured and Popular?
+            //I think it would be better to re-factor it into two methods
+            //and call them from load.  Methods should only do one thing.  Even better, you can notice that we are repeating the same code
+            //Can we make this into one method and use it for both premiumUsers and featured users... I think so
+            //I moved this logic to GetTopRandomFeaturedUsers() and GetTopRandomPopularUsers...
+            //And after doing that I noticed that your code makes it so a streamer cant be in the featured section and popular section at the same time.
+            //So I guess its a bussiness rule. Can a Streamer Appear in Featured and popular at the same time?.. I don't know...
+            //I added code to allow either way
             UserManager users = new UserManager();
             Random rnd = new Random();
             List<int> previousSelections = new List<int>();
             List<User> premiumUsers = users.GetAllUsers(); //This will need to be changed to a get premium users method (which needs to be written)
             List<User> popularUsers = users.GetAllUsers(); //This will need to be changed to a get popular users method (which needs to be written)
             int premiumUserNum = Convert.ToInt32(rnd.Next(premiumUsers.Count));
-            int popularUserNum = Convert.ToInt32(rnd.Next(popularUsers.Count));            
+            int popularUserNum = Convert.ToInt32(rnd.Next(popularUsers.Count));
 
             //To create a random list of premium users and popular users
             for (int i = 0; i <= 3; i++) //EDIT THIS TO CHANGE HOW MANY USERS APPEAR
             {//might need to add a userid field so the profile can be viewed
-                FrontPageUser user = new FrontPageUser();               
-                
+                FrontPageUser user = new FrontPageUser();
 
                 while (previousSelections.Contains(premiumUserNum))
                     premiumUserNum = Convert.ToInt32(rnd.Next(premiumUsers.Count));

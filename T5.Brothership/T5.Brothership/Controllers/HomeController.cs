@@ -5,17 +5,22 @@ using System.Web;
 using System.Web.Mvc;
 using T5.Brothership.BL.Managers;
 using T5.Brothership.Entities;
+using T5.Brothership.ViewModels;
 
 namespace T5.Brothership.Controllers
 {
     public class HomeController : Controller
     {
-        FrontPageUserList frontPageUsers;
+        readonly UserManager _usermanager = new UserManager();
+
+        //FrontPageUserList frontPageUsers;
         public ActionResult Index()
         {
-            frontPageUsers = new FrontPageUserList();
-            frontPageUsers.Load();
-            return View(frontPageUsers); 
+            var viewModel = new HomeViewModel();
+            viewModel.RandomFeaturedUsers = _usermanager.GetRandomFeaturedUsers(4, 10);
+            viewModel.RandomPopularUsers = _usermanager.GetRandomPopularUsers(4, 10, viewModel.RandomFeaturedUsers);
+
+            return View(viewModel);
         }
 
         public ActionResult About()

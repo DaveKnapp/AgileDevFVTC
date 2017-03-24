@@ -1,4 +1,4 @@
-﻿@model IEnumerable<T5.Brothership.BL.Managers.FrontPageUser>
+﻿@model T5.Brothership.ViewModels.HomeViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -11,10 +11,10 @@
 
     <div class="row">
 
-        @foreach (var item in Model)
+        @foreach (var user in Model.RandomFeaturedUsers)
             {
             <div class="col-md-3 col-sm-6">
-                <h4>@Html.DisplayFor(modelItem => item.FeaturedUserName)</h4>
+                <h4>@user.UserName</h4>
                 <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
                 @* Once we get the Image storing working: src="~/@item.FeaturedUserImagePath" *@
             </div>
@@ -23,10 +23,10 @@
 
     <h2 class="text-center">Popular Streamers</h2>
     <div class="row">
-        @foreach (var item in Model)
+        @foreach (var user in Model.RandomPopularUsers)
         {
             <div class="col-md-3 col-sm-6">
-                <h4>@Html.DisplayFor(modelItem => item.PopularUserName)</h4>
+                <h4>@user.UserName</h4>
                 <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
                 @* Once we get the Image storing working: src="~/@item.PopularUserImagePath" *@
             </div>
