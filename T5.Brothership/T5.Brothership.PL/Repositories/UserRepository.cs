@@ -17,12 +17,11 @@ namespace T5.Brothership.PL.Repositories
         public override void Delete(int id)
         {
             var user = DbSet.FirstOrDefault(p => p.ID == id);
-            //TODO:(Dave) Can I remove cascade deletes with clear?
-            user.Games.Clear();
-            DbContext.Set<UserRating>().RemoveRange(user.RatedByUser);
-            DbContext.Set<UserRating>().RemoveRange(user.UserRatings);
-            DbContext.Set<UserLogin>().Remove(user.UserLogin);
 
+            user.Games.Clear();
+            user.RatedByUser.Clear();
+            user.UserRatings.Clear();
+            DbSet.Remove(user);
             DbContext.SaveChanges();
         }
 

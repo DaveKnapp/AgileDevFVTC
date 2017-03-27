@@ -11,7 +11,7 @@ namespace T5.Brothership.Controllers
 {
     public class GameController : Controller
     {
-        GameAPIService _gameApiService = new GameAPIService();
+        GameAPIClient _gameApiService = new GameAPIClient();
 
         public PartialViewResult SearchIGDB(string keyword)
         {
@@ -28,7 +28,7 @@ namespace T5.Brothership.Controllers
             int limit = 50;
             int page = 0;
 
-            using (var gameApi = new GameAPIService())
+            using (var gameApi = new GameAPIClient())
             {
                 List<Game> games = new List<Game>();
                 games = await gameApi.SearchByTitleAsync(title,limit).ConfigureAwait(false);

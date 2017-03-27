@@ -13,4 +13,9 @@ namespace T5.Brothership.Entities.Models
 
     [MetadataType(typeof(UserLoginMetaData))]
     public partial class UserLogin { }
+
+    public partial class UserType
+    {
+        public enum UserTypes { User = 1 }
+    }
 }

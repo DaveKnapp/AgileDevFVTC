@@ -17,7 +17,7 @@ namespace T5.Brothership.BL.Test.GameApi
         {
             const string searchTerm = "Zelda";
             var games = new List<Game>();
-            using (var gameService = new GameAPIService())
+            using (var gameService = new GameAPIClient())
             {
                 games = await gameService.SearchByTitleAsync(searchTerm);
             }
@@ -35,7 +35,7 @@ namespace T5.Brothership.BL.Test.GameApi
             const string searchTerm = "Zelda";
             var games = new List<Game>();
 
-            using (var gameService = new GameAPIService())
+            using (var gameService = new GameAPIClient())
             {
                 games = await gameService.SearchByTitleAsync(searchTerm);
             }
@@ -56,7 +56,7 @@ namespace T5.Brothership.BL.Test.GameApi
 
             var actualGame = new Game();
 
-            using (var gameService = new GameAPIService())
+            using (var gameService = new GameAPIClient())
             {
                 actualGame = await gameService.GetByIdAsync(expectedAPIId);
             }

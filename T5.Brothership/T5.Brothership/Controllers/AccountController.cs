@@ -21,10 +21,18 @@ namespace T5.Brothership.Controllers
         {
             var userViewModel = new CreateUserViewModel
             {
-                NewUser = new User(),
-                Nationalities = _nationalityManager.GetAll(),
-                Genders = _genderManager.GetAll()
+                Genders = _genderManager.GetAll(),
+                Nationalities = _nationalityManager.GetAll()
             };
+
+            if (TempData["userWithError"] == null)
+            {
+                userViewModel.NewUser = new User();
+            }
+            else
+            {
+                userViewModel.NewUser = ((CreateUserViewModel)TempData["userWithError"]).NewUser;
+            }
 
             ViewBag.Message = TempData["error"];
             return View(userViewModel);
@@ -37,16 +45,14 @@ namespace T5.Brothership.Controllers
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
             var newUser = userViewModel.NewUser;
             newUser.ProfileImagePath = "Default";
-
-            //TODO(Dave) refactor make setting user type more clear
-            newUser.UserTypeID = 1;
+            newUser.UserTypeID = (int)UserType.UserTypes.User;
 
             if (ModelState.IsValid)
             {
                 if (_userManger.UserNameExists(userViewModel.NewUser.UserName))
                 {
                     TempData["error"] = "Username currently being used";
-                    //TODO(Dave) make it so the information the user submitted stays on form after validation fails
+                    TempData["userWithError"] = userViewModel;
                     return RedirectToAction(nameof(Create));
                 }
                 else
@@ -91,7 +97,7 @@ namespace T5.Brothership.Controllers
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
             currentUser.ProfileImagePath = "Default";
 
-            currentUser.UserTypeID = 1;
+            currentUser.UserTypeID =(int)UserType.UserTypes.User;
 
             var val = ModelState.Values;
             if (ModelState.IsValid)

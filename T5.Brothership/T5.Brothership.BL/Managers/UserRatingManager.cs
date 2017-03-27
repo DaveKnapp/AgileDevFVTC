@@ -34,7 +34,7 @@ namespace T5.Brothership.BL.Managers
             return _unitOfWork.UserRatings.GetAll().ToList();
         }
 
-        public List<UserRating> GetAllByUserId(int ratedUserId)
+        public List<UserRating> GetAllByUserUserRatings(int ratedUserId)
         {
             // TODO (TH) Make test data and functions.
             return _unitOfWork.UserRatings.GetAllByUserId(ratedUserId).ToList();

@@ -74,7 +74,11 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
                 userManger.GetById(expectedUser.ID);
                 actualUser = userManger.GetById(expectedUser.ID);
                 AssertUsersEqual(expectedUser, actualUser);
-                //TODO(Dave) Add assert for games
+
+                foreach (var game in expectedUser.Games)
+                {
+                    Assert.IsNotNull(actualUser.Games.FirstOrDefault(p => p.igdbID == game.igdbID));
+                }
             }
         }
 

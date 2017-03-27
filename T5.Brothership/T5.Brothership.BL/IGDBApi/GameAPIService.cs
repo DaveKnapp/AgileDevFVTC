@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.IGDBApi
-{//TODO Is this the best name?
-    public class GameAPIService : IDisposable, IGameAPIService
+{
+    public class GameAPIClient : IDisposable, IGameAPIService
     {
         private readonly HttpClient client = new HttpClient();
 
-        public GameAPIService()
+        public GameAPIClient()
         {
             client = CreateClient();
         }
@@ -32,14 +32,13 @@ namespace T5.Brothership.BL.IGDBApi
             return client;
         }
         public async Task<List<Game>> SearchByTitleAsync(string gameName, int limit = 10, int offset = 0)
-        {//TODO(Dave) Refacotr
-            string[] fields = { "name", "cover", "genres" };
+        {
+            var response = await SearchAPI(gameName, limit, offset).ConfigureAwait(false);
+            return CreateGamesFromResponse(response);
+        }
 
-            var responseMessage = await client.GetAsync("games/?fields=" + GetFieldsString(fields) + "&limit=" + limit
-                                                                        + "&offset=" + offset + "&search=" + gameName).ConfigureAwait(false);
-            var json = responseMessage.Content.ReadAsStringAsync().Result;
-            var response = JsonConvert.DeserializeObject<List<IGDBGame>>(json);
-
+        private List<Game> CreateGamesFromResponse(List<IGDBGame> response)
+        {
             var games = new List<Game>();
 
             foreach (var game in response)
@@ -48,30 +47,44 @@ namespace T5.Brothership.BL.IGDBApi
                 {
                     igdbID = game.id,
                     Title = game.name,
-                    ImgCloudinaryId = game.cover == null? string.Empty :  game.cover.cloudinary_id
+                    ImgCloudinaryId = game.cover == null ? string.Empty : game.cover.cloudinary_id
                 };
 
                 if (game.genres != null)
                 {
-                    foreach (var categoryId in game.genres)
-                    {
-                        newgame.GameCategories.Add(new GameCategory { ID = categoryId });
-
-                    }
+                   newgame.GameCategories = CreateGameCategories(game);
                 }
-
                 games.Add(newgame);
             }
             return games;
         }
 
-        public async Task<Game> GetByIdAsync(int id)
+        private List<GameCategory> CreateGameCategories(IGDBGame game)
         {
-            string[] fields = { "name", "cover" };
-            var responseMessage = await client.GetAsync("games/" + id + "?fields=" + GetFieldsString(fields));
+            var gameCategories = new List<GameCategory>();
+
+            foreach (var categoryId in game.genres)
+            {
+                gameCategories.Add(new GameCategory { ID = categoryId });
+            }
+
+            return gameCategories;
+        }
+
+        private async Task<List<IGDBGame>> SearchAPI(string gameName, int limit, int offset)
+        {
+            string[] fields = { "name", "cover", "genres" };
+
+            var responseMessage = await client.GetAsync("games/?fields=" + GetFieldsString(fields) + "&limit=" + limit
+                                                                        + "&offset=" + offset + "&search=" + gameName).ConfigureAwait(false);
             var json = responseMessage.Content.ReadAsStringAsync().Result;
             var response = JsonConvert.DeserializeObject<List<IGDBGame>>(json);
-            var igdbGame = response[0];
+            return response;
+        }
+
+        public async Task<Game> GetByIdAsync(int id)
+        {
+            var igdbGame = await GetGameFromAPI(id);
 
             var game = new Game
             {
@@ -80,6 +93,16 @@ namespace T5.Brothership.BL.IGDBApi
             };
 
             return game;
+        }
+
+        private async Task<IGDBGame> GetGameFromAPI(int id)
+        {
+            string[] fields = { "name", "cover" };
+            var responseMessage = await client.GetAsync("games/" + id + "?fields=" + GetFieldsString(fields));
+            var json = responseMessage.Content.ReadAsStringAsync().Result;
+            var response = JsonConvert.DeserializeObject<List<IGDBGame>>(json);
+            var igdbGame = response[0];
+            return igdbGame;
         }
 
         private string GetFieldsString(string[] fields)

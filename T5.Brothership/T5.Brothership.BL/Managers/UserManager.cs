@@ -44,7 +44,6 @@ namespace T5.Brothership.BL.Managers
 
         public async Task Add(User user, string password)
         {
-            //TODO Create Test for username in use
             var newUser = user;
 
             if (UserNameExists(user.UserName))

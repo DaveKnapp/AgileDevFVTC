@@ -12,7 +12,6 @@ namespace T5.Brothership.Entities.ModelMetaData
         [ScaffoldColumn(false)]
         int UserID { get; set; }
 
-        //TODO(Dave) Does it make sense set max string length to non scaffolded column?
         [ScaffoldColumn(false), StringLength(64)]
         string PasswordHash { get; set; }
 
