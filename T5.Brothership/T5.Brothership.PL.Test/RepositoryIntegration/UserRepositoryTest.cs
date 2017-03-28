@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 
 namespace T5.Brothership.PL.Test.RepositoryIntegration
-{//TODO Replace testConnection with new class
+{
     [TestClass]
     public class UserRepositoryTest
     {
