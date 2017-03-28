@@ -138,8 +138,6 @@ namespace T5.Brothership.BL.Managers
         public List<User> GetRandomFeaturedUsers(int randomCount, List<User> usersToExclude = null)
         {
             //TODO INtegraion test
-            //TODO(Dave) Create Method in repo to get featured
-
             var premiumUsers = _unitOfWork.Users.GetFeaturedUsers().ToList();
             return GetRandomUsersFromList(premiumUsers, randomCount, usersToExclude);
         }
