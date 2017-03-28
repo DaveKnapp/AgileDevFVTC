@@ -16,6 +16,6 @@ namespace T5.Brothership.Entities.Models
 
     public partial class UserType
     {
-        public enum UserTypes { User = 1 }
+        public enum UserTypes { User = 1, FeaturedUser =2 }
     }
 }

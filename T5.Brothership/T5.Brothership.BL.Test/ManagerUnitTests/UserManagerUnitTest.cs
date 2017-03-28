@@ -251,6 +251,56 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             }
         }
 
+        [TestMethod, TestCategory("UnitTest")]
+        public void GetRandomPopularUsers_UsersReturned_CountGreaterThanOne()
+        {
+            using (UserManager userMangaer = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                int count = userMangaer.GetRandomPopularUsers(3, 10).Count;
+                Assert.IsTrue(count > 1);
+            }
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void GetRandomFeaturedUsers_UsersReturned_CountGreaterThanOne()
+        {
+            using (UserManager userManager = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                int count = userManager.GetRandomFeaturedUsers(2).Count;
+                Assert.IsTrue(count > 1);
+            }
+        }
+
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void GetRandomFeaturedUsers_usersFromExcludedListAreExcluded_ListDoesNotContainUsersFromExcluded()
+        {
+            using (UserManager userMangaer = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                var excludedUsers = userMangaer.GetRandomPopularUsers(1, 3);
+                var featuredUsers = userMangaer.GetRandomFeaturedUsers(2, excludedUsers);
+
+                foreach (var user in featuredUsers)
+                {
+                    Assert.IsFalse(excludedUsers.Contains(user));
+                }
+            }
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void GetRandomPopularUsers_usersFromExcludedListAreExcluded_ListDoesNotContainUsersFromExcluded()
+        {
+            using (UserManager userMangaer = new UserManager(new FakeBrothershipUnitOfWork()))
+            {
+                var excludedUsers = userMangaer.GetRandomPopularUsers(2, 3);
+                var popularUsers = userMangaer.GetRandomPopularUsers(2, 3, excludedUsers);
+
+                foreach (var user in popularUsers)
+                {
+                    Assert.IsFalse(excludedUsers.Contains(user));
+                }
+            }
+        }
 
         private User CreateExpectedAddedUser()
         {

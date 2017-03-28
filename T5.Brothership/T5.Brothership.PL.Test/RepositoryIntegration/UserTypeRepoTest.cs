@@ -76,7 +76,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestMethod, TestCategory("IntegrationTest")]
         public void GetAll_AllUserTypesReturned_CountEqualActual()
         {
-            const int expectedCount = 1;
+            const int expectedCount = 2;
             int actualCount;
 
             using (var userTypeRepo = new UserTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))

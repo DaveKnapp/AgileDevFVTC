@@ -17,7 +17,7 @@ namespace T5.Brothership.Controllers
         public ActionResult Index()
         {
             var viewModel = new HomeViewModel();
-            viewModel.RandomFeaturedUsers = _usermanager.GetRandomFeaturedUsers(4, 10);
+            viewModel.RandomFeaturedUsers = _usermanager.GetRandomFeaturedUsers(4);
             viewModel.RandomPopularUsers = _usermanager.GetRandomPopularUsers(4, 10, viewModel.RandomFeaturedUsers);
 
             return View(viewModel);

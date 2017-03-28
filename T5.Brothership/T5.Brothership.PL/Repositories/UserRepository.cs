@@ -27,6 +27,7 @@ namespace T5.Brothership.PL.Repositories
 
         public override void Delete(User user)
         {
+            //TODO Remove set with clear
             user.Games.Clear();
             DbContext.Set<UserRating>().RemoveRange(user.RatedByUser);
             DbContext.Set<UserRating>().RemoveRange(user.UserRatings);
@@ -38,6 +39,22 @@ namespace T5.Brothership.PL.Repositories
         public User GetByUsernameOrEmail(string userNameOrEmail)
         {
             return DbSet.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
+        }
+
+        public IQueryable<User> GetFeaturedUsers()
+        {
+            return DbSet.Where(p => p.UserTypeID == (int)UserType.UserTypes.FeaturedUser);
+        }
+
+        public IQueryable<User> GetMostPopularUsers(int count)
+        {
+            return DbSet.OrderByDescending(p => (p.UserRatings.Average(i => i.RatingID) * p.UserRatings.Count)).Take(count);
+        }
+
+        public IQueryable<User> GetTopRatedUsers(int count)
+        {
+            //TODO(Dave) this method currently returns top average ratings.  Should it only return user with over x amount of ratings.
+            return DbSet.OrderByDescending(p => p.UserRatings.Average(i => i.RatingID)).Take(count);
         }
     }
 }

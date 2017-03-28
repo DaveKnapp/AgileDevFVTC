@@ -40,7 +40,8 @@ BEGIN TRANSACTION
 
 	SET IDENTITY_INSERT UserTypes ON;
 	INSERT INTO UserTypes(ID, "Description")
-		VALUES(1, 'User')
+		VALUES(1, 'User'),
+			  (2, 'Featured User')
 	SET IDENTITY_INSERT UserTypes OFF;
 
 SET IDENTITY_INSERT UserLogins ON;
@@ -55,8 +56,8 @@ SET IDENTITY_INSERT UserLogins OFF;
 
 	INSERT INTO Users (ID, UserName, Email, Bio, ProfileImagePath, DateJoined, DOB, GenderId, UserTypeID, NationalityID)
 		VALUES(1, 'TestUserOne', 'Testing123@yahoo.com', 'This is my bio', '../Images/TestUserOne/profile.png','2-20-17', '11-12-1988', 1, 1,1),
-			  (2, 'TestUserTwo', 'TestingUser2@yahoo.com', 'Hello I am the second test user', '../Images/TestUserTwo/Profile.png','2-22-17', '1-27-1980', 2, 1,1),
-			  (3, 'TestUserThree', 'TestingUser3@yahoo.com', 'Hello I am the Third test user', '../Images/TestUserThree/Profile.png','1-5-17', '6-1-1990', 1, 1,1),
+			  (2, 'TestUserTwo', 'TestingUser2@yahoo.com', 'Hello I am the second test user', '../Images/TestUserTwo/Profile.png','2-22-17', '1-27-1980', 2, 2,1),
+			  (3, 'TestUserThree', 'TestingUser3@yahoo.com', 'Hello I am the Third test user', '../Images/TestUserThree/Profile.png','1-5-17', '6-1-1990', 1, 2,1),
 			  (4, 'TestUserFour', 'TestingUser4@yahoo.com', 'Hello I am the Fourth test user', '../Images/TestUserFour/Profile.png','1-13-17', '4-27-1991', 1, 1,1),
 			  (5, 'TestUserFive', 'TestingUser5@yahoo.com', 'Hello I am the Fifth test user', '../Images/TestUserFive/Profile.png','1-19-17', '7-9-1962', 2, 1,1)
 

@@ -135,26 +135,28 @@ namespace T5.Brothership.BL.Managers
             return _unitOfWork.Users.GetByUsernameOrEmail(userName) != null;
         }
 
-        public List<User> GetRandomFeaturedUsers(int randomCount, int topUserCount, List<User> usersToExclude = null)
+        public List<User> GetRandomFeaturedUsers(int randomCount, List<User> usersToExclude = null)
         {
             //TODO INtegraion test
-            //TODO(Dave)UnitTest
             //TODO(Dave) Create Method in repo to get featured
-            var premiumUsers = _unitOfWork.Users.GetAll().ToList();
+
+            var premiumUsers = _unitOfWork.Users.GetFeaturedUsers().ToList();
             return GetRandomUsersFromList(premiumUsers, randomCount, usersToExclude);
         }
 
         public List<User> GetRandomPopularUsers(int randomCount, int topUserCount, List<User> usersToExclude = null)
         {
             //TODO INtegraion test
-            //TODO(Dave)UnitTest
-            //TODO(Dave) Create Method in repo to get popular
-            var popularUsers = _unitOfWork.Users.GetAll().ToList();
+            var popularUsers = _unitOfWork.Users.GetMostPopularUsers(topUserCount).ToList();
             return GetRandomUsersFromList(popularUsers, randomCount, usersToExclude);
         }
 
         private List<User> GetRandomUsersFromList(List<User> users, int qtyUsersToReturn, List<User> usersToExclude = null)
         {
+            if (qtyUsersToReturn > users.Count)
+            {
+                throw new ArgumentException("qtyToReturn must be less than users");
+            }
             //if (usersToExclude == null)
             //{
             //    usersToExclude = new List<User>();

@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 
 namespace T5.Brothership.PL.Test.RepositoryIntegration
-{
+{//TODO Replace testConnection with new class
     [TestClass]
     public class UserRepositoryTest
     {
@@ -160,6 +160,57 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             AssertUsersEqual(expectedUser, actualUser);
         }
 
+
+        [TestCategory("IntegrationTest"), TestMethod]
+        public void GetMostPopularUsers_TopRatedUsersReturned_AverageUserRatingInOrderOfPopularity()
+        {
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
+            {
+
+                var actaulUsers = userRepo.GetMostPopularUsers(10);
+
+                Double? previousPopularity = null;
+                foreach (var user in actaulUsers)
+                {
+                    double averageRating = user.UserRatings.Average(p => p.RatingID);
+                    int ratingCount = user.UserRatings.Count;
+                    double popularity = averageRating * ratingCount;
+
+                    if (previousPopularity != null)
+                    {
+                        Assert.IsTrue(previousPopularity >= popularity);
+                    }
+
+                    previousPopularity = popularity;
+                }
+            }
+        }
+
+
+        [TestCategory("IntegrationTest"), TestMethod]
+        public void GetMostPopularUsers_TopRatedUsersReturned_AverageUserRatingInOrder()
+        {
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
+            {
+
+                var actaulUsers = userRepo.GetTopRatedUsers(10);
+
+                Double? previousAverageRating = null;
+
+                foreach (var user in actaulUsers)
+                {
+                    double averageRating = user.UserRatings.Average(p => p.RatingID);
+
+                    if (previousAverageRating != null)
+                    {
+                        Assert.IsTrue(previousAverageRating >= averageRating);
+                    }
+
+                    previousAverageRating = averageRating;
+                }
+            }
+        }
+
         [TestCategory("IntegrationTest"), TestMethod]
         public void Update_WasUserUpdated_ActualEqualsExpectedData()
         {
@@ -177,6 +228,30 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             }
 
             AssertUsersEqual(expectedUser, actualUser);
+        }
+
+
+        [TestCategory("IntegrationTest"), TestMethod]
+        public void GetFeaturedUsers_FeaturedUsersRetuned_ActualCountEqualExpected()
+        {
+            int expectedCount = 2;
+
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
+            {
+                int actualCount = userRepo.GetFeaturedUsers().Count();
+                Assert.AreEqual(expectedCount, actualCount);
+            }
+        }
+
+        [TestCategory("IntegrationTest"), TestMethod]
+        public void GetFeaturedUsers_OnlyFeatuedUsersReturned_ActualContainsOnlyFeatured()
+        {
+            using (UserRepository userRepo = new UserRepository(new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
+            {
+                var featuredUsers = userRepo.GetFeaturedUsers();
+                int featuredUserCount = featuredUsers.Count(p => p.UserTypeID == (int)UserType.UserTypes.FeaturedUser);
+                Assert.IsTrue(featuredUsers.Count() == featuredUserCount);
+            }
         }
 
         private void AssertUsersEqual(User expected, User actual)
