@@ -71,6 +71,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DatabaseIntegrationTest.cs" />
+    <Compile Include="DataContextCreator.cs" />
     <Compile Include="FakeBrothershipUnitOfWork.cs" />
     <Compile Include="FakeRepositories\GameFakeRepository.cs" />
     <Compile Include="FakeRepositories\GenderFakeRepo.cs" />

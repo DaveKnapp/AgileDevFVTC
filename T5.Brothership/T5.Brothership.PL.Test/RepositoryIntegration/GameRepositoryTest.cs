@@ -16,7 +16,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext = new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME))
+            using (var dbContext =DataContextCreator.CreateTestContext())
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -33,7 +33,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Game actualGame;
 
-            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var gameRepo = new GameRepository( DataContextCreator.CreateTestContext()))
             {
                 gameRepo.Add(expectedGame);
                 gameRepo.SaveChanges();
@@ -49,7 +49,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             Game actualGame;
             var typeToDelete = AddandGetTestGame();
 
-            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var gameRepo = new GameRepository( DataContextCreator.CreateTestContext()))
             {
                 gameRepo.Delete(typeToDelete);
                 gameRepo.SaveChanges();
@@ -65,7 +65,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var typeIdToDelete = AddandGetTestGame().ID;
             Game actualGame;
 
-            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var gameRepo = new GameRepository( DataContextCreator.CreateTestContext()))
             {
                 Game game = gameRepo.GetById(typeIdToDelete);
                 game.GameCategories.Clear();
@@ -82,7 +82,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             const int expectedCount = 45;
             int actualCount;
 
-            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var gameRepo = new GameRepository( DataContextCreator.CreateTestContext()))
             {
                 actualCount = gameRepo.GetAll().Count();
             }
@@ -102,7 +102,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Game actualGame;
 
-            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var gameRepo = new GameRepository( DataContextCreator.CreateTestContext()))
             {
                 actualGame = gameRepo.GetById(expectedGame.ID);
                 AssertGamesEqual(expectedGame, actualGame);
@@ -121,7 +121,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Game actualGame;
 
-            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var gameRepo = new GameRepository( DataContextCreator.CreateTestContext()))
             {
                 gameRepo.Update(expectedGame);
                 gameRepo.SaveChanges();
@@ -143,7 +143,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Game actualGame;
 
-            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var gameRepo = new GameRepository( DataContextCreator.CreateTestContext()))
             {
                 gameRepo.GetByIgdbId((int)expectedGame.igdbID);
                 gameRepo.SaveChanges();
@@ -161,7 +161,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             game.GameCategories.Add(new GameCategory { ID = 11, Description = "Real Time Strategy (RTS)" });
 
-            using (var gameRepo = new GameRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var gameRepo = new GameRepository( DataContextCreator.CreateTestContext()))
             {
                 gameRepo.Add(game);
                 gameRepo.SaveChanges();

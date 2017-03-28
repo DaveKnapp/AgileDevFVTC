@@ -18,7 +18,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext =  DataContextCreator.CreateTestContext())
+            using (var dbContext = DataContextCreator.CreateTestContext())
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }

@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestInitialize]
         public void Initialize()
         {
-            using (var dbContext =  new brothershipEntities("brothershipEntitiesTest"))
+            using (var dbContext =  DataContextCreator.CreateTestContext())
             {
                 SqlScriptRunner.RunAddTestDataScript(dbContext);
             }
@@ -30,7 +30,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Gender actualGender;
 
-            using (var genderRepo = new GenderRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var genderRepo = new GenderRepository( DataContextCreator.CreateTestContext()))
             {
                 genderRepo.Add(expectedGender);
                 genderRepo.SaveChanges();
@@ -46,7 +46,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             Gender actualGender;
             var typeToDelete = AddandGetTestGender();
 
-            using (var genderRepo = new GenderRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var genderRepo = new GenderRepository( DataContextCreator.CreateTestContext()))
             {
                 genderRepo.Delete(typeToDelete);
                 genderRepo.SaveChanges();
@@ -62,7 +62,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             var typeIdToDelete = AddandGetTestGender().Id;
             Gender actualGender;
 
-            using (var genderRepo = new GenderRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var genderRepo = new GenderRepository( DataContextCreator.CreateTestContext()))
             {
                 genderRepo.Delete(typeIdToDelete);
                 genderRepo.SaveChanges();
@@ -77,7 +77,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         {
             const int expectedCount = 3;
             int actualCount;
-            using (var genderRepo = new GenderRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var genderRepo = new GenderRepository( DataContextCreator.CreateTestContext()))
             {
                 actualCount = genderRepo.GetAll().Count();
             }
@@ -95,7 +95,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Gender actualGender;
 
-            using (var genderRepo = new GenderRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var genderRepo = new GenderRepository( DataContextCreator.CreateTestContext()))
             {
                 actualGender = genderRepo.GetById(expectedGender.Id);
             }
@@ -113,7 +113,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
             Gender actualGender;
 
-            using (var genderRepo = new GenderRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var genderRepo = new GenderRepository( DataContextCreator.CreateTestContext()))
             {
                 genderRepo.Update(expectedGender);
                 genderRepo.SaveChanges();
@@ -130,7 +130,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
                 Description = "TestGender"
             };
 
-            using (var genderRepo = new GenderRepository( new brothershipEntities("brothershipEntitiesTest")))
+            using (var genderRepo = new GenderRepository( DataContextCreator.CreateTestContext()))
             {
                 genderRepo.Add(genderType);
                 genderRepo.SaveChanges();

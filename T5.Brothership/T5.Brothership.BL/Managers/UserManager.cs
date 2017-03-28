@@ -172,7 +172,7 @@ namespace T5.Brothership.BL.Managers
                 User randomUser;
                 do
                 {
-                    int randomIndex = rand.Next(users.Count - 1);
+                    int randomIndex = rand.Next(users.Count);
                     randomUser = users[randomIndex];
 
                 } while (randomUsers.Contains(randomUser) || usersToExclude.Contains(randomUser));

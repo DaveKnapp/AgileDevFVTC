@@ -70,7 +70,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ConnectionStrings.cs" />
-    <Compile Include="DataContextCreator.cs" />
     <Compile Include="GameApiIntegration\GameAPIServiceTest.cs" />
     <Compile Include="GameApiServiceFake.cs" />
     <Compile Include="GlobalSuppressions.cs" />

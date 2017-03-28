@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using T5.Brothership.PL;
 
-namespace T5.Brothership.BL.Test
+namespace T5.Brothership.PL.Test
 {
-    internal static class DataContextCreator
+    public static class DataContextCreator
     {
         public static brothershipEntities CreateTestContext()
         {
