@@ -27,11 +27,10 @@ namespace T5.Brothership.PL.Repositories
 
         public override void Delete(User user)
         {
-            //TODO Remove set with clear
             user.Games.Clear();
-            DbContext.Set<UserRating>().RemoveRange(user.RatedByUser);
-            DbContext.Set<UserRating>().RemoveRange(user.UserRatings);
-            DbContext.Set<UserLogin>().Remove(user.UserLogin);
+            user.RatedByUser.Clear();
+            user.UserRatings.Clear();
+            DbSet.Remove(user);
 
             DbContext.SaveChanges();
         }
