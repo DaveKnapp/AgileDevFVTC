@@ -74,6 +74,7 @@
     <Compile Include="GameApiServiceFake.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HelpersUnitTest\PasswordHelperTest.cs" />
+    <Compile Include="ManagerIntegration\GameManagerIntegrationTest.cs" />
     <Compile Include="ManagerIntegration\UserManagerTest.cs" />
     <Compile Include="ManagerUnitTests\GameManagerUnitTest.cs" />
     <Compile Include="ManagerUnitTests\GenderManagerUnitTest.cs" />

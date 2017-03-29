@@ -109,7 +109,7 @@ namespace T5.Brothership.BL.Managers
         }
 
         public void UpdatePassword(string currentPassword, string newPassword, User user)
-        {//TODO(Dave) Add integration test
+        {
             var currentUser = _unitOfWork.Users.GetByUsernameOrEmail(user.UserName);
 
             var passwordHelper = new PasswordHelper();
@@ -137,14 +137,12 @@ namespace T5.Brothership.BL.Managers
 
         public List<User> GetRandomFeaturedUsers(int randomCount, List<User> usersToExclude = null)
         {
-            //TODO INtegraion test
             var premiumUsers = _unitOfWork.Users.GetFeaturedUsers().ToList();
             return GetRandomUsersFromList(premiumUsers, randomCount, usersToExclude);
         }
 
         public List<User> GetRandomPopularUsers(int randomCount, int topUserCount, List<User> usersToExclude = null)
         {
-            //TODO INtegraion test
             var popularUsers = _unitOfWork.Users.GetMostPopularUsers(topUserCount).ToList();
             return GetRandomUsersFromList(popularUsers, randomCount, usersToExclude);
         }

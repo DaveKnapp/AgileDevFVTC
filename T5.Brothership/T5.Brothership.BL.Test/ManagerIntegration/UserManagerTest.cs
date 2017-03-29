@@ -9,6 +9,7 @@ using T5.Brothership.Entities.Models;
 using T5.Brothership.BL.Managers;
 using System.Threading.Tasks;
 using System.Linq;
+using T5.Brothership.BL.Exceptions;
 
 namespace T5.Brothership.BL.Test.ManagerIntegration
 {
@@ -123,6 +124,90 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
                 }
             }
         }
+
+        [TestCategory("IntegrationTest"), TestMethod]
+        public void UpdatePassword_PasswordUpdated_CanLoginWithNewPassword()
+        {
+            using (var userManager = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
+            {
+                const string userName = "TestUserOne";
+                const string currentPassword = "Password";
+                const string newPassword = "NewPassword";
+
+                var user = userManager.Login(userName, "Password");
+                userManager.UpdatePassword(currentPassword, newPassword, user);
+                user = userManager.Login(userName, newPassword);
+
+                Assert.IsFalse(user is InvalidUser);
+            }
+        }
+
+        [TestCategory("IntegrationTest"), TestMethod,
+         ExpectedException(typeof(InvalidPasswordException))]
+        public void UpdatePassword_IncorrentCurrentPassword_ThrowsInvalidPasswordException()
+        {
+            using (var userManager = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
+            {
+                const string userName = "TestUserOne";
+                const string currentPassword = "PasswordFail";
+                const string newPassword = "NewPassword";
+
+                var user = userManager.Login(userName, "Password");
+                userManager.UpdatePassword(currentPassword, newPassword, user);
+            }
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetRandomFeaturedUsers_UsersReturned_CountGreaterThanOne()
+        {
+            using (UserManager userManager = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
+            {
+                int count = userManager.GetRandomFeaturedUsers(2).Count;
+                Assert.IsTrue(count > 1);
+            }
+        }
+
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetRandomFeaturedUsers_usersFromExcludedListAreExcluded_ListDoesNotContainUsersFromExcluded()
+        {
+            using (UserManager userMangaer = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
+            {
+                var excludedUsers = userMangaer.GetRandomPopularUsers(1, 3, userMangaer.GetRandomFeaturedUsers(2));
+                var featuredUsers = userMangaer.GetRandomFeaturedUsers(2, excludedUsers);
+
+                foreach (var user in featuredUsers)
+                {
+                    Assert.IsFalse(excludedUsers.Contains(user));
+                }
+            }
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetRandomPopularUsers_usersFromExcludedListAreExcluded_ListDoesNotContainUsersFromExcluded()
+        {
+            using (UserManager userMangaer = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
+            {
+                var excludedUsers = userMangaer.GetRandomPopularUsers(2, 5);
+                var popularUsers = userMangaer.GetRandomPopularUsers(2, 5, excludedUsers);
+
+                foreach (var user in popularUsers)
+                {
+                    Assert.IsFalse(excludedUsers.Contains(user));
+                }
+            }
+        }
+
+        [TestMethod, TestCategory("IntegrationTest")]
+        public void GetRandomPopularUsers_UsersReturned_CountGreaterThanOne()
+        {
+            using (UserManager userMangaer = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
+            {
+                int count = userMangaer.GetRandomPopularUsers(3, 10).Count;
+                Assert.IsTrue(count > 1);
+            }
+        }
+
         private void AssertUsersEqual(User expected, User actual)
         {
             Assert.AreEqual(expected.ID, actual.ID);

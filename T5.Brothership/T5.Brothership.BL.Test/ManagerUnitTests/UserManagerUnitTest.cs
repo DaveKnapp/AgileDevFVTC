@@ -12,7 +12,6 @@ using T5.Brothership.BL.Exceptions;
 
 namespace T5.Brothership.BL.Test.ManagerUnitTests
 {
-    //TODO Add game Manager integtration test.
     [TestClass]
     public class UserMangerTest
     {

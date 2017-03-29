@@ -40,6 +40,11 @@ namespace T5.Brothership.BL.Managers
             GC.SuppressFinalize(this);
         }
 
+        public List<Game> GetAll()
+        {
+            return _unitOfWork.Games.GetAll().ToList();
+        }
+
         public List<Game> GetByIgdbIds(int[] gameIds)
         {
             var games = new List<Game>();
