@@ -21,13 +21,17 @@ namespace T5.Brothership.Controllers
         {
             var userViewModel = new CreateUserViewModel
             {
+                NewUser = new Entities.Models.User(),
                 Genders = _genderManager.GetAll(),
                 Nationalities = _nationalityManager.GetAll()
             };
 
+      
+
             if (TempData["userWithError"] == null)
             {
                 userViewModel.NewUser = new User();
+                userViewModel.NewUser.Games = new List<Game>();
             }
             else
             {

@@ -9,6 +9,12 @@ namespace T5.Brothership.ViewModels
 {
     public class CreateUserViewModel
     {
+        public CreateUserViewModel()
+        {
+           
+           
+        }
+
         public User NewUser { get; set; }
 
         [Required, DataType(DataType.Password),
@@ -19,6 +25,8 @@ namespace T5.Brothership.ViewModels
          Display(Name ="Confirm Password"),
          DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        public List<int> igdbIds { get; set; }
 
         public List<Gender> Genders { get; set; }
         public List<Nationality> Nationalities { get; set; }

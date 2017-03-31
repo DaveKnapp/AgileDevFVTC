@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/19/2017 01:21:28
+-- Date Created: 03/31/2017 12:06:57
 -- Generated from EDMX file: C:\Users\zzdia\Source\Repos\AgileDevFVTC\T5.Brothership\T5.Brothership.PL\Brothership.edmx
 -- --------------------------------------------------
 
@@ -17,38 +17,23 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_GameCategoryJunc_Game]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[GameCategoryJunc] DROP CONSTRAINT [FK_GameCategoryJunc_Game];
-GO
-IF OBJECT_ID(N'[dbo].[FK_GameCategoryJunc_GameCategory]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[GameCategoryJunc] DROP CONSTRAINT [FK_GameCategoryJunc_GameCategory];
-GO
-IF OBJECT_ID(N'[dbo].[FK_GenderUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_GenderUser];
-GO
-IF OBJECT_ID(N'[dbo].[FK_Rating_RatingID]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserRatings] DROP CONSTRAINT [FK_Rating_RatingID];
+IF OBJECT_ID(N'[dbo].[FK_UserIntegration_IntegrationType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserIntegrations] DROP CONSTRAINT [FK_UserIntegration_IntegrationType];
 GO
 IF OBJECT_ID(N'[dbo].[FK_User_Nationality]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_Nationality];
 GO
-IF OBJECT_ID(N'[dbo].[FK_User_UserID]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_UserID];
+IF OBJECT_ID(N'[dbo].[FK_Rating_RatingID]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserRatings] DROP CONSTRAINT [FK_Rating_RatingID];
 GO
-IF OBJECT_ID(N'[dbo].[FK_User_UserTypeID]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_UserTypeID];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserGameJunc_Game]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserGameJunc] DROP CONSTRAINT [FK_UserGameJunc_Game];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserGameJunc_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserGameJunc] DROP CONSTRAINT [FK_UserGameJunc_User];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserIntegration_IntegrationType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserIntegrations] DROP CONSTRAINT [FK_UserIntegration_IntegrationType];
+IF OBJECT_ID(N'[dbo].[FK_UserSocial_SocialType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserSocialJuncs] DROP CONSTRAINT [FK_UserSocial_SocialType];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserIntegration_UserID]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserIntegrations] DROP CONSTRAINT [FK_UserIntegration_UserID];
+GO
+IF OBJECT_ID(N'[dbo].[FK_User_UserID]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_UserID];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserRated_UserID]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserRatings] DROP CONSTRAINT [FK_UserRated_UserID];
@@ -56,11 +41,26 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserRater_UserID]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserRatings] DROP CONSTRAINT [FK_UserRater_UserID];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UserSocial_SocialType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserSocialJuncs] DROP CONSTRAINT [FK_UserSocial_SocialType];
+IF OBJECT_ID(N'[dbo].[FK_User_UserTypeID]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_User_UserTypeID];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserSocial_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserSocialJuncs] DROP CONSTRAINT [FK_UserSocial_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserGameJunc_Game]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserGameJunc] DROP CONSTRAINT [FK_UserGameJunc_Game];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserGameJunc_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserGameJunc] DROP CONSTRAINT [FK_UserGameJunc_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GenderUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_GenderUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GameCategoryJunc_Game]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GameCategoryJunc] DROP CONSTRAINT [FK_GameCategoryJunc_Game];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GameCategoryJunc_GameCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GameCategoryJunc] DROP CONSTRAINT [FK_GameCategoryJunc_GameCategory];
 GO
 
 -- --------------------------------------------------
@@ -70,14 +70,8 @@ GO
 IF OBJECT_ID(N'[dbo].[GameCategories]', 'U') IS NOT NULL
     DROP TABLE [dbo].[GameCategories];
 GO
-IF OBJECT_ID(N'[dbo].[GameCategoryJunc]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[GameCategoryJunc];
-GO
 IF OBJECT_ID(N'[dbo].[Games]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Games];
-GO
-IF OBJECT_ID(N'[dbo].[Genders]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Genders];
 GO
 IF OBJECT_ID(N'[dbo].[IntegrationTypes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[IntegrationTypes];
@@ -90,9 +84,6 @@ IF OBJECT_ID(N'[dbo].[Ratings]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SocialMediaTypes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SocialMediaTypes];
-GO
-IF OBJECT_ID(N'[dbo].[UserGameJunc]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserGameJunc];
 GO
 IF OBJECT_ID(N'[dbo].[UserIntegrations]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserIntegrations];
@@ -111,6 +102,15 @@ IF OBJECT_ID(N'[dbo].[UserSocialJuncs]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[UserTypes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserTypes];
+GO
+IF OBJECT_ID(N'[dbo].[Genders]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Genders];
+GO
+IF OBJECT_ID(N'[dbo].[UserGameJunc]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserGameJunc];
+GO
+IF OBJECT_ID(N'[dbo].[GameCategoryJunc]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[GameCategoryJunc];
 GO
 
 -- --------------------------------------------------
@@ -191,7 +191,7 @@ CREATE TABLE [dbo].[Users] (
     [ID] int  NOT NULL,
     [UserName] varchar(25)  NOT NULL,
     [Email] varchar(45)  NOT NULL,
-    [Bio] varchar(350)  NOT NULL,
+    [Bio] varchar(350)  NULL,
     [ProfileImagePath] varchar(60)  NOT NULL,
     [DateJoined] datetime  NOT NULL,
     [DOB] datetime  NOT NULL,

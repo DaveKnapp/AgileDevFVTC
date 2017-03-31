@@ -5,104 +5,173 @@
 }
 
 
+<script>
 
+    var gameNextInputIndex = 0;
+    
+
+    function setInputIndex()
+    {
+        var gameInputs = document.getElementById("userIgdbIds");
+
+        gameNextInputIndex = gameInputs.children.length ;
+    }
+    function ItemClicked(event) {
+        // the event variable contains a reference to an instance of the event object
+        var item = event.currentTarget;
+
+        item.addEventListener("click", GameListItemClicked);
+
+        //Add games user's selected games
+        document.getElementById("UserGames").appendChild(item.parentNode);
+
+        var gameInputDiv = document.getElementById("userIgdbIds");
+
+        
+        var maxIndex = 0;
+        for (var i = 0; i < gameInputDiv.children.length; i++) {
+        }
+
+        //Add input elements to form
+        var title = item.children[1].innerHTML;
+        var igdbId = item.children[2].children[0].value;
+
+        var newdiv = document.createElement('div');
+        newdiv.innerHTML = '<input name="NewUser.Games[' + gameNextInputIndex + '].ID" value ="0" type="hidden" />' +
+                             '<input name="NewUser.Games[' + gameNextInputIndex + '].igdbID" value="' + igdbId + '" type="hidden"/>' +
+                           '<input name="NewUser.Games[' + gameNextInputIndex + '].Title" value="' + title + '" type="hidden"/>';
+
+        gameNextInputIndex++;
+        document.getElementById("userIgdbIds").appendChild(newdiv);
+    }
+
+    function GameListItemClicked(event) {
+        // the event variable contains a reference to an instance of the event object
+        var inputGames = document.getElementById("userIgdbIds");
+
+        for (var i = 0; i < inputGames.children.length; i++) {
+            if (inputGames.children[i].children[1].value == event.currentTarget.children[2].children[0].value) {
+                inputGames.children[i].remove();
+                var item = event.currentTarget.remove();
+            }
+        }
+    }
+
+    function SubmitIgdbGames() {
+        alert("test");
+    }
+
+</script>
 <h2 class="text-center">Create Account</h2>
 
 <div class="cform container jumbotron">
     @using (Html.BeginForm(new { @class = "contactForm" }))
     {
 
-    @Html.AntiForgeryToken()
-    <div>
-        <h4 class="text-danger">@ViewBag.Message</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group row">
-            @Html.LabelFor(model => model.NewUser.UserName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.NewUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NewUser.UserName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group row">
-            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.LabelFor(model => model.NewUser.Email, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.NewUser.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NewUser.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.User.ProfileImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.User.ProfileImagePath, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.User.ProfileImagePath, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        <div>
+            <h4 class="text-danger">@ViewBag.Message</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                @Html.LabelFor(model => model.NewUser.UserName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.NewUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NewUser.UserName, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.NewUser.DOB, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.NewUser.DOB, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NewUser.DOB, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.NewUser.Email, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.NewUser.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NewUser.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.User.ProfileImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.User.ProfileImagePath, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User.ProfileImagePath, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.NewUser.DOB, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.NewUser.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NewUser.DOB, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.NewUser.NationalityID, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.NewUser.NationalityID, new SelectList(Model.Nationalities, "ID", "Description"),
+                                            new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.NewUser.GenderId, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.NewUser.GenderId, new SelectList(Model.Genders, "ID", "Description"),
+                                        new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NewUser.GenderId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.NewUser.Bio, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+
+                    @Html.EditorFor(model => model.NewUser.Bio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NewUser.Bio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div id="userIgdbIds" class="col-md-6">
+                    @for (int i = 0; i < Model.NewUser.Games.Count; i++)
+                    {
+                        <div>
+                            <input name="NewUser.Games[@i.ToString()].ID" value="@Model.NewUser.Games.ToList()[i].ID" class="form-control text-box single-line" />
+                            <input name="NewUser.Games[@i.ToString()].igdbID" value="@Model.NewUser.Games.ToList()[i].igdbID" class="form-control text-box single-line" />
+                            <input name="NewUser.Games[@i.ToString()].Title" value="@Model.NewUser.Games.ToList()[i].Title" class="form-control text-box single-line" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" onsubmit="SubmitIgdbGames();" class="btn btn-lg btn-theme" />
+                </div>
             </div>
         </div>
-
-        <div class="form-group row">
-            @Html.LabelFor(model => model.NewUser.NationalityID, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
-            <div class="col-md-6">
-                @Html.DropDownListFor(model => model.NewUser.NationalityID, new SelectList(Model.Nationalities, "ID", "Description"),
-                    new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.LabelFor(model => model.NewUser.GenderId, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
-            <div class="col-md-6">
-                @Html.DropDownListFor(model => model.NewUser.GenderId, new SelectList(Model.Genders, "ID", "Description"),
-                    new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NewUser.GenderId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.LabelFor(model => model.NewUser.Bio, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
-            <div class="col-md-6">
-
-                @Html.EditorFor(model => model.NewUser.Bio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NewUser.Bio, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group row">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-lg btn-theme" />
-            </div>
-        </div>
-    </div>
     }
 </div>
 <!--- Search -->
+
 
 @{
     AjaxOptions options = new AjaxOptions
@@ -115,27 +184,53 @@
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
-@using (Ajax.BeginForm("SearchIGDB", "Game", options))
-{
 
-    <div>
-        @Html.TextBox("keyword", null, new { id = "Search" })
-        <button type="submit" value="Search">Search</button>
-    </div>
-}
+<div style="float:right;width:50%;">
+    @using (Ajax.BeginForm("SearchIGDB", "Game", options))
+    {
 
-<div style="border:solid; height:14em; width:50%; overflow-y:scroll;">
-    <div id="LoadingGif" style="display:none;">
-        <img  style="margin-left:auto; display:block; margin-right:auto; margin-top:2em;" src="~/images/ajax-loader.gif" />
+        <div>
+            @Html.TextBox("keyword", null, new { id = "Search" })
+            <button type="submit" value="Search">Search</button>
+        </div>
+    }
+
+    <div style="border:solid; height:14em;  overflow-y:scroll;">
+        <div id="LoadingGif" style="display:none;">
+            <img style="margin-left:auto; display:block; margin-right:auto; margin-top:2em;" src="~/images/ajax-loader.gif" />
+        </div>
+        <ul style="list-style:none" id="searchResult">
+            @Html.Action("SearchIGDB", "Game", new { keyword = "" })
+        </ul>
     </div>
-    <ul style="list-style:none" id="searchResult">
-        @Html.Action("SearchIGDB", "Game", new { keyword = "" })
+</div>
+<div style="border:solid; height:14em; margin-top:2em; width:50%; float:left; overflow-y:scroll;">
+    <ul style="list-style:none" id="UserGames">
+        @for (int i = 0; i < Model.NewUser.Games.Count; i++)
+        {
+            <li>
+                <button id="Item-@{@i}" onclick="GameListItemClicked(event);" style="background-color:transparent;
+                    border:thin; width:100%; margin-top:.5em; margin-bottom:.5em; text-align:left;">
+                    <span>
+                        <img style="height:46px;" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(Model.NewUser.Games.ToList()[i]).jpg" />
+                    </span>
+                    <span>
+                        @Html.DisplayFor(modelItem => Model.NewUser.Games.ToList()[i].Title)
+                    </span>
+                    <span>
+                        @Html.HiddenFor(modelItem => Model.NewUser.Games.ToList()[i].igdbID)
+                    </span>
+                </button>
+            </li>
+    }
+
     </ul>
 </div>
 
-
 <!--- End Search -->
-
+<script>
+    setInputIndex();
+</script>
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")

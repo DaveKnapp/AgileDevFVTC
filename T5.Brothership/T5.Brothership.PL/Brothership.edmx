@@ -160,7 +160,7 @@
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="25" />
     <Property Name="Email" Type="varchar" Nullable="false" MaxLength="45" />
-    <Property Name="Bio" Type="varchar" Nullable="false" MaxLength="350" />
+    <Property Name="Bio" Type="varchar" Nullable="true" MaxLength="350" />
     <Property Name="ProfileImagePath" Type="varchar" Nullable="false" MaxLength="60" />
     <Property Name="DateJoined" Type="datetime" Nullable="false" />
     <Property Name="DOB" Type="datetime" Nullable="false" />
@@ -557,7 +557,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Bio" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="Bio" Type="String" Nullable="true" MaxLength="350" FixedLength="false" Unicode="false" />
           <Property Name="ProfileImagePath" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="DateJoined" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DOB" Type="DateTime" Nullable="false" Precision="3" />

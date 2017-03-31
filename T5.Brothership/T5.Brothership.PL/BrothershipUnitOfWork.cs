@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +27,7 @@ namespace T5.Brothership.PL
         private GenderRepository _genders;
         public BrothershipUnitOfWork()
         {
-            _dbContext =new brothershipEntities();
+            _dbContext = new brothershipEntities();
         }
 
         public BrothershipUnitOfWork(brothershipEntities dbContext)
@@ -166,7 +168,23 @@ namespace T5.Brothership.PL
 
         public void Commit()
         {
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                                                validationError.PropertyName,
+                                                validationError.ErrorMessage);
+                    }
+                }
+            }
         }
 
         public void Dispose()
