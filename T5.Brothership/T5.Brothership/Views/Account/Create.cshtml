@@ -5,63 +5,6 @@
 }
 
 
-<script>
-
-    var gameNextInputIndex = 0;
-    
-
-    function setInputIndex()
-    {
-        var gameInputs = document.getElementById("userIgdbIds");
-
-        gameNextInputIndex = gameInputs.children.length ;
-    }
-    function ItemClicked(event) {
-        // the event variable contains a reference to an instance of the event object
-        var item = event.currentTarget;
-
-        item.addEventListener("click", GameListItemClicked);
-
-        //Add games user's selected games
-        document.getElementById("UserGames").appendChild(item.parentNode);
-
-        var gameInputDiv = document.getElementById("userIgdbIds");
-
-        
-        var maxIndex = 0;
-        for (var i = 0; i < gameInputDiv.children.length; i++) {
-        }
-
-        //Add input elements to form
-        var title = item.children[1].innerHTML;
-        var igdbId = item.children[2].children[0].value;
-
-        var newdiv = document.createElement('div');
-        newdiv.innerHTML = '<input name="NewUser.Games[' + gameNextInputIndex + '].ID" value ="0" type="hidden" />' +
-                             '<input name="NewUser.Games[' + gameNextInputIndex + '].igdbID" value="' + igdbId + '" type="hidden"/>' +
-                           '<input name="NewUser.Games[' + gameNextInputIndex + '].Title" value="' + title + '" type="hidden"/>';
-
-        gameNextInputIndex++;
-        document.getElementById("userIgdbIds").appendChild(newdiv);
-    }
-
-    function GameListItemClicked(event) {
-        // the event variable contains a reference to an instance of the event object
-        var inputGames = document.getElementById("userIgdbIds");
-
-        for (var i = 0; i < inputGames.children.length; i++) {
-            if (inputGames.children[i].children[1].value == event.currentTarget.children[2].children[0].value) {
-                inputGames.children[i].remove();
-                var item = event.currentTarget.remove();
-            }
-        }
-    }
-
-    function SubmitIgdbGames() {
-        alert("test");
-    }
-
-</script>
 <h2 class="text-center">Create Account</h2>
 
 <div class="cform container jumbotron">
@@ -150,7 +93,7 @@
             </div>
 
             <div class="form-group row">
-                <div id="userIgdbIds" class="col-md-6">
+                <div id="userInputGames" class="col-md-6">
                     @for (int i = 0; i < Model.NewUser.Games.Count; i++)
                     {
                         <div>
@@ -164,7 +107,7 @@
 
             <div class="form-group row">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" onsubmit="SubmitIgdbGames();" class="btn btn-lg btn-theme" />
+                    <input type="submit" value="Create" class="btn btn-lg btn-theme" />
                 </div>
             </div>
         </div>
@@ -172,14 +115,14 @@
 </div>
 <!--- Search -->
 
-
 @{
     AjaxOptions options = new AjaxOptions
     {
         UpdateTargetId = "searchResult",
         InsertionMode = InsertionMode.Replace,
         LoadingElementId = "LoadingGif",
-        HttpMethod = "Get"
+        HttpMethod = "Get",
+        OnBegin = "ClearSearchItems"
     };
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
@@ -229,6 +172,58 @@
 
 <!--- End Search -->
 <script>
+
+    var gameNextInputIndex = 0;
+
+    function ClearSearchItems()
+    {
+        var searchList = document.getElementById("searchResult");
+
+        while (searchList.firstChild != null) {
+            searchList.firstChild.remove();
+        }
+    }
+
+    function setInputIndex()
+    {
+        var gameInputs = document.getElementById("userInputGames");
+
+        gameNextInputIndex = gameInputs.children.length ;
+    }
+
+    function ItemClicked(event) {
+        var item = event.currentTarget;
+
+        item.addEventListener("click", GameListItemClicked);
+        document.getElementById("UserGames").appendChild(item.parentNode);
+
+        var gameInputDiv = document.getElementById("userInputGames");
+
+        var title = item.children[1].innerHTML;
+        var igdbId = item.children[2].children[0].value;
+
+        var newdiv = document.createElement('div');
+        newdiv.innerHTML = '<input name="NewUser.Games[' + gameNextInputIndex + '].ID" value ="0" type="hidden" />' +
+                             '<input name="NewUser.Games[' + gameNextInputIndex + '].igdbID" value="' + igdbId + '" type="hidden"/>' +
+                           '<input name="NewUser.Games[' + gameNextInputIndex + '].Title" value="' + title + '" type="hidden"/>';
+
+        document.getElementById("userInputGames").appendChild(newdiv);
+
+        gameNextInputIndex++;
+    }
+
+    function GameListItemClicked(event)
+    {
+        var inputGames = document.getElementById("userInputGames");
+
+        for (var i = 0; i < inputGames.children.length; i++) {
+            if (inputGames.children[i].children[1].value == event.currentTarget.children[2].children[0].value) {
+                inputGames.children[i].remove();
+                var item = event.currentTarget.remove();
+            }
+        }
+    }
+
     setInputIndex();
 </script>
 @section Scripts {
