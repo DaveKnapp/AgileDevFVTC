@@ -16,10 +16,10 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group row">
-                @Html.LabelFor(model => model.NewUser.UserName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                @Html.LabelFor(model => model.CurrentUser.UserName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.NewUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NewUser.UserName, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.CurrentUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.UserName, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -41,10 +41,10 @@
             </div>
 
             <div class="form-group row">
-                @Html.LabelFor(model => model.NewUser.Email, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                @Html.LabelFor(model => model.CurrentUser.Email, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.NewUser.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NewUser.Email, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.CurrentUser.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -57,47 +57,47 @@
                 </div>*@
 
             <div class="form-group row">
-                @Html.LabelFor(model => model.NewUser.DOB, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                @Html.LabelFor(model => model.CurrentUser.DOB, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.NewUser.DOB, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NewUser.DOB, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.CurrentUser.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.DOB, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group row">
-                @Html.LabelFor(model => model.NewUser.NationalityID, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                @Html.LabelFor(model => model.CurrentUser.NationalityID, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
                 <div class="col-md-6">
-                    @Html.DropDownListFor(model => model.NewUser.NationalityID, new SelectList(Model.Nationalities, "ID", "Description"),
+                    @Html.DropDownListFor(model => model.CurrentUser.NationalityID, new SelectList(Model.Nationalities, "ID", "Description"),
                                             new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
 
             <div class="form-group row">
-                @Html.LabelFor(model => model.NewUser.GenderId, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                @Html.LabelFor(model => model.CurrentUser.GenderId, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
                 <div class="col-md-6">
-                    @Html.DropDownListFor(model => model.NewUser.GenderId, new SelectList(Model.Genders, "ID", "Description"),
+                    @Html.DropDownListFor(model => model.CurrentUser.GenderId, new SelectList(Model.Genders, "ID", "Description"),
                                         new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NewUser.GenderId, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.GenderId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group row">
-                @Html.LabelFor(model => model.NewUser.Bio, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                @Html.LabelFor(model => model.CurrentUser.Bio, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
                 <div class="col-md-6">
 
-                    @Html.EditorFor(model => model.NewUser.Bio, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NewUser.Bio, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.CurrentUser.Bio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.Bio, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group row">
                 <div id="userInputGames" class="col-md-6">
-                    @for (int i = 0; i < Model.NewUser.Games.Count; i++)
+                    @for (int i = 0; i < Model.CurrentUser.Games.Count; i++)
                     {
                         <div>
-                            <input name="NewUser.Games[@i.ToString()].ID" value="@Model.NewUser.Games.ToList()[i].ID" class="form-control text-box single-line" />
-                            <input name="NewUser.Games[@i.ToString()].igdbID" value="@Model.NewUser.Games.ToList()[i].igdbID" class="form-control text-box single-line" />
-                            <input name="NewUser.Games[@i.ToString()].Title" value="@Model.NewUser.Games.ToList()[i].Title" class="form-control text-box single-line" />
+                            <input name="CurrentUser.Games[@i.ToString()].ID" value="@Model.CurrentUser.Games.ToList()[i].ID" type="hidden"/>
+                            <input name="CurrentUser.Games[@i.ToString()].igdbID" value="@Model.CurrentUser.Games.ToList()[i].igdbID" type="hidden" />
+                            <input name="CurrentUser.Games[@i.ToString()].Title" value="@Model.CurrentUser.Games.ToList()[i].Title" type="hidden" />
                         </div>
                     }
                 </div>
@@ -112,168 +112,8 @@
     }
 </div>
 
-<!--- Search -->
-
-@{
-    AjaxOptions options = new AjaxOptions
-    {
-        UpdateTargetId = "searchResult",
-        InsertionMode = InsertionMode.Replace,
-        LoadingElementId = "LoadingGif",
-        HttpMethod = "Get",
-        OnBegin = "ClearSearchItems",
-        OnComplete = "SetSearchPage"
-    };
-}
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-
-<div style="float:right;width:50%;">
-    @using (Ajax.BeginForm("SearchIGDB", "Game", new { limit = 50, page = 0 }, options))
-    {
-        <div>
-            @Html.TextBox("gameTitle",null, new { id = "Search" })
-            <input type="submit" value="Search" id="SearchButton" />
-        </div>
-    }
-
-    <div id="ScrollingSearch" style="border:solid; height:14em;  overflow-y:scroll;">
-        <div id="LoadingGif" style="display:none;">
-            <img style="margin-left:auto; display:block; margin-right:auto; margin-top:2em;" src="~/images/ajax-loader.gif" />
-        </div>
-        <ul style="list-style:none" id="searchResult">
-            @Html.Action("SearchIGDB", "Game", new { title = "" })
-        </ul>
-    </div>
-</div>
-
-<div style="border:solid; height:14em; margin-top:2em; width:50%; float:left; overflow-y:scroll;">
-    <ul style="list-style:none" id="UserGames">
-        @for (int i = 0; i < Model.NewUser.Games.Count; i++)
-        {
-            <li>
-                <button id="Item-@{@i}" onclick="GameListItemClicked(event);" style="background-color:transparent;
-                    border:thin; width:100%; margin-top:.5em; margin-bottom:.5em; text-align:left;">
-                    <span>
-                        <img style="height:46px;" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(Model.NewUser.Games.ToList()[i]).jpg" />
-                    </span>
-                    <span>
-                        @Html.DisplayFor(modelItem => Model.NewUser.Games.ToList()[i].Title)
-                    </span>
-                    <span>
-                        @Html.HiddenFor(modelItem => Model.NewUser.Games.ToList()[i].igdbID)
-                    </span>
-                </button>
-            </li>
-        }
-    </ul>
-</div>
-
-@{
-    AjaxOptions optionsScrollLoad = new AjaxOptions
-    {
-        UpdateTargetId = "searchResult",
-        InsertionMode = InsertionMode.InsertAfter,
-        HttpMethod = "Get",
-        OnComplete = "IncrementSearchPage",
-        OnFailure = "SearchHasNoMoreItems"
-    };
-}
-
-@using (Ajax.BeginForm("SearchIGDB", "Game", optionsScrollLoad))
-{
-    <div>
-        <input name="gameTitle" value="" id="ScrollingSearchTitleInput" type="hidden" />
-        <input name="page" value="" id="ScrollingSearchPageInput" type="hidden"/>
-        <input name="limit" value="50" type="hidden"  />
-        <button type="submit" style="visibility:hidden" value="Search" id="FakeSearchButton">Search</button>
-    </div>
-}
-<!--- End Search -->
-<script>
-
-    $(ScrollingSearch).scroll(function () {
-        if (($(ScrollingSearch).scrollTop() > $(searchResult).height()-400) && (isGettingNewItems == false) && HasMoreItems)
-        {
-            document.getElementById("FakeSearchButton").click();
-             isGettingNewItems = true;
-         }
-    });
-
-    var nextSearchPage = 0;
-    var gameNextInputIndex = 0;
-    var isGettingNewItems = false;
-    var HasMoreItems = true;
-    
-    function SearchHasNoMoreItems(){
-        HasMoreItems = false
-    }
-
-    function SetScrollingPageInput() {
-        document.getElementById("ScrollingSearchPageInput").value = nextSearchPage;
-        document.getElementById("ScrollingSearchTitleInput").value = document.getElementById("Search").value;
-    }
-
-    function ClearSearchItems() {
-        var searchList = document.getElementById("searchResult");
-        HasMoreItems = true;
-        while (searchList.firstChild != null) {
-            searchList.firstChild.remove();
-        }
-    }
-
-    function SetSearchPage() {
-        nextSearchPage = 1;
-        SetScrollingPageInput();
-    }
-
-    function IncrementSearchPage() {
-        nextSearchPage = nextSearchPage + 1;
-        isGettingNewItems = false;
-        SetScrollingPageInput();
-    }
-
-    function setInputIndex() {
-        var gameInputs = document.getElementById("userInputGames");
-
-        gameNextInputIndex = gameInputs.children.length;
-    }
-
-    function ItemClicked(event) {
-        var item = event.currentTarget;
-
-        item.addEventListener("click", GameListItemClicked);
-        document.getElementById("UserGames").appendChild(item.parentNode);
-
-        var gameInputDiv = document.getElementById("userInputGames");
-
-        var title = item.children[1].innerHTML;
-        var igdbId = item.children[2].children[0].value;
-
-        var newdiv = document.createElement('div');
-        newdiv.innerHTML = '<input name="NewUser.Games[' + gameNextInputIndex + '].ID" value ="0" type="hidden" />' +
-                             '<input name="NewUser.Games[' + gameNextInputIndex + '].igdbID" value="' + igdbId + '" type="hidden"/>' +
-                           '<input name="NewUser.Games[' + gameNextInputIndex + '].Title" value="' + title + '" type="hidden"/>';
-
-        document.getElementById("userInputGames").appendChild(newdiv);
-
-        gameNextInputIndex++;
-    }
-
-    function GameListItemClicked(event) {
-        var inputGames = document.getElementById("userInputGames");
-
-        for (var i = 0; i < inputGames.children.length; i++) {
-            if (inputGames.children[i].children[1].value == event.currentTarget.children[2].children[0].value) {
-                inputGames.children[i].remove();
-                var item = event.currentTarget.remove();
-            }
-        }
-    }
-
-    setInputIndex();
-</script>
+@Html.Partial("UserGameEditSearch", Model.CurrentUser.Games)
 
 @section Scripts {
-
     @Scripts.Render("~/bundles/jqueryval")
 }

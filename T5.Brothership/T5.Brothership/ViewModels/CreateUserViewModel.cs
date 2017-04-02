@@ -9,13 +9,7 @@ namespace T5.Brothership.ViewModels
 {
     public class CreateUserViewModel
     {
-        public CreateUserViewModel()
-        {
-           
-           
-        }
-
-        public User NewUser { get; set; }
+        public User CurrentUser { get; set; }
 
         [Required, DataType(DataType.Password),
          StringLength(20, ErrorMessage = "Password must be less than 20 and greater than 5 characters", MinimumLength = 5)]
@@ -25,8 +19,6 @@ namespace T5.Brothership.ViewModels
          Display(Name ="Confirm Password"),
          DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
-
-        public List<int> igdbIds { get; set; }
 
         public List<Gender> Genders { get; set; }
         public List<Nationality> Nationalities { get; set; }

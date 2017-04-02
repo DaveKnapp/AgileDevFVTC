@@ -21,7 +21,7 @@ namespace T5.Brothership.Controllers
         {
             var userViewModel = new CreateUserViewModel
             {
-                NewUser = new Entities.Models.User(),
+                CurrentUser = new Entities.Models.User(),
                 Genders = _genderManager.GetAll(),
                 Nationalities = _nationalityManager.GetAll()
             };
@@ -30,12 +30,12 @@ namespace T5.Brothership.Controllers
 
             if (TempData["userWithError"] == null)
             {
-                userViewModel.NewUser = new User();
-                userViewModel.NewUser.Games = new List<Game>();
+                userViewModel.CurrentUser = new User();
+                userViewModel.CurrentUser.Games = new List<Game>();
             }
             else
             {
-                userViewModel.NewUser = ((CreateUserViewModel)TempData["userWithError"]).NewUser;
+                userViewModel.CurrentUser = ((CreateUserViewModel)TempData["userWithError"]).CurrentUser;
             }
 
             ViewBag.Message = TempData["error"];
@@ -47,13 +47,13 @@ namespace T5.Brothership.Controllers
         {
             //TODO(Dave) Add uploading of profile image
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
-            var newUser = userViewModel.NewUser;
+            var newUser = userViewModel.CurrentUser;
             newUser.ProfileImagePath = "Default";
             newUser.UserTypeID = (int)UserType.UserTypes.User;
 
             if (ModelState.IsValid)
             {
-                if (_userManger.UserNameExists(userViewModel.NewUser.UserName))
+                if (_userManger.UserNameExists(userViewModel.CurrentUser.UserName))
                 {
                     TempData["error"] = "Username currently being used";
                     TempData["userWithError"] = userViewModel;
