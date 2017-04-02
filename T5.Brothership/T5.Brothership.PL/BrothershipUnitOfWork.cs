@@ -27,7 +27,7 @@ namespace T5.Brothership.PL
         private GenderRepository _genders;
         public BrothershipUnitOfWork()
         {
-            _dbContext = new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME);
+            _dbContext = new brothershipEntities();
         }
 
         public BrothershipUnitOfWork(brothershipEntities dbContext)

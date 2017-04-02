@@ -13,25 +13,24 @@ namespace T5.Brothership.Controllers
     {
         GameAPIClient _gameApiService = new GameAPIClient();
 
-        public PartialViewResult SearchIGDB(string keyword)
+        public PartialViewResult SearchIGDB(string gameTitle, int limit = 50, int page = 0)
         {
             List<Game> game = new List<Game>();
 
-            game = search(keyword).Result;
+            game = search(gameTitle, limit, page).Result;
 
 
             return PartialView(game);
         }
 
-        private async Task<List<Game>> search(string title)
+        private async Task<List<Game>> search(string title, int limit, int page)
         {
-            int limit = 50;
-            int page = 0;
 
             using (var gameApi = new GameAPIClient())
             {
                 List<Game> games = new List<Game>();
-                games = await gameApi.SearchByTitleAsync(title,limit).ConfigureAwait(false);
+                games = await gameApi.SearchByTitleAsync(title, limit, page).ConfigureAwait(false);
+
                 return games;
             }
         }

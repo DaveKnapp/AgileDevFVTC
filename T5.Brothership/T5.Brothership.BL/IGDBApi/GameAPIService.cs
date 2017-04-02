@@ -37,9 +37,9 @@ namespace T5.Brothership.BL.IGDBApi
 
             return game;
         }
-        public async Task<List<Game>> SearchByTitleAsync(string gameName, int limit = 10, int offset = 0)
+        public async Task<List<Game>> SearchByTitleAsync(string gameName, int limit = 10, int page = 0)
         {
-            var response = await SearchAPI(gameName, limit, offset).ConfigureAwait(false);
+            var response = await SearchAPI(gameName, limit, page * limit).ConfigureAwait(false);
             return CreateGamesFromResponse(response);
         }
         private HttpClient CreateClient()

@@ -4,7 +4,6 @@
     ViewBag.Title = "Create Account";
 }
 
-
 <h2 class="text-center">Create Account</h2>
 
 <div class="cform container jumbotron">
@@ -48,7 +47,6 @@
                     @Html.ValidationMessageFor(model => model.NewUser.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
-
 
             @*<div class="form-group">
                     @Html.LabelFor(model => model.User.ProfileImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -113,6 +111,7 @@
         </div>
     }
 </div>
+
 <!--- Search -->
 
 @{
@@ -122,31 +121,31 @@
         InsertionMode = InsertionMode.Replace,
         LoadingElementId = "LoadingGif",
         HttpMethod = "Get",
-        OnBegin = "ClearSearchItems"
+        OnBegin = "ClearSearchItems",
+        OnComplete = "SetSearchPage"
     };
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
-
 <div style="float:right;width:50%;">
-    @using (Ajax.BeginForm("SearchIGDB", "Game", options))
+    @using (Ajax.BeginForm("SearchIGDB", "Game", new { limit = 50, page = 0 }, options))
     {
-
         <div>
-            @Html.TextBox("keyword", null, new { id = "Search" })
-            <button type="submit" value="Search">Search</button>
+            @Html.TextBox("gameTitle",null, new { id = "Search" })
+            <input type="submit" value="Search" id="SearchButton" />
         </div>
     }
 
-    <div style="border:solid; height:14em;  overflow-y:scroll;">
+    <div id="ScrollingSearch" style="border:solid; height:14em;  overflow-y:scroll;">
         <div id="LoadingGif" style="display:none;">
             <img style="margin-left:auto; display:block; margin-right:auto; margin-top:2em;" src="~/images/ajax-loader.gif" />
         </div>
         <ul style="list-style:none" id="searchResult">
-            @Html.Action("SearchIGDB", "Game", new { keyword = "" })
+            @Html.Action("SearchIGDB", "Game", new { title = "" })
         </ul>
     </div>
 </div>
+
 <div style="border:solid; height:14em; margin-top:2em; width:50%; float:left; overflow-y:scroll;">
     <ul style="list-style:none" id="UserGames">
         @for (int i = 0; i < Model.NewUser.Games.Count; i++)
@@ -165,30 +164,78 @@
                     </span>
                 </button>
             </li>
-    }
-
+        }
     </ul>
 </div>
 
+@{
+    AjaxOptions optionsScrollLoad = new AjaxOptions
+    {
+        UpdateTargetId = "searchResult",
+        InsertionMode = InsertionMode.InsertAfter,
+        HttpMethod = "Get",
+        OnComplete = "IncrementSearchPage",
+        OnFailure = "SearchHasNoMoreItems"
+    };
+}
+
+@using (Ajax.BeginForm("SearchIGDB", "Game", optionsScrollLoad))
+{
+    <div>
+        <input name="gameTitle" value="" id="ScrollingSearchTitleInput" type="hidden" />
+        <input name="page" value="" id="ScrollingSearchPageInput" type="hidden"/>
+        <input name="limit" value="50" type="hidden"  />
+        <button type="submit" style="visibility:hidden" value="Search" id="FakeSearchButton">Search</button>
+    </div>
+}
 <!--- End Search -->
 <script>
 
+    $(ScrollingSearch).scroll(function () {
+        if (($(ScrollingSearch).scrollTop() > $(searchResult).height()-400) && (isGettingNewItems == false) && HasMoreItems)
+        {
+            document.getElementById("FakeSearchButton").click();
+             isGettingNewItems = true;
+         }
+    });
+
+    var nextSearchPage = 0;
     var gameNextInputIndex = 0;
+    var isGettingNewItems = false;
+    var HasMoreItems = true;
+    
+    function SearchHasNoMoreItems(){
+        HasMoreItems = false
+    }
 
-    function ClearSearchItems()
-    {
+    function SetScrollingPageInput() {
+        document.getElementById("ScrollingSearchPageInput").value = nextSearchPage;
+        document.getElementById("ScrollingSearchTitleInput").value = document.getElementById("Search").value;
+    }
+
+    function ClearSearchItems() {
         var searchList = document.getElementById("searchResult");
-
+        HasMoreItems = true;
         while (searchList.firstChild != null) {
             searchList.firstChild.remove();
         }
     }
 
-    function setInputIndex()
-    {
+    function SetSearchPage() {
+        nextSearchPage = 1;
+        SetScrollingPageInput();
+    }
+
+    function IncrementSearchPage() {
+        nextSearchPage = nextSearchPage + 1;
+        isGettingNewItems = false;
+        SetScrollingPageInput();
+    }
+
+    function setInputIndex() {
         var gameInputs = document.getElementById("userInputGames");
 
-        gameNextInputIndex = gameInputs.children.length ;
+        gameNextInputIndex = gameInputs.children.length;
     }
 
     function ItemClicked(event) {
@@ -212,8 +259,7 @@
         gameNextInputIndex++;
     }
 
-    function GameListItemClicked(event)
-    {
+    function GameListItemClicked(event) {
         var inputGames = document.getElementById("userInputGames");
 
         for (var i = 0; i < inputGames.children.length; i++) {
@@ -226,6 +272,7 @@
 
     setInputIndex();
 </script>
+
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")
