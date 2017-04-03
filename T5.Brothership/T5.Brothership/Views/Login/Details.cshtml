@@ -34,10 +34,9 @@
 @Html.ActionLink("Logout", "Logout", "Login") <br />
 @Html.ActionLink("Update account", "Update", "Account") <br />
 -->
-
 <!-- Page Content -->
 <div class="container">
-    <!-- Portfolio Item Row --> 
+    <!-- Portfolio Item Row -->
     <div class="row">
 
         <div class="col-md-3">
@@ -64,25 +63,30 @@
             <div class="row">
                 @foreach (var game in Model.Games)
                 {
-                    <div class="col-md-4 col-sm-6">
-                        <a href="#"><img class="img-responsive portfolio-item" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(game.ImgCloudinaryId).jpg" alt="@game.Title"></a>
-                    </div>
+                    <div class="col-md-3 col-sm-6" >
+                        <div style="position:relative" class="img-responsive portfolio-item" >
+                            <img style="padding:0; width:100%;" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(game.ImgCloudinaryId).jpg"
+                                 alt="@game.Title">
+                            <span style="padding-left:5px; padding-right:5px; background-color:rgba(0, 0, 0, 0.5); position:absolute; bottom:0; left:0;
+                                       color:whitesmoke; width:100%;  display:block;">@game.Title</span>
+                          </div>
+                      </div>
                 }
                 @*<div class="col-md-4 col-sm-6">
-                    <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-                </div>
+                        <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                    </div>
 
-                <div class="col-md-4 col-sm-6">
-                    <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-                </div>
+                    <div class="col-md-4 col-sm-6">
+                        <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                    </div>
 
-                <div class="col-md-4 col-sm-6">
-                    <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-                </div>
+                    <div class="col-md-4 col-sm-6">
+                        <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                    </div>
 
-                <div class="col-md-4 col-sm-6">
-                    <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
-                </div>*@
+                    <div class="col-md-4 col-sm-6">
+                        <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
+                    </div>*@
             </div>
             <h3>Ratings</h3>
             <div class="row">

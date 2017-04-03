@@ -7,7 +7,6 @@
 
 
 var nextSearchPage = 0;
-var gameNextInputIndex = 0;
 var isGettingNewItems = false;
 var HasMoreItems = true;
 
@@ -57,24 +56,28 @@ function ItemClicked(event) {
     var igdbId = item.children[2].children[0].value;
 
     var newdiv = document.createElement('div');
-    newdiv.innerHTML = '<input name="CurrentUser.Games[' + gameNextInputIndex + '].ID" value ="0" type="hidden" />' +
-                         '<input name="CurrentUser.Games[' + gameNextInputIndex + '].igdbID" value="' + igdbId + '" type="hidden"/>' +
-                       '<input name="CurrentUser.Games[' + gameNextInputIndex + '].Title" value="' + title + '" type="hidden"/>';
+    newdiv.innerHTML = '<input type="hidden" name="CurrentUser.Games.Index" value="' + igdbId + '" />' +
+                       '<input name="CurrentUser.Games[' + igdbId + '].ID" value ="0" type="hidden" />' +
+                       '<input name="CurrentUser.Games[' + igdbId + '].igdbID" value="' + igdbId + '" type="hidden"/>' +
+                       '<input name="CurrentUser.Games[' + igdbId + '].Title" value="' + title + '" type="hidden"/>';
 
     document.getElementById("userInputGames").appendChild(newdiv);
 
-    gameNextInputIndex++;
 }
 
 function GameListItemClicked(event) {
     var inputGames = document.getElementById("userInputGames");
 
     for (var i = 0; i < inputGames.children.length; i++) {
-        if (inputGames.children[i].children[1].value == event.currentTarget.children[2].children[0].value) {
+        if (inputGames.children[i].children[2].value == event.currentTarget.children[2].children[0].value) {
             inputGames.children[i].remove();
             var item = event.currentTarget.remove();
         }
     }
+}
+
+function SubmitForm() {
+    document.getElementById("SubmitButton").click();
 }
 
 setInputIndex();

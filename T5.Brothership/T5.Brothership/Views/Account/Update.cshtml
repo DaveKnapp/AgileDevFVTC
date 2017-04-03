@@ -80,9 +80,10 @@
                 @for (int i = 0; i < Model.CurrentUser.Games.Count; i++)
                 {
                     <div>
-                        <input name="CurrentUser.Games[@i.ToString()].ID" value="@Model.CurrentUser.Games.ToList()[i].ID" type="hidden" />
-                        <input name="CurrentUser.Games[@i.ToString()].igdbID" value="@Model.CurrentUser.Games.ToList()[i].igdbID" type="hidden"  />
-                        <input name="CurrentUser.Games[@i.ToString()].Title" value="@Model.CurrentUser.Games.ToList()[i].Title" type="hidden" />
+                        <input type="hidden" name="CurrentUser.Games.Index" value="@Model.CurrentUser.Games.ToList()[i].igdbID" />
+                        <input name="CurrentUser.Games[@Model.CurrentUser.Games.ToList()[i].igdbID].ID" value="@Model.CurrentUser.Games.ToList()[i].ID" type="hidden" />
+                        <input name="CurrentUser.Games[@Model.CurrentUser.Games.ToList()[i].igdbID].igdbID" value="@Model.CurrentUser.Games.ToList()[i].igdbID" type="hidden" />
+                        <input name="CurrentUser.Games[@Model.CurrentUser.Games.ToList()[i].igdbID].Title" value="@Model.CurrentUser.Games.ToList()[i].Title" type="hidden" />
                     </div>
                 }
             </div>
@@ -90,13 +91,18 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" id="SubmitButton" style="visibility:hidden;" />
             </div>
         </div>
     </div>
 }
+<script>
+    gameNextInputIndex = @Model.CurrentUser.Games.Count;
+</script>
 
 @Html.Partial("UserGameEditSearch", Model.CurrentUser.Games.ToList())
+
+<input type="button" value="Save" class="btn btn-lg btn-theme" onclick="SubmitForm();" /><br />
 
 @Html.ActionLink("Change password","ChangePassword","Account")
 
