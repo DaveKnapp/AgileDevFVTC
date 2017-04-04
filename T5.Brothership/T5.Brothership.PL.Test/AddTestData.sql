@@ -130,67 +130,67 @@ SET IDENTITY_INSERT UserLogins OFF;
 	SET IDENTITY_INSERT GameCategories OFF;
 
 	SET IDENTITY_INSERT Games ON;
-	INSERT INTO Games(ID, Title, igdbID)
+	INSERT INTO Games(ID, Title, igdbID, ImgCloudinaryId)
 		VALUES	-- Fighting Games
-				(1, 'Street Fighter V', null),
-				(2, 'Mortal Kombat X', null),
-				(3, 'Injustice: Gods Among Us', null),
+				(1, 'Street Fighter V', null, null),
+				(2, 'Mortal Kombat X', null, null),
+				(3, 'Injustice: Gods Among Us', null, null),
 				-- Action/Adventure Games
-				(4, 'Fallout 4', null),
-				(5, 'Uncharted 4', null),
-				(6, 'Grand Theft Auto V', null),
+				(4, 'Fallout 4', null, null),
+				(5, 'Uncharted 4', null, null),
+				(6, 'Grand Theft Auto V', null, null),
 				-- RPG Games
-				(7, 'The Witcher 3: Wild Hunt', null),
-				(8, 'Final Fantasy XV', null),
-				(9, 'Elder Scrolls V: Skyrim', null),
+				(7, 'The Witcher 3: Wild Hunt', null, null),
+				(8, 'Final Fantasy XV', null, null),
+				(9, 'Elder Scrolls V: Skyrim', null, null),
 				-- First-Person Shooter Games
-				(10, 'Battlefield 1', null),
-				(11, 'Overwatch', null),
-				(12, 'Counter-Strike: Global Offensive', null),
+				(10, 'Battlefield 1', null, null),
+				(11, 'Overwatch', null, null),
+				(12, 'Counter-Strike: Global Offensive', null, null),
 				-- Survival Horror Games
-				(13, 'Resident Evil 7', null),
-				(14, 'Alien Isolation', null),
-				(15, 'Dying Light: The Following', null),
+				(13, 'Resident Evil 7', null, null),
+				(14, 'Alien Isolation', null, null),
+				(15, 'Dying Light: The Following', null, null),
 				-- Strategy Games
-				(16, 'Civilization V', null),
-				(17, 'Starcraft II', null),
-				(18, 'XCOM 2', null),
+				(16, 'Civilization V', null, null),
+				(17, 'Starcraft II', null, null),
+				(18, 'XCOM 2', null, null),
 				-- Sports Games
-				(19, 'Madden 17', null),
-				(20, 'NBA 2K17', null),
-				(21, 'Rocket League', null),
+				(19, 'Madden 17', null, null),
+				(20, 'NBA 2K17', null, null),
+				(21, 'Rocket League', null, null),
 				-- Racing Games
-				(22, 'DiRT Rally', null),
-				(23, 'F1 2016', null),
-				(24, 'Need for Speed', null),
+				(22, 'DiRT Rally', null, null),
+				(23, 'F1 2016', null, null),
+				(24, 'Need for Speed', null, null),
 				-- Stealth Games
-				(25, 'Dishonored 2', null),
-				(26, 'Metal Gear Solid V: The Phantom Pain', null),
-				(27, 'Hitman', null),
+				(25, 'Dishonored 2', null, null),
+				(26, 'Metal Gear Solid V: The Phantom Pain', null, null),
+				(27, 'Hitman', null, null),
 				-- Simulation Games
-				(28, 'Arma III', null),
-				(29, 'The Sims 4', null),
-				(30, 'Planet Coaster', null),
+				(28, 'Arma III', null, null),
+				(29, 'The Sims 4', null, null),
+				(30, 'Planet Coaster', null, null),
 				-- MOBA Games
-				(31, 'League of Legends', 115),
-				(32, 'DOTA 2', null),
-				(33, 'Heroes of the Storm', null),
+				(31, 'League of Legends', 115, 'lxoumgqbbj3erxgq6a6l'),
+				(32, 'DOTA 2', null, null),
+				(33, 'Heroes of the Storm', null, null),
 				-- MMO Games
-				(34, 'World of Warcraft', null),
-				(35, 'Elder Scrolls Online', null),
-				(36, 'Guild Wars 2', null),
+				(34, 'World of Warcraft', null, null),
+				(35, 'Elder Scrolls Online', null, null),
+				(36, 'Guild Wars 2', null, null),
 				-- Puzzle Games
-				(37, 'Limbo', 1331),
-				(38, 'Portal 2', null),
-				(39, 'Scribblenauts Unlimited', null),
+				(37, 'Limbo', 1331, 'zrgtcrizlaeo8axliehq'),
+				(38, 'Portal 2', null, null),
+				(39, 'Scribblenauts Unlimited', null, null),
 				-- Tower Defense Games
-				(40, 'Plants vs. Zombies', 1277),
-				(41, 'Kingdom Rush', null),
-				(42, 'Sanctum 2', null),
+				(40, 'Plants vs. Zombies', 1277, 'iot17vxlrkigbqwlpbws'),
+				(41, 'Kingdom Rush', null, null),
+				(42, 'Sanctum 2', null, null),
 				-- Hack and Slash Games
-				(43, 'Diablo 3', null),
-				(44, 'Path of Exile', null),
-				(45, 'Grim Dawn', null)
+				(43, 'Diablo 3', null, null),
+				(44, 'Path of Exile', null, null),
+				(45, 'Grim Dawn', null, null)
 	SET IDENTITY_INSERT Games OFF;
 
 	INSERT INTO GameCategoryJunc(Games_ID, GameCategories_ID)

@@ -295,6 +295,8 @@
     <Content Include="Views\Shared\SignupLink.cshtml" />
     <Content Include="Views\Shared\UserGameEditSearch.cshtml" />
     <Content Include="Views\User\User.cshtml" />
+    <Content Include="Views\User\UserRatings.cshtml" />
+    <Content Include="Views\User\UserGames.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

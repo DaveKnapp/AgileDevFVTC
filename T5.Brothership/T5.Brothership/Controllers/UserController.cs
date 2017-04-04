@@ -19,5 +19,19 @@ namespace T5.Brothership.Controllers
             var user = _usermanager.GetByUserName(userName);
             return View(user);
         }
+
+        [Route("User/UserRatings/{userName}")]
+        public ActionResult UserRatings(string userName)
+        {
+            var user = _usermanager.GetByUserName(userName);
+            return View(user);
+        }
+
+        [Route("User/UserGames/{userName}")]
+        public ActionResult UserGames(string userName)
+        {
+            var user = _usermanager.GetByUserName(userName);
+            return View(user);
+        }
     }
 }

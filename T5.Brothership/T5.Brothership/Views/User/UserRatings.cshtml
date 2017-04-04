@@ -1,0 +1,18 @@
+﻿@model T5.Brothership.Entities.Models.User
+
+@{
+    ViewBag.Title = Model.UserName + "Ratings";
+}
+
+<h2>UserRatings</h2>
+
+
+    @foreach (var rating in Model.UserRatings)
+    {
+        <div class="col-md-4 col-sm-6">
+            <h5>@rating.RaterUser.UserName Says</h5>
+            <p>@rating.Comment</p>
+        </div>
+    }
+
+
