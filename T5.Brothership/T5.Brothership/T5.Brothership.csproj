@@ -294,11 +294,11 @@
     <Content Include="Views\Shared\LogoutLink.cshtml" />
     <Content Include="Views\Shared\SignupLink.cshtml" />
     <Content Include="Views\Shared\UserGameEditSearch.cshtml" />
+    <Content Include="Views\User\User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

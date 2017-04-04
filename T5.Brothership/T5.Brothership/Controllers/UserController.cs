@@ -10,13 +10,14 @@ namespace T5.Brothership.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
         UserManager _usermanager = new UserManager();
-        public ActionResult Index()
+
+
+        [Route("{userName}")]
+        public ActionResult User(string userName)
         {
-            return View();
+            var user = _usermanager.GetByUserName(userName);
+            return View(user);
         }
-
-
     }
 }

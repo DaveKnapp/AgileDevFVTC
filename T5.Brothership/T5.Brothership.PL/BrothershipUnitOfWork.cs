@@ -25,9 +25,10 @@ namespace T5.Brothership.PL
         private UserSocialMediaRepository _userSocialMedias;
         private UserTypeRepository _userTypes;
         private GenderRepository _genders;
+
         public BrothershipUnitOfWork()
         {
-            _dbContext = new brothershipEntities();
+            _dbContext = new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME);
         }
 
         public BrothershipUnitOfWork(brothershipEntities dbContext)

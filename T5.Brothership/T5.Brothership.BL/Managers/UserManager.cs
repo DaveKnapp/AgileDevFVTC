@@ -72,6 +72,13 @@ namespace T5.Brothership.BL.Managers
             return _unitOfWork.Users.GetById(id);
         }
 
+        public User GetByUserName(string userName)
+        {
+            //TODO(dave) Add tests
+            //TODO(Dave) Do I want to add to repo to get by username?
+            return _unitOfWork.Users.GetByUsernameOrEmail(userName);
+        }
+
         public User Login(string userNameOrEmail, string password)
         {
             var user = _unitOfWork.Users.GetByUsernameOrEmail(userNameOrEmail);
@@ -138,13 +145,29 @@ namespace T5.Brothership.BL.Managers
         public List<User> GetRandomFeaturedUsers(int randomCount, List<User> usersToExclude = null)
         {
             var premiumUsers = _unitOfWork.Users.GetFeaturedUsers().ToList();
-            return GetRandomUsersFromList(premiumUsers, randomCount, usersToExclude);
+
+            if (premiumUsers.Count > randomCount)
+            {
+                return GetRandomUsersFromList(premiumUsers, randomCount, usersToExclude);
+            }
+            else
+            {
+                return premiumUsers;
+            }
         }
 
         public List<User> GetRandomPopularUsers(int randomCount, int topUserCount, List<User> usersToExclude = null)
         {
             var popularUsers = _unitOfWork.Users.GetMostPopularUsers(topUserCount).ToList();
-            return GetRandomUsersFromList(popularUsers, randomCount, usersToExclude);
+
+            if (popularUsers.Count > randomCount)
+            {
+                return GetRandomUsersFromList(popularUsers, randomCount, usersToExclude);
+            }
+            else
+            {
+                return popularUsers;
+            }
         }
 
         private List<User> GetRandomUsersFromList(List<User> users, int qtyUsersToReturn, List<User> usersToExclude = null)
@@ -216,7 +239,7 @@ namespace T5.Brothership.BL.Managers
         //Note:(Dave)  I moved this class to a viewModel in the viewmodel folder in the MVC project
         //In my opinion this class is a little confusing.  The name is FrontPageUser, but it contains two users, featured and popular.
         //I think you are bettor just using the user class since your using most of the properties anyway.
-      
+
         public string FeaturedUserName { get; set; }
         public string FeaturedUserImagePath { get; set; }
         //public int FeaturedUserId { get; set; } //In case we need it

@@ -1,47 +1,9 @@
 ﻿@model T5.Brothership.Entities.Models.User
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = @Model.UserName;
 }
 
-
-
-
-
-
-
-@*Note:(Dave) This is an old view.  It has been moved to User/User.  It can be deleted with Update Acount is added to the menu.*@
-
-@*<h2>Details</h2>*@
-<!--
-<div class="container">
-    <h4>Welcome @Model.UserName</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>@Html.DisplayNameFor(model => model.UserName)</dt>
-        <dd>@Html.DisplayFor(model => model.UserName)</dd>
-        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
-        <dd>@Html.DisplayFor(model => model.Email)</dd>
-        <dt>@Html.DisplayNameFor(model => model.Bio)</dt>
-        <dd>@Html.DisplayFor(model => model.Bio)</dd>
-        <dt>@Html.DisplayNameFor(model => model.ProfileImagePath)</dt>
-        <dd>@Html.DisplayFor(model => model.ProfileImagePath)</dd>
-        <dt>@Html.DisplayNameFor(model => model.DateJoined)</dt>
-        <dd>@Html.DisplayFor(model => model.DateJoined)</dd>
-        <dt>@Html.DisplayNameFor(model => model.DOB)</dt>
-        <dd>@Html.DisplayFor(model => model.DOB)</dd>
-        <dt>@Html.DisplayNameFor(model => model.Gender.Description)</dt>
-        <dd>@Html.DisplayFor(model => model.Gender.Description)</dd>
-        <dt>@Html.DisplayNameFor(model => model.UserType.Description)</dt>
-        <dd>@Html.DisplayFor(model => model.UserType.Description)</dd>
-        <dt>@Html.DisplayNameFor(model => model.Nationality.Description)</dt>
-        <dd>@Html.DisplayFor(model => model.Nationality.Description)</dd>
-    </dl>
-</div>
-
-@Html.ActionLink("Logout", "Logout", "Login") <br />
-@Html.ActionLink("Update account", "Update", "Account") <br />
--->
 <!-- Page Content -->
 <div class="container">
     <!-- Portfolio Item Row -->
@@ -71,14 +33,14 @@
             <div class="row">
                 @foreach (var game in Model.Games)
                 {
-                    <div class="col-md-3 col-sm-6" >
-                        <div style="position:relative" class="img-responsive portfolio-item" >
+                    <div class="col-md-3 col-sm-6">
+                        <div style="position:relative" class="img-responsive portfolio-item">
                             <img style="padding:0; width:100%;" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(game.ImgCloudinaryId).jpg"
                                  alt="@game.Title">
                             <span style="padding-left:5px; padding-right:5px; background-color:rgba(0, 0, 0, 0.5); position:absolute; bottom:0; left:0;
                                        color:whitesmoke; width:100%;  display:block;">@game.Title</span>
-                          </div>
-                      </div>
+                                </div>
+                            </div>
                 }
                 @*<div class="col-md-4 col-sm-6">
                         <a href="#"><img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt=""></a>
