@@ -17,8 +17,8 @@
             <p>@Html.DisplayFor(model => model.Bio)</p>
             <h4>@Html.DisplayNameFor(model => model.DateJoined)</h4>
             <p>@Html.DisplayFor(model => model.DateJoined)</p>
-            <h4>@Html.DisplayNameFor(model => model.DOB)</h4>
-            <p>@Html.DisplayFor(model => model.DOB)</p>
+            <h4>Age</h4>
+            <p>@Math.Floor(DateTime.Now.Subtract(Model.DOB).TotalDays/ 365)</p>
             <h4>@Html.DisplayNameFor(model => model.Gender)</h4>
             <p>@Html.DisplayFor(model => model.Gender.Description)</p>
             <h4>@Html.DisplayNameFor(model => model.UserType)</h4>

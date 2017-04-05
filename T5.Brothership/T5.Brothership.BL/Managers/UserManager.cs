@@ -105,6 +105,10 @@ namespace T5.Brothership.BL.Managers
             currentUser.UserTypeID = updatedUser.UserTypeID;
             currentUser.ProfileImagePath = updatedUser.ProfileImagePath;
 
+            //TODO Add tests for social media
+            currentUser.UserSocialJuncs.Clear();
+            currentUser.UserSocialJuncs = updatedUser.UserSocialJuncs;
+
             currentUser.Games.Clear();
 
             await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(updatedUser.Games));
