@@ -35,9 +35,16 @@ namespace T5.Brothership.PL.Repositories
             DbContext.SaveChanges();
         }
 
+
+
         public User GetByUsernameOrEmail(string userNameOrEmail)
         {
             return DbSet.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
+        }
+
+        public IQueryable<User> GetSearchedUsers(string search)
+        {
+            return DbSet.Where(p => p.UserName.ToLower().Contains(search.ToLower()));
         }
 
         public IQueryable<User> GetFeaturedUsers()
