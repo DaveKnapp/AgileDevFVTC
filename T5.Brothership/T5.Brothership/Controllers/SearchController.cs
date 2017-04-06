@@ -17,10 +17,10 @@ namespace T5.Brothership.Controllers
             return View();
         }
 
-        public ActionResult SearchResults()
+        public ActionResult SearchResults(string search)
         {
             UserManager _userManager = new UserManager();
-            List<User> users = _userManager.GetSearchedUsers("User");
+            List<User> users = _userManager.GetSearchedUsers(search);
             return View(users);
         }
     }
