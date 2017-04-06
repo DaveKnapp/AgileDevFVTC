@@ -69,7 +69,7 @@
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="IGDBApi\GameApiCredentials.cs" />
     <Compile Include="IGDBApi\GameResponse.cs" />
-    <Compile Include="IGDBApi\GameAPIService.cs" />
+    <Compile Include="IGDBApi\GameAPIClient.cs" />
     <Compile Include="IGDBApi\IGameAPIService.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\GenderManager.cs" />
@@ -77,6 +77,8 @@
     <Compile Include="Managers\UserRatingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="TwitchApi\ApiCredentials.cs" />
+    <Compile Include="TwitchApi\TwitchClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\T5.Brothership.Entities\T5.Brothership.Entities.csproj">
