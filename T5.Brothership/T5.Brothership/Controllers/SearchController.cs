@@ -5,12 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using T5.Brothership.BL.Managers;
 using T5.Brothership.Entities.Models;
+using T5.Brothership.ViewModels;
 
 namespace T5.Brothership.Controllers
 {
     public class SearchController : Controller
     {
-
+        readonly UserManager _userManager = new UserManager();
         // GET: Search
         public ActionResult Index()
         {
@@ -19,9 +20,8 @@ namespace T5.Brothership.Controllers
 
         public ActionResult SearchResults(string search)
         {
-            UserManager _userManager = new UserManager();
-            List<User> users = _userManager.GetSearchedUsers(search);
-            return View(users);
+            return View((List<User>)_userManager.GetSearchedUsers(search));
         }
+
     }
 }
