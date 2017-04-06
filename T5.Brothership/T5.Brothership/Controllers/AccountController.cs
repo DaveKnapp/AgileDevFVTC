@@ -106,8 +106,9 @@ namespace T5.Brothership.Controllers
             var val = ModelState.Values;
             if (ModelState.IsValid)
             {
-                await _userManger.Update(currentUser);
-                return View("AccountUpdated");
+                ViewBag.Message = "Account successfully updated";
+                await _userManger.Update(currentUser);                
+                return RedirectToAction("Details", "Login");
             }
             else
             {

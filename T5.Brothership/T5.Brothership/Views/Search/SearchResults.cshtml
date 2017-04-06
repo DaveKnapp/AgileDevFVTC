@@ -1,0 +1,43 @@
+﻿@model IEnumerable<T5.Brothership.Entities.Models.User>
+
+@{
+    ViewBag.Title = "SearchResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search</h2>
+
+<p>
+    @using (Html.BeginForm("SearchResults", "Search", FormMethod.Get, new { search = "User" }))
+    {
+        @Html.TextBox("Search")
+        <div>
+            <input type="submit" value="Search" />
+        </div>
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>       
+        <th>
+            @Html.DisplayNameFor(model => model.ProfileImagePath)
+        </th>       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.UserName, "User", "User", new { userName = item.UserName }, null)
+        </td>       
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfileImagePath)
+        </td>
+        
+    </tr>
+}
+
+</table>

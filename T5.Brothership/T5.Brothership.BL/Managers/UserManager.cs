@@ -42,6 +42,11 @@ namespace T5.Brothership.BL.Managers
             GC.SuppressFinalize(this);
         }
 
+        public List<User> GetSearchedUsers(string search)
+        {
+            return _unitOfWork.Users.GetSearchedUsers(search).ToList();
+        }
+
         public async Task Add(User user, string password)
         {
             var newUser = user;
@@ -172,7 +177,7 @@ namespace T5.Brothership.BL.Managers
             {
                 return popularUsers;
             }
-        }
+        }       
 
         private List<User> GetRandomUsersFromList(List<User> users, int qtyUsersToReturn, List<User> usersToExclude = null)
         {

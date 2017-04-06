@@ -67,6 +67,11 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             return users.OrderByDescending(p => p.UserRatings.Average(r => r.RatingID) * p.UserRatings.Count).AsQueryable();
         }
 
+        public IQueryable<User> GetSearchedUsers(string search)
+        {
+            throw new NotImplementedException();
+        }
+
         public IQueryable<User> GetTopRatedUsers(int count)
         {
             return _fakeUsers.OrderByDescending(p => p.UserRatings.Average(i => i.RatingID)).Take(count).AsQueryable();
