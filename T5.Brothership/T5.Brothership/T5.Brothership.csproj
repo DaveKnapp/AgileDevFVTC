@@ -144,6 +144,7 @@
     <Compile Include="ViewModels\CreateUserViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\UpdateUserViewModel.cs" />
+    <Compile Include="ViewModels\UserPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\color\default.css" />
@@ -250,6 +251,7 @@
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %286%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="images\live.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\GameSearchHelper.js" />
@@ -299,8 +301,9 @@
     <Content Include="Views\User\User.cshtml" />
     <Content Include="Views\User\UserRatings.cshtml" />
     <Content Include="Views\User\UserGames.cshtml" />
-    <Content Include="Views\Twitch\AuthorizeCode.cshtml" />
+    <Content Include="Views\Twitch\Authorized.cshtml" />
     <Content Include="Views\Search\SearchResults.cshtml" />
+    <Content Include="Views\Twitch\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

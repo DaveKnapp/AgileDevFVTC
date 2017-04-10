@@ -4,16 +4,19 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using Newtonsoft.Json;
+using T5.Brothership.BL.TwitchApi;
 
 namespace T5.Brothership.BL.TwitchApi
 {
-    public class TwitchClient
+    public class TwitchClient : IDisposable
     {
         private readonly HttpClient client = new HttpClient();
 
         public TwitchClient()
         {
-            client = CreateClient();
+            CreateClientHeaders();
         }
 
         public void Dispose()
@@ -21,29 +24,94 @@ namespace T5.Brothership.BL.TwitchApi
             client.Dispose();
             GC.SuppressFinalize(this);
         }
-        public void Authorize(int itemsPerPage, int currentPage)
+        public async Task<string> GetAuthorizationToken(string authorizationCode)
         {
+            var values = new Dictionary<string, string>();
 
-            client.BaseAddress = new Uri("https://api.twitch.tv/kraken/games/top/");
+            values.Add("client_id", ApiCredentials.CLIENT_ID);
+            values.Add("client_secret", ApiCredentials.SECRET);
+            values.Add("grant_type", "authorization_code");
+            values.Add("redirect_uri", ApiCredentials.REDIRECT_URL);
+            values.Add("code", authorizationCode);
 
+            var content = new FormUrlEncodedContent(values);
+            var response = await client.PostAsync("oauth2/token", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonString = await response.Content.ReadAsStringAsync();
+                var authorizationResponse = JsonConvert.DeserializeObject<AuthorizationResponse>(jsonString);
+                return authorizationResponse.access_token;
+            }
+            else
+            {
+                throw new HttpException();
+            }
         }
 
-        private HttpClient CreateClient()
+        internal async Task DeAuthorize(string token)
+        {
+            var values = new Dictionary<string, string>();
+
+            values.Add("client_id", ApiCredentials.CLIENT_ID);
+            values.Add("client_secret", ApiCredentials.SECRET);
+            values.Add("token", token);
+
+            var content = new FormUrlEncodedContent(values);
+            var response = await client.PostAsync("oauth2/revoke", content);
+
+            if (!(response.StatusCode == System.Net.HttpStatusCode.OK))
+            {
+                //TODO throw custom exeption?
+                throw new HttpException();
+            }
+        }
+
+        public async Task<string> GetStreamUrlIfLive(string token)
+        {
+            var channel = await GetChannel(token);
+
+            var response = await client.GetAsync("streams/" + channel._id + "/?stream_type=live");
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonString = await response.Content.ReadAsStringAsync();
+                var streamResponse = JsonConvert.DeserializeObject<StreamResponse>(jsonString);
+                if (streamResponse.stream != null)
+                {
+                    return streamResponse.stream.channel.url;
+                }
+            }
+            else
+            {
+                throw new HttpException();
+            }
+
+            return null;
+        }
+
+        public async Task<Channel> GetChannel(string token)
+        {
+            client.DefaultRequestHeaders.Add("Authorization", "OAuth " + token);
+            var response = await client.GetAsync("channel");
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonString = await response.Content.ReadAsStringAsync();
+                var channel = JsonConvert.DeserializeObject<Channel>(jsonString);
+                client.DefaultRequestHeaders.Remove("Authorization");
+                return channel;
+            }
+            else
+            {
+                throw new HttpRequestException();
+            }
+        }
+
+        private void CreateClientHeaders()
         {
             client.DefaultRequestHeaders.Add("Accept", "application/vnd.twitchtv.v5+json");
-            client.BaseAddress = new Uri("https://api.twitch.tv/kraken/streams/");
-
-            return client;
-        }
-
-        private string CreateRequestString(int itemsPerPage, int currentPage)
-        {
-            StringBuilder builder = new StringBuilder();
-            builder.Append(@"?client_id=" + ApiCredentials.CLIENT_ID);
-            builder.Append("&limit=" + itemsPerPage);
-            builder.Append("&offset=" + currentPage * itemsPerPage);
-
-            return builder.ToString();
+            client.DefaultRequestHeaders.Add("Client-ID", ApiCredentials.CLIENT_ID);
+            client.BaseAddress = new Uri("https://api.twitch.tv/kraken/");
         }
     }
 }

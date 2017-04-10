@@ -1,7 +1,7 @@
-﻿@model T5.Brothership.Entities.Models.User
+﻿@model T5.Brothership.ViewModels.UserPageViewModel
 
 @{
-    ViewBag.Title = @Model.UserName;
+    ViewBag.Title = Model.User.UserName;
 }
 
 <!-- Page Content -->
@@ -11,30 +11,42 @@
         <p>@ViewBag.Message</p>
         <div class="col-md-3">
             <img class="img-responsive" src="http://placehold.it/500x300" alt="">
-            <h4>@Html.DisplayNameFor(model => model.UserName)</h4>
-            <p>@Html.DisplayFor(model => model.UserName)</p>
-            <h4>@Html.DisplayNameFor(model => model.Bio)</h4>
-            <p>@Html.DisplayFor(model => model.Bio)</p>
-            <h4>@Html.DisplayNameFor(model => model.DateJoined)</h4>
-            <p>@Html.DisplayFor(model => model.DateJoined)</p>
+            <h4>@Html.DisplayNameFor(model => model.User.UserName)</h4>
+            <p>@Html.DisplayFor(model => model.User.UserName)</p>
+            <h4>@Html.DisplayNameFor(model => model.User.Bio)</h4>
+            <p>@Html.DisplayFor(model => model.User.Bio)</p>
+            <h4>@Html.DisplayNameFor(model => model.User.DateJoined)</h4>
+            <p>@Html.DisplayFor(model => model.User.DateJoined)</p>
             <h4>Age</h4>
-            <p>@Math.Floor(DateTime.Now.Subtract(Model.DOB).TotalDays/ 365)</p>
-            <h4>@Html.DisplayNameFor(model => model.Gender)</h4>
-            <p>@Html.DisplayFor(model => model.Gender.Description)</p>
-            <h4>@Html.DisplayNameFor(model => model.UserType)</h4>
-            <p>@Html.DisplayFor(model => model.UserType.Description)</p>
-            <h4>@Html.DisplayNameFor(model => model.Nationality)</h4>
-            <p>@Html.DisplayFor(model => model.Nationality.Description)</p>
+            <p>@Math.Floor(DateTime.Now.Subtract(Model.User.DOB).TotalDays / 365)</p>
+            <h4>@Html.DisplayNameFor(model => model.User.Gender)</h4>
+            <p>@Html.DisplayFor(model => model.User.Gender.Description)</p>
+            <h4>@Html.DisplayNameFor(model => model.User.UserType)</h4>
+            <p>@Html.DisplayFor(model => model.User.UserType.Description)</p>
+            <h4>@Html.DisplayNameFor(model => model.User.Nationality)</h4>
+            <p>@Html.DisplayFor(model => model.User.Nationality.Description)</p>
+            @foreach (var integrationInfo in Model.UserIntegrationInfos)
+            {
+                <div>
+                    <a class="alert" href="@integrationInfo.UserLiveStreamURL">@integrationInfo.IntegrationType</a>
+                    @if (integrationInfo.IsUserLive)
+                    {
+                        <img src="~/images/live.png" style="width:2em;">
+                    }
+                </div>
+            }
+
+
         </div>
 
         <div class="col-md-9">
             <h3>Games</h3>
             <div class="row">
-                @if (Model.Games.Count == 0)
+                @if (Model.User.Games.Count == 0)
                 {
                     <h5>User has no games.</h5>
                 }
-                @foreach (var game in Model.Games)
+                @foreach (var game in Model.User.Games)
                 {
                     <div class="col-md-3 col-sm-6 col-6">
                         <div style="position:relative" class="img-responsive portfolio-item">
@@ -42,23 +54,23 @@
                                  alt="@game.Title">
                             <span style="padding-left:5px; padding-right:5px; background-color:rgba(0, 0, 0, 0.5); position:absolute; bottom:0; left:0;
                                        color:whitesmoke; width:100%;  display:block;">@game.Title</span>
-                         </div>
-                     </div>
-                } 
+                                </div>
+                            </div>
+                }
 
-                @if (Model.Games.Count > 0)
+                @if (Model.User.Games.Count > 0)
                 {
-                    @Html.ActionLink("View All", "UserGames", new { userName = Model.UserName })
+                    @Html.ActionLink("View All", "UserGames", new { userName = Model.User.UserName })
                 }
             </div>
             <h3>Ratings</h3>
             <div class="row">
-                @if (Model.UserRatings.Count == 0)
+                @if (Model.User.UserRatings.Count == 0)
                 {
                     <h5>User has not been rated.</h5>
                 }
 
-                @foreach (var rating in Model.UserRatings)
+                @foreach (var rating in Model.User.UserRatings)
                 {
                     <div class="col-md-4 col-sm-6">
                         <h5>@rating.RaterUser.UserName Says</h5>
@@ -66,9 +78,9 @@
                     </div>
                 }
 
-                @if (Model.UserRatings.Count > 0)
+                @if (Model.User.UserRatings.Count > 0)
                 {
-                    @Html.ActionLink("View All", "UserRatings", new { userName = Model.UserName })
+                    @Html.ActionLink("View All", "UserRatings", new { userName = Model.User.UserName })
 
                 }
             </div>
