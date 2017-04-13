@@ -121,7 +121,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
 
             using (var fakeUnitOfWork = new FakeBrothershipUnitOfWork())
             {
-                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiServiceFake()))
+                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake()))
                 {
                     await userManager.Add(expectedUser, expectedPassword);
                     actualUser = fakeUnitOfWork.Users.GetByUsernameOrEmail(expectedUser.UserName);
@@ -140,7 +140,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
 
             using (var fakeUnitOfWork = new FakeBrothershipUnitOfWork())
             {
-                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiServiceFake()))
+                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake()))
                 {
                     await userManager.Add(expectedUser, expectedPassword);
                     await userManager.Add(expectedUser, expectedPassword);
@@ -152,7 +152,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
         [TestCategory("UnitTest"), TestMethod]
         public async Task Update_WasDataUpdated_ExpectedDataEqualsActual()
         {
-            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork(), new GameApiServiceFake()))
+            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork(), new GameApiClientFake()))
             {
                 var expectedUser = new User
                 {

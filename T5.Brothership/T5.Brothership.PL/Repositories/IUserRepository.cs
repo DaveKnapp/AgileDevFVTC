@@ -13,5 +13,6 @@ namespace T5.Brothership.PL.Repositories
         IQueryable<User> GetTopRatedUsers(int count);
         IQueryable<User> GetMostPopularUsers(int count);
         IQueryable<User> GetFeaturedUsers();
+        IQueryable<User> GetSearchedUsers(string search);
     }
 }

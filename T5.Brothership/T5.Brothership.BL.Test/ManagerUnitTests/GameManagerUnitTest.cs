@@ -19,7 +19,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             int[] expectedGameIds = { 523, 2342, 324, 43253 };
 
             List<Game> actualGames;
-            using (var gameManager = new GameManager(new FakeBrothershipUnitOfWork(), new GameApiServiceFake()))
+            using (var gameManager = new GameManager(new FakeBrothershipUnitOfWork(), new GameApiClientFake()))
             {
                 actualGames = gameManager.GetByIgdbIds(expectedGameIds);
             }
@@ -32,7 +32,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             int[] expectedGameIds = { -234234, -312432, -32143, -21341234 };
 
             List<Game> actualGames;
-            using (var gameManager = new GameManager(new FakeBrothershipUnitOfWork(), new GameApiServiceFake()))
+            using (var gameManager = new GameManager(new FakeBrothershipUnitOfWork(), new GameApiClientFake()))
             {
                 actualGames = gameManager.GetByIgdbIds(expectedGameIds);
             }
@@ -48,7 +48,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             {
                 var expectedGameCount = fakeUnitOfWork.Games.GetAll().Count();
 
-                using (var gameManager = new GameManager(fakeUnitOfWork, new GameApiServiceFake()))
+                using (var gameManager = new GameManager(fakeUnitOfWork, new GameApiClientFake()))
                 {
                     await gameManager.AddGameIfNotExistAsync(existedGameId);
                 }
@@ -67,7 +67,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             {
                 var expectedGameCount = fakeUnitOfWork.Games.GetAll().Count();
 
-                using (var gameManager = new GameManager(fakeUnitOfWork, new GameApiServiceFake()))
+                using (var gameManager = new GameManager(fakeUnitOfWork, new GameApiClientFake()))
                 {
                     await gameManager.AddGameIfNotExistAsync(addedGameId);
                 }
@@ -86,7 +86,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             {
                 var expectedCount = fakeUnitOfWork.Games.GetAll().Count();
 
-                using (var gameManager = new GameManager(fakeUnitOfWork, new GameApiServiceFake()))
+                using (var gameManager = new GameManager(fakeUnitOfWork, new GameApiClientFake()))
                 {
                     await gameManager.AddGamesIfNotExistsAsync(existingGameIds);
                 }
@@ -105,7 +105,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             {
                 var expectedGameCount = fakeUnitOfWork.Games.GetAll().Count();
 
-                using (var gameManager = new GameManager(fakeUnitOfWork, new GameApiServiceFake()))
+                using (var gameManager = new GameManager(fakeUnitOfWork, new GameApiClientFake()))
                 {
                     await gameManager.AddGamesIfNotExistsAsync(idsToAdd);
                 }

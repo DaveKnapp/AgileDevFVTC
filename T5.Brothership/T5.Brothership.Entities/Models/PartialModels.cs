@@ -19,9 +19,13 @@ namespace T5.Brothership.Entities.Models
         public enum UserTypes { User = 1, FeaturedUser =2 }
     }
 
-    
     public partial class SocialMediaType
     {
         public enum SocialMediaTypes { Youtube = 1, Twitter = 2, Instagram = 3 }
+    }
+
+    public partial class IntegrationType
+    {
+        public enum IntegrationTypes { Twitch = 1 }
     }
 }

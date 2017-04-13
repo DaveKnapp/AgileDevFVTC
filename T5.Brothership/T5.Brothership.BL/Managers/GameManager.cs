@@ -12,31 +12,30 @@ namespace T5.Brothership.BL.Managers
     public class GameManager : IDisposable
     {
         IBrothershipUnitOfWork _unitOfWork;
-        IGameAPIService _gameApiService;
+        IGameAPIClient _gameApiClient;
 
         public GameManager()
         {
             _unitOfWork = new BrothershipUnitOfWork();
-            _gameApiService = new GameAPIClient();
-
+            _gameApiClient = new GameAPIClient();
         }
 
         public GameManager(IBrothershipUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _gameApiService = new GameAPIClient();
+            _gameApiClient = new GameAPIClient();
         }
 
-        public GameManager(IBrothershipUnitOfWork unitOfWork, IGameAPIService gameApiService)
+        public GameManager(IBrothershipUnitOfWork unitOfWork, IGameAPIClient gameApiClient)
         {
-            _gameApiService = gameApiService;
+            _gameApiClient = gameApiClient;
             _unitOfWork = unitOfWork;
         }
 
         public void Dispose()
         {
             _unitOfWork?.Dispose();
-            _gameApiService?.Dispose();
+            _gameApiClient?.Dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -79,7 +78,7 @@ namespace T5.Brothership.BL.Managers
 
         private async Task AddGameToDatabase(int igdbID)
         {
-            var game = await _gameApiService.GetByIdAsync(igdbID);
+            var game = await _gameApiClient.GetByIdAsync(igdbID);
 
             if (game != null)
             {

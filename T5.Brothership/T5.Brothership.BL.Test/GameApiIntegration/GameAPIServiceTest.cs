@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace T5.Brothership.BL.Test.GameApi
 {
     [TestClass]
-    public class GameAPIServiceTest
+    public class GameAPIClientTest
     {
         [TestMethod, TestCategory("IntegrationTest")]
         public async Task SearchGamesAsync_DidRetrieveGames_CountGreaterThanOne()

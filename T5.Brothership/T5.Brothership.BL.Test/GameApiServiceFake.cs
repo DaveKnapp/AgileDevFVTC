@@ -8,11 +8,11 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.Test
 {
-    internal class GameApiServiceFake : IGameAPIService
+    internal class GameApiClientFake : IGameAPIClient
     {
         List<Game> _fakeGames = new List<Game>();
 
-        internal GameApiServiceFake()
+        internal GameApiClientFake()
         {
             InitializeGames();
         }

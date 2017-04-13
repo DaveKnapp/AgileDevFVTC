@@ -9,8 +9,8 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.IGDBApi
 {
-    public class GameAPIClient : IDisposable, IGameAPIService
-    {//TODO(Dave) Make Game service/ API Client naming consistant
+    public class GameAPIClient : IDisposable, IGameAPIClient
+    {
         private readonly HttpClient client = new HttpClient();
 
         public GameAPIClient()

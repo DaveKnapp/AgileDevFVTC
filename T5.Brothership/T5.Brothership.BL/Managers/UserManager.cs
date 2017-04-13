@@ -30,16 +30,21 @@ namespace T5.Brothership.BL.Managers
             _gameManager = new GameManager(_unitOfWork);
         }
 
-        public UserManager(IBrothershipUnitOfWork unitOfWork, IGameAPIService gameApiService)
+        public UserManager(IBrothershipUnitOfWork unitOfWork, IGameAPIClient gameApiClient)
         {
             _unitOfWork = unitOfWork;
-            _gameManager = new GameManager(_unitOfWork, gameApiService);
+            _gameManager = new GameManager(_unitOfWork, gameApiClient);
         }
         public void Dispose()
         {
             _unitOfWork?.Dispose();
             _gameManager?.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        public List<User> GetSearchedUsers(string search)
+        {
+            return _unitOfWork.Users.GetSearchedUsers(search).ToList();
         }
 
         public async Task Add(User user, string password)
@@ -172,7 +177,7 @@ namespace T5.Brothership.BL.Managers
             {
                 return popularUsers;
             }
-        }
+        }       
 
         private List<User> GetRandomUsersFromList(List<User> users, int qtyUsersToReturn, List<User> usersToExclude = null)
         {
