@@ -43,7 +43,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             };
 
             RunBlobStorage(expectedUser);
-            expectedUser.ProfileImagePath = (expectedUser.UserName + "Blob");
+            expectedUser.ProfileImagePath = ("test");
             AssertProfileImageBlob(expectedUser);
             //using (UserRepository userRepo = new UserRepository(new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             //{
@@ -305,13 +305,13 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
 
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
-            CloudBlobContainer container = blobClient.GetContainerReference("profileimageContainer");
+            CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
             container.CreateIfNotExists();
 
             CloudBlockBlob expectedblockBlob = container.GetBlockBlobReference(expected.ProfileImagePath);
             expectedblockBlob.Properties.ContentType = "image/jpg";
 
-            CloudBlockBlob actualblockBlob = container.GetBlockBlobReference("TestUserNameBlob");
+            CloudBlockBlob actualblockBlob = container.GetBlockBlobReference("test");
             actualblockBlob.Properties.ContentType = "image/jpg";
 
             Assert.AreEqual(expectedblockBlob, actualblockBlob);
@@ -330,11 +330,11 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
             // Retrieve reference to a previously created container.
-            CloudBlobContainer container = blobClient.GetContainerReference("profileimageContainer");
+            CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
             container.CreateIfNotExists();
 
             // Retrieve reference to a blob in the container named after the user.
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(expected.UserName + "Blob");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference("test");
             blockBlob.Properties.ContentType = "image/jpg";
 
             // Create or overwrite the "UserName" blob with contents from a local file.
