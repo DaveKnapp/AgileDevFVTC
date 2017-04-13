@@ -9,5 +9,6 @@ namespace T5.Brothership.PL
     public static class ConnectionStrings
     {
         public const string TEST_CONNECTION_STRING_NAME = "brothershipEntitiesTest";
+        public const string TEST_BLOBSTORAGE_STRING_NAME = "brothershipStorageTest";
     }
 }
