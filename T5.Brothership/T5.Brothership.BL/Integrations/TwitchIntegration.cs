@@ -71,6 +71,7 @@ namespace T5.Brothership.BL.Integrations
             {
                 await _twitchClient.DeAuthorize(userInegration.Token);
                 _unitOfWork.UserIntegrations.Delete(userInegration);
+                _unitOfWork.Commit();
             }
             catch (Exception)
             {

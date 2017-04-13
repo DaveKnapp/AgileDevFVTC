@@ -70,6 +70,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ApiIntegrationsIntegrationTest\TwitchIntegationIntegrationTest.cs" />
     <Compile Include="ConnectionStrings.cs" />
     <Compile Include="GameApiIntegration\GameAPIServiceTest.cs" />
     <Compile Include="GameApiServiceFake.cs" />

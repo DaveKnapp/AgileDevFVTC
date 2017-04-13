@@ -67,7 +67,7 @@ SET IDENTITY_INSERT UserLogins OFF;
 	SET IDENTITY_INSERT IntegrationTypes OFF;
 
 	INSERT INTO UserIntegrations(UserID, IntegrationTypeID, Token)
-		VALUES(1,1,'lkjlk23jkl2332l32kj4'),
+		VALUES(1,1,'0jjxoy7y0iujpnldgukt0oyap4a9x6'),
 			  (3,1,'lkjlkjlk;jlkjlk3jlkjlkj')
 
 	SET IDENTITY_INSERT Ratings ON;
