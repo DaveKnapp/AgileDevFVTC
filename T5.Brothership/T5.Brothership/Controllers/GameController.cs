@@ -11,7 +11,7 @@ namespace T5.Brothership.Controllers
 {
     public class GameController : Controller
     {
-        GameAPIClient _gameApiService = new GameAPIClient();
+        GameAPIClient _gameApiClient = new GameAPIClient();
 
         public PartialViewResult SearchIGDB(string gameTitle, int limit = 50, int page = 0)
         {

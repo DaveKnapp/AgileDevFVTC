@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using T5.Brothership.BL.Integrators;
+using T5.Brothership.BL.Integrations;
 using T5.Brothership.BL.Managers;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.ViewModels;
@@ -13,7 +13,7 @@ namespace T5.Brothership.Controllers
 {
     public class UserController : Controller
     {
-        TwitchIntegrator _twitchIntegrator = new TwitchIntegrator();
+        TwitchIntegration _twitchIntegration = new TwitchIntegration();
         UserManager _usermanager = new UserManager();
 
 
@@ -58,7 +58,7 @@ namespace T5.Brothership.Controllers
                         integrationInfos.Add(new IntegrationInfo
                         {
                             IntegrationType = (IntegrationType.IntegrationTypes)Enum.ToObject(typeof(IntegrationType.IntegrationTypes), integration.IntegrationTypeID),
-                            IsUserLive = await _twitchIntegrator.IsUserLive(user.ID),
+                            IsUserLive = await _twitchIntegration.IsUserLive(user.ID),
                             UserLiveStreamURL = integration.URL
                         }
                         );

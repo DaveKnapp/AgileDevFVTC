@@ -4,7 +4,7 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.IGDBApi
 {
-    public interface IGameAPIService
+    public interface IGameAPIClient
     {
         void Dispose();
         Task<Game> GetByIdAsync(int id);

@@ -30,10 +30,10 @@ namespace T5.Brothership.BL.Managers
             _gameManager = new GameManager(_unitOfWork);
         }
 
-        public UserManager(IBrothershipUnitOfWork unitOfWork, IGameAPIService gameApiService)
+        public UserManager(IBrothershipUnitOfWork unitOfWork, IGameAPIClient gameApiClient)
         {
             _unitOfWork = unitOfWork;
-            _gameManager = new GameManager(_unitOfWork, gameApiService);
+            _gameManager = new GameManager(_unitOfWork, gameApiClient);
         }
         public void Dispose()
         {

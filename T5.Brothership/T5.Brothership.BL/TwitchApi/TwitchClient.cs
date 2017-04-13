@@ -10,7 +10,7 @@ using T5.Brothership.BL.TwitchApi;
 
 namespace T5.Brothership.BL.TwitchApi
 {
-    public class TwitchClient : IDisposable
+    public class TwitchClient : IDisposable, ITwitchClient
     {
         private readonly HttpClient client = new HttpClient();
 
@@ -45,11 +45,10 @@ namespace T5.Brothership.BL.TwitchApi
             }
             else
             {
-                throw new HttpException();
+                throw new HttpException(response.StatusCode.ToString());
             }
         }
-
-        internal async Task DeAuthorize(string token)
+        public async Task DeAuthorize(string token)
         {
             var values = new Dictionary<string, string>();
 
@@ -63,12 +62,12 @@ namespace T5.Brothership.BL.TwitchApi
             if (!(response.StatusCode == System.Net.HttpStatusCode.OK))
             {
                 //TODO throw custom exeption?
-                throw new HttpException();
+                throw new HttpException(response.StatusCode.ToString());
             }
         }
 
-        public async Task<string> GetStreamUrlIfLive(string token)
-        {
+        public async Task<bool> IsStreamerLive(string token)
+        {//TODO(dave) create nullURl object?
             var channel = await GetChannel(token);
 
             var response = await client.GetAsync("streams/" + channel._id + "/?stream_type=live");
@@ -79,15 +78,15 @@ namespace T5.Brothership.BL.TwitchApi
                 var streamResponse = JsonConvert.DeserializeObject<StreamResponse>(jsonString);
                 if (streamResponse.stream != null)
                 {
-                    return streamResponse.stream.channel.url;
+                    return true;
                 }
             }
             else
             {
-                throw new HttpException();
+                throw new HttpException(response.StatusCode.ToString());
             }
 
-            return null;
+            return false;
         }
 
         public async Task<Channel> GetChannel(string token)
@@ -103,7 +102,7 @@ namespace T5.Brothership.BL.TwitchApi
             }
             else
             {
-                throw new HttpRequestException();
+                throw new HttpRequestException(response.StatusCode.ToString());
             }
         }
 

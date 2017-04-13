@@ -7,15 +7,15 @@ using System.Web.Mvc;
 using T5.Brothership.BL.Managers;
 using T5.Brothership.Entities.Models;
 using System.Threading.Tasks;
-using T5.Brothership.BL.Integrators;
+using T5.Brothership.BL.Integrations;
 
 namespace T5.Brothership.Controllers
 {
     public class TwitchController : Controller
     {
-        TwitchIntegrator _userIntegrationManager = new TwitchIntegrator();
-        //TODO Change to authorize?
+        TwitchIntegration _twitchIntegration = new TwitchIntegration();
 
+        //TODO(Dave) Menu and authorized are temporary things Implement UserIntegrations edit for account
         public ActionResult Menu()
         {
             return View();
@@ -41,7 +41,7 @@ namespace T5.Brothership.Controllers
         {
             // User user = Session["CurrentUser"] as User;
 
-            await _userIntegrationManager.AuthorizeTwitch(1, code);
+            await _twitchIntegration.AuthorizeTwitch(1, code);
 
             return View(nameof(Authorized));
         }
@@ -53,7 +53,7 @@ namespace T5.Brothership.Controllers
 
         public async Task<ActionResult> DeAuthorize()
         {
-            await _userIntegrationManager.DeAuthorizeTwitch(1);
+            await _twitchIntegration.DeAuthorizeTwitch(1);
             return RedirectToAction(nameof(Menu));
         }
     }
