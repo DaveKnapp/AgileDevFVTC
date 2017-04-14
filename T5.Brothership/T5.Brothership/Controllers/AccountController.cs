@@ -26,7 +26,7 @@ namespace T5.Brothership.Controllers
                 Nationalities = _nationalityManager.GetAll()
             };
 
-      
+
 
             if (TempData["userWithError"] == null)
             {
@@ -72,6 +72,13 @@ namespace T5.Brothership.Controllers
             }
         }
 
+        public ActionResult EditIntegrations()
+        {
+            User user = Session["CurrentUser"] as User;
+            user = _userManger.GetById(user.ID);
+            return View(user.UserIntegrations);
+        }
+
         public ActionResult Update()
         {
             var user = Session["CurrentUser"] as User;
@@ -101,13 +108,13 @@ namespace T5.Brothership.Controllers
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
             currentUser.ProfileImagePath = "Default";
 
-            currentUser.UserTypeID =(int)UserType.UserTypes.User;
+            currentUser.UserTypeID = (int)UserType.UserTypes.User;
 
             var val = ModelState.Values;
             if (ModelState.IsValid)
             {
                 ViewBag.Message = "Account successfully updated";
-                await _userManger.Update(currentUser);                
+                await _userManger.Update(currentUser);
                 return RedirectToAction("Details", "Login");
             }
             else

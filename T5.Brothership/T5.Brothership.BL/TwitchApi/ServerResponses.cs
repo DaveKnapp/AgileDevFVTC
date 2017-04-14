@@ -45,7 +45,7 @@ namespace T5.Brothership.BL.TwitchApi
 
     public class Channel
     {
-        public bool mature { get; set; }
+        public bool? mature { get; set; }
         public string status { get; set; }
         public string broadcaster_language { get; set; }
         public string display_name { get; set; }

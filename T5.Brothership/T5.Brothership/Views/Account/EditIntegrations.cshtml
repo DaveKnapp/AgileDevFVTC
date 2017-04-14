@@ -1,0 +1,23 @@
+﻿@model IEnumerable<T5.Brothership.Entities.Models.UserIntegration>
+@using T5.Brothership.Entities.Models
+
+@{
+    ViewBag.Title = "Edit Integrations";
+}
+
+<h2>Edit Integrations</h2>
+
+
+<span>Twitch</span>
+@{bool UserHasTwitchIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitch) != null;}
+@if (UserHasTwitchIntegration)
+{
+    @Html.ActionLink("Disconnect", "DeAuthorize", "Twitch");
+}
+else
+{
+    @Html.ActionLink("Connect", "AuthorizeTwitch", "Twitch");
+}
+
+ 
+

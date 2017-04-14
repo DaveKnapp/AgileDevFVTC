@@ -86,7 +86,7 @@
                 <input type="hidden" name="CurrentUser.UserSocialJuncs.Index" value="@socialMediaId" />
                 <input name="CurrentUser.UserSocialJuncs[@socialMediaId].UserID" value="@Model.CurrentUser.ID" type="hidden" />
                 <input name="CurrentUser.UserSocialJuncs[@socialMediaId].SocialMediaTypeID" value="@socialMediaId" type="hidden" />
-i
+
                 <label class="control-label col-md-2 col-md-offset-2" for="@(socialMediaType)input">@socialMediaType</label>
                 <div class="col-md-6">
                     <input id="@(socialMediaType)input" name="CurrentUser.UserSocialJuncs[@socialMediaId].URL" class="form-control" value="@url" />
