@@ -52,6 +52,7 @@ namespace T5.Brothership.Controllers
 
             foreach (var integration in user.UserIntegrations)
             {
+              //TODO Add error handleing clients fail
                 switch (integration.IntegrationTypeID)
                 {
                     case (int)IntegrationType.IntegrationTypes.Twitch:

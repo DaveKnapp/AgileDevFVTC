@@ -6,7 +6,14 @@
 }
 
 <h2>Update Account</h2>
+<style type="text/css">
 
+</style>
+<ul id="UpdateMenu">
+    <li><a class="UpdateMenuItemSelected">Edit</a></li>
+    <li>@Html.ActionLink("Edit", "EditIntegrations", "Account", new { @class = "UpdateMenuLinkNotSelected" })</li>
+    <li>@Html.ActionLink("Change Password", "ChangePassword", "Account", new { @class = "UpdateMenuLinkNotSelected" })</li>
+</ul>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -123,7 +130,7 @@
 
 <input type="button" value="Save" class="btn btn-lg btn-theme" onclick="SubmitForm();" /><br />
 
-@Html.ActionLink("Change password","ChangePassword","Account")
+@Html.ActionLink("Change password", "ChangePassword", "Account")
 
 @section Scripts {
 

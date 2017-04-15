@@ -1,4 +1,4 @@
-﻿body {
+﻿/*body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -16,11 +16,36 @@
 */
 .dl-horizontal dt {
     white-space: normal;
-}
+}*/
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
+}*/
+
+/*Custom Styles*/
+#UpdateMenu {
+    list-style: none;
+    margin-top: 1em;
+}
+
+#UpdateMenu li {
+    display: inline;
+    padding: 1em;
+}
+
+.UpdateMenuLinkNotSelected {
+    color: black;
+}
+
+.UpdateMenuItemSelected {
+    border-bottom:solid;
+    border-width:2px;
+}
+
+.UpdateMenuItemSelected:hover, #UpdateMenu li:hover {
+    cursor:default;
+    text-decoration:none;
 }
