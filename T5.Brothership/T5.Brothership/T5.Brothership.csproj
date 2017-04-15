@@ -249,6 +249,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\Brothership-banner.gif" />
     <Content Include="images\Brothership-icon.gif" />
     <Content Include="images\brothershiptransparent.gif" />
     <Content Include="assets\fonts\customicon\Icons.eot" />
@@ -279,6 +280,7 @@
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %286%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="images\game-default.gif" />
     <Content Include="images\live.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
