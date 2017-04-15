@@ -20,7 +20,7 @@ namespace T5.Brothership.Controllers
         [Route("{userName}")]
         public async Task<ActionResult> User(string userName)
         {
-
+            //Todo(Dave) Add error page of user not found
             User user = _usermanager.GetByUserName(userName);
             List<IntegrationInfo> integrationInfos = await GetUserIntegrationInfo(user);
             var viewModel = new UserPageViewModel
@@ -52,21 +52,29 @@ namespace T5.Brothership.Controllers
 
             foreach (var integration in user.UserIntegrations)
             {
-              //TODO Add error handleing clients fail
-                switch (integration.IntegrationTypeID)
+                //TODO Add error handleing clients fail
+                try
                 {
-                    case (int)IntegrationType.IntegrationTypes.Twitch:
-                        integrationInfos.Add(new IntegrationInfo
-                        {
-                            IntegrationType = (IntegrationType.IntegrationTypes)Enum.ToObject(typeof(IntegrationType.IntegrationTypes), integration.IntegrationTypeID),
-                            IsUserLive = await _twitchIntegration.IsUserLive(user.ID),
-                            UserLiveStreamURL = integration.URL
-                        }
-                        );
-                        break;
-                    default:
-                        break;
+                    switch (integration.IntegrationTypeID)
+                    {
+                        case (int)IntegrationType.IntegrationTypes.Twitch:
+                            integrationInfos.Add(new IntegrationInfo
+                            {
+                                IntegrationType = (IntegrationType.IntegrationTypes)Enum.ToObject(typeof(IntegrationType.IntegrationTypes), integration.IntegrationTypeID),
+                                IsUserLive = await _twitchIntegration.IsUserLive(user.ID),
+                                UserLiveStreamURL = integration.URL
+                            }
+                            );
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                catch (Exception)
+                {
+                    //TODO(Dave) handel client fail
+                }
+             
             }
             return integrationInfos;
         }
