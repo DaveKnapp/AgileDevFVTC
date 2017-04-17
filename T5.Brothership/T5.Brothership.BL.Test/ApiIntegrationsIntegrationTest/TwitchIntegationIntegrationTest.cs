@@ -26,7 +26,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
         [TestMethod, TestCategory("IntegrationTest"), ExpectedException(typeof(HttpException))]
         public async Task GetAuthorization_InvalidCodeIsNotInserted_IntegrationNotInDB()
         {
-            using (var unitOfWork = new BrothershipUnitOfWork())
+            using (var unitOfWork = new BrothershipUnitOfWork(DataContextCreator.CreateTestContext()))
             {
                 const string InValidCode = "ThisIsNotACode";
                 const int expectedUserId = 2;
@@ -45,7 +45,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
         [TestMethod, TestCategory("IntegrationTest")]
         public async Task DeAuthorize_IsSucessfull_NoIntegrationInDB()
         {
-            using (var unitOfWork = new BrothershipUnitOfWork())
+            using (var unitOfWork = new BrothershipUnitOfWork(DataContextCreator.CreateTestContext()))
             {
                 const int expectedUserId = 2;
                 unitOfWork.UserIntegrations.Add(new UserIntegration
@@ -78,7 +78,8 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                 IsStreamLiveReturnValue = true
             };
 
-            using (TwitchIntegration twitchIntegration = new TwitchIntegration(new BrothershipUnitOfWork(), twitchClient))
+            using (TwitchIntegration twitchIntegration = new TwitchIntegration(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext()),
+                                                                                twitchClient))
             {
                 bool isUserLive = await twitchIntegration.IsUserLive(userId);
                 Assert.IsTrue(isUserLive);
@@ -95,7 +96,8 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                 IsStreamLiveReturnValue = false
             };
 
-            using (TwitchIntegration twitchIntegration = new TwitchIntegration(new BrothershipUnitOfWork(), twitchClient))
+            using (TwitchIntegration twitchIntegration = new TwitchIntegration(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext()),
+                                                                                twitchClient))
             {
                 bool isUserLive = await twitchIntegration.IsUserLive(userId);
                 Assert.IsFalse(isUserLive);
@@ -112,7 +114,8 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                 IsStreamLiveReturnValue = false
             };
 
-            using (TwitchIntegration twitchIntegration = new TwitchIntegration(new BrothershipUnitOfWork(), twitchClient))
+            using (TwitchIntegration twitchIntegration = new TwitchIntegration(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext()),
+                                                           twitchClient))
             {
                 bool isUserLive = await twitchIntegration.IsUserLive(userId);
                 Assert.IsFalse(isUserLive);

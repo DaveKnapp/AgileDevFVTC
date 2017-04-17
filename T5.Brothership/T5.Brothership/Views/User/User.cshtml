@@ -1,9 +1,9 @@
 ﻿@model T5.Brothership.ViewModels.UserPageViewModel
-
+@using T5.Brothership.Entities.Models
 @{
     ViewBag.Title = Model.User.UserName;
 }
-
+<script src="https://use.fontawesome.com/a555f3eba6.js"></script>
 <!-- Page Content -->
 <div class="container">
     <!-- Portfolio Item Row -->
@@ -53,8 +53,8 @@
                             <img class="img-responsive" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(game.ImgCloudinaryId).jpg"
                                  alt="@game.Title">
                             <span class="game-image-title">@game.Title</span>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
                 }
 
                 @if (Model.User.Games.Count > 0)
@@ -86,4 +86,23 @@
         </div>
     </div>
 </div>
-
+<div class="col-md-12">
+    <div class="aligncenter user-profile-links">
+        <ul class="social-network social-circle">
+            @foreach (var integration in Model.User.UserIntegrations)
+            {
+                switch (integration.IntegrationTypeID)
+                {
+                    case (int)IntegrationType.IntegrationTypes.Twitch:
+                        <li><a href="@integration.URL" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
+                        break;
+                    case (int)IntegrationType.IntegrationTypes.Twitter:
+                        <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        break;
+                    default:
+                        break;
+                }
+            }
+        </ul>
+    </div>
+</div>
