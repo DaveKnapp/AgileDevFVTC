@@ -123,6 +123,9 @@
     <Compile Include="TwitchApi\ITwitchClient.cs" />
     <Compile Include="TwitchApi\ServerResponses.cs" />
     <Compile Include="TwitchApi\TwitchClient.cs" />
+    <Compile Include="TwitterApi\ITwitterApiCredentials.cs" />
+    <Compile Include="TwitterApi\ITwitterClient.cs" />
+    <Compile Include="TwitterApi\TwitterClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\T5.Brothership.Entities\T5.Brothership.Entities.csproj">

@@ -14,6 +14,7 @@ namespace T5.Brothership.Controllers
     public class UserController : Controller
     {
         TwitchIntegration _twitchIntegration = new TwitchIntegration();
+        TwitterIntegration _twitterIntegration = new TwitterIntegration();
         UserManager _usermanager = new UserManager();
 
 
@@ -22,6 +23,10 @@ namespace T5.Brothership.Controllers
         {
             //Todo(Dave) Add error page of user not found
             User user = _usermanager.GetByUserName(userName);
+
+            //Refresh to integration to get new url if user changed userName
+            _twitterIntegration.Refresh(user.ID);
+
             List<IntegrationInfo> integrationInfos = await GetUserIntegrationInfo(user);
             var viewModel = new UserPageViewModel
             {
