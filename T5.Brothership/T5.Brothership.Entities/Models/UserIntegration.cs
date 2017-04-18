@@ -17,6 +17,7 @@ namespace T5.Brothership.Entities.Models
         public int UserID { get; set; }
         public int IntegrationTypeID { get; set; }
         public string Token { get; set; }
+        public string TokenSecret { get; set; }
         public string URL { get; set; }
     
         public virtual IntegrationType IntegrationType { get; set; }

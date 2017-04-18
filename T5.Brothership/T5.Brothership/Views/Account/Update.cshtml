@@ -11,8 +11,8 @@
 </style>
 <ul id="UpdateMenu">
     <li><a class="UpdateMenuItemSelected">Edit</a></li>
-    <li>@Html.ActionLink("Edit", "EditIntegrations", "Account", new { @class = "UpdateMenuLinkNotSelected" })</li>
-    <li>@Html.ActionLink("Change Password", "ChangePassword", "Account", new { @class = "UpdateMenuLinkNotSelected" })</li>
+    <li>@Html.ActionLink("Connections", "EditIntegrations", "Account",null, new { @class = "UpdateMenuLinkNotSelected" })</li>
+    <li>@Html.ActionLink("Change Password", "ChangePassword", "Account",null, new { @class = "UpdateMenuLinkNotSelected" })</li>
 </ul>
 @using (Html.BeginForm())
 {

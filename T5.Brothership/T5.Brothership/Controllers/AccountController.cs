@@ -76,6 +76,10 @@ namespace T5.Brothership.Controllers
         public ActionResult EditIntegrations()
         {
             User user = Session["CurrentUser"] as User;
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             user = _userManger.GetById(user.ID);
             return View(user.UserIntegrations);
         }

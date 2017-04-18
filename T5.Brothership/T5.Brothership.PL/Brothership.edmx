@@ -134,6 +134,7 @@
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="IntegrationTypeID" Type="int" Nullable="false" />
     <Property Name="Token" Type="varchar" Nullable="false" MaxLength="80" />
+    <Property Name="TokenSecret" Type="nvarchar(max)" Nullable="true" />
     <Property Name="URL" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="UserLogins">
@@ -528,6 +529,7 @@
           <Property Name="Token" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="IntegrationType" Relationship="brothershipModel.FK_UserIntegration_IntegrationType" FromRole="UserIntegration" ToRole="IntegrationType" />
           <NavigationProperty Name="User" Relationship="brothershipModel.FK_UserIntegration_UserID" FromRole="UserIntegration" ToRole="User" />
+          <Property Name="TokenSecret" Type="String" Nullable="true" />
           <Property Name="URL" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="UserLogin">
@@ -818,6 +820,7 @@
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="IntegrationTypeID" ColumnName="IntegrationTypeID" />
           <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="TokenSecret" ColumnName="TokenSecret" />
           <ScalarProperty Name="URL" ColumnName="URL" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -71,12 +71,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ApiIntegrationsIntegrationTest\TwitchIntegationIntegrationTest.cs" />
+    <Compile Include="ApiIntegrationsIntegrationTest\TwitterIntegrationIntegrationTest.cs" />
     <Compile Include="ConnectionStrings.cs" />
     <Compile Include="GameApiIntegration\GameAPIServiceTest.cs" />
     <Compile Include="GameApiServiceFake.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HelpersUnitTest\PasswordHelperTest.cs" />
     <Compile Include="ApiIntegrationsUnitTest\TwitchIntegationUnitTest.cs" />
+    <Compile Include="HelpersUnitTest\TwitterURLConverterUnitTest.cs" />
     <Compile Include="ManagerIntegration\GameManagerIntegrationTest.cs" />
     <Compile Include="ManagerIntegration\UserManagerTest.cs" />
     <Compile Include="ManagerUnitTests\GameManagerUnitTest.cs" />

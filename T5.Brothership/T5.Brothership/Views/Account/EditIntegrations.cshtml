@@ -7,17 +7,31 @@
 
 <h2>Edit Integrations</h2>
 
+<div>
+    <span>Twitch</span>
+    @{bool UserHasTwitchIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitch) != null;}
+    @if (UserHasTwitchIntegration)
+    {
+        @Html.ActionLink("Disconnect", "DeAuthorize", "Twitch");
+    }
+    else
+    {
+        @Html.ActionLink("Connect", "AuthorizeTwitch", "Twitch");
+    }
 
-<span>Twitch</span>
-@{bool UserHasTwitchIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitch) != null;}
-@if (UserHasTwitchIntegration)
-{
-    @Html.ActionLink("Disconnect", "DeAuthorize", "Twitch");
-}
-else
-{
-    @Html.ActionLink("Connect", "AuthorizeTwitch", "Twitch");
-}
+</div>
 
- 
+<div>
+    <span>Twitter</span>
+    @{bool UserHasTwitterIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitter) != null;}
+    @if (UserHasTwitterIntegration)
+    {
+        @Html.ActionLink("Disconnect", "DeAuthorize", "Twitter");
+    }
+    else
+    {
+        @Html.ActionLink("Connect", "AuthorizeTwitter", "Twitter");
+    }
+</div>
+
 

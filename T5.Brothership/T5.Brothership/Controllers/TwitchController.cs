@@ -40,7 +40,7 @@ namespace T5.Brothership.Controllers
 
             await _twitchIntegration.AuthorizeTwitch(user.ID, code);
 
-            return View(nameof(Authorized));
+            return RedirectToAction("EditIntegrations", "Account");
         }
 
         public ActionResult Authorized()
@@ -53,7 +53,7 @@ namespace T5.Brothership.Controllers
             User user = Session["CurrentUser"] as User;
             await _twitchIntegration.DeAuthorizeTwitch(user.ID);
 
-            return RedirectToAction(nameof(Menu));
+            return RedirectToAction("EditIntegrations", "Account");
         }
     }
 }

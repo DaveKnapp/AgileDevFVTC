@@ -75,7 +75,7 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestMethod, TestCategory("IntegrationTest")]
         public void GetAll_AllIntegrationTypesReturned_CountEqualsActual()
         {
-            const int expectedCount = 1;
+            const int expectedCount = 2;
             int actualCount;
             using (var integrationTypeRepo = new IntegrationTypeRepository( new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
             {

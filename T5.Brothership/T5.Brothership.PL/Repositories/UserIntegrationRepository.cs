@@ -75,7 +75,7 @@ namespace T5.Brothership.PL.Repositories
 
         public UserIntegration GetById(int userId, int integrationId)
         {
-            return DbSet.FirstOrDefault(p => p.UserID == userId && p.IntegrationTypeID == p.IntegrationTypeID);
+            return DbSet.FirstOrDefault(p => p.UserID == userId && p.IntegrationTypeID == integrationId);
         }
 
         public void SaveChanges()
