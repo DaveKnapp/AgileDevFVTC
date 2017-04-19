@@ -36,3 +36,29 @@
 .icoTwitch:hover {
     background-color: #6441a5;
 }
+
+#UpdateMenu {
+    list-style: none;
+    margin-top: 1em;
+}
+
+#UpdateMenu li {
+    display: inline;
+    padding: 1em;
+}
+
+.UpdateMenuLinkNotSelected {
+    color: black;
+}
+
+.UpdateMenuItemSelected, #UpdateMenu li a:hover {
+    border-bottom:solid;
+    border-width:2px;
+    text-decoration:none;
+}
+
+.UpdateMenuItemSelected:hover, #UpdateMenu li:hover {
+    cursor:default;
+    text-decoration:none;
+}
+

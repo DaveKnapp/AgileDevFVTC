@@ -6,14 +6,9 @@
 }
 
 <h2>Update Account</h2>
-<style type="text/css">
 
-</style>
-<ul id="UpdateMenu">
-    <li><a class="UpdateMenuItemSelected">Edit</a></li>
-    <li>@Html.ActionLink("Connections", "EditIntegrations", "Account",null, new { @class = "UpdateMenuLinkNotSelected" })</li>
-    <li>@Html.ActionLink("Change Password", "ChangePassword", "Account",null, new { @class = "UpdateMenuLinkNotSelected" })</li>
-</ul>
+@Html.Partial("AccountEditMenu","Edit")
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

@@ -6,7 +6,7 @@
 }
 
 <h2>Edit Integrations</h2>
-
+@Html.Partial("AccountEditMenu", "Connections")
 <div>
     <span>Twitch</span>
     @{bool UserHasTwitchIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitch) != null;}

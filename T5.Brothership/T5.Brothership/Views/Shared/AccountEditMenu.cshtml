@@ -1,0 +1,29 @@
+﻿@model string
+
+<ul id="UpdateMenu">
+    @if (Model == "Edit")
+    {
+        <li><a class="UpdateMenuItemSelected">Edit</a></li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Edit", "Update", "Account", null, new { @class = "UpdateMenuLinkNotSelected" })</li>
+    }
+    @if (Model == "Connections")
+    {
+        <li><a class="UpdateMenuItemSelected">Connections</a></li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Connections", "EditIntegrations", "Account", null, new { @class = "UpdateMenuLinkNotSelected" })</li>
+    }
+
+    @if (Model == "ChangePassword")
+    {
+        <li><a class="UpdateMenuItemSelected">Change Password</a></li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account", null, new { @class = "UpdateMenuLinkNotSelected" })</li>
+    }
+</ul>

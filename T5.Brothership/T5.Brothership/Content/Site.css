@@ -26,26 +26,3 @@ textarea {
 }*/
 
 /*Custom Styles*/
-#UpdateMenu {
-    list-style: none;
-    margin-top: 1em;
-}
-
-#UpdateMenu li {
-    display: inline;
-    padding: 1em;
-}
-
-.UpdateMenuLinkNotSelected {
-    color: black;
-}
-
-.UpdateMenuItemSelected {
-    border-bottom:solid;
-    border-width:2px;
-}
-
-.UpdateMenuItemSelected:hover, #UpdateMenu li:hover {
-    cursor:default;
-    text-decoration:none;
-}

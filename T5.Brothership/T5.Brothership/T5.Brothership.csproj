@@ -365,6 +365,7 @@
     <Content Include="Views\Search\SearchResults.cshtml" />
     <Content Include="Views\Twitch\Menu.cshtml" />
     <Content Include="Views\Account\EditIntegrations.cshtml" />
+    <Content Include="Views\Shared\AccountEditMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
