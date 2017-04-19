@@ -6,6 +6,7 @@ using T5.Brothership.PL.Test;
 using T5.Brothership.Entities.Models;
 using System.Web;
 using T5.Brothership.BL.TwitchApi;
+using T5.Brothership.BL.Test.ClientFakes;
 
 namespace T5.Brothership.BL.Test.ApiIntegrationsUnitTest
 {
