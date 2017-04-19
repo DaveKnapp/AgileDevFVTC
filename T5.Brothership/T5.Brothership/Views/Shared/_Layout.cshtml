@@ -47,15 +47,9 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <nav>
                             <ul class="nav navbar-nav navbar-left">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.Action("LoginLink", "Login")</li>
-                                    <li>@Html.Action("SignupLink", "Login")</li>
-                                    <li>@Html.Action("LogoutLink", "Login")</li>
-                                    <li>@Html.Action("AccountUpdateLink", "Login")</li>
-                                </ul>
-                                </li>
+                                <li>@Html.Action("LoginLink", "Login")</li>
+                                <li>@Html.Action("SignupLink", "Login")</li>
+                                <li role="separator" class="divider"></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
