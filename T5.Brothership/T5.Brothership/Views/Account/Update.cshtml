@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        @foreach (var socialMediaType in Enum.GetValues(typeof(SocialMediaType.SocialMediaTypes)))
+        @*@foreach (var socialMediaType in Enum.GetValues(typeof(SocialMediaType.SocialMediaTypes)))
         {
             int socialMediaId = (int)socialMediaType;
             var socialMedia = Model.CurrentUser.UserSocialJuncs.FirstOrDefault(p => p.SocialMediaTypeID == socialMediaId);
@@ -99,7 +99,7 @@
                     <input id="@(socialMediaType)input" name="CurrentUser.UserSocialJuncs[@socialMediaId].URL" class="form-control" value="@url" />
                 </div>
             </div>
-        }
+        }*@
 
         <div class="form-group row">
             <div id="userInputGames" class="col-md-6">
