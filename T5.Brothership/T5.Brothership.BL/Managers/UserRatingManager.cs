@@ -47,8 +47,16 @@ namespace T5.Brothership.BL.Managers
 
         public double GetAverageRating(int ratedUserId)
         {
-            return Math.Round(_unitOfWork.UserRatings.GetAllByUserId(ratedUserId).Average(p => p.RatingID), 2);
-        }
+            var userRatings = _unitOfWork.UserRatings.GetAllByUserId(ratedUserId).ToList();
 
+            if (userRatings.Count > 0)
+            {
+                return Math.Round(userRatings.Average(p => p.RatingID), 2);
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

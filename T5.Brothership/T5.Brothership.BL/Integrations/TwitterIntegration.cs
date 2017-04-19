@@ -10,7 +10,7 @@ using T5.Brothership.BL.TwitterApi;
 
 namespace T5.Brothership.BL.Integrations
 {
-    public class TwitterIntegration: IDisposable
+    public class TwitterIntegration : IDisposable
     {
         //TODO(Dave) Do I was to change url to username?  This allow to search my userName from other platforms such as twitch
         private IBrothershipUnitOfWork _unitOfWork;
@@ -80,12 +80,15 @@ namespace T5.Brothership.BL.Integrations
 
             try
             {
-                var twitterUrl = _twitterClient.GetUserURL(userIntegration.Token, userIntegration.TokenSecret);
-                if (userIntegration.URL != twitterUrl && twitterUrl != null)
+                if (userIntegration != null)
                 {
-                    userIntegration.URL = twitterUrl;
-                    _unitOfWork.UserIntegrations.Update(userIntegration);
-                    _unitOfWork.Commit();
+                    var twitterUrl = _twitterClient.GetUserURL(userIntegration.Token, userIntegration.TokenSecret);
+                    if (userIntegration.URL != twitterUrl && twitterUrl != null)
+                    {
+                        userIntegration.URL = twitterUrl;
+                        _unitOfWork.UserIntegrations.Update(userIntegration);
+                        _unitOfWork.Commit();
+                    }
                 }
             }
             catch (Exception)
