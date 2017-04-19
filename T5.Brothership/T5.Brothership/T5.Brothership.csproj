@@ -310,6 +310,7 @@
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %286%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="images\default-user.gif" />
     <Content Include="images\game-default.gif" />
     <Content Include="images\live.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -366,6 +367,7 @@
     <Content Include="Views\Twitch\Menu.cshtml" />
     <Content Include="Views\Account\EditIntegrations.cshtml" />
     <Content Include="Views\Shared\AccountEditMenu.cshtml" />
+    <Content Include="Views\Login\AccountUpdateLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
