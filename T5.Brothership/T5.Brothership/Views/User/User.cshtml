@@ -9,8 +9,10 @@
     <!-- Portfolio Item Row -->
     <div class="row">
         <p>@ViewBag.Message</p>
-        <div class="col-md-3">
+        <div class="col-md-3 profile-info-container">
             <img class="img-responsive" src="http://placehold.it/500x300" alt="">
+            @*Average rating should be changed to show rating and star value*@
+            <p>Rating = @Model.AverageRating</p>
             <h4>@Html.DisplayNameFor(model => model.User.UserName)</h4>
             <p>@Html.DisplayFor(model => model.User.UserName)</p>
             <h4>@Html.DisplayNameFor(model => model.User.Bio)</h4>
@@ -28,13 +30,33 @@
             @foreach (var integrationInfo in Model.UserIntegrationInfos)
             {
                 <div>
-                    <a class="alert" href="@integrationInfo.UserLiveStreamURL">@integrationInfo.IntegrationType</a>
                     @if (integrationInfo.IsUserLive)
                     {
+                        <a class="alert" href="@integrationInfo.UserLiveStreamURL">@integrationInfo.IntegrationType</a>
                         <img src="~/images/live.png" style="width:2em;">
                     }
                 </div>
             }
+            <div class="col-md-12">
+                <div class="aligncenter">
+                    <ul class="social-network social-circle">
+                        @foreach (var integration in Model.User.UserIntegrations)
+                        {
+                            switch (integration.IntegrationTypeID)
+                            {
+                                case (int)IntegrationType.IntegrationTypes.Twitch:
+                                                <li><a href="@integration.URL" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
+                                                break;
+                                            case (int)IntegrationType.IntegrationTypes.Twitter:
+                                                <li><a href="@integration.URL" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                                break;
+                                            default:
+                                                break;
+                               }
+                        }
+                    </ul>
+                </div>
+            </div>
 
 
         </div>
@@ -86,23 +108,4 @@
         </div>
     </div>
 </div>
-<div class="col-md-12">
-    <div class="aligncenter user-profile-links">
-        <ul class="social-network social-circle">
-            @foreach (var integration in Model.User.UserIntegrations)
-            {
-                switch (integration.IntegrationTypeID)
-                {
-                    case (int)IntegrationType.IntegrationTypes.Twitch:
-                        <li><a href="@integration.URL" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
-                        break;
-                    case (int)IntegrationType.IntegrationTypes.Twitter:
-                        <li><a href="@integration.URL" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        break;
-                    default:
-                        break;
-                }
-            }
-        </ul>
-    </div>
-</div>
+

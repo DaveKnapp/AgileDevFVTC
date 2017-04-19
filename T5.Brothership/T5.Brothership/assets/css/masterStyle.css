@@ -1,6 +1,7 @@
 ﻿.bodyPadding {
     padding-top: 12rem;
 }
+
 .top-margin {
     padding-top: 10px;
 }
@@ -21,16 +22,17 @@
     display: block;
 }
 
-.user-profile-links{
-    left:0;
-    right:0;
-    margin-top:.5em;
-    margin-bottom:.5em;
-    background-color: rgb(33, 33, 33);
-    padding-top:.5em;
-    position:absolute;
+.profile-info-container {
+    background-color: #212121;
+    border-radius: .5em;
+    padding: 1em;
+    color: white;
 }
 
-.icoTwitch:hover{
-   background-color: #6441a5;
+.profile-info-container h4{
+    color:white;
+}
+
+.icoTwitch:hover {
+    background-color: #6441a5;
 }

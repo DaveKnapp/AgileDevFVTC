@@ -16,6 +16,7 @@ namespace T5.Brothership.Controllers
         TwitchIntegration _twitchIntegration = new TwitchIntegration();
         TwitterIntegration _twitterIntegration = new TwitterIntegration();
         UserManager _usermanager = new UserManager();
+        UserRatingManager _userRatingManger = new UserRatingManager();
 
 
         [Route("{userName}")]
@@ -31,7 +32,8 @@ namespace T5.Brothership.Controllers
             var viewModel = new UserPageViewModel
             {
                 User = user,
-                UserIntegrationInfos = integrationInfos
+                UserIntegrationInfos = integrationInfos,
+                AverageRating = _userRatingManger.GetAverageRating(user.ID)
             };
 
             return View("user", viewModel);
@@ -79,7 +81,7 @@ namespace T5.Brothership.Controllers
                 {
                     //TODO(Dave) handel client fail
                 }
-             
+
             }
             return integrationInfos;
         }
