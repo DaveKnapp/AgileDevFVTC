@@ -10,7 +10,7 @@
     <div class="row">
         <p>@ViewBag.Message</p>
         <div class="col-md-3 profile-info-container">
-            <img class="img-responsive" src="http://placehold.it/500x300" alt="">
+            <img class="img-responsive profile-img" src="~/images/default-user.gif" alt="">
             @*Average rating should be changed to show rating and star value*@
             <p>Rating - @Model.AverageRating</p>
             <h4>@Html.DisplayNameFor(model => model.User.UserName)</h4>
@@ -70,20 +70,20 @@
                 }
                 @foreach (var game in Model.User.Games)
                 {
-                    <div class="col-md-3 col-sm-6 col-6">
-                        <div style="position:relative" class="img-responsive portfolio-item">
-                            <img class="img-responsive" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(game.ImgCloudinaryId).jpg"
-                                 alt="@game.Title">
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                        <div class="portfolio-item">
+                            <img class="img-fluid d-block" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
                             <span class="game-image-title">@game.Title</span>
                         </div>
                     </div>
                 }
-
+            </div>
                 @if (Model.User.Games.Count > 0)
                 {
-                    @Html.ActionLink("View All", "UserGames", new { userName = Model.User.UserName })
+                    <div class="view-all">
+                    @Html.ActionLink("View All Games", "UserGames", new { userName = Model.User.UserName })
+                    </div>
                 }
-            </div>
             <h3>Ratings</h3>
             <div class="row">
                 @if (Model.User.UserRatings.Count == 0)
@@ -94,17 +94,19 @@
                 @foreach (var rating in Model.User.UserRatings)
                 {
                     <div class="col-md-4 col-sm-6">
-                        <h5>@rating.RaterUser.UserName Says</h5>
-                        <p>@rating.Comment</p>
+                        <div class="panel panel-default">
+                            <h5 class="panel-heading">@rating.RaterUser.UserName Says</h5>
+                            <p class="panel-body">@rating.Comment</p>
+                        </div>
                     </div>
                 }
-
+                </div>
                 @if (Model.User.UserRatings.Count > 0)
                 {
-                    @Html.ActionLink("View All", "UserRatings", new { userName = Model.User.UserName })
-
+                    <div class="view-all">
+                    @Html.ActionLink("View All Ratings", "UserRatings", new { userName = Model.User.UserName })
+                    </div>
                 }
-            </div>
         </div>
     </div>
 </div>

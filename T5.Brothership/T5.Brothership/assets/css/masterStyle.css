@@ -1,13 +1,32 @@
-﻿.bodyPadding {
+﻿body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.bodyPadding {
     padding-top: 12rem;
 }
 
 .top-margin {
     padding-top: 10px;
 }
+/*Nav CSS*/
+.navbar-brand-color a {
+    color: #6666ff !important;
+}
+/*---------------------*/
+/*User Profile Page*/
+.profile-img {
+    display: block;
+    margin: auto;
+}
 
 .portfolio-item {
     padding-top: 3.5rem;
+    position: relative;
+}
+
+.portfolio-item img {
+    width: 100%;
 }
 
 .game-image-title {
@@ -20,6 +39,7 @@
     color: whitesmoke;
     width: 100%;
     display: block;
+    word-wrap: break-word;
 }
 
 .profile-info-container {
@@ -36,6 +56,16 @@
 .icoTwitch:hover {
     background-color: #6441a5;
 }
+
+.panel-heading {
+    margin-top: 0;
+}
+
+.view-all {
+    font-size: 1.5em;
+    padding-top: 2rem;
+}
+/*------------------------*/
 
 #UpdateMenu {
     list-style: none;
