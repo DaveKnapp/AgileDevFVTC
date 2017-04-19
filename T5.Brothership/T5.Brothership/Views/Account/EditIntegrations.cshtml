@@ -5,33 +5,42 @@
     ViewBag.Title = "Edit Integrations";
 }
 
-<h2>Edit Integrations</h2>
+<h2>Connections</h2>
 @Html.Partial("AccountEditMenu", "Connections")
-<div>
-    <span>Twitch</span>
-    @{bool UserHasTwitchIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitch) != null;}
-    @if (UserHasTwitchIntegration)
-    {
-        @Html.ActionLink("Disconnect", "DeAuthorize", "Twitch");
-    }
-    else
-    {
-        @Html.ActionLink("Connect", "AuthorizeTwitch", "Twitch");
-    }
+<div class="col-md-8">
+    <div class="update-account-integration-item">
+        <div>
+            <h4>Twitch<i class="fa fa-twitch twitch-icon" aria-hidden="true"></i></h4>
+            <p>Connect your twitch account to add a link to your twitch channel on your profile and a notice if you are live.</p>
+        </div>
+        <div class="update-account-integration-item-button">
+            @{bool UserHasTwitchIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitch) != null;}
+            @if (UserHasTwitchIntegration)
+            {
+                @Html.ActionLink("Disconnect", "DeAuthorize", "Twitch", null, new { @class = "btn btn-lg btn-theme" });
+            }
+            else
+            {
+                @Html.ActionLink("Connect", "AuthorizeTwitch", "Twitch", null, new { @class = "btn btn-lg btn-theme" });
+            }
+        </div>
+    </div>
 
+    <div class="update-account-integration-item">
+        <div>
+            <h4>Twitter<i class="fa fa-twitter twitter-icon" aria-hidden="true"></i></h4>
+            <p>Connect your twitter account to add a link on your profile to your twitter page.</p>
+        </div>
+        <div class="update-account-integration-item-button">
+            @{bool UserHasTwitterIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitter) != null;}
+            @if (UserHasTwitterIntegration)
+            {
+                @Html.ActionLink("Disconnect", "DeAuthorize", "Twitter", null, new { @class = "btn btn-lg btn-theme" });
+            }
+            else
+            {
+                @Html.ActionLink("Connect", "AuthorizeTwitter", "Twitter", null, new { @class = "btn btn-lg btn-theme" });
+            }
+        </div>
+    </div>
 </div>
-
-<div>
-    <span>Twitter</span>
-    @{bool UserHasTwitterIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitter) != null;}
-    @if (UserHasTwitterIntegration)
-    {
-        @Html.ActionLink("Disconnect", "DeAuthorize", "Twitter");
-    }
-    else
-    {
-        @Html.ActionLink("Connect", "AuthorizeTwitter", "Twitter");
-    }
-</div>
-
-
