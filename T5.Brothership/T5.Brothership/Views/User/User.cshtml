@@ -10,7 +10,7 @@
     <div class="row">
         <p>@ViewBag.Message</p>
         <div class="col-md-3 profile-info-container">
-            <img class="img-responsive profile-img" src="~/images/default-user.gif" alt="">
+            <img class="img-responsive profile-img" src="@Html.DisplayFor(model => model.User.ProfileImagePath)" alt="">
             @*Average rating should be changed to show rating and star value*@
             <p>Rating - @Model.AverageRating</p>
             <h4>@Html.DisplayNameFor(model => model.User.UserName)</h4>
