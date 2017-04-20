@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Brothership</title>
     @Scripts.Render("~/bundles/jquery")
+    <script src="https://use.fontawesome.com/a555f3eba6.js"></script>
     <link href="~/Content/Site.css" rel="stylesheet" />
     @*@Scripts.Render("~/bundles/modernizr")*@
     <!-- styles -->
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="~/assets/color/default.css" />
     <link rel="stylesheet" href="~/assets/css/masterStyle.css" />
     <link rel="icon" href="~/images/Brothership-icon.gif" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <!-- =======================================================
         Theme Name: Groovin
         Theme URL: https://bootstrapmade.com/groovin-free-bootstrap-theme/
@@ -36,18 +38,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <span class="navbar-brand-color">
                     @Html.ActionLink("Brothership", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </span>
                 </div>
                 <!--Rmoved class .navigation to allow links to function-->
                 <div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <nav>
                             <ul class="nav navbar-nav navbar-left">
-                                <li class="current">
-                                    @Html.Action("LoginLink", "Login")
-                                </li>
+                                <li>@Html.Action("LoginLink", "Login")</li>
                                 <li>@Html.Action("SignupLink", "Login")</li>
-                                <li>@Html.Action("LogoutLink", "Login")</li>
+                                <li role="separator" class="divider"></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -61,9 +63,8 @@
         </div>
 
     </header>
-    <div class="container body-content bodyPadding">
+    <div class="container-fluid bodyPadding">
         @RenderBody()
-       @* <hr />*@
     </div>
     <footer>
         <div class="verybottom">

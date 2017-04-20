@@ -95,6 +95,18 @@ namespace T5.Brothership.Controllers
                 return null;
             }
         }
-
+        [ChildActionOnly]
+        public PartialViewResult AccountUpdateLink()
+        {
+            User currentUser = Session["CurrentUser"] as User;
+            if (currentUser == null)
+            {
+                return null;
+            }
+            else
+            {
+                return PartialView("AccountUpdateLink");
+            }
+        }
     }
 }

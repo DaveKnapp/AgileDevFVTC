@@ -1,12 +1,32 @@
-﻿.bodyPadding {
+﻿body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.bodyPadding {
     padding-top: 12rem;
 }
+
 .top-margin {
     padding-top: 10px;
+}
+/*Nav CSS*/
+.navbar-brand-color a {
+    color: #6666ff !important;
+}
+/*---------------------*/
+/*User Profile Page*/
+.profile-img {
+    display: block;
+    margin: auto;
 }
 
 .portfolio-item {
     padding-top: 3.5rem;
+    position: relative;
+}
+
+.portfolio-item img {
+    width: 100%;
 }
 
 .game-image-title {
@@ -19,18 +39,79 @@
     color: whitesmoke;
     width: 100%;
     display: block;
+    word-wrap: break-word;
 }
 
-.user-profile-links{
-    left:0;
-    right:0;
-    margin-top:.5em;
-    margin-bottom:.5em;
-    background-color: rgb(33, 33, 33);
-    padding-top:.5em;
-    position:absolute;
+.profile-info-container {
+    background-color: #212121;
+    border-radius: .5em;
+    padding: 1em;
+    color: white;
 }
 
-.icoTwitch:hover{
-   background-color: #6441a5;
+    .profile-info-container h4 {
+        color: white;
+    }
+
+.icoTwitch:hover {
+    background-color: #6441a5;
+}
+
+.panel-heading {
+    margin-top: 0;
+}
+
+.view-all {
+    font-size: 1.5em;
+    padding-top: 2rem;
+}
+/*------------------------*/
+
+#UpdateMenu {
+    list-style: none;
+    margin-top: 1em;
+}
+
+    #UpdateMenu li {
+        display: inline;
+        padding: 1em;
+    }
+
+.UpdateMenuLinkNotSelected {
+    color: black;
+}
+
+.UpdateMenuItemSelected, #UpdateMenu li a:hover {
+    border-bottom: solid;
+    border-width: 2px;
+    text-decoration: none;
+}
+
+    .UpdateMenuItemSelected:hover, #UpdateMenu li:hover {
+        cursor: default;
+        text-decoration: none;
+    }
+
+.update-account-integration-item {
+    margin: 1em;
+    background-color: WhiteSmoke;
+    padding: 1.5em;
+    border-radius: .5em;
+}
+
+    .update-account-integration-item i {
+        margin-left: .5em;
+    }
+
+.update-account-integration-item-button {
+    margin-right: 12%;
+    text-align: right;
+}
+
+.twitter-icon {
+    color: #4099FF;
+}
+
+.twitch-icon {
+    color: #6441a5;
 }

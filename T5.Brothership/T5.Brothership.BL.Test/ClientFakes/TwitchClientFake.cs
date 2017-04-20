@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using T5.Brothership.BL.TwitchApi;
 
-namespace T5.Brothership.BL.Test
+namespace T5.Brothership.BL.Test.ClientFakes
 {
     internal class TwitchClientFake : ITwitchClient
     {

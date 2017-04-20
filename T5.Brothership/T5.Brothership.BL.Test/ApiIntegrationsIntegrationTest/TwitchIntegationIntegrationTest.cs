@@ -8,6 +8,7 @@ using System.Web;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.PL;
 using T5.Brothership.PL.Test;
+using T5.Brothership.BL.Test.ClientFakes;
 
 namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
 {

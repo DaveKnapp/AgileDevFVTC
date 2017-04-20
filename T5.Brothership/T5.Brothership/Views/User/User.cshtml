@@ -3,14 +3,16 @@
 @{
     ViewBag.Title = Model.User.UserName;
 }
-<script src="https://use.fontawesome.com/a555f3eba6.js"></script>
+
 <!-- Page Content -->
 <div class="container">
     <!-- Portfolio Item Row -->
     <div class="row">
         <p>@ViewBag.Message</p>
-        <div class="col-md-3">
-            <img class="img-responsive" src="http://placehold.it/500x300" alt="">
+        <div class="col-md-3 profile-info-container">
+            <img class="img-responsive profile-img" src="~/images/default-user.gif" alt="">
+            @*Average rating should be changed to show rating and star value*@
+            <p>Rating - @Model.AverageRating</p>
             <h4>@Html.DisplayNameFor(model => model.User.UserName)</h4>
             <p>@Html.DisplayFor(model => model.User.UserName)</p>
             <h4>@Html.DisplayNameFor(model => model.User.Bio)</h4>
@@ -28,13 +30,33 @@
             @foreach (var integrationInfo in Model.UserIntegrationInfos)
             {
                 <div>
-                    <a class="alert" href="@integrationInfo.UserLiveStreamURL">@integrationInfo.IntegrationType</a>
                     @if (integrationInfo.IsUserLive)
                     {
+                        <a class="alert" href="@integrationInfo.UserLiveStreamURL">@integrationInfo.IntegrationType</a>
                         <img src="~/images/live.png" style="width:2em;">
                     }
                 </div>
             }
+            <div class="col-md-12">
+                <div class="aligncenter">
+                    <ul class="social-network social-circle">
+                        @foreach (var integration in Model.User.UserIntegrations)
+                        {
+                            switch (integration.IntegrationTypeID)
+                            {
+                                case (int)IntegrationType.IntegrationTypes.Twitch:
+                                                <li><a href="@integration.URL" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
+                                                break;
+                                            case (int)IntegrationType.IntegrationTypes.Twitter:
+                                                <li><a href="@integration.URL" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                                break;
+                                            default:
+                                                break;
+                               }
+                        }
+                    </ul>
+                </div>
+            </div>
 
 
         </div>
@@ -48,20 +70,20 @@
                 }
                 @foreach (var game in Model.User.Games)
                 {
-                    <div class="col-md-3 col-sm-6 col-6">
-                        <div style="position:relative" class="img-responsive portfolio-item">
-                            <img class="img-responsive" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(game.ImgCloudinaryId).jpg"
-                                 alt="@game.Title">
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                        <div class="portfolio-item">
+                            <img class="img-fluid d-block" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
                             <span class="game-image-title">@game.Title</span>
                         </div>
                     </div>
                 }
-
+            </div>
                 @if (Model.User.Games.Count > 0)
                 {
-                    @Html.ActionLink("View All", "UserGames", new { userName = Model.User.UserName })
+                    <div class="view-all">
+                    @Html.ActionLink("View All Games", "UserGames", new { userName = Model.User.UserName })
+                    </div>
                 }
-            </div>
             <h3>Ratings</h3>
             <div class="row">
                 @if (Model.User.UserRatings.Count == 0)
@@ -72,37 +94,20 @@
                 @foreach (var rating in Model.User.UserRatings)
                 {
                     <div class="col-md-4 col-sm-6">
-                        <h5>@rating.RaterUser.UserName Says</h5>
-                        <p>@rating.Comment</p>
+                        <div class="panel panel-default">
+                            <h5 class="panel-heading">@rating.RaterUser.UserName Says</h5>
+                            <p class="panel-body">@rating.Comment</p>
+                        </div>
                     </div>
                 }
-
+                </div>
                 @if (Model.User.UserRatings.Count > 0)
                 {
-                    @Html.ActionLink("View All", "UserRatings", new { userName = Model.User.UserName })
-
+                    <div class="view-all">
+                    @Html.ActionLink("View All Ratings", "UserRatings", new { userName = Model.User.UserName })
+                    </div>
                 }
-            </div>
         </div>
     </div>
 </div>
-<div class="col-md-12">
-    <div class="aligncenter user-profile-links">
-        <ul class="social-network social-circle">
-            @foreach (var integration in Model.User.UserIntegrations)
-            {
-                switch (integration.IntegrationTypeID)
-                {
-                    case (int)IntegrationType.IntegrationTypes.Twitch:
-                        <li><a href="@integration.URL" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
-                        break;
-                    case (int)IntegrationType.IntegrationTypes.Twitter:
-                        <li><a href="@integration.URL" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        break;
-                    default:
-                        break;
-                }
-            }
-        </ul>
-    </div>
-</div>
+

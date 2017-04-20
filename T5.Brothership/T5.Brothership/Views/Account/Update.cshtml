@@ -6,14 +6,9 @@
 }
 
 <h2>Update Account</h2>
-<style type="text/css">
 
-</style>
-<ul id="UpdateMenu">
-    <li><a class="UpdateMenuItemSelected">Edit</a></li>
-    <li>@Html.ActionLink("Connections", "EditIntegrations", "Account",null, new { @class = "UpdateMenuLinkNotSelected" })</li>
-    <li>@Html.ActionLink("Change Password", "ChangePassword", "Account",null, new { @class = "UpdateMenuLinkNotSelected" })</li>
-</ul>
+@Html.Partial("AccountEditMenu","Edit")
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -83,7 +78,7 @@
             </div>
         </div>
 
-        @foreach (var socialMediaType in Enum.GetValues(typeof(SocialMediaType.SocialMediaTypes)))
+        @*@foreach (var socialMediaType in Enum.GetValues(typeof(SocialMediaType.SocialMediaTypes)))
         {
             int socialMediaId = (int)socialMediaType;
             var socialMedia = Model.CurrentUser.UserSocialJuncs.FirstOrDefault(p => p.SocialMediaTypeID == socialMediaId);
@@ -99,7 +94,7 @@
                     <input id="@(socialMediaType)input" name="CurrentUser.UserSocialJuncs[@socialMediaId].URL" class="form-control" value="@url" />
                 </div>
             </div>
-        }
+        }*@
 
         <div class="form-group row">
             <div id="userInputGames" class="col-md-6">
