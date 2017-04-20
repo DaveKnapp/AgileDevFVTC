@@ -40,6 +40,12 @@ namespace T5.Brothership.BL.Managers
             return _unitOfWork.UserRatings.GetAllByUserId(ratedUserId).ToList();
         }
 
+        public void Add(UserRating userRating)
+        {
+            _unitOfWork.UserRatings.Add(userRating);
+            _unitOfWork.Commit();
+        }
+
         public UserRating GetById(int raterId, int userBeingRatedId)
         {
             return _unitOfWork.UserRatings.GetById(raterId, userBeingRatedId);

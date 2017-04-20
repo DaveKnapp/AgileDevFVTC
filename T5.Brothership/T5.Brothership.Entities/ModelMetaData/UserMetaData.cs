@@ -26,10 +26,10 @@ namespace T5.Brothership.Entities.Models
         [ScaffoldColumn(false)]
         string ProfileImagePath { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true), DataType(DataType.Date), Display(Name ="Join Date")]
         DateTime DateJoined { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true), DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true), DataType(DataType.Date) ]
         DateTime DOB { get; set; }
 
         [Display(Name = "Gender")]

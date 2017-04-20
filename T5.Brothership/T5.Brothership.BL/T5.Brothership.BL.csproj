@@ -120,6 +120,7 @@
     <Compile Include="Managers\GenderManager.cs" />
     <Compile Include="Managers\NationalityManager.cs" />
     <Compile Include="Integrations\TwitchIntegration.cs" />
+    <Compile Include="Managers\RatingManager.cs" />
     <Compile Include="Managers\UserRatingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\UserManager.cs" />

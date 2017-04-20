@@ -26,8 +26,6 @@ namespace T5.Brothership.Controllers
                 Nationalities = _nationalityManager.GetAll()
             };
 
-
-
             if (TempData["userWithError"] == null)
             {
                 userViewModel.CurrentUser = new User();

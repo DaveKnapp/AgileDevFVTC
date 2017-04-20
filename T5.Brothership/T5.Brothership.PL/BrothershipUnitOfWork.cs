@@ -28,7 +28,7 @@ namespace T5.Brothership.PL
 
         public BrothershipUnitOfWork()
         {
-            _dbContext = new brothershipEntities();
+            _dbContext = new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME);
         }
 
         public BrothershipUnitOfWork(brothershipEntities dbContext)

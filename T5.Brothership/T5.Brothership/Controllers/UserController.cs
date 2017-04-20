@@ -15,15 +15,15 @@ namespace T5.Brothership.Controllers
     {
         TwitchIntegration _twitchIntegration = new TwitchIntegration();
         TwitterIntegration _twitterIntegration = new TwitterIntegration();
-        UserManager _usermanager = new UserManager();
+        UserManager _userManager = new UserManager();
         UserRatingManager _userRatingManger = new UserRatingManager();
-
+        RatingManager _ratingManager = new RatingManager();
 
         [Route("{userName}")]
         public async Task<ActionResult> User(string userName)
         {
             //Todo(Dave) Add error page of user not found
-            User user = _usermanager.GetByUserName(userName);
+            User user = _userManager.GetByUserName(userName);
 
             //Refresh to integration to get new url if user changed userName
             _twitterIntegration.Refresh(user.ID);
@@ -42,15 +42,54 @@ namespace T5.Brothership.Controllers
         [Route("User/UserGames/{userName}")]
         public ActionResult UserGames(string userName)
         {
-            var user = _usermanager.GetByUserName(userName);
+            var user = _userManager.GetByUserName(userName);
             return View(user);
         }
 
         [Route("User/UserRatings/{userName}")]
         public ActionResult UserRatings(string userName)
         {
-            var user = _usermanager.GetByUserName(userName);
+            var user = _userManager.GetByUserName(userName);
             return View(user);
+        }
+
+        //var user = Session["CurrentUser"] as User;
+        [Route("User/Rate/{userName}")]
+        public ActionResult Rate(string userName)
+        {
+
+            var loggedInUser = Session["CurrentUser"] as User;
+            var userToRate = _userManager.GetByUserName(userName);
+
+            UserRating userRating = new UserRating
+            {
+                UserBeingRatedID = userToRate.ID ,
+                RaterUserID = loggedInUser.ID
+            };
+
+            UserRatingViewModel viewModel = new UserRatingViewModel
+            {
+                UserRating = userRating,
+                Ratings = _ratingManager.GetAll()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Route("User/Rate/{userName}")]
+        public ActionResult Rate(UserRatingViewModel viewModel)
+        {
+            //TOOD Check if model state is valid
+            var loggedInUser = Session["CurrentUser"] as User;
+
+            var userRating = viewModel.UserRating;
+            userRating.RaterUserID = loggedInUser.ID;
+
+            _userRatingManger.Add(userRating);
+
+            string ratedUserName = _userManager.GetById(viewModel.UserRating.UserBeingRatedID).UserName;
+            return RedirectToAction(nameof(User), new {userName = ratedUserName });
         }
 
         private async Task<List<IntegrationInfo>> GetUserIntegrationInfo(User user)
