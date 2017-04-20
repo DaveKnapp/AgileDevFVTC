@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>GameSearchResults</h2>
+<h2>Game Search</h2>
 
 <p>
     @using (Html.BeginForm("GameSearchResults", "Search", FormMethod.Get, new { search = "Game" }))
@@ -27,8 +27,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            <img style="width:34px;" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(item.ImgCloudinaryId).jpg" />
             @Html.ActionLink(item.Title, "UsersByGame", "Search", new { igdbid = item.igdbID }, null)
-        </td>
+        </td>       
     </tr>
 }
 
