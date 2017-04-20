@@ -18,6 +18,7 @@ namespace T5.Brothership.Controllers
         UserManager _userManager = new UserManager();
         UserRatingManager _userRatingManger = new UserRatingManager();
         AzureStorageManager _azureStorageManager = new AzureStorageManager();
+        RatingManager _ratingManager = new RatingManager();
 
         [Route("{userName}")]
         public async Task<ActionResult> User(string userName)
@@ -29,11 +30,13 @@ namespace T5.Brothership.Controllers
             _twitterIntegration.Refresh(user.ID);
 
             List<IntegrationInfo> integrationInfos = await GetUserIntegrationInfo(user);
+
             var viewModel = new UserPageViewModel
             {
                 User = user,
                 UserIntegrationInfos = integrationInfos,
-                AverageRating = _userRatingManger.GetAverageRating(user.ID)
+                AverageRating = _userRatingManger.GetAverageRating(user.ID),
+                IsUserLoggedIn = IsUserLoggedIn()
             };
 
             return View("user", viewModel);
@@ -53,7 +56,6 @@ namespace T5.Brothership.Controllers
             return View(user);
         }
 
-        //var user = Session["CurrentUser"] as User;
         [Route("User/Rate/{userName}")]
         public ActionResult Rate(string userName)
         {
@@ -123,6 +125,13 @@ namespace T5.Brothership.Controllers
 
             }
             return integrationInfos;
+        }
+
+        private bool IsUserLoggedIn()
+        {
+            var LoggedInUser = Session["CurrentUser"] as User;
+
+            return LoggedInUser != null;
         }
     }
 }

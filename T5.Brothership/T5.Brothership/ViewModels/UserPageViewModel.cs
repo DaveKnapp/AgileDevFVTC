@@ -9,6 +9,7 @@ namespace T5.Brothership.ViewModels
     public class UserPageViewModel
     {
         public User User { get; set; }
+        public bool IsUserLoggedIn { get; set; }
         public double AverageRating { get; set; }
         public List<IntegrationInfo> UserIntegrationInfos { get; set; }       
     }

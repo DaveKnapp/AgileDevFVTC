@@ -45,14 +45,14 @@
                             switch (integration.IntegrationTypeID)
                             {
                                 case (int)IntegrationType.IntegrationTypes.Twitch:
-                                                <li><a href="@integration.URL" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
-                                                break;
-                                            case (int)IntegrationType.IntegrationTypes.Twitter:
-                                                <li><a href="@integration.URL" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                                                break;
-                                            default:
-                                                break;
-                               }
+                                    <li><a href="@integration.URL" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
+                                    break;
+                                case (int)IntegrationType.IntegrationTypes.Twitter:
+                                    <li><a href="@integration.URL" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     </ul>
                 </div>
@@ -67,7 +67,7 @@
                 @if (Model.User.Games.Count == 0)
                 {
                     <div class="col">
-                    <p class="text-center">User has no games.</p>
+                        <p class="text-center">User has no games.</p>
                     </div>
                 }
                 @foreach (var game in Model.User.Games)
@@ -80,18 +80,31 @@
                     </div>
                 }
             </div>
-                @if (Model.User.Games.Count > 0)
-                {
-                    <div class="view-all">
+            @if (Model.User.Games.Count > 0)
+            {
+                <div class="view-all">
                     @Html.ActionLink("View All Games", "UserGames", new { userName = Model.User.UserName })
-                    </div>
-                }
-            <h3>Ratings</h3>
-            <div class="row">
+                </div>
+            }
+            <div style="margin-bottom:5em;">
+                <h3 style="display:inline-block; margin-right:1em; float:left">Ratings</h3>
+                <div style="margin:.5em; float:left;">
+
+                    @if (Model.IsUserLoggedIn)
+                    {
+                        @Html.ActionLink("Rate User", "Rate", "User", null, new { @class = "btn btn-lg btn-theme" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Login to rate user", "Login", "Login", null, new { @class = "btn btn-lg btn-theme" })
+                    }
+                </div>
+            </div>
+            <div class="row" style="clear:both;">
                 @if (Model.User.UserRatings.Count == 0)
                 {
                     <div class="col">
-                    <p class="text-center">User has not been rated.</p>
+                        <p class="text-center">User has not been rated.</p>
                     </div>
                 }
 
@@ -104,14 +117,15 @@
                         </div>
                     </div>
                 }
-                </div>
-                @if (Model.User.UserRatings.Count > 0)
-                {
-                    <div class="view-all">
+            </div>
+            @if (Model.User.UserRatings.Count > 0)
+            {
+                <div class="view-all">
                     @Html.ActionLink("View All Ratings", "UserRatings", new { userName = Model.User.UserName })
-                    </div>
-                }
+                </div>
+            }
         </div>
+
     </div>
 </div>
 

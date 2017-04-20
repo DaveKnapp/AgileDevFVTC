@@ -60,6 +60,12 @@ namespace T5.Brothership.Controllers
                 else
                 {
                     await _userManger.Add(newUser, userViewModel.Password);
+                    var user = _userManger.Login(newUser.UserName, userViewModel.Password);
+                    if (!(user is InvalidUser))
+                    {
+                        Session.Add("CurrentUser", user);
+                        return RedirectToAction(nameof(EditIntegrations));
+                    }
                     return View("AccountCreated");
                 }
             }

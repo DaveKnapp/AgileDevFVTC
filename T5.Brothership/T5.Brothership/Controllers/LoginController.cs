@@ -12,23 +12,23 @@ namespace T5.Brothership.Controllers
     {
         readonly UserManager _usermanager = new UserManager();
 
-        public ActionResult Details()
-        {
-            var user = Session["CurrentUser"] as User;
+        //public ActionResult Details()
+        //{
+        //    var user = Session["CurrentUser"] as User;
 
-            if (user == null)
-            {
-                return RedirectToAction(nameof(Login));
+        //    if (user == null)
+        //    {
+        //        return RedirectToAction(nameof(Login));
 
-            }
-            user = _usermanager.GetById(user.ID);
+        //    }
+        //    user = _usermanager.GetById(user.ID);
 
-            return View(user);
-        }
+        //    return View(user);
+        //}
 
         public ActionResult Login()
         {
-            return Session["CurrentUser"] == null ? (ActionResult)View() : RedirectToAction(nameof(Details));
+            return Session["CurrentUser"] == null ? (ActionResult)View() : RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -38,11 +38,12 @@ namespace T5.Brothership.Controllers
 
             using (UserManager userManager = new UserManager())
             {
+                //ToDO(Dave) refactor?
                 user = userManager.Login(login.Username, login.Password);
                 if (!(user is InvalidUser))
                 {
                     Session.Add("CurrentUser", user);
-                    return RedirectToAction(nameof(Details));
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
