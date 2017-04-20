@@ -21,6 +21,7 @@ namespace T5.Brothership.PL
         IUserSocialMediaRepository UserSocialMedias { get; }
         IUserTypeRepository UserTypes { get; }
         IGenderRepository Genders { get; }
+        IAzureRepository AzureBlobStorage { get; }
 
         void Commit();
     }

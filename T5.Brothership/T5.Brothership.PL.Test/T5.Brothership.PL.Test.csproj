@@ -82,6 +82,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
@@ -117,6 +118,7 @@
     <Compile Include="FakeRepositories\UserSocialMediaFakeRepository.cs" />
     <Compile Include="FakeRepositories\UserTypeFakeRepository.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="RepositoryIntegration\AzureRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\GameRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\GenderRepositoryTest.cs" />
     <Compile Include="RepositoryIntegration\IntegrationTypeRepoTest.cs" />
@@ -148,8 +150,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\testimage.jpg" />
     <Content Include="ForReference\user.sql" />
     <Content Include="AddTestData.sql" />
+    <Content Include="Testimage\testimage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

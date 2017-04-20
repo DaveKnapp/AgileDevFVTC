@@ -17,6 +17,7 @@ namespace T5.Brothership.Controllers
         TwitterIntegration _twitterIntegration = new TwitterIntegration();
         UserManager _usermanager = new UserManager();
         UserRatingManager _userRatingManger = new UserRatingManager();
+        AzureStorageManager _azureStorageManager = new AzureStorageManager();
 
 
         [Route("{userName}")]
