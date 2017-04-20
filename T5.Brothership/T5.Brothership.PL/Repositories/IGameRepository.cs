@@ -10,5 +10,6 @@ namespace T5.Brothership.PL.Repositories
     public interface IGameRepository : IRepository<Game>
     {
         Game GetByIgdbId(int id);
+        IQueryable<Game> GetSearchedGames(string search);
     }
 }

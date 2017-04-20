@@ -47,6 +47,8 @@ namespace T5.Brothership.PL.Repositories
             return DbSet.Where(p => p.UserName.ToLower().Contains(search.ToLower()));
         }
 
+
+
         public IQueryable<User> GetFeaturedUsers()
         {
             return DbSet.Where(p => p.UserTypeID == (int)UserType.UserTypes.FeaturedUser);

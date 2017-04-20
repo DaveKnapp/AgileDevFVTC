@@ -50,6 +50,14 @@ namespace T5.Brothership.BL.Managers
             return _unitOfWork.Users.GetSearchedUsers(search).ToList();
         }
 
+        public List<User> GetUsersByGame(int igdbid)
+        {
+            return _unitOfWork.Games.GetByIgdbId(igdbid).Users.ToList();
+
+            //For paging
+            //return _unitOfWork.Games.GetByIgdbId(igdbid).Users.Skip(10).Take(5).ToList();
+        }
+
         public async Task Add(User user, string password)
         {
             var newUser = user;
