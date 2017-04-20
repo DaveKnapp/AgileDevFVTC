@@ -66,7 +66,9 @@
             <div class="row">
                 @if (Model.User.Games.Count == 0)
                 {
-                    <h5>User has no games.</h5>
+                    <div class="col">
+                    <p class="text-center">User has no games.</p>
+                    </div>
                 }
                 @foreach (var game in Model.User.Games)
                 {
@@ -88,7 +90,9 @@
             <div class="row">
                 @if (Model.User.UserRatings.Count == 0)
                 {
-                    <h5>User has not been rated.</h5>
+                    <div class="col">
+                    <p class="text-center">User has not been rated.</p>
+                    </div>
                 }
 
                 @foreach (var rating in Model.User.UserRatings)

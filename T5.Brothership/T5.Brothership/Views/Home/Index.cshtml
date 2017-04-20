@@ -14,9 +14,11 @@
         @foreach (var user in Model.RandomFeaturedUsers)
             {
             <div class="col-md-3 col-sm-6">
-                <h4>@user.UserName</h4>
-                <a href="@Url.Action("User","User", new {userName = @user.UserName } )"><img class="img-responsive portfolio-item" src="~/images/default-user.gif" alt=""></a>
+                <div class="panel panel-default">
+                <a href="@Url.Action("User","User", new {userName = @user.UserName } )"><img class="img-responsive portfolio-item panel-body" src="~/images/default-user.gif" alt=""></a>
+                <h4 class="panel-heading text-center">@user.UserName</h4>
                 @* Once we get the Image storing working: src="~/@item.FeaturedUserImagePath" *@
+                </div>
             </div>
             }
     </div>
@@ -26,9 +28,11 @@
         @foreach (var user in Model.RandomPopularUsers)
         {
             <div class="col-md-3 col-sm-6">
-                <h4>@user.UserName</h4>
-                <a href="@Url.Action("User","User", new {userName = @user.UserName } )"> <img class="img-responsive portfolio-item" src="~/images/default-user.gif" alt=""></a>
+                <div class="panel panel-default">
+                <a href="@Url.Action("User","User", new {userName = @user.UserName } )"> <img class="img-responsive portfolio-item panel-body" src="~/images/default-user.gif" alt=""></a>
+                <h4 class="panel-heading text-center">@user.UserName</h4>
                 @* Once we get the Image storing working: src="~/@item.PopularUserImagePath" *@
+                </div>
             </div>
         }
     </div>
