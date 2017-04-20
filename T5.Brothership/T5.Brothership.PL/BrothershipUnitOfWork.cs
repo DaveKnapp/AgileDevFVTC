@@ -25,6 +25,7 @@ namespace T5.Brothership.PL
         private UserSocialMediaRepository _userSocialMedias;
         private UserTypeRepository _userTypes;
         private GenderRepository _genders;
+        private AzureRepository _azureRepository;
 
         public BrothershipUnitOfWork()
         {
@@ -164,6 +165,18 @@ namespace T5.Brothership.PL
                     _genders = new GenderRepository(_dbContext);
                 }
                 return _genders;
+            }
+        }
+
+        public IAzureRepository AzureBlobStorage
+        {
+            get
+            {
+                if (_azureRepository == null)
+                {
+                    _azureRepository = new AzureRepository();
+                }
+                return _azureRepository;
             }
         }
 

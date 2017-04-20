@@ -26,33 +26,6 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         }
 
         [TestCategory("IntegrationTest"), TestMethod]
-        public void ProfileImageBlobUpload_WasProfileImageStored_ReturnsExpectedImageBlob()
-        {
-            var expectedUser = new User
-            {
-                Bio = "This is the Profile Image Blob Test",
-                DateJoined = DateTime.Now,
-                DOB = new DateTime(1990, 3, 2),
-                Email = "expectedUser@gmail.com",
-                NationalityID = 1,
-                GenderId = 1,
-                UserLogin = new UserLogin { PasswordHash = "PasswordTest", Salt = "none" },
-                UserName = "TestUserName",
-                ProfileImagePath = "TestUserImage.png",
-                UserTypeID = 1
-            };
-
-            RunBlobStorage(expectedUser);
-            expectedUser.ProfileImagePath = ("test");
-            AssertProfileImageBlob(expectedUser);
-            //using (UserRepository userRepo = new UserRepository(new brothershipEntities(ConnectionStrings.TEST_CONNECTION_STRING_NAME)))
-            //{
-            //    userRepo.Add(expectedUser);
-            //    userRepo.SaveChanges();
-            //}
-        }
-
-        [TestCategory("IntegrationTest"), TestMethod]
         public void DeleteById_WasRecordDeleted_GetReturnsNull()
         {
             User actualUser;
@@ -298,50 +271,5 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             Assert.AreEqual(expected.UserTypeID, actual.UserTypeID);
         }
 
-        private void AssertProfileImageBlob(User expected)
-        {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("StorageConnectionString"));
-
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-            CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
-            container.CreateIfNotExists();
-
-            CloudBlockBlob expectedblockBlob = container.GetBlockBlobReference(expected.ProfileImagePath);
-            expectedblockBlob.Properties.ContentType = "image/jpg";
-
-            CloudBlockBlob actualblockBlob = container.GetBlockBlobReference("test");
-            actualblockBlob.Properties.ContentType = "image/jpg";
-
-            Assert.AreEqual(expectedblockBlob, actualblockBlob);
-        }
-
-        private void RunBlobStorage(User expected)
-        {
-            //Test path is temporary. This is my local filepath for testing purposes.
-            string filePath = @"C:\Users\TH\Desktop\testimage.jpg";
-
-            // Retrieve storage account from connection string.
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                CloudConfigurationManager.GetSetting("StorageConnectionString")); ;
-
-            // Create the blob client.
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-            // Retrieve reference to a previously created container.
-            CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
-            container.CreateIfNotExists();
-
-            // Retrieve reference to a blob in the container named after the user.
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference("test");
-            blockBlob.Properties.ContentType = "image/jpg";
-
-            // Create or overwrite the "UserName" blob with contents from a local file.
-            using (var fileStream = System.IO.File.OpenRead(filePath))
-            {
-                blockBlob.UploadFromStream(fileStream);
-            };
-        }
     }
 }

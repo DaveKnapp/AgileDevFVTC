@@ -17,7 +17,7 @@ namespace T5.Brothership.Controllers
         TwitterIntegration _twitterIntegration = new TwitterIntegration();
         UserManager _userManager = new UserManager();
         UserRatingManager _userRatingManger = new UserRatingManager();
-        RatingManager _ratingManager = new RatingManager();
+        AzureStorageManager _azureStorageManager = new AzureStorageManager();
 
         [Route("{userName}")]
         public async Task<ActionResult> User(string userName)

@@ -116,6 +116,7 @@
     <Compile Include="IGDBApi\GameAPIClient.cs" />
     <Compile Include="IGDBApi\IGameAPIService.cs" />
     <Compile Include="Integrations\TwitterIntegration.cs" />
+    <Compile Include="Managers\AzureStorageManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\GenderManager.cs" />
     <Compile Include="Managers\NationalityManager.cs" />

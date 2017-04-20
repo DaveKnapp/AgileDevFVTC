@@ -20,10 +20,11 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
+            Search Results
+             @*@Html.DisplayNameFor(model => model.UserName)*@
         </th>       
         <th>
-            @Html.DisplayNameFor(model => model.ProfileImagePath)
+            @*@Html.DisplayNameFor(model => model.ProfileImagePath)*@
         </th>       
         <th></th>
     </tr>
@@ -34,7 +35,7 @@
             @Html.ActionLink(item.UserName, "User", "User", new { userName = item.UserName }, null)
         </td>       
         <td>
-            @Html.DisplayFor(modelItem => item.ProfileImagePath)
+            <img src="@item.ProfileImagePath" alt="">
         </td>
         
     </tr>

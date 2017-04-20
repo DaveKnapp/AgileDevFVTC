@@ -22,6 +22,7 @@ namespace T5.Brothership.PL.Test
         private UserSocialMediaFakeRepository _userSocialMedias;
         private UserTypeFakeRepository _userTypes;
         private GenderFakeRepo _genders;
+        private IAzureRepository _azureRepository;
 
         public IGameRepository Games
         {
@@ -152,6 +153,18 @@ namespace T5.Brothership.PL.Test
                     _genders = new GenderFakeRepo();
                 }
                 return _genders;
+            }
+        }
+
+        IAzureRepository IBrothershipUnitOfWork.AzureBlobStorage
+        {
+            get
+            {
+                if (_azureRepository == null)
+                {
+                    _azureRepository = new AzureRepository();
+                }
+                return _azureRepository;
             }
         }
 
