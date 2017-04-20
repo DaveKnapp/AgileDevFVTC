@@ -28,7 +28,7 @@ namespace T5.Brothership.Controllers
             urlBuilder.Append("&client_id=");
             urlBuilder.Append(T5.Brothership.BL.TwitchApi.ApiCredentials.CLIENT_ID);
             urlBuilder.Append("&redirect_uri=");
-            urlBuilder.Append("http://" + Request.Url.Authority + "/Twitch/Authorize");
+            urlBuilder.Append("http://brothership.azurewebsites.net/Twitch/Authorize");
             urlBuilder.Append("&scope=user_read channel_read");
        
             return Redirect(urlBuilder.ToString());

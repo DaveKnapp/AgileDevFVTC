@@ -27,7 +27,7 @@ namespace T5.Brothership.BL.TwitchApi
         public async Task<string> GetAuthorizationToken(string authorizationCode)
         {
             var values = new Dictionary<string, string>();
-
+            
             values.Add("client_id", ApiCredentials.CLIENT_ID);
             values.Add("client_secret", ApiCredentials.SECRET);
             values.Add("grant_type", "authorization_code");
