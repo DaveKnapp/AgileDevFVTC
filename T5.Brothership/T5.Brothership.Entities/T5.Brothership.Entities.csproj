@@ -105,6 +105,7 @@
     <Compile Include="Models\Gender.cs">
       <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IntegrationInfo.cs" />
     <Compile Include="Models\IntegrationType.cs">
       <DependentUpon>brothership.tt</DependentUpon>
     </Compile>

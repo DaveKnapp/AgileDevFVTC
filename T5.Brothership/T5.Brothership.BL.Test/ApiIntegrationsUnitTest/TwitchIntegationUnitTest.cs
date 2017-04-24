@@ -21,7 +21,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsUnitTest
                 const string validCode = "ThisIsACode";
                 const int expectedUserId = 2;
                 const string expectedToken = "ThisIsAToken";
-                const string expectedUrl = @"https=//www.twitch.tv/dansgaming";
+                const string expectedUserName = "dansgaming";
 
                 using (TwitchIntegration twitchIntegration = new TwitchIntegration(unitOfWork, new TwitchClientFake()))
                 {
@@ -32,7 +32,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsUnitTest
                     Assert.AreEqual((int)IntegrationType.IntegrationTypes.Twitch, userIntegration.IntegrationTypeID);
                     Assert.AreEqual(expectedUserId, userIntegration.UserID);
                     Assert.AreEqual(expectedToken, userIntegration.Token);
-                    Assert.AreEqual(expectedUrl, userIntegration.URL);
+                    Assert.AreEqual(expectedUserName, userIntegration.UserName);
                 }
             }
 
@@ -78,7 +78,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsUnitTest
                 {
                     IntegrationTypeID = (int)IntegrationType.IntegrationTypes.Twitch,
                     Token = "token",
-                    URL = "url",
+                    UserName = "testUserName",
                     UserID = expectedUserId,
                 });
                 unitOfWork.Commit();

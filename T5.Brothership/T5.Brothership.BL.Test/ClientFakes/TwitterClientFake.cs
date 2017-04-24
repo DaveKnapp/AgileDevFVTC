@@ -21,7 +21,7 @@ namespace T5.Brothership.BL.Test.ClientFakes
             return new ConsumerCredentials("O0BhmFhwm6nFyRTqOaEcL7rnE", "qUj1OZiPkTqpfkFB32uedl6dWPgiNjIeuq8WJMPKKToOoIMPkc");
         }
 
-        public string GetUserURL(string accessToken, string accessSecret)
+        public string GetUserName(string accessToken, string accessSecret)
         {
             if (accessToken == VALID_ACCESS_TOKEN || accessSecret == VALID_ACCESS_TOKEN_SECRET)
             {

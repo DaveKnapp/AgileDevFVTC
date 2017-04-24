@@ -61,13 +61,12 @@ namespace T5.Brothership.BL.TwitchApi
 
             if (!(response.StatusCode == System.Net.HttpStatusCode.OK))
             {
-                //TODO throw custom exeption?
                 throw new HttpException(response.StatusCode.ToString());
             }
         }
 
         public async Task<bool> IsStreamerLive(string token)
-        {//TODO(dave) create nullURl object?
+        {
             var channel = await GetChannel(token);
 
             var response = await client.GetAsync("streams/" + channel._id + "/?stream_type=live");
@@ -80,13 +79,12 @@ namespace T5.Brothership.BL.TwitchApi
                 {
                     return true;
                 }
+                return false;
             }
             else
             {
                 throw new HttpException(response.StatusCode.ToString());
             }
-
-            return false;
         }
 
         public async Task<Channel> GetChannel(string token)

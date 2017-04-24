@@ -38,7 +38,6 @@ namespace T5.Brothership.Controllers
 
             using (UserManager userManager = new UserManager())
             {
-                //ToDO(Dave) refactor?
                 user = userManager.Login(login.Username, login.Password);
                 if (!(user is InvalidUser))
                 {

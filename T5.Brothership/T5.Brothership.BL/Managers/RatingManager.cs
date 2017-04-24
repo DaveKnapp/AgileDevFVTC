@@ -32,7 +32,7 @@ namespace T5.Brothership.BL.Managers
         }
 
         public List<Rating> GetAll()
-        {//TODO(Dave) Add tests
+        {
             return _unitOfWork.Ratings.GetAll().ToList();
         }
     }

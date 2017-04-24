@@ -8,7 +8,7 @@ using T5.Brothership.Entities.Models;
 using T5.Brothership.PL;
 
 namespace T5.Brothership.BL.Integrations
-{//TODO(dave) add integration tests
+{
     public class TwitchIntegration : IDisposable
     {
         IBrothershipUnitOfWork _unitOfWork;
@@ -57,7 +57,7 @@ namespace T5.Brothership.BL.Integrations
                     UserID = userId,
                     IntegrationTypeID = (int)IntegrationType.IntegrationTypes.Twitch,
                     Token = token,
-                    URL = channel.url
+                    UserName = channel.name
                 });
                 _unitOfWork.Commit();
             }
@@ -97,9 +97,9 @@ namespace T5.Brothership.BL.Integrations
         {
             var streamChannel = await _twitchClient.GetChannel(userIntegration.Token);
 
-            if (streamChannel != null && userIntegration.URL != streamChannel.url)
+            if (streamChannel != null && userIntegration.UserName != streamChannel.name)
             {
-                userIntegration.URL = streamChannel.url;
+                userIntegration.UserName = streamChannel.name;
                 _unitOfWork.UserIntegrations.Update(userIntegration);
                 _unitOfWork.Commit();
             }
@@ -107,7 +107,8 @@ namespace T5.Brothership.BL.Integrations
 
         public string GetChannelUrl(int userId)
         {
-            return _unitOfWork.UserIntegrations.GetById(userId, 1).URL;
+            var userName = _unitOfWork.UserIntegrations.GetById(userId, 1).UserName;
+            return "https://www.twitch.tv/" + userName;
         }
     }
 }

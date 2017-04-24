@@ -10,21 +10,22 @@ using Tweetinvi.Models;
 
 namespace T5.Brothership.Controllers
 {
-    //TODO(Dave) refacor
-    //TOOD(Dave) Test?
+    //TOOD(Dave) Test Controller
     public class TwitterController : Controller
     {
         private IAuthenticationContext _authenticationContext;
         private TwitterIntegration _twitterIntegration = new TwitterIntegration();
 
-        // Step 1 : Redirect user to go on Twitter.com to authenticate
         public ActionResult AuthorizeTwitter()
         {
-            //TODO(Dave) Move credentials
-            //TODO(Dave) redirect if not logged in
-            var appCreds = _twitterIntegration.GetCustomerCredentials();
+            var currentUser = Session["CurrentUser"] as T5.Brothership.Entities.Models.User;
 
-            // Specify the url you want the user to be redirected to
+            if (currentUser == null)
+            {
+                RedirectToAction("Login", "Login");
+            }
+            
+            var appCreds = _twitterIntegration.GetCustomerCredentials();
             var redirectURL = "http://" + Request.Url.Authority + "/Twitter/ValidateTwitterAuth";
             _authenticationContext = AuthFlow.InitAuthentication(appCreds, redirectURL);
 

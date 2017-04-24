@@ -23,12 +23,12 @@ namespace T5.Brothership.Controllers
         [Route("{userName}")]
         public async Task<ActionResult> User(string userName)
         {
-            //Todo(Dave) Add error page of user not found
             User user = _userManager.GetByUserName(userName);
 
-            //Refresh to integration to get new url if user changed userName
-            _twitterIntegration.Refresh(user.ID);
-
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
             List<IntegrationInfo> integrationInfos = await GetUserIntegrationInfo(user);
 
             var viewModel = new UserPageViewModel
@@ -82,16 +82,26 @@ namespace T5.Brothership.Controllers
         [Route("User/Rate/{userName}")]
         public ActionResult Rate(UserRatingViewModel viewModel)
         {
-            //TOOD Check if model state is valid
-            var loggedInUser = Session["CurrentUser"] as User;
+            if(ModelState.IsValid)
+            {
+                var loggedInUser = Session["CurrentUser"] as User;
 
-            var userRating = viewModel.UserRating;
-            userRating.RaterUserID = loggedInUser.ID;
+                var userRating = viewModel.UserRating;
+                userRating.RaterUserID = loggedInUser.ID;
 
-            _userRatingManger.Add(userRating);
+                _userRatingManger.Add(userRating);
 
-            string ratedUserName = _userManager.GetById(viewModel.UserRating.UserBeingRatedID).UserName;
-            return RedirectToAction(nameof(User), new {userName = ratedUserName });
+                string ratedUserName = _userManager.GetById(viewModel.UserRating.UserBeingRatedID).UserName;
+                return RedirectToAction(nameof(User), new { userName = ratedUserName });
+            }
+            else
+            {
+                ViewBag.Message = "An error occurred when creating the account.";
+
+                viewModel.Ratings = _ratingManager.GetAll();
+                ViewBag.Message = "An error occurred when submitting rating";
+                return View("Rate", viewModel);
+            }
         }
 
         private async Task<List<IntegrationInfo>> GetUserIntegrationInfo(User user)
@@ -100,7 +110,6 @@ namespace T5.Brothership.Controllers
 
             foreach (var integration in user.UserIntegrations)
             {
-                //TODO Add error handleing clients fail
                 try
                 {
                     switch (integration.IntegrationTypeID)
@@ -110,7 +119,7 @@ namespace T5.Brothership.Controllers
                             {
                                 IntegrationType = (IntegrationType.IntegrationTypes)Enum.ToObject(typeof(IntegrationType.IntegrationTypes), integration.IntegrationTypeID),
                                 IsUserLive = await _twitchIntegration.IsUserLive(user.ID),
-                                UserLiveStreamURL = integration.URL
+                                UserLiveStreamURL = "https://www.twitch.tv/" + integration.UserName
                             }
                             );
                             break;
@@ -120,7 +129,7 @@ namespace T5.Brothership.Controllers
                 }
                 catch (Exception)
                 {
-                    //TODO(Dave) handel client fail
+                    //TODO(Dave) Log error
                 }
 
             }

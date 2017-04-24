@@ -363,9 +363,7 @@
     <Content Include="Views\User\User.cshtml" />
     <Content Include="Views\User\UserRatings.cshtml" />
     <Content Include="Views\User\UserGames.cshtml" />
-    <Content Include="Views\Twitch\Authorized.cshtml" />
     <Content Include="Views\Search\SearchResults.cshtml" />
-    <Content Include="Views\Twitch\Menu.cshtml" />
     <Content Include="Views\Account\EditIntegrations.cshtml" />
     <Content Include="Views\Shared\AccountEditMenu.cshtml" />
     <Content Include="Views\Login\AccountUpdateLink.cshtml" />
@@ -376,7 +374,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
-    <Folder Include="Views\Twitter\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

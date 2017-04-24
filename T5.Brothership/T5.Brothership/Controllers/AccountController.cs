@@ -21,22 +21,12 @@ namespace T5.Brothership.Controllers
         {
             var userViewModel = new CreateUserViewModel
             {
-                CurrentUser = new Entities.Models.User(),
                 Genders = _genderManager.GetAll(),
-                Nationalities = _nationalityManager.GetAll()
+                Nationalities = _nationalityManager.GetAll(),
+                CurrentUser = new User()
             };
+            userViewModel.CurrentUser.Games = new List<Game>();
 
-            if (TempData["userWithError"] == null)
-            {
-                userViewModel.CurrentUser = new User();
-                userViewModel.CurrentUser.Games = new List<Game>();
-            }
-            else
-            {
-                userViewModel.CurrentUser = ((CreateUserViewModel)TempData["userWithError"]).CurrentUser;
-            }
-
-            ViewBag.Message = TempData["error"];
             return View(userViewModel);
         }
 
@@ -53,30 +43,29 @@ namespace T5.Brothership.Controllers
             {
                 if (_userManger.UserNameExists(userViewModel.CurrentUser.UserName))
                 {
-                    TempData["error"] = "Username currently being used";
-                    TempData["userWithError"] = userViewModel;
-                    return RedirectToAction(nameof(Create));
+                    ViewBag.Message = "Username is currently being used";
+                    userViewModel.Genders = _genderManager.GetAll();
+                    userViewModel.Nationalities = _nationalityManager.GetAll();
+
+                    return View(nameof(Create), userViewModel);
                 }
                 else
                 {
                     await _userManger.Add(newUser, userViewModel.Password);
                     var user = _userManger.Login(newUser.UserName, userViewModel.Password);
+
                     if (!(user is InvalidUser))
                     {
                         Session.Add("CurrentUser", user);
                         return RedirectToAction(nameof(EditIntegrations));
                     }
-                    return View("AccountCreated");
                 }
             }
-            else
-            {
-                ViewBag.Message = "An error occurred when creating the account.";
-                return View(nameof(Create));
-            }
+
+            ViewBag.Message = "An error occurred when creating the account.";
+            return View(nameof(Create));
         }
 
-        //TODO(Dave) Rename?
         public ActionResult EditIntegrations()
         {
             User user = Session["CurrentUser"] as User;
@@ -100,7 +89,6 @@ namespace T5.Brothership.Controllers
                     Nationalities = _nationalityManager.GetAll(),
                     Genders = _genderManager.GetAll()
                 };
-                ViewBag.Message = TempData["error"];
                 return View(userViewModel);
             }
             else
@@ -119,16 +107,19 @@ namespace T5.Brothership.Controllers
 
             currentUser.UserTypeID = (int)UserType.UserTypes.User;
 
-            var val = ModelState.Values;
             if (ModelState.IsValid)
             {
-                ViewBag.Message = "Account successfully updated";
                 await _userManger.Update(currentUser);
-                return RedirectToAction("Details", "Login");
+
+                userViewModel.Genders = _genderManager.GetAll();
+                userViewModel.Nationalities = _nationalityManager.GetAll();
+                ViewBag.UpdateMessage = "Account Successfully updated";
+
+                return View(userViewModel);
             }
             else
             {
-                TempData["error"] = "An error occurred when updating the account.";
+                ViewBag.Message = "An error occurred when updating the account.";
                 return RedirectToAction(nameof(Update));
             }
         }
@@ -174,6 +165,7 @@ namespace T5.Brothership.Controllers
             }
             else
             {
+                //Refactor remove temp data
                 TempData["error"] = "An error occurred when updating your password.";
                 return RedirectToAction(nameof(ChangePassword));
             }

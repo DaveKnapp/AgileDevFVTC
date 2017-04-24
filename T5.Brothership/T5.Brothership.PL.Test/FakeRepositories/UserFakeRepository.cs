@@ -50,6 +50,11 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             return _fakeUsers.FirstOrDefault(p => p.ID == id);
         }
 
+        public User GetByUsername(string username)
+        {
+            return _fakeUsers.FirstOrDefault(p => p.UserName == username);
+        }
+
         public User GetByUsernameOrEmail(string userNameOrEmail)
         {
             return _fakeUsers.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);

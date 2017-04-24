@@ -5,12 +5,11 @@ using T5.Brothership.BL.Test.ClientFakes;
 using T5.Brothership.PL.Test;
 using T5.Brothership.Entities.Models;
 
-namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
+namespace T5.Brothership.BL.Test.ApiIntegrationUnitTest
 {
     [TestClass]
-    public class TwitterIntegrationIntegrationTest
+    public class TwitterIntegrationUnitTest
     {
-        //TODO(Dave) add thowing excepton on failed validation and add test
         [TestMethod, TestCategory("UnitTest")]
         public void ValidateTwitterAuth_WasIntegrationInsertedOnValidCode_DbIntegrationNotNull()
         {
@@ -38,7 +37,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                     unitOfWork.UserIntegrations.Add(new UserIntegration
                     {
                         UserID = userId,
-                        URL = "www.testurl.com",
+                        UserName = "www.testurl.com",
                         Token = "TestToken",
                         TokenSecret = "TestTokenSecret",
                         IntegrationTypeID = (int)IntegrationType.IntegrationTypes.Twitter
@@ -64,7 +63,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                     unitOfWork.UserIntegrations.Add(new UserIntegration
                     {
                         UserID = userId,
-                        URL = "www.testurl.com",
+                        UserName = "www.testurl.com",
                         Token = TwitterClientFake.VALID_ACCESS_TOKEN,
                         TokenSecret = TwitterClientFake.VALID_ACCESS_TOKEN_SECRET,
                         IntegrationTypeID = (int)IntegrationType.IntegrationTypes.Twitter
@@ -74,7 +73,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                     twitterIntegration.Refresh(userId);
                     var actualUserIntegration = unitOfWork.UserIntegrations.GetById(userId, (int)IntegrationType.IntegrationTypes.Twitter);
 
-                    Assert.AreEqual(actualUserIntegration.URL, TwitterClientFake.URL);
+                    Assert.AreEqual(actualUserIntegration.UserName, TwitterClientFake.URL);
                 }
             }
         }
@@ -90,7 +89,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                     unitOfWork.UserIntegrations.Add(new UserIntegration
                     {
                         UserID = userId,
-                        URL = TwitterClientFake.URL,
+                        UserName = TwitterClientFake.URL,
                         Token = TwitterClientFake.VALID_ACCESS_TOKEN,
                         TokenSecret = TwitterClientFake.VALID_ACCESS_TOKEN_SECRET,
                         IntegrationTypeID = (int)IntegrationType.IntegrationTypes.Twitter
@@ -100,7 +99,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                     twitterIntegration.Refresh(userId);
                     var actualUserIntegration = unitOfWork.UserIntegrations.GetById(userId, (int)IntegrationType.IntegrationTypes.Twitter);
 
-                    Assert.AreEqual(actualUserIntegration.URL, TwitterClientFake.URL);
+                    Assert.AreEqual(actualUserIntegration.UserName, TwitterClientFake.URL);
                 }
             }
         }

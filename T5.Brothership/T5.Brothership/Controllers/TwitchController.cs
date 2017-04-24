@@ -15,12 +15,6 @@ namespace T5.Brothership.Controllers
     {
         TwitchIntegration _twitchIntegration = new TwitchIntegration();
 
-        //TODO(Dave) Menu and authorized are temporary things Implement UserIntegrations edit for account
-        public ActionResult Menu()
-        {
-            return View();
-        }
-
         public ActionResult AuthorizeTwitch()
         {
             StringBuilder urlBuilder = new StringBuilder("https://api.twitch.tv/kraken/oauth2/authorize");
@@ -28,7 +22,7 @@ namespace T5.Brothership.Controllers
             urlBuilder.Append("&client_id=");
             urlBuilder.Append(T5.Brothership.BL.TwitchApi.ApiCredentials.CLIENT_ID);
             urlBuilder.Append("&redirect_uri=");
-            urlBuilder.Append("http://brothership.azurewebsites.net/Twitch/Authorize");
+            urlBuilder.Append(T5.Brothership.BL.TwitchApi.ApiCredentials.REDIRECT_URL);
             urlBuilder.Append("&scope=user_read channel_read");
        
             return Redirect(urlBuilder.ToString());
@@ -41,11 +35,6 @@ namespace T5.Brothership.Controllers
             await _twitchIntegration.AuthorizeTwitch(user.ID, code);
 
             return RedirectToAction("EditIntegrations", "Account");
-        }
-
-        public ActionResult Authorized()
-        {
-            return View();
         }
 
         public async Task<ActionResult> DeAuthorize()

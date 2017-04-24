@@ -45,12 +45,12 @@
                             switch (integration.IntegrationTypeID)
                             {
                                 case (int)IntegrationType.IntegrationTypes.Twitch:
-                                    <li><a href="@integration.URL" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
+                                    <li><a href="https://www.twitch.tv/@(integration.UserName)" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
+                                            break;
+                                        case (int)IntegrationType.IntegrationTypes.Twitter:
+                                    <li><a href="https://twitter.com/@(integration.UserName) " class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                                     break;
-                                case (int)IntegrationType.IntegrationTypes.Twitter:
-                                    <li><a href="@integration.URL" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                                    break;
-                                default:
+                                        default:
                                     break;
                             }
                         }

@@ -106,7 +106,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ApiIntegrationsIntegrationTest\TwitchIntegationIntegrationTest.cs" />
-    <Compile Include="ApiIntegrationsIntegrationTest\TwitterIntegrationIntegrationTest.cs" />
+    <Compile Include="ApiIntegrationsUnitTest\TwitterIntegrationUnitTest.cs" />
     <Compile Include="ClientFakes\TwitterClientFake.cs" />
     <Compile Include="ConnectionStrings.cs" />
     <Compile Include="GameApiIntegration\GameAPIServiceTest.cs" />
@@ -116,10 +116,12 @@
     <Compile Include="ApiIntegrationsUnitTest\TwitchIntegationUnitTest.cs" />
     <Compile Include="HelpersUnitTest\TwitterURLConverterUnitTest.cs" />
     <Compile Include="ManagerIntegration\GameManagerIntegrationTest.cs" />
-    <Compile Include="ManagerIntegration\UserManagerTest.cs" />
+    <Compile Include="ManagerIntegration\RatingManagerIntegrationTest.cs" />
+    <Compile Include="ManagerIntegration\UserManagerIntegrationTest.cs" />
     <Compile Include="ManagerUnitTests\GameManagerUnitTest.cs" />
     <Compile Include="ManagerUnitTests\GenderManagerUnitTest.cs" />
     <Compile Include="ManagerUnitTests\NationalitymanagerUnitTest.cs" />
+    <Compile Include="ManagerUnitTests\RatingManagerUnitTest.cs" />
     <Compile Include="ManagerUnitTests\UserRatingManagerUnitTest.cs" />
     <Compile Include="ManagerUnitTests\UserManagerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

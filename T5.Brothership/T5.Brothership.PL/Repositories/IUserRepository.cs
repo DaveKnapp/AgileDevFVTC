@@ -10,6 +10,7 @@ namespace T5.Brothership.PL.Repositories
     public interface IUserRepository : IRepository<User>
     {
         User GetByUsernameOrEmail(string userNameOrEmail);
+        User GetByUsername(string username);
         IQueryable<User> GetTopRatedUsers(int count);
         IQueryable<User> GetMostPopularUsers(int count);
         IQueryable<User> GetFeaturedUsers();

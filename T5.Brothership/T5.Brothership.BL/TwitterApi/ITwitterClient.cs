@@ -3,7 +3,7 @@
     public interface ITwitterClient
     {
         Tweetinvi.Models.ConsumerCredentials GetCustomerCredentials();
-        string GetUserURL(string accessToken, string accessSecret);
+        string GetUserName(string accessToken, string accessSecret);
         TwitterApiCredentials ValidateTwitterAuth(string authId, string verifierCode);
     }
 }

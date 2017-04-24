@@ -7,7 +7,7 @@
 
 <h2>Update Account</h2>
 
-@Html.Partial("AccountEditMenu","Edit")
+@Html.Partial("AccountEditMenu", "Edit")
 
 @using (Html.BeginForm())
 {
@@ -15,6 +15,8 @@
 
     <div class="form-horizontal">
         <h4 class="text-danger">@ViewBag.Message</h4>
+        <h4 >@ViewBag.UpdateMessage</h4>
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CurrentUser.ID)
@@ -79,22 +81,22 @@
         </div>
 
         @*@foreach (var socialMediaType in Enum.GetValues(typeof(SocialMediaType.SocialMediaTypes)))
-        {
-            int socialMediaId = (int)socialMediaType;
-            var socialMedia = Model.CurrentUser.UserSocialJuncs.FirstOrDefault(p => p.SocialMediaTypeID == socialMediaId);
-            string url = socialMedia == null ? String.Empty : socialMedia.URL;
+            {
+                int socialMediaId = (int)socialMediaType;
+                var socialMedia = Model.CurrentUser.UserSocialJuncs.FirstOrDefault(p => p.SocialMediaTypeID == socialMediaId);
+                string url = socialMedia == null ? String.Empty : socialMedia.URL;
 
-            <div class="form-group row">
-                <input type="hidden" name="CurrentUser.UserSocialJuncs.Index" value="@socialMediaId" />
-                <input name="CurrentUser.UserSocialJuncs[@socialMediaId].UserID" value="@Model.CurrentUser.ID" type="hidden" />
-                <input name="CurrentUser.UserSocialJuncs[@socialMediaId].SocialMediaTypeID" value="@socialMediaId" type="hidden" />
+                <div class="form-group row">
+                    <input type="hidden" name="CurrentUser.UserSocialJuncs.Index" value="@socialMediaId" />
+                    <input name="CurrentUser.UserSocialJuncs[@socialMediaId].UserID" value="@Model.CurrentUser.ID" type="hidden" />
+                    <input name="CurrentUser.UserSocialJuncs[@socialMediaId].SocialMediaTypeID" value="@socialMediaId" type="hidden" />
 
-                <label class="control-label col-md-2 col-md-offset-2" for="@(socialMediaType)input">@socialMediaType</label>
-                <div class="col-md-6">
-                    <input id="@(socialMediaType)input" name="CurrentUser.UserSocialJuncs[@socialMediaId].URL" class="form-control" value="@url" />
+                    <label class="control-label col-md-2 col-md-offset-2" for="@(socialMediaType)input">@socialMediaType</label>
+                    <div class="col-md-6">
+                        <input id="@(socialMediaType)input" name="CurrentUser.UserSocialJuncs[@socialMediaId].URL" class="form-control" value="@url" />
+                    </div>
                 </div>
-            </div>
-        }*@
+            }*@
 
         <div class="form-group row">
             <div id="userInputGames" class="col-md-6">
@@ -124,8 +126,6 @@
 @Html.Partial("UserGameEditSearch", Model.CurrentUser.Games.ToList())
 
 <input type="button" value="Save" class="btn btn-lg btn-theme" onclick="SubmitForm();" /><br />
-
-@Html.ActionLink("Change password", "ChangePassword", "Account")
 
 @section Scripts {
 

@@ -301,6 +301,32 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
             }
         }
 
+        [TestCategory("UnitTest"), TestMethod]
+        public async Task GetByUserName_ValidUserName_ReturnsUser()
+        {
+            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork(), new GameApiClientFake()))
+            {
+                var expectedUserName = "TestUserTwo";
+
+                var actualUser = userManager.GetByUserName(expectedUserName);
+
+                Assert.AreEqual(expectedUserName, actualUser.UserName);
+            }
+        }
+
+        [TestCategory("UnitTest"), TestMethod]
+        public async Task GetByUserName_InValidUserName_ReturnsNull()
+        {
+            using (var userManager = new UserManager(new FakeBrothershipUnitOfWork(), new GameApiClientFake()))
+            {
+                var invalidUserName = "NoUserName";
+
+                var actualUser = userManager.GetByUserName(invalidUserName);
+
+                Assert.IsNull(actualUser);
+            }
+        }
+
         private User CreateExpectedAddedUser()
         {
             var expectedUser = new User

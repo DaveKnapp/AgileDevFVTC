@@ -12,7 +12,6 @@ namespace T5.Brothership.BL.Integrations
 {
     public class TwitterIntegration : IDisposable
     {
-        //TODO(Dave) Do I was to change url to username?  This allow to search my userName from other platforms such as twitch
         private IBrothershipUnitOfWork _unitOfWork;
         private ITwitterClient _twitterClient;
 
@@ -29,7 +28,7 @@ namespace T5.Brothership.BL.Integrations
         }
 
         public Tweetinvi.Models.ConsumerCredentials GetCustomerCredentials()
-        {//TODO(Dave) Do I want to move this?
+        {
             return _twitterClient.GetCustomerCredentials();
         }
 
@@ -41,9 +40,8 @@ namespace T5.Brothership.BL.Integrations
         }
 
         private void SaveCredentials(int userId, TwitterApiCredentials userCreds)
-        {//TODO(Dave) Add check if userName Changed
-
-            string userName = _twitterClient.GetUserURL(userCreds.AccessToken, userCreds.AccessTokenSecret);
+        {
+            string userName = _twitterClient.GetUserName(userCreds.AccessToken, userCreds.AccessTokenSecret);
             DeleteUserIntegrationIfExists(userId);
 
             _unitOfWork.UserIntegrations.Add(new UserIntegration
@@ -52,7 +50,7 @@ namespace T5.Brothership.BL.Integrations
                 UserID = userId,
                 Token = userCreds.AccessToken,
                 TokenSecret = userCreds.AccessTokenSecret,
-                URL = userName
+                UserName = userName
             });
             _unitOfWork.Commit();
         }
@@ -82,10 +80,10 @@ namespace T5.Brothership.BL.Integrations
             {
                 if (userIntegration != null)
                 {
-                    var twitterUrl = _twitterClient.GetUserURL(userIntegration.Token, userIntegration.TokenSecret);
-                    if (userIntegration.URL != twitterUrl && twitterUrl != null)
+                    var twitterUrl = _twitterClient.GetUserName(userIntegration.Token, userIntegration.TokenSecret);
+                    if (userIntegration.UserName != twitterUrl && twitterUrl != null)
                     {
-                        userIntegration.URL = twitterUrl;
+                        userIntegration.UserName = twitterUrl;
                         _unitOfWork.UserIntegrations.Update(userIntegration);
                         _unitOfWork.Commit();
                     }
