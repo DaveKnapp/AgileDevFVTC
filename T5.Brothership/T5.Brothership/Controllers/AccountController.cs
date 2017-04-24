@@ -7,16 +7,28 @@ using T5.Brothership.BL.Managers;
 using System.Threading.Tasks;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.ViewModels;
+using T5.Brothership.Helpers;
 
 namespace T5.Brothership.Controllers
 {
     public class AccountController : Controller
     {
-        readonly UserManager _userManger = new UserManager();
-        readonly NationalityManager _nationalityManager = new NationalityManager();
-        readonly GenderManager _genderManager = new GenderManager();
+        readonly IUserManager _userManger;
+        readonly INationalityManager _nationalityManager;
+        readonly IGenderManager _genderManager;
+        readonly ISessionHelper _sessionHelper;
 
+        public AccountController() : this(new UserManager(), new NationalityManager(), new GenderManager(), new SessionHelper())
+        { }
 
+        public AccountController(IUserManager userManger, INationalityManager nationalityManger, IGenderManager genderManager, ISessionHelper sessionHelper)
+        {
+            _userManger = userManger;
+            _nationalityManager = nationalityManger;
+            _genderManager = genderManager;
+            _sessionHelper = sessionHelper;
+        }
+           
         public ActionResult Create()
         {
             var userViewModel = new CreateUserViewModel
@@ -27,7 +39,7 @@ namespace T5.Brothership.Controllers
             };
             userViewModel.CurrentUser.Games = new List<Game>();
 
-            return View(userViewModel);
+            return View(nameof(Create), userViewModel);
         }
 
         [HttpPost]
@@ -35,7 +47,7 @@ namespace T5.Brothership.Controllers
         {
             //TODO(Dave) Add uploading of profile image
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
-            var newUser = userViewModel.CurrentUser;
+           var newUser = userViewModel.CurrentUser;
             newUser.ProfileImagePath = "Default";
             newUser.UserTypeID = (int)UserType.UserTypes.User;
 
@@ -53,10 +65,10 @@ namespace T5.Brothership.Controllers
                 {
                     await _userManger.Add(newUser, userViewModel.Password);
                     var user = _userManger.Login(newUser.UserName, userViewModel.Password);
-
+                   
                     if (!(user is InvalidUser))
                     {
-                        Session.Add("CurrentUser", user);
+                        _sessionHelper.Add("CurrentUser", user);
                         return RedirectToAction(nameof(EditIntegrations));
                     }
                 }
@@ -169,7 +181,6 @@ namespace T5.Brothership.Controllers
                 TempData["error"] = "An error occurred when updating your password.";
                 return RedirectToAction(nameof(ChangePassword));
             }
-
         }
     }
 }

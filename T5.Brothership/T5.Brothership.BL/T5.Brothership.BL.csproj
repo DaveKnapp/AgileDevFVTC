@@ -119,6 +119,9 @@
     <Compile Include="Managers\AzureStorageManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\GenderManager.cs" />
+    <Compile Include="Managers\IGenderManager.cs" />
+    <Compile Include="Managers\INationalityManager.cs" />
+    <Compile Include="Managers\IUserManager.cs" />
     <Compile Include="Managers\NationalityManager.cs" />
     <Compile Include="Integrations\TwitchIntegration.cs" />
     <Compile Include="Managers\RatingManager.cs" />

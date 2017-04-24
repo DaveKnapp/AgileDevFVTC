@@ -115,6 +115,9 @@
     <Compile Include="HelpersUnitTest\PasswordHelperTest.cs" />
     <Compile Include="ApiIntegrationsUnitTest\TwitchIntegationUnitTest.cs" />
     <Compile Include="HelpersUnitTest\TwitterURLConverterUnitTest.cs" />
+    <Compile Include="ManagerFakes\GenderManagerFake.cs" />
+    <Compile Include="ManagerFakes\NationalityManagerFake.cs" />
+    <Compile Include="ManagerFakes\UserManagerFake.cs" />
     <Compile Include="ManagerIntegration\GameManagerIntegrationTest.cs" />
     <Compile Include="ManagerIntegration\RatingManagerIntegrationTest.cs" />
     <Compile Include="ManagerIntegration\UserManagerIntegrationTest.cs" />

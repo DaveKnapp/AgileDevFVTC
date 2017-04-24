@@ -16,7 +16,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace T5.Brothership.BL.Managers
 {
-    public class UserManager : IDisposable
+    public class UserManager : IDisposable, IUserManager
     {
         GameManager _gameManager;
         IBrothershipUnitOfWork _unitOfWork;

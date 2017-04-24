@@ -8,7 +8,7 @@ using T5.Brothership.PL;
 
 namespace T5.Brothership.BL.Managers
 {
-    public class GenderManager: IDisposable
+    public class GenderManager : IDisposable, IGenderManager
     {
         IBrothershipUnitOfWork _unitOfWork;
 
