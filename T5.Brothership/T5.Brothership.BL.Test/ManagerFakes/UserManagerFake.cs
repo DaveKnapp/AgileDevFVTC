@@ -106,6 +106,7 @@ namespace T5.Brothership.BL.Test.ManagerFakes
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,
                 UserTypeID = 1,
+                UserIntegrations = new List<UserIntegration>(),
                 UserLogin = new UserLogin
                 {
                     PasswordHash = "5Efg7nxAjJdkjIsZECyAWGA10mMixUnUiatbAgfcX3g=",
@@ -129,6 +130,7 @@ namespace T5.Brothership.BL.Test.ManagerFakes
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,
                 UserTypeID = 1,
+                UserIntegrations = new List<UserIntegration>(),
                 UserLogin = new UserLogin
                 {
                     PasswordHash = "qaNdZwpUFt18tcaJtAJBr4rTkwmy6uwvB1zlm4MLh7g=",
@@ -151,6 +153,7 @@ namespace T5.Brothership.BL.Test.ManagerFakes
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,
                 UserTypeID = 2,
+                UserIntegrations = new List<UserIntegration>(),
                 UserLogin = new UserLogin
                 {
                     PasswordHash = "/HOXKid5g4YaNZNitnwyYnnoy7CecL6lxaDil4fjHmE=",
@@ -173,6 +176,7 @@ namespace T5.Brothership.BL.Test.ManagerFakes
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,
                 UserTypeID = 2,
+                UserIntegrations = new List<UserIntegration>(),
                 UserLogin = new UserLogin
                 {
                     PasswordHash = "zAhNMBQ4/Ld4Qg19Sm3vukDyyu+rYnRAgIBw5t2wjTM=",
@@ -195,6 +199,7 @@ namespace T5.Brothership.BL.Test.ManagerFakes
                 Nationality = new Nationality { ID = 1, Description = "US and A" },
                 NationalityID = 1,
                 UserTypeID = 1,
+                UserIntegrations = new List<UserIntegration>(),
                 UserLogin = new UserLogin
                 {
                     PasswordHash = "VCexSa7lVH7IvZ4qsABqRcnjWJLte24mPCaTK4DbHNY=",
@@ -218,6 +223,7 @@ namespace T5.Brothership.BL.Test.ManagerFakes
                 NationalityID = 1,
                 UserTypeID = 2,
                 UserRatings = new List<UserRating>(),
+                UserIntegrations = new List<UserIntegration>(),
                 UserLogin = new UserLogin
                 {
                     PasswordHash = "VCexSa7lVH7IvZ4qsABqRcnjWJLte24mPCaTK4DbHNY=",

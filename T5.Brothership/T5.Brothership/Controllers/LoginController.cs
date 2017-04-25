@@ -12,20 +12,6 @@ namespace T5.Brothership.Controllers
     {
         readonly UserManager _usermanager = new UserManager();
 
-        //public ActionResult Details()
-        //{
-        //    var user = Session["CurrentUser"] as User;
-
-        //    if (user == null)
-        //    {
-        //        return RedirectToAction(nameof(Login));
-
-        //    }
-        //    user = _usermanager.GetById(user.ID);
-
-        //    return View(user);
-        //}
-
         public ActionResult Login()
         {
             return Session["CurrentUser"] == null ? (ActionResult)View() : RedirectToAction("Index", "Home");
@@ -47,7 +33,7 @@ namespace T5.Brothership.Controllers
             }
 
             ViewBag.Message = "Invalid Username or Password";
-            return View();
+            return View(nameof(login));
         }
 
         public ActionResult LogOut()

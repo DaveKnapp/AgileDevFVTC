@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.ViewModels;
 using T5.Brothership.Helpers;
+using T5.Brothership.BL.Exceptions;
 
 namespace T5.Brothership.Controllers
 {
@@ -28,7 +29,7 @@ namespace T5.Brothership.Controllers
             _genderManager = genderManager;
             _sessionHelper = sessionHelper;
         }
-           
+
         public ActionResult Create()
         {
             var userViewModel = new CreateUserViewModel
@@ -47,7 +48,7 @@ namespace T5.Brothership.Controllers
         {
             //TODO(Dave) Add uploading of profile image
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
-           var newUser = userViewModel.CurrentUser;
+            var newUser = userViewModel.CurrentUser;
             newUser.ProfileImagePath = "Default";
             newUser.UserTypeID = (int)UserType.UserTypes.User;
 
@@ -65,7 +66,7 @@ namespace T5.Brothership.Controllers
                 {
                     await _userManger.Add(newUser, userViewModel.Password);
                     var user = _userManger.Login(newUser.UserName, userViewModel.Password);
-                   
+
                     if (!(user is InvalidUser))
                     {
                         _sessionHelper.Add("CurrentUser", user);
@@ -80,18 +81,18 @@ namespace T5.Brothership.Controllers
 
         public ActionResult EditIntegrations()
         {
-            User user = Session["CurrentUser"] as User;
+            User user = (User)_sessionHelper.Get("CurrentUser") as User;
             if (user == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             user = _userManger.GetById(user.ID);
-            return View(user.UserIntegrations);
+            return View(nameof(EditIntegrations), user.UserIntegrations);
         }
 
         public ActionResult Update()
         {
-            var user = Session["CurrentUser"] as User;
+            var user = _sessionHelper.Get("CurrentUser") as User;
 
             if (user != null)
             {
@@ -101,7 +102,7 @@ namespace T5.Brothership.Controllers
                     Nationalities = _nationalityManager.GetAll(),
                     Genders = _genderManager.GetAll()
                 };
-                return View(userViewModel);
+                return View(nameof(Update), userViewModel);
             }
             else
             {
@@ -113,7 +114,7 @@ namespace T5.Brothership.Controllers
         public async Task<ActionResult> Update(UpdateUserViewModel userViewModel)
         {
             var currentUser = userViewModel.CurrentUser;
-            currentUser.ID = (Session["CurrentUser"] as User).ID;
+            currentUser.ID = (_sessionHelper.Get("CurrentUser") as User).ID;
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
             currentUser.ProfileImagePath = "Default";
 
@@ -125,20 +126,23 @@ namespace T5.Brothership.Controllers
 
                 userViewModel.Genders = _genderManager.GetAll();
                 userViewModel.Nationalities = _nationalityManager.GetAll();
-                ViewBag.UpdateMessage = "Account Successfully updated";
+                ViewBag.UpdateMessage = "Account Successfully updated.";
 
-                return View(userViewModel);
+                return View(nameof(Update), userViewModel);
             }
             else
             {
+                userViewModel.Genders = _genderManager.GetAll();
+                userViewModel.Nationalities = _nationalityManager.GetAll();
+
                 ViewBag.Message = "An error occurred when updating the account.";
-                return RedirectToAction(nameof(Update));
+                return View(nameof(Update), userViewModel);
             }
         }
 
         public ActionResult ChangePassword()
         {
-            User currentUser = Session["CurrentUser"] as User;
+            User currentUser = _sessionHelper.Get("CurrentUser") as User;
 
             if (currentUser == null)
             {
@@ -153,8 +157,7 @@ namespace T5.Brothership.Controllers
                     UserName = currentUser.UserName
                 };
 
-                ViewBag.Message = TempData["error"];
-                return View(viewModel);
+                return View(nameof(ChangePassword), viewModel);
             }
         }
 
@@ -163,24 +166,25 @@ namespace T5.Brothership.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = Session["CurrentUser"] as User;
+                User user = _sessionHelper.Get("CurrentUser") as User;
 
                 if (user != null)
                 {
-                    _userManger.UpdatePassword(passwordViewModel.CurrentPassword, passwordViewModel.NewPassword, user);
+                    try
+                    {
+                        _userManger.UpdatePassword(passwordViewModel.CurrentPassword, passwordViewModel.NewPassword, user);
+                    }
+                    catch (InvalidPasswordException)
+                    {
+                        ViewBag.Message = "Invalid Password";
+                        return View(nameof(ChangePassword));
+                    }
                     return View("PasswordUpdated");
                 }
-                else
-                {
-                    return View(nameof(UserLogin), passwordViewModel);
-                }
             }
-            else
-            {
-                //Refactor remove temp data
-                TempData["error"] = "An error occurred when updating your password.";
-                return RedirectToAction(nameof(ChangePassword));
-            }
+
+            ViewBag.Message = "An error occurred when updating your password.";
+            return View(nameof(ChangePassword));
         }
     }
 }

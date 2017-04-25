@@ -18,7 +18,9 @@ namespace T5.Brothership.Web.Test
 
         public object Get(string sessionKey)
         {
-            return _fakeSession[sessionKey];
+            object value;
+            _fakeSession.TryGetValue(sessionKey, out value);
+            return value;
         }
     }
 }
