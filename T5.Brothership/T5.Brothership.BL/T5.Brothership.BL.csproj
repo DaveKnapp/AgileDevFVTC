@@ -115,6 +115,7 @@
     <Compile Include="IGDBApi\GameResponse.cs" />
     <Compile Include="IGDBApi\GameAPIClient.cs" />
     <Compile Include="IGDBApi\IGameAPIService.cs" />
+    <Compile Include="Integrations\ITwitchIntegration.cs" />
     <Compile Include="Integrations\TwitterIntegration.cs" />
     <Compile Include="Managers\AzureStorageManager.cs" />
     <Compile Include="Managers\GameManager.cs" />

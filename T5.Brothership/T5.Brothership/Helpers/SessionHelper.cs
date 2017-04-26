@@ -16,5 +16,10 @@ namespace T5.Brothership.Helpers
         {
             return HttpContext.Current.Session[sessionKey];
         }
+
+        public void remove(string sessionKey)
+        {
+            HttpContext.Current.Session.Remove(sessionKey);
+        }
     }
 }

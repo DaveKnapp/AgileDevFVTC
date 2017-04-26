@@ -64,8 +64,7 @@ namespace T5.Brothership.BL.Test.ManagerFakes
 
         public User Login(string userNameOrEmail, string password)
         {
-            var user = _fakeUsers.FirstOrDefault(p => p.UserName == userNameOrEmail);
-            return user == null ? new InvalidUser() : user;
+            return password == ValidPassword ? _fakeUsers.FirstOrDefault(p => p.ID == 1) : new InvalidUser();
         }
 
         public Task Update(User updatedUser)

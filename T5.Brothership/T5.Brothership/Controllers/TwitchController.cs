@@ -8,12 +8,22 @@ using T5.Brothership.BL.Managers;
 using T5.Brothership.Entities.Models;
 using System.Threading.Tasks;
 using T5.Brothership.BL.Integrations;
+using T5.Brothership.Helpers;
 
 namespace T5.Brothership.Controllers
 {
     public class TwitchController : Controller
     {
-        TwitchIntegration _twitchIntegration = new TwitchIntegration();
+        ITwitchIntegration _twitchIntegration;
+        ISessionHelper _sessionHelper;
+
+        public TwitchController() : this(new TwitchIntegration(), new SessionHelper()) { }
+
+        public TwitchController(ITwitchIntegration twitchIntegration, ISessionHelper sessionHelper)
+        {
+            _twitchIntegration = twitchIntegration;
+            _sessionHelper = sessionHelper;
+        }
 
         public ActionResult AuthorizeTwitch()
         {
@@ -30,7 +40,7 @@ namespace T5.Brothership.Controllers
 
         public async Task<ActionResult> Authorize(string code, string scope)
         {
-             User user = Session["CurrentUser"] as User;
+             User user = _sessionHelper.Get("CurrentUser") as User;
 
             await _twitchIntegration.AuthorizeTwitch(user.ID, code);
 
@@ -39,7 +49,7 @@ namespace T5.Brothership.Controllers
 
         public async Task<ActionResult> DeAuthorize()
         {
-            User user = Session["CurrentUser"] as User;
+            User user = _sessionHelper.Get("CurrentUser") as User;
             await _twitchIntegration.DeAuthorizeTwitch(user.ID);
 
             return RedirectToAction("EditIntegrations", "Account");

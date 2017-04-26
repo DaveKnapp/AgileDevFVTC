@@ -11,30 +11,24 @@ namespace T5.Brothership.Controllers
 {
     public class HomeController : Controller
     {
-        readonly UserManager _usermanager = new UserManager();
+        readonly IUserManager _usermanager;
 
-        //FrontPageUserList frontPageUsers;
+        public HomeController() : this(new UserManager()) { }
+        
+        public HomeController(IUserManager userManger)
+        {
+            _usermanager = userManger;
+        }
+
         public ActionResult Index()
         {
-            var viewModel = new HomeViewModel();
-            viewModel.RandomFeaturedUsers = _usermanager.GetRandomFeaturedUsers(4);
-            viewModel.RandomPopularUsers = _usermanager.GetRandomPopularUsers(4,5);
+            var viewModel = new HomeViewModel
+            {
+                RandomFeaturedUsers = _usermanager.GetRandomFeaturedUsers(4),
+                RandomPopularUsers = _usermanager.GetRandomPopularUsers(4, 5)
+            };
 
-            return View(viewModel);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(nameof(Index), viewModel);
         }
     }
 }

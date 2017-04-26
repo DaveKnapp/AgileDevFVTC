@@ -4,5 +4,6 @@
     {
         void Add(string sessionKey, object sessionValue);
         object Get(string sessionKey);
+        void remove(string sessionKey);
     }
 }

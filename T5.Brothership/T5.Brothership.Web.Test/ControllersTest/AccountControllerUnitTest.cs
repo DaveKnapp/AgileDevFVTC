@@ -124,7 +124,12 @@ namespace T5.Brothership.Web.Test.ControllersTest
         [TestMethod, TestCategory("UnitTest")]
         public async Task CreatePost_SuccessfullCreationRedirectsToCorrectView_ReturnsEditIntegraionView()
         {
-            using (var controller = new AccountController(new UserManagerFake(),
+            var userManager = new UserManagerFake
+            {
+                ValidPassword = "Password"
+            };
+
+            using (var controller = new AccountController(userManager,
                                                    new NationalityManagerFake(),
                                                    new GenderManagerFake(),
                                                    new SessionHelperFake()))

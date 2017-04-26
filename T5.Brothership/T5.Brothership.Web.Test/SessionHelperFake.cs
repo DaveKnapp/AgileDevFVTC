@@ -22,5 +22,10 @@ namespace T5.Brothership.Web.Test
             _fakeSession.TryGetValue(sessionKey, out value);
             return value;
         }
+
+        public void remove(string sessionKey)
+        {
+            _fakeSession.Remove(sessionKey);
+        }
     }
 }

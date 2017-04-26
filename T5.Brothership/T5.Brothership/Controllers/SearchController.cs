@@ -11,6 +11,7 @@ namespace T5.Brothership.Controllers
 {
     public class SearchController : Controller
     {
+        //TODO Add tests
         readonly UserManager _userManager = new UserManager();
         readonly GameManager _gameManager = new GameManager();
         // GET: Search

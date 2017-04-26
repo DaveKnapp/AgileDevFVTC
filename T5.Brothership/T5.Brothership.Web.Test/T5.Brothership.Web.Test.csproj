@@ -56,6 +56,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ControllersTest\AccountControllerUnitTest.cs" />
+    <Compile Include="ControllersTest\HomeControllerUnitTest.cs" />
+    <Compile Include="ControllersTest\LoginControllerUnitTest.cs" />
+    <Compile Include="ControllersTest\TwitchControllerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionHelperFake.cs" />
   </ItemGroup>

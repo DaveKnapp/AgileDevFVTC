@@ -9,7 +9,7 @@ using T5.Brothership.PL;
 
 namespace T5.Brothership.BL.Integrations
 {
-    public class TwitchIntegration : IDisposable
+    public class TwitchIntegration : IDisposable, ITwitchIntegration
     {
         IBrothershipUnitOfWork _unitOfWork;
         ITwitchClient _twitchClient;
