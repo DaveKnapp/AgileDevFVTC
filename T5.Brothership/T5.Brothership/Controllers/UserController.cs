@@ -8,27 +8,48 @@ using T5.Brothership.BL.Managers;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.ViewModels;
 using System.Threading.Tasks;
+using T5.Brothership.Helpers;
 
 namespace T5.Brothership.Controllers
 {
     public class UserController : Controller
     {
-        TwitchIntegration _twitchIntegration = new TwitchIntegration();
-        TwitterIntegration _twitterIntegration = new TwitterIntegration();
-        UserManager _userManager = new UserManager();
-        UserRatingManager _userRatingManger = new UserRatingManager();
+        ITwitchIntegration _twitchIntegration;
+        ITwitterIntegration _twitterIntegration;
+        IUserManager _userManager;
+        IUserRatingManager _userRatingManger;
         AzureStorageManager _azureStorageManager = new AzureStorageManager();
-        RatingManager _ratingManager = new RatingManager();
+        IRatingManager _ratingManager;
+        ISessionHelper _sessionHelper;
+
+        public UserController() : this(new TwitchIntegration(),
+                                     new TwitterIntegration(),
+                                     new UserManager(),
+                                     new UserRatingManager(),
+                                     new RatingManager(),
+                                     new SessionHelper())
+        { }
+
+        public UserController(ITwitchIntegration twitchIntegration, ITwitterIntegration twitterintegration, IUserManager userManager,
+                              IUserRatingManager userRatingManager, IRatingManager ratingManager, ISessionHelper sessionHelper)
+        {
+            _twitchIntegration = twitchIntegration;
+            _twitterIntegration = twitterintegration;
+            _userManager = userManager;
+            _userRatingManger = userRatingManager;
+            _ratingManager = ratingManager;
+            _sessionHelper = sessionHelper;
+        }
 
         [Route("{userName}")]
         public async Task<ActionResult> User(string userName)
         {
-            //Todo(Dave) Add error page of user not found
             User user = _userManager.GetByUserName(userName);
 
-            //Refresh to integration to get new url if user changed userName
-            _twitterIntegration.Refresh(user.ID);
-
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
             List<IntegrationInfo> integrationInfos = await GetUserIntegrationInfo(user);
 
             var viewModel = new UserPageViewModel
@@ -38,60 +59,96 @@ namespace T5.Brothership.Controllers
                 AverageRating = _userRatingManger.GetAverageRating(user.ID),
                 IsUserLoggedIn = IsUserLoggedIn()
             };
-
-            return View("user", viewModel);
+            //TOOD Change to nameof
+            return View(nameof(User), viewModel);
         }
 
         [Route("User/UserGames/{userName}")]
         public ActionResult UserGames(string userName)
         {
             var user = _userManager.GetByUserName(userName);
-            return View(user);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(nameof(UserGames), user);
         }
 
         [Route("User/UserRatings/{userName}")]
         public ActionResult UserRatings(string userName)
         {
             var user = _userManager.GetByUserName(userName);
-            return View(user);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(nameof(UserRatings), user);
         }
 
         [Route("User/Rate/{userName}")]
         public ActionResult Rate(string userName)
         {
 
-            var loggedInUser = Session["CurrentUser"] as User;
+            var loggedInUser = _sessionHelper.Get("CurrentUser") as User;
+
+            if (loggedInUser == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
             var userToRate = _userManager.GetByUserName(userName);
 
-            UserRating userRating = new UserRating
+            if (userToRate == null)
             {
-                UserBeingRatedID = userToRate.ID ,
-                RaterUserID = loggedInUser.ID
-            };
+                return HttpNotFound();
+            }
 
             UserRatingViewModel viewModel = new UserRatingViewModel
             {
-                UserRating = userRating,
-                Ratings = _ratingManager.GetAll()
+                Ratings = _ratingManager.GetAll(),
+                UserRating = new UserRating
+                {
+                    UserBeingRatedID = userToRate.ID,
+                    RaterUserID = loggedInUser.ID
+                }
             };
 
-            return View(viewModel);
+            return View(nameof(Rate), viewModel);
         }
 
         [HttpPost]
         [Route("User/Rate/{userName}")]
         public ActionResult Rate(UserRatingViewModel viewModel)
         {
-            //TOOD Check if model state is valid
-            var loggedInUser = Session["CurrentUser"] as User;
+            if (ModelState.IsValid)
+            {
+                var loggedInUser = _sessionHelper.Get("CurrentUser") as User;
 
-            var userRating = viewModel.UserRating;
-            userRating.RaterUserID = loggedInUser.ID;
+                if (loggedInUser == null)
+                {
+                   return RedirectToAction("Login", "Login");
+                }
 
-            _userRatingManger.Add(userRating);
+                var userRating = viewModel.UserRating;
+                userRating.RaterUserID = loggedInUser.ID;
 
-            string ratedUserName = _userManager.GetById(viewModel.UserRating.UserBeingRatedID).UserName;
-            return RedirectToAction(nameof(User), new {userName = ratedUserName });
+                _userRatingManger.Add(userRating);
+
+                string ratedUserName = _userManager.GetById(viewModel.UserRating.UserBeingRatedID).UserName;
+
+                return RedirectToAction(nameof(User),"User", new { userName = ratedUserName });
+            }
+            else
+            {
+                viewModel.Ratings = _ratingManager.GetAll();
+                ViewBag.Message = "An error occurred when submitting rating.";
+
+                return View(nameof(Rate), viewModel);
+            }
         }
 
         private async Task<List<IntegrationInfo>> GetUserIntegrationInfo(User user)
@@ -100,7 +157,6 @@ namespace T5.Brothership.Controllers
 
             foreach (var integration in user.UserIntegrations)
             {
-                //TODO Add error handleing clients fail
                 try
                 {
                     switch (integration.IntegrationTypeID)
@@ -110,7 +166,7 @@ namespace T5.Brothership.Controllers
                             {
                                 IntegrationType = (IntegrationType.IntegrationTypes)Enum.ToObject(typeof(IntegrationType.IntegrationTypes), integration.IntegrationTypeID),
                                 IsUserLive = await _twitchIntegration.IsUserLive(user.ID),
-                                UserLiveStreamURL = integration.URL
+                                UserLiveStreamURL = "https://www.twitch.tv/" + integration.UserName
                             }
                             );
                             break;
@@ -120,7 +176,7 @@ namespace T5.Brothership.Controllers
                 }
                 catch (Exception)
                 {
-                    //TODO(Dave) handel client fail
+                    //TODO(Dave) Log error
                 }
 
             }
@@ -129,7 +185,7 @@ namespace T5.Brothership.Controllers
 
         private bool IsUserLoggedIn()
         {
-            var LoggedInUser = Session["CurrentUser"] as User;
+            var LoggedInUser = _sessionHelper.Get("CurrentUser") as User;
 
             return LoggedInUser != null;
         }

@@ -4,28 +4,41 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using T5.Brothership.BL.Integrations;
-
+using T5.Brothership.Helpers;
 using Tweetinvi;
 using Tweetinvi.Models;
 
 namespace T5.Brothership.Controllers
 {
-    //TODO(Dave) refacor
-    //TOOD(Dave) Test?
     public class TwitterController : Controller
-    {
+    {//TODO Add tests Problem with request and AuthFlow need to mock?
         private IAuthenticationContext _authenticationContext;
-        private TwitterIntegration _twitterIntegration = new TwitterIntegration();
+        readonly ITwitterIntegration _twitterIntegration;
+        readonly ISessionHelper _sessionHelper;
 
-        // Step 1 : Redirect user to go on Twitter.com to authenticate
+        public TwitterController() : this(new TwitterIntegration(), new SessionHelper()) { }
+
+        public TwitterController(ITwitterIntegration twitterIntegration, ISessionHelper sessionHelper)
+        {
+            _twitterIntegration = twitterIntegration;
+            _sessionHelper = sessionHelper;
+        }
+
         public ActionResult AuthorizeTwitter()
         {
-            //TODO(Dave) Move credentials
-            //TODO(Dave) redirect if not logged in
-            var appCreds = _twitterIntegration.GetCustomerCredentials();
+            var currentUser = _sessionHelper.Get("CurrentUser") as T5.Brothership.Entities.Models.User;
 
-            // Specify the url you want the user to be redirected to
+            if (currentUser == null)
+            {
+                RedirectToAction("Login", "Login");
+            }
+            
+            var appCreds = _twitterIntegration.GetCustomerCredentials();
+#if DEBUG
+            var redirectURL = "http://localhost:60920/Twitter/ValidateTwitterAuth";
+#else
             var redirectURL = "http://" + Request.Url.Authority + "/Twitter/ValidateTwitterAuth";
+#endif
             _authenticationContext = AuthFlow.InitAuthentication(appCreds, redirectURL);
 
             return new RedirectResult(_authenticationContext.AuthorizationURL);
@@ -36,7 +49,7 @@ namespace T5.Brothership.Controllers
             var authorizationId = Request.Params.Get("authorization_id");
             var verifierCode = Request.Params.Get("oauth_verifier");
 
-            var user = Session["CurrentUser"] as T5.Brothership.Entities.Models.User;
+            var user = _sessionHelper.Get("CurrentUser") as T5.Brothership.Entities.Models.User;
 
             _twitterIntegration.ValidateTwitterAuth(user.ID, authorizationId, verifierCode);
 
@@ -45,7 +58,7 @@ namespace T5.Brothership.Controllers
 
         public ActionResult DeAuthorize()
         {
-            var user = Session["CurrentUser"] as T5.Brothership.Entities.Models.User;
+            var user = _sessionHelper.Get("CurrentUser") as T5.Brothership.Entities.Models.User;
             _twitterIntegration.DeAuthorize(user.ID);
 
             return RedirectToAction("EditIntegrations", "Account");

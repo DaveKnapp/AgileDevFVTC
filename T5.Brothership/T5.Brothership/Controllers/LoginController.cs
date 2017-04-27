@@ -5,30 +5,26 @@ using System.Web;
 using System.Web.Mvc;
 using T5.Brothership.BL.Managers;
 using T5.Brothership.Entities.Models;
+using T5.Brothership.Helpers;
 
 namespace T5.Brothership.Controllers
 {
     public class LoginController : Controller
     {
-        readonly UserManager _usermanager = new UserManager();
+        readonly IUserManager _usermanager;
+        readonly ISessionHelper _sessionHelper;
 
-        //public ActionResult Details()
-        //{
-        //    var user = Session["CurrentUser"] as User;
+        public LoginController() : this(new UserManager(), new SessionHelper()) { }
 
-        //    if (user == null)
-        //    {
-        //        return RedirectToAction(nameof(Login));
-
-        //    }
-        //    user = _usermanager.GetById(user.ID);
-
-        //    return View(user);
-        //}
+        public LoginController(IUserManager userManager, ISessionHelper sessionHelper)
+        {
+            _usermanager = userManager;
+            _sessionHelper = sessionHelper;
+        }
 
         public ActionResult Login()
         {
-            return Session["CurrentUser"] == null ? (ActionResult)View() : RedirectToAction("Index", "Home");
+            return _sessionHelper.Get("CurrentUser") == null ? (ActionResult)View(nameof(Login)) : RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -36,27 +32,24 @@ namespace T5.Brothership.Controllers
         {
             User user;
 
-            using (UserManager userManager = new UserManager())
+            user = _usermanager.Login(login.Username, login.Password);
+            if (!(user is InvalidUser))
             {
-                //ToDO(Dave) refactor?
-                user = userManager.Login(login.Username, login.Password);
-                if (!(user is InvalidUser))
-                {
-                    Session.Add("CurrentUser", user);
-                    return RedirectToAction("Index", "Home");
-                }
+                _sessionHelper.Add("CurrentUser", user);
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.Message = "Invalid Username or Password";
-            return View();
+            return View(nameof(login));
         }
 
         public ActionResult LogOut()
         {
-            Session["CurrentUser"] = null;
-            return RedirectToAction(nameof(Login));
+            _sessionHelper.remove("CurrentUser");
+            return View(nameof(Login));
         }
 
+        //TODO(Dave) Refactor to combine into one partial
         [ChildActionOnly]
         public PartialViewResult LoginLink()
         {

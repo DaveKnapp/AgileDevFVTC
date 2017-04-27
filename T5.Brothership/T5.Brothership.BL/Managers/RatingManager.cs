@@ -8,7 +8,7 @@ using T5.Brothership.PL;
 
 namespace T5.Brothership.BL.Managers
 {
-    public class RatingManager : IDisposable
+    public class RatingManager : IDisposable, IRatingManager
     {
         GameManager _gameManager;
         IBrothershipUnitOfWork _unitOfWork;
@@ -32,7 +32,7 @@ namespace T5.Brothership.BL.Managers
         }
 
         public List<Rating> GetAll()
-        {//TODO(Dave) Add tests
+        {
             return _unitOfWork.Ratings.GetAll().ToList();
         }
     }

@@ -14,7 +14,7 @@ using T5.Brothership.BL.Exceptions;
 namespace T5.Brothership.BL.Test.ManagerIntegration
 {
     [TestClass]
-    public class UserManagerTest
+    public class UserManagerIntegrationTest
     {
         [TestInitialize]
         public void Initialize()
@@ -205,6 +205,32 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
             {
                 int count = userMangaer.GetRandomPopularUsers(3, 10).Count;
                 Assert.IsTrue(count > 1);
+            }
+        }
+
+        [TestCategory("IntegrationTest"), TestMethod]
+        public async Task GetByUserName_ValidUserName_ReturnsUser()
+        {
+            using (var userManager = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
+            {
+                var expectedUserName = "TestUserTwo";
+
+                var actualUser = userManager.GetByUserName(expectedUserName);
+
+                Assert.AreEqual(expectedUserName, actualUser.UserName);
+            }
+        }
+
+        [TestCategory("IntegrationTest"), TestMethod]
+        public async Task GetByUserName_InValidUserName_ReturnsNull()
+        {
+            using (var userManager = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
+            {
+                var invalidUserName = "NoUserName";
+
+                var actualUser = userManager.GetByUserName(invalidUserName);
+
+                Assert.IsNull(actualUser);
             }
         }
 

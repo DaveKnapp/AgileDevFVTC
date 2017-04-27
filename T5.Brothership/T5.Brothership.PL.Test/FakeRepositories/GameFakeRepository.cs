@@ -62,6 +62,11 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             return _fakeGames.FirstOrDefault(p => p.igdbID == id);
         }
 
+        public IQueryable<Game> GetSearchedGames(string search)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SaveChanges()
         {
         }

@@ -8,17 +8,21 @@ using T5.Brothership.BL.Managers;
 using T5.Brothership.Entities.Models;
 using System.Threading.Tasks;
 using T5.Brothership.BL.Integrations;
+using T5.Brothership.Helpers;
 
 namespace T5.Brothership.Controllers
 {
     public class TwitchController : Controller
     {
-        TwitchIntegration _twitchIntegration = new TwitchIntegration();
+        ITwitchIntegration _twitchIntegration;
+        ISessionHelper _sessionHelper;
 
-        //TODO(Dave) Menu and authorized are temporary things Implement UserIntegrations edit for account
-        public ActionResult Menu()
+        public TwitchController() : this(new TwitchIntegration(), new SessionHelper()) { }
+
+        public TwitchController(ITwitchIntegration twitchIntegration, ISessionHelper sessionHelper)
         {
-            return View();
+            _twitchIntegration = twitchIntegration;
+            _sessionHelper = sessionHelper;
         }
 
         public ActionResult AuthorizeTwitch()
@@ -28,7 +32,7 @@ namespace T5.Brothership.Controllers
             urlBuilder.Append("&client_id=");
             urlBuilder.Append(T5.Brothership.BL.TwitchApi.ApiCredentials.CLIENT_ID);
             urlBuilder.Append("&redirect_uri=");
-            urlBuilder.Append("http://brothership.azurewebsites.net/Twitch/Authorize");
+            urlBuilder.Append(T5.Brothership.BL.TwitchApi.ApiCredentials.REDIRECT_URL);
             urlBuilder.Append("&scope=user_read channel_read");
        
             return Redirect(urlBuilder.ToString());
@@ -36,21 +40,16 @@ namespace T5.Brothership.Controllers
 
         public async Task<ActionResult> Authorize(string code, string scope)
         {
-             User user = Session["CurrentUser"] as User;
+             User user = _sessionHelper.Get("CurrentUser") as User;
 
             await _twitchIntegration.AuthorizeTwitch(user.ID, code);
 
             return RedirectToAction("EditIntegrations", "Account");
         }
 
-        public ActionResult Authorized()
-        {
-            return View();
-        }
-
         public async Task<ActionResult> DeAuthorize()
         {
-            User user = Session["CurrentUser"] as User;
+            User user = _sessionHelper.Get("CurrentUser") as User;
             await _twitchIntegration.DeAuthorizeTwitch(user.ID);
 
             return RedirectToAction("EditIntegrations", "Account");

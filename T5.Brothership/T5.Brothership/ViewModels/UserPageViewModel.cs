@@ -13,12 +13,4 @@ namespace T5.Brothership.ViewModels
         public double AverageRating { get; set; }
         public List<IntegrationInfo> UserIntegrationInfos { get; set; }       
     }
-
-    //TODO(dave) Do I want to move this class?
-    public class IntegrationInfo
-    {
-        public string UserLiveStreamURL { get; set; }
-        public bool IsUserLive { get; set; }
-        public IntegrationType.IntegrationTypes IntegrationType { get; set; }
-    }
 }

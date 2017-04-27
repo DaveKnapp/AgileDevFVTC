@@ -18,5 +18,10 @@ namespace T5.Brothership.PL.Repositories
         {
             return DbSet.FirstOrDefault(p => p.igdbID == id);
         }
+        
+        public IQueryable<Game> GetSearchedGames(string search)
+        {
+            return DbSet.Where(p => p.Title.ToLower().Contains(search.ToLower()));
+        }
     }
 }

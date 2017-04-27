@@ -8,7 +8,7 @@ using T5.Brothership.PL;
 
 namespace T5.Brothership.BL.Managers
 {
-    public class NationalityManager: IDisposable
+    public class NationalityManager : IDisposable, INationalityManager
     {
         IBrothershipUnitOfWork _unitOfWork;
 

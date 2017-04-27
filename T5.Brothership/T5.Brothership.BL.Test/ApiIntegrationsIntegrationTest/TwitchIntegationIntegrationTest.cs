@@ -53,7 +53,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                 {
                     IntegrationTypeID = (int)IntegrationType.IntegrationTypes.Twitch,
                     Token = "token",
-                    URL = "url",
+                    UserName = "TestUserName",
                     UserID = expectedUserId,
                 });
                 unitOfWork.Commit();

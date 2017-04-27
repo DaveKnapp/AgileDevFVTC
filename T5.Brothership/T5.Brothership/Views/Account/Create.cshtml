@@ -130,7 +130,7 @@
     }
 </div>
 
-@Html.Partial("UserGameEditSearch", Model.CurrentUser.Games)
+@Html.Partial("UserGameEditSearch", Model.CurrentUser.Games.ToList())
 
 <input type="button" value="Create" class="btn btn-lg btn-theme" onclick="SubmitForm();" />
 

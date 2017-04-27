@@ -60,6 +60,11 @@ namespace T5.Brothership.BL.Managers
             return games;
         }
 
+        public List<Game> GetSearchedGames(string search)
+        {
+            return _unitOfWork.Games.GetSearchedGames(search).ToList();
+        }
+
         public async Task AddGameIfNotExistAsync(int igdbID)
         {
             if (_unitOfWork.Games.GetByIgdbId(igdbID) == null)

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -106,7 +106,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ApiIntegrationsIntegrationTest\TwitchIntegationIntegrationTest.cs" />
-    <Compile Include="ApiIntegrationsIntegrationTest\TwitterIntegrationIntegrationTest.cs" />
+    <Compile Include="ApiIntegrationsUnitTest\TwitterIntegrationUnitTest.cs" />
     <Compile Include="ClientFakes\TwitterClientFake.cs" />
     <Compile Include="ConnectionStrings.cs" />
     <Compile Include="GameApiIntegration\GameAPIServiceTest.cs" />
@@ -115,11 +115,20 @@
     <Compile Include="HelpersUnitTest\PasswordHelperTest.cs" />
     <Compile Include="ApiIntegrationsUnitTest\TwitchIntegationUnitTest.cs" />
     <Compile Include="HelpersUnitTest\TwitterURLConverterUnitTest.cs" />
+    <Compile Include="IntegrationFakes\TwitchIntegrationStub.cs" />
+    <Compile Include="IntegrationFakes\TwitterIntegrationStub.cs" />
+    <Compile Include="ManagerFakes\GenderManagerFake.cs" />
+    <Compile Include="ManagerFakes\NationalityManagerFake.cs" />
+    <Compile Include="ManagerFakes\RatingManagerFake.cs" />
+    <Compile Include="ManagerFakes\UserManagerFake.cs" />
+    <Compile Include="ManagerFakes\UserRatingManagerFake.cs" />
     <Compile Include="ManagerIntegration\GameManagerIntegrationTest.cs" />
-    <Compile Include="ManagerIntegration\UserManagerTest.cs" />
+    <Compile Include="ManagerIntegration\RatingManagerIntegrationTest.cs" />
+    <Compile Include="ManagerIntegration\UserManagerIntegrationTest.cs" />
     <Compile Include="ManagerUnitTests\GameManagerUnitTest.cs" />
     <Compile Include="ManagerUnitTests\GenderManagerUnitTest.cs" />
     <Compile Include="ManagerUnitTests\NationalitymanagerUnitTest.cs" />
+    <Compile Include="ManagerUnitTests\RatingManagerUnitTest.cs" />
     <Compile Include="ManagerUnitTests\UserRatingManagerUnitTest.cs" />
     <Compile Include="ManagerUnitTests\UserManagerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -171,9 +180,9 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

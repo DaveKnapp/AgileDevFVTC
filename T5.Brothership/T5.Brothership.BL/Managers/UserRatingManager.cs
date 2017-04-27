@@ -8,7 +8,7 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.Managers
 {
-    public class UserRatingManager : IDisposable
+    public class UserRatingManager : IDisposable, IUserRatingManager
     {
         IBrothershipUnitOfWork _unitOfWork;
 

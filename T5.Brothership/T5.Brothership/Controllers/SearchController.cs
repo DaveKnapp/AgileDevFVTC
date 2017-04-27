@@ -11,7 +11,9 @@ namespace T5.Brothership.Controllers
 {
     public class SearchController : Controller
     {
+        //TODO Add tests
         readonly UserManager _userManager = new UserManager();
+        readonly GameManager _gameManager = new GameManager();
         // GET: Search
         public ActionResult Index()
         {
@@ -22,6 +24,17 @@ namespace T5.Brothership.Controllers
         {
             return View((List<User>)_userManager.GetSearchedUsers(search));
         }
+
+        public ActionResult GameSearchResults(string search)
+        {
+            return View((List<Game>)_gameManager.GetSearchedGames(search));
+        }
+
+        public ActionResult UsersByGame(int igdbid)
+        {
+            return View((List<User>)_userManager.GetUsersByGame(igdbid));
+        }
+
 
     }
 }

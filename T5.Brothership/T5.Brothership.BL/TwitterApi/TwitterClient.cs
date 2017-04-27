@@ -26,7 +26,7 @@ namespace T5.Brothership.BL.TwitterApi
             };
         }
 
-        public string GetUserURL(string accessToken, string accessSecret)
+        public string GetUserName(string accessToken, string accessSecret)
         {
             Tweetinvi.Auth.Credentials = new TwitterCredentials
             {
@@ -38,8 +38,7 @@ namespace T5.Brothership.BL.TwitterApi
 
             var user = Tweetinvi.User.GetAuthenticatedUser();
 
-            var urlConverter = new TwitterURLConverter();
-            return urlConverter.GetURL(user.ScreenName);
+            return user.ScreenName;
         }
     }
 }

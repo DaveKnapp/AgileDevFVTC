@@ -47,6 +47,8 @@ namespace T5.Brothership.PL.Repositories
             return DbSet.Where(p => p.UserName.ToLower().Contains(search.ToLower()));
         }
 
+
+
         public IQueryable<User> GetFeaturedUsers()
         {
             return DbSet.Where(p => p.UserTypeID == (int)UserType.UserTypes.FeaturedUser);
@@ -61,6 +63,11 @@ namespace T5.Brothership.PL.Repositories
         {
             //TODO(Dave) this method currently returns top average ratings.  Should it only return user with over x amount of ratings.
             return DbSet.OrderByDescending(p => p.UserRatings.Average(i => i.RatingID)).Take(count);
+        }
+
+        public User GetByUsername(string username)
+        {
+            return DbSet.FirstOrDefault(p => p.UserName ==  username);
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<T5.Brothership.Entities.Models.Game>
+
+@{
+    ViewBag.Title = "GameSearchResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Game Search</h2>
+
+<p>
+    @using (Html.BeginForm("GameSearchResults", "Search", FormMethod.Get, new { search = "Game" }))
+    {
+        @Html.TextBox("Search")
+        <div>
+            <input type="submit" value="Search" />
+        </div>
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img style="width:34px;" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(item.ImgCloudinaryId).jpg" />
+            @Html.ActionLink(item.Title, "UsersByGame", "Search", new { igdbid = item.igdbID }, null)
+        </td>       
+    </tr>
+}
+
+</table>

@@ -7,6 +7,8 @@ using T5.Brothership.BL.Managers;
 using System.Threading.Tasks;
 using T5.Brothership.Entities.Models;
 using T5.Brothership.ViewModels;
+using T5.Brothership.Helpers;
+using T5.Brothership.BL.Exceptions;
 
 namespace T5.Brothership.Controllers
 {
@@ -15,30 +17,31 @@ namespace T5.Brothership.Controllers
         readonly UserManager _userManger = new UserManager();
         readonly NationalityManager _nationalityManager = new NationalityManager();
         readonly GenderManager _genderManager = new GenderManager();
+        readonly ISessionHelper _sessionHelper;
         readonly AzureStorageManager _azureManager = new AzureStorageManager();
 
+        public AccountController() : this(new UserManager(), new NationalityManager(), new GenderManager(), new SessionHelper())
+        { }
+
+        public AccountController(IUserManager userManger, INationalityManager nationalityManger, IGenderManager genderManager, ISessionHelper sessionHelper)
+        {
+            _userManger = userManger;
+            _nationalityManager = nationalityManger;
+            _genderManager = genderManager;
+            _sessionHelper = sessionHelper;
+        }
 
         public ActionResult Create()
         {
             var userViewModel = new CreateUserViewModel
             {
-                CurrentUser = new Entities.Models.User(),
                 Genders = _genderManager.GetAll(),
-                Nationalities = _nationalityManager.GetAll()
+                Nationalities = _nationalityManager.GetAll(),
+                CurrentUser = new User()
             };
+            userViewModel.CurrentUser.Games = new List<Game>();
 
-            if (TempData["userWithError"] == null)
-            {
-                userViewModel.CurrentUser = new User();
-                userViewModel.CurrentUser.Games = new List<Game>();
-            }
-            else
-            {
-                userViewModel.CurrentUser = ((CreateUserViewModel)TempData["userWithError"]).CurrentUser;
-            }
-
-            ViewBag.Message = TempData["error"];
-            return View(userViewModel);
+            return View(nameof(Create), userViewModel);
         }
 
         [HttpPost]
@@ -52,44 +55,43 @@ namespace T5.Brothership.Controllers
             {
                 if (_userManger.UserNameExists(userViewModel.CurrentUser.UserName))
                 {
-                    TempData["error"] = "Username currently being used";
-                    TempData["userWithError"] = userViewModel;
-                    return RedirectToAction(nameof(Create));
+                    ViewBag.Message = "Username is currently being used";
+                    userViewModel.Genders = _genderManager.GetAll();
+                    userViewModel.Nationalities = _nationalityManager.GetAll();
+
+                    return View(nameof(Create), userViewModel);
                 }
                 else
                 {
                     await _userManger.Add(newUser, userViewModel.Password);
                     var user = _userManger.Login(newUser.UserName, userViewModel.Password);
+
                     if (!(user is InvalidUser))
                     {
-                        Session.Add("CurrentUser", user);
+                        _sessionHelper.Add("CurrentUser", user);
                         return RedirectToAction(nameof(EditIntegrations));
                     }
-                    return View("AccountCreated");
                 }
             }
-            else
-            {
-                ViewBag.Message = "An error occurred when creating the account.";
-                return View(nameof(Create));
-            }
+
+            ViewBag.Message = "An error occurred when creating the account.";
+            return View(nameof(Create));
         }
 
-        //TODO(Dave) Rename?
         public ActionResult EditIntegrations()
         {
-            User user = Session["CurrentUser"] as User;
+            User user = (User)_sessionHelper.Get("CurrentUser") as User;
             if (user == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             user = _userManger.GetById(user.ID);
-            return View(user.UserIntegrations);
+            return View(nameof(EditIntegrations), user.UserIntegrations);
         }
 
         public ActionResult Update()
         {
-            var user = Session["CurrentUser"] as User;
+            var user = _sessionHelper.Get("CurrentUser") as User;
 
             if (user != null)
             {
@@ -99,8 +101,7 @@ namespace T5.Brothership.Controllers
                     Nationalities = _nationalityManager.GetAll(),
                     Genders = _genderManager.GetAll()
                 };
-                ViewBag.Message = TempData["error"];
-                return View(userViewModel);
+                return View(nameof(Update), userViewModel);
             }
             else
             {
@@ -112,29 +113,35 @@ namespace T5.Brothership.Controllers
         public async Task<ActionResult> Update(UpdateUserViewModel userViewModel)
         {
             var currentUser = userViewModel.CurrentUser;
-            currentUser.ID = (Session["CurrentUser"] as User).ID;
+            currentUser.ID = (_sessionHelper.Get("CurrentUser") as User).ID;
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
             currentUser.ProfileImagePath = "Default";
 
             currentUser.UserTypeID = (int)UserType.UserTypes.User;
 
-            var val = ModelState.Values;
             if (ModelState.IsValid)
             {
-                ViewBag.Message = "Account successfully updated";
                 await _userManger.Update(currentUser);
-                return RedirectToAction("Details", "Login");
+
+                userViewModel.Genders = _genderManager.GetAll();
+                userViewModel.Nationalities = _nationalityManager.GetAll();
+                ViewBag.UpdateMessage = "Account Successfully updated.";
+
+                return View(nameof(Update), userViewModel);
             }
             else
             {
-                TempData["error"] = "An error occurred when updating the account.";
-                return RedirectToAction(nameof(Update));
+                userViewModel.Genders = _genderManager.GetAll();
+                userViewModel.Nationalities = _nationalityManager.GetAll();
+
+                ViewBag.Message = "An error occurred when updating the account.";
+                return View(nameof(Update), userViewModel);
             }
         }
 
         public ActionResult ChangePassword()
         {
-            User currentUser = Session["CurrentUser"] as User;
+            User currentUser = _sessionHelper.Get("CurrentUser") as User;
 
             if (currentUser == null)
             {
@@ -149,8 +156,7 @@ namespace T5.Brothership.Controllers
                     UserName = currentUser.UserName
                 };
 
-                ViewBag.Message = TempData["error"];
-                return View(viewModel);
+                return View(nameof(ChangePassword), viewModel);
             }
         }
 
@@ -159,24 +165,25 @@ namespace T5.Brothership.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = Session["CurrentUser"] as User;
+                User user = _sessionHelper.Get("CurrentUser") as User;
 
                 if (user != null)
                 {
-                    _userManger.UpdatePassword(passwordViewModel.CurrentPassword, passwordViewModel.NewPassword, user);
+                    try
+                    {
+                        _userManger.UpdatePassword(passwordViewModel.CurrentPassword, passwordViewModel.NewPassword, user);
+                    }
+                    catch (InvalidPasswordException)
+                    {
+                        ViewBag.Message = "Invalid Password";
+                        return View(nameof(ChangePassword));
+                    }
                     return View("PasswordUpdated");
                 }
-                else
-                {
-                    return View(nameof(UserLogin), passwordViewModel);
-                }
-            }
-            else
-            {
-                TempData["error"] = "An error occurred when updating your password.";
-                return RedirectToAction(nameof(ChangePassword));
             }
 
+            ViewBag.Message = "An error occurred when updating your password.";
+            return View(nameof(ChangePassword));
         }
     }
 }
