@@ -10,7 +10,7 @@ using T5.Brothership.BL.TwitterApi;
 
 namespace T5.Brothership.BL.Integrations
 {
-    public class TwitterIntegration : IDisposable
+    public class TwitterIntegration : IDisposable, ITwitterIntegration
     {
         private IBrothershipUnitOfWork _unitOfWork;
         private ITwitterClient _twitterClient;
