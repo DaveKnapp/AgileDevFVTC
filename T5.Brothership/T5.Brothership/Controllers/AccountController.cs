@@ -48,7 +48,7 @@ namespace T5.Brothership.Controllers
         public async Task<ActionResult> Create(CreateUserViewModel userViewModel)
         {
             var newUser = userViewModel.CurrentUser;
-            newUser.ProfileImagePath = _azureManager.GetDefaultUrl();
+            newUser.ProfileImagePath = "";
             newUser.UserTypeID = (int)UserType.UserTypes.User;
 
             if (ModelState.IsValid)

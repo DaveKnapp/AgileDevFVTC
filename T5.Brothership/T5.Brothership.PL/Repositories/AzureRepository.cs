@@ -27,11 +27,11 @@ namespace T5.Brothership.PL.Repositories
             container.CreateIfNotExists();
         }
 
-        public string GetDefaultUserImage()
+        public Uri GetDefaultUserImage()
         {
             // Change this if you change the default image in storage.
             string blobName = string.Format("default-user.gif");
-            return container.GetBlockBlobReference(blobName).Uri.AbsoluteUri;
+            return container.GetBlockBlobReference(blobName).Uri;
         }
 
         public string LoadBlob(string blobName)
