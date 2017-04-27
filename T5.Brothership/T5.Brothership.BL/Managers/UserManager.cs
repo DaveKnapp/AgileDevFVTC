@@ -20,6 +20,7 @@ namespace T5.Brothership.BL.Managers
     {
         GameManager _gameManager;
         IBrothershipUnitOfWork _unitOfWork;
+        AzureStorageManager _azureStorageManager;
 
         public UserManager()
         {
@@ -58,7 +59,8 @@ namespace T5.Brothership.BL.Managers
             {
                 throw new UsernameAlreadyExistsException("UserName is being used by another user");
             }
-
+            // Sets a default image for new users. Change later if we decide to allow uploads at sign up.
+            newUser.ProfileImagePath = _azureStorageManager.GetDefaultUrl();
             newUser.UserLogin = CreateUserLogin(password);
             newUser.DateJoined = DateTime.Now;
 

@@ -13,16 +13,17 @@ namespace T5.Brothership.PL.Repositories
 {
     public interface IAzureRepository
     {
+        string GetDefaultUserImage();
         
-        void Upload(byte[] _imageArr, string username);
+        void Upload(byte[] _imageArr, User _user);
 
         string LoadBlob(string blobName);
 
-        void Delete(string username);
+        void Delete(User _user);
 
         IEnumerable<CloudBlockBlob> GetAllBlobs(string username);
 
-        string GetBlobUri(string username);
+        string GetBlobUri(User _user);
 
         string UploadProfileImage(string username, string filePath);
 

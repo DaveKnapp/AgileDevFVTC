@@ -22,6 +22,11 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork = unitOfWork;
         }
 
+        public string GetDefaultUrl()
+        {
+            return _unitOfWork.AzureBlobStorage.GetDefaultUserImage();
+        }
+
         public void Dispose()
         {
             _unitOfWork?.Dispose();
@@ -30,8 +35,13 @@ namespace T5.Brothership.BL.Managers
 
         public string UploadImage(User user, byte[] imageArray)
         {
-            _unitOfWork.AzureBlobStorage.Upload(imageArray, user.UserName);
-            return _unitOfWork.AzureBlobStorage.GetBlobUri(user.UserName);
+            _unitOfWork.AzureBlobStorage.Upload(imageArray, user);
+            return _unitOfWork.AzureBlobStorage.GetBlobUri(user);
+        }
+
+        public void DeleteImage(User user)
+        {
+            _unitOfWork.AzureBlobStorage.Delete(user);
         }
     }
 }

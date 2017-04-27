@@ -15,6 +15,7 @@ namespace T5.Brothership.Controllers
         readonly UserManager _userManger = new UserManager();
         readonly NationalityManager _nationalityManager = new NationalityManager();
         readonly GenderManager _genderManager = new GenderManager();
+        readonly AzureStorageManager _azureManager = new AzureStorageManager();
 
 
         public ActionResult Create()
@@ -43,10 +44,8 @@ namespace T5.Brothership.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CreateUserViewModel userViewModel)
         {
-            //TODO(Dave) Add uploading of profile image
-            //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
             var newUser = userViewModel.CurrentUser;
-            newUser.ProfileImagePath = "Default";
+            newUser.ProfileImagePath = _azureManager.GetDefaultUrl(); // NOTE (TH): If we decide to allow uploading photo during account creation, change this line.
             newUser.UserTypeID = (int)UserType.UserTypes.User;
 
             if (ModelState.IsValid)

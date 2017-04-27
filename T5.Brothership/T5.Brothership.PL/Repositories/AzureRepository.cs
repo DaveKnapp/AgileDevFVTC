@@ -16,6 +16,7 @@ namespace T5.Brothership.PL.Repositories
         private CloudBlobContainer container;
         private string connectionString = "AzureStorageAccount"; // TODO (TH) - Make a more secure connection or a Shared Access Signature config instead.
         private string containerName = "brothership"; // This is the name of the primary container in Azure Storage.
+        private string directoryName = "temp"; // The directory name for each user will always be set to their username.
 
         public AzureRepository()
         {
@@ -26,35 +27,51 @@ namespace T5.Brothership.PL.Repositories
             container.CreateIfNotExists();
         }
 
+        //public AzureRepository(User _user)
+        //{
+        //    user = _user;
+        //    directoryName = user.UserName.ToLower();
+
+        //    var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(connectionString));
+
+        //    CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+        //    container = blobClient.GetContainerReference(containerName);
+        //    container.CreateIfNotExists();
+        //}
+
+        public string GetDefaultUserImage()
+        {
+            // Change this if you change the default image in storage.
+            string blobName = string.Format("default-user.gif");
+            return container.GetBlockBlobReference(blobName).Uri.AbsoluteUri;
+        }
+
         public string LoadBlob(string blobName)
         {
             throw new NotImplementedException();
         }
 
-        public void Upload(byte[] _imageArr, string username)
+        public void Upload(byte[] _imageArr, User _user)
         {
-            // This determines the identifying name/key of the blob in storage
-            var blobName = string.Format(@"{0}\{1}.jpg", containerName, username.ToLower());
+            // This determines the identifying name of the blob in storage
+            string blobName = string.Format(@"{0}_{1}.jpg", _user.ID, _user.UserName.ToLower());
 
-            // Make a new blob for the User.
+            // Make a new directory and blob for the User.
+            CloudBlobDirectory directory = container.GetDirectoryReference(directoryName);
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobName);
-
-            // Declare the content type
-            blockBlob.Properties.ContentType = "image/jpg";
-            blockBlob.SetProperties(); ;
 
             // Upload the content to the blob
             blockBlob.UploadFromByteArray(_imageArr, 0, _imageArr.Length);
         }
 
-        public void Delete(string username)
+        public void Delete(User _user)
         {
-            var blobName = string.Format(@"{0}\{1}.jpg", containerName, username.ToLower());
+            string blobName = string.Format(@"{0}_{1}.jpg", _user.ID, _user.UserName.ToLower());
 
-            if (BlobExistsOnCloud(username.ToLower()))
+            if (BlobExistsOnCloud(_user.UserName.ToLower()))
             {
                 // If the blob exists with that username, delete it.
-                container.GetBlockBlobReference(blobName).Delete(DeleteSnapshotsOption.IncludeSnapshots);
+                container.GetDirectoryReference(directoryName).GetBlockBlobReference(blobName).Delete(DeleteSnapshotsOption.IncludeSnapshots);
             }
         }
 
@@ -67,15 +84,15 @@ namespace T5.Brothership.PL.Repositories
         // Checks if a Blob of the same name already exists
         private bool BlobExistsOnCloud(string username)
         {
-            var blobName = string.Format(@"{0}\{1}.jpg", containerName, username.ToLower());
+            var blobName = string.Format(@"{0}_{1}.jpg", containerName, username.ToLower());
             return container.GetBlockBlobReference(blobName).Exists();
         }
 
         // Use this to return the Blob URI to the User.ProfileImagePath
-        public string GetBlobUri(string username)
+        public string GetBlobUri(User _user)
         {
-            var blobName = string.Format(@"{0}\{1}.jpg", containerName, username.ToLower());
-            return container.GetBlockBlobReference(blobName).Uri.AbsoluteUri;
+            string blobName = string.Format(@"{0}_{1}.jpg", _user.ID, _user.UserName.ToLower());
+            return container.GetDirectoryReference(directoryName).GetBlockBlobReference(blobName).Uri.AbsoluteUri;
         }
 
         //------------------------------- (TH) Old Code. Not being used at the moment. Maybe delete later. -------------------------------
@@ -119,6 +136,6 @@ namespace T5.Brothership.PL.Repositories
             return ("<img src=" + blockBlob.Uri.AbsoluteUri + " alt='PS Image'>");
         }
 
-
+        
     }
 }

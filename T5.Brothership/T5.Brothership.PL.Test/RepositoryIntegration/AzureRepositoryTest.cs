@@ -30,10 +30,11 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
         [TestCategory("IntegrationTest"), TestMethod]
         public void UploadToBlob_WasImageArrayUploaded()
         {
+            string directoryName = "test";
             string imagepath = @"Testimage\testimage.jpg";
             byte[] imgArray = ConvertImageToByte(imagepath);
 
-            var blobName = string.Format(@"{0}_{1}.jpg", "profiletest", "testimage");
+            string blobName = string.Format(@"{0}_{1}.jpg", "profiletest", "testimage");
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
@@ -42,14 +43,11 @@ namespace T5.Brothership.PL.Test.RepositoryIntegration
             CloudBlobContainer container = blobClient.GetContainerReference("brothership");
             container.CreateIfNotExists();
 
-            // Make a new blob for the User.
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobName);
+            CloudBlobDirectory directory = container.GetDirectoryReference(directoryName);
 
-            // Declare the content type
-            blockBlob.Properties.ContentType = "image/jpg";
-            blockBlob.SetProperties(); ;
-
-            // Upload the content to the blob
+            CloudBlockBlob blockBlob = directory.GetBlockBlobReference(blobName);
+            //blockBlob.Properties.ContentType = "image/jpg";
+            //blockBlob.SetProperties();
             blockBlob.UploadFromByteArray(imgArray, 0, imgArray.Length);
 
         }
