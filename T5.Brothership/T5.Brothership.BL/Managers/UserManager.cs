@@ -153,7 +153,7 @@ namespace T5.Brothership.BL.Managers
 
         public bool UserNameExists(string userName)
         {
-            return _unitOfWork.Users.GetByUsernameOrEmail(userName) != null;
+            return _unitOfWork.Users.GetByUsername(userName) != null;
         }
 
         public List<User> GetRandomFeaturedUsers(int randomCount, List<User> usersToExclude = null)
