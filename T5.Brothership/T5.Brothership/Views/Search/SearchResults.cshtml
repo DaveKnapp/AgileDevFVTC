@@ -5,40 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>User Search</h2>
+<h1 class="text-center">User Search</h1>
 
 <p>
     @using (Html.BeginForm("SearchResults", "Search", FormMethod.Get, new { search = "User" }))
     {
-        @Html.TextBox("Search")
-        <div>
-            <input type="submit" value="Search" />
+       <div class="row">
+        <div class="col-12 d-block text-center">
+            @Html.TextBox("Search")
         </div>
+       </div>
+       <div class="row">
+        <div class="col-12 d-block text-center">
+            <input type="submit" class="btn btn-lg btn-primary" value="Search" />
+        </div>
+       </div>
     }
 </p>
 
-<table class="table">
-    <tr>
-        <th>
-            Search Results
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
              @*@Html.DisplayNameFor(model => model.UserName)*@
-        </th>       
-        <th>
+        </div>       
+        <div>
             @*@Html.DisplayNameFor(model => model.ProfileImagePath)*@
-        </th>       
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink(item.UserName, "User", "User", new { userName = item.UserName }, null)
-        </td>       
-        <td>
-            <img src="@item.ProfileImagePath" alt="">
-        </td>
-        
-    </tr>
-}
-
-</table>
+        </div>       
+    </div>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default">
+                    <img src="@item.ProfileImagePath" alt="" class="img-responsive portfolio-item panel-body">
+                    <h4 class="panel-heading text-center">
+                        @Html.ActionLink(item.UserName, "User", "User", new { userName = item.UserName }, null)
+                    </h4>
+                </div>
+            </div>
+        }
+    </div>
+</div>
