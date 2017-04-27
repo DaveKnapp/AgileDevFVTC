@@ -14,30 +14,18 @@ namespace T5.Brothership.PL.Repositories
     public class AzureRepository : IAzureRepository
     {
         private CloudBlobContainer container;
-        private string connectionString = "AzureStorageAccount"; // TODO (TH) - Make a more secure connection or a Shared Access Signature config instead.
+        private string connectionString = "StorageConnectionString"; // TODO (TH) - Make a more secure connection or a Shared Access Signature config instead.
         private string containerName = "brothership"; // This is the name of the primary container in Azure Storage.
         private string directoryName = "temp"; // The directory name for each user will always be set to their username.
 
         public AzureRepository()
         {
-            var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(connectionString));
+            var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             container = blobClient.GetContainerReference(containerName);
             container.CreateIfNotExists();
         }
-
-        //public AzureRepository(User _user)
-        //{
-        //    user = _user;
-        //    directoryName = user.UserName.ToLower();
-
-        //    var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(connectionString));
-
-        //    CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-        //    container = blobClient.GetContainerReference(containerName);
-        //    container.CreateIfNotExists();
-        //}
 
         public string GetDefaultUserImage()
         {

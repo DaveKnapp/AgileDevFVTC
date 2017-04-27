@@ -20,13 +20,12 @@ namespace T5.Brothership.BL.Managers
     {
         GameManager _gameManager;
         IBrothershipUnitOfWork _unitOfWork;
-        IAzureStorageManager _azureStorageManager;
 
         public UserManager()
         {
             _unitOfWork = new BrothershipUnitOfWork();
             _gameManager = new GameManager(_unitOfWork);
-            _azureStorageManager = new AzureStorageManager();
+
         }
 
         public UserManager(IBrothershipUnitOfWork unitOfWork)
@@ -39,13 +38,6 @@ namespace T5.Brothership.BL.Managers
         {
             _unitOfWork = unitOfWork;
             _gameManager = new GameManager(_unitOfWork, gameApiClient);
-        }
-
-        public UserManager(IBrothershipUnitOfWork unitOfWork, IGameAPIClient gameApiClient, IAzureStorageManager azureStoreManager)
-        {
-            _unitOfWork = unitOfWork;
-            _gameManager = new GameManager(_unitOfWork, gameApiClient);
-            _azureStorageManager = azureStoreManager;
         }
 
         public void Dispose()
@@ -77,7 +69,7 @@ namespace T5.Brothership.BL.Managers
                 throw new UsernameAlreadyExistsException("UserName is being used by another user");
             }
             // Sets a default image for new users. Change later if we decide to allow uploads at sign up.
-            newUser.ProfileImagePath = _azureStorageManager.GetDefaultUrl();
+            newUser.ProfileImagePath = _unitOfWork.AzureBlobStorage.GetDefaultUserImage();
             newUser.UserLogin = CreateUserLogin(password);
             newUser.DateJoined = DateTime.Now;
 

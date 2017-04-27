@@ -18,6 +18,7 @@ namespace T5.Brothership.Controllers
         readonly INationalityManager _nationalityManager;
         readonly IGenderManager _genderManager;
         readonly ISessionHelper _sessionHelper;
+        AzureStorageManager _azureManager;
 
         public AccountController() : this(new UserManager(), new NationalityManager(), new GenderManager(), new SessionHelper())
         { }
@@ -46,10 +47,8 @@ namespace T5.Brothership.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CreateUserViewModel userViewModel)
         {
-            //TODO(Dave) Add uploading of profile image
-            //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
             var newUser = userViewModel.CurrentUser;
-            newUser.ProfileImagePath = "Default";
+            newUser.ProfileImagePath = _azureManager.GetDefaultUrl();
             newUser.UserTypeID = (int)UserType.UserTypes.User;
 
             if (ModelState.IsValid)
@@ -116,6 +115,7 @@ namespace T5.Brothership.Controllers
             var currentUser = userViewModel.CurrentUser;
             currentUser.ID = (_sessionHelper.Get("CurrentUser") as User).ID;
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
+            //NOTE(TH) Needs upload functionality from the UI.
             currentUser.ProfileImagePath = "Default";
 
             currentUser.UserTypeID = (int)UserType.UserTypes.User;

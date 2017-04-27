@@ -44,8 +44,7 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
 
             User actualUser;
             using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext()),
-                                                                                      new GameApiClientFake(),
-                                                                                      new AzureStorageManager()))
+                                                                                      new GameApiClientFake()))
             {
                 await userManger.Add(expectedUser, expectedUserPassword);
                 actualUser = userManger.GetById(expectedUser.ID);
