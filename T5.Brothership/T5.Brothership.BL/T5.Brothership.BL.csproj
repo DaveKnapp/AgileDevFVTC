@@ -121,6 +121,7 @@
     <Compile Include="Managers\AzureStorageManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\GenderManager.cs" />
+    <Compile Include="Managers\IAzureStorageManager.cs" />
     <Compile Include="Managers\IGenderManager.cs" />
     <Compile Include="Managers\INationalityManager.cs" />
     <Compile Include="Managers\IRatingManager.cs" />

@@ -8,7 +8,7 @@ using T5.Brothership.PL;
 
 namespace T5.Brothership.BL.Managers
 {
-    public class AzureStorageManager : IDisposable
+    public class AzureStorageManager : IDisposable, IAzureStorageManager
     {
         IBrothershipUnitOfWork _unitOfWork;
 

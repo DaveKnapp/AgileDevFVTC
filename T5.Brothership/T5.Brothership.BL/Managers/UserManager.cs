@@ -20,12 +20,13 @@ namespace T5.Brothership.BL.Managers
     {
         GameManager _gameManager;
         IBrothershipUnitOfWork _unitOfWork;
-        AzureStorageManager _azureStorageManager;
+        IAzureStorageManager _azureStorageManager;
 
         public UserManager()
         {
             _unitOfWork = new BrothershipUnitOfWork();
             _gameManager = new GameManager(_unitOfWork);
+            _azureStorageManager = new AzureStorageManager();
         }
 
         public UserManager(IBrothershipUnitOfWork unitOfWork)
@@ -39,6 +40,14 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork = unitOfWork;
             _gameManager = new GameManager(_unitOfWork, gameApiClient);
         }
+
+        public UserManager(IBrothershipUnitOfWork unitOfWork, IGameAPIClient gameApiClient, IAzureStorageManager azureStoreManager)
+        {
+            _unitOfWork = unitOfWork;
+            _gameManager = new GameManager(_unitOfWork, gameApiClient);
+            _azureStorageManager = azureStoreManager;
+        }
+
         public void Dispose()
         {
             _unitOfWork?.Dispose();

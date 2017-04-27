@@ -10,6 +10,7 @@ using T5.Brothership.BL.Managers;
 using System.Threading.Tasks;
 using System.Linq;
 using T5.Brothership.BL.Exceptions;
+using T5.Brothership.BL.Test.ManagerFakes;
 
 namespace T5.Brothership.BL.Test.ManagerIntegration
 {
@@ -42,7 +43,9 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
             };
 
             User actualUser;
-            using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext())))
+            using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext()),
+                                                                                      new GameApiClientFake(),
+                                                                                      new AzureStorgeManagerStub()))
             {
                 await userManger.Add(expectedUser, expectedUserPassword);
                 actualUser = userManger.GetById(expectedUser.ID);

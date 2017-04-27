@@ -117,6 +117,7 @@
     <Compile Include="HelpersUnitTest\TwitterURLConverterUnitTest.cs" />
     <Compile Include="IntegrationFakes\TwitchIntegrationStub.cs" />
     <Compile Include="IntegrationFakes\TwitterIntegrationStub.cs" />
+    <Compile Include="ManagerFakes\AzureStorgeManagerStub.cs" />
     <Compile Include="ManagerFakes\GenderManagerFake.cs" />
     <Compile Include="ManagerFakes\NationalityManagerFake.cs" />
     <Compile Include="ManagerFakes\RatingManagerFake.cs" />

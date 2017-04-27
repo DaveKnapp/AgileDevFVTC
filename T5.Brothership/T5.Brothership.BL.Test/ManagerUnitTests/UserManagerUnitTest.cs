@@ -9,6 +9,7 @@ using T5.Brothership.Entities.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using T5.Brothership.BL.Exceptions;
+using T5.Brothership.BL.Test.ManagerFakes;
 
 namespace T5.Brothership.BL.Test.ManagerUnitTests
 {
@@ -121,7 +122,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
 
             using (var fakeUnitOfWork = new FakeBrothershipUnitOfWork())
             {
-                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake()))
+                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake(), new AzureStorgeManagerStub()))
                 {
                     await userManager.Add(expectedUser, expectedPassword);
                     actualUser = fakeUnitOfWork.Users.GetByUsernameOrEmail(expectedUser.UserName);
@@ -140,7 +141,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
 
             using (var fakeUnitOfWork = new FakeBrothershipUnitOfWork())
             {
-                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake()))
+                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake(), new AzureStorgeManagerStub()))
                 {
                     await userManager.Add(expectedUser, expectedPassword);
                     await userManager.Add(expectedUser, expectedPassword);
