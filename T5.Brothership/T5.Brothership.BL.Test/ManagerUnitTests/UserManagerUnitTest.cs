@@ -122,7 +122,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
 
             using (var fakeUnitOfWork = new FakeBrothershipUnitOfWork())
             {
-                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake(), new AzureStorgeManagerStub()))
+                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake()))
                 {
                     await userManager.Add(expectedUser, expectedPassword);
                     actualUser = fakeUnitOfWork.Users.GetByUsernameOrEmail(expectedUser.UserName);
@@ -141,7 +141,7 @@ namespace T5.Brothership.BL.Test.ManagerUnitTests
 
             using (var fakeUnitOfWork = new FakeBrothershipUnitOfWork())
             {
-                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake(), new AzureStorgeManagerStub()))
+                using (var userManager = new UserManager(fakeUnitOfWork, new GameApiClientFake()))
                 {
                     await userManager.Add(expectedUser, expectedPassword);
                     await userManager.Add(expectedUser, expectedPassword);
