@@ -13,7 +13,7 @@ namespace T5.Brothership.PL.Repositories
 {
     public interface IAzureRepository
     {
-        Uri GetDefaultUserImage();
+        string GetDefaultUserImage();
         
         void Upload(byte[] _imageArr, User _user);
 

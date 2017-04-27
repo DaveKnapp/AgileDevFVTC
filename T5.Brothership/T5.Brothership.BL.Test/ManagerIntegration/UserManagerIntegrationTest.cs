@@ -42,11 +42,11 @@ namespace T5.Brothership.BL.Test.ManagerIntegration
                 ProfileImagePath = "MrFlyImagePath.jpg"
             };
 
-            User actualUser;
             using (UserManager userManger = new UserManager(new BrothershipUnitOfWork(DataContextCreator.CreateTestContext()),
                                                                                       new GameApiClientFake()))
             {
                 await userManger.Add(expectedUser, expectedUserPassword);
+                User actualUser;
                 actualUser = userManger.GetById(expectedUser.ID);
 
                 Assert.IsNotNull(actualUser);

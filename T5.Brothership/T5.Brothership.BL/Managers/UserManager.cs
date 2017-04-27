@@ -63,8 +63,8 @@ namespace T5.Brothership.BL.Managers
         public async Task Add(User user, string password)
         {
             var newUser = user;
-
-            newUser.ProfileImagePath = _unitOfWork.AzureBlobStorage.GetDefaultUserImage().AbsolutePath; ;
+           
+            newUser.ProfileImagePath = _unitOfWork.AzureBlobStorage.GetDefaultUserImage(); 
 
             if (UserNameExists(user.UserName))
             {
