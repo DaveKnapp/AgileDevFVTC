@@ -75,7 +75,6 @@ namespace T5.Brothership.BL.Managers
             newUser.DateJoined = DateTime.Now;
 
             // Sets a default image for new users. Change later if we decide to allow uploads at sign up.
-         
 
             await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(user.Games));
             newUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(user.Games));
