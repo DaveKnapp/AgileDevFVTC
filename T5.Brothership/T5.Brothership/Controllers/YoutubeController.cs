@@ -1,17 +1,30 @@
-﻿using Google.Apis.Services;
-using Google.Apis.YouTube;
-using Google.Apis.Auth;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Text;
+using System.Threading.Tasks;
+using T5.Brothership.BL.Integrations;
+using T5.Brothership.Helpers;
+using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.Controllers
-{
+{//TOOD Test
     public class YoutubeController : Controller
     {
+        IYoutubeIntegration _youtubeIntegration;
+        ISessionHelper _sessionHelper;
+
+        public YoutubeController() : this(new YoutubeIntegration(), new SessionHelper()) { }
+
+        public YoutubeController(IYoutubeIntegration youtubeIntegration, ISessionHelper sessionHelper)
+        {
+            _youtubeIntegration = youtubeIntegration;
+            _sessionHelper = sessionHelper;
+        }
+
+
         public ActionResult Authorize()
         {
             var builder = new StringBuilder();
@@ -23,13 +36,34 @@ namespace T5.Brothership.Controllers
             //state = state_parameter_passthrough_value &
             builder.Append(@"response_type=code &");
             builder.Append(@"client_id=269841690793-fo0a41pcc5vn4ink3gf3b4pnta1v90nq.apps.googleusercontent.com");
-                                
+
             return Redirect(builder.ToString());
         }
 
-        public ActionResult AuthorizeYoutube(string code)
+        public async Task<ActionResult> AuthorizeYoutube(string code)
         {
-            return View();
+            var user = _sessionHelper.Get("CurrentUser") as User;
+            if (user == null)
+            {
+                return RedirectToAction("");
+            }
+            await _youtubeIntegration.AuthorizeYoutube(user.ID, code);
+
+            return RedirectToAction("EditIntegrations", "Account");
+        }
+
+        public ActionResult DeAuthorize()
+        {
+            var user = _sessionHelper.Get("CurrentUser") as User;
+
+            if (user == null)
+            {
+                return RedirectToAction("");
+            }
+
+            _youtubeIntegration.DeAuthorizeYoutube(user.ID);
+
+            return RedirectToAction("EditIntegrations", "Account");
         }
     }
 }

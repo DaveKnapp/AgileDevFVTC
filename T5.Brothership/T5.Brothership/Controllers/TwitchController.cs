@@ -13,7 +13,7 @@ using T5.Brothership.Helpers;
 namespace T5.Brothership.Controllers
 {
     public class TwitchController : Controller
-    {
+    {//TODO Add check and redirect if user not logged in.
         ITwitchIntegration _twitchIntegration;
         ISessionHelper _sessionHelper;
 

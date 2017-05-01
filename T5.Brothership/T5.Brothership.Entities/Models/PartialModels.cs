@@ -26,6 +26,6 @@ namespace T5.Brothership.Entities.Models
 
     public partial class IntegrationType
     {
-        public enum IntegrationTypes { Twitch = 1, Twitter = 2 }
+        public enum IntegrationTypes { Twitch = 1, Twitter = 2, Youtube = 3 }
     }
 }

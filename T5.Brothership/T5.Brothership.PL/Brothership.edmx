@@ -136,6 +136,7 @@
     <Property Name="Token" Type="varchar" Nullable="false" MaxLength="80" />
     <Property Name="TokenSecret" Type="nvarchar(max)" Nullable="true" />
     <Property Name="UserName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RefreshToken" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="UserLogins">
     <Key>
@@ -531,6 +532,7 @@
           <NavigationProperty Name="User" Relationship="brothershipModel.FK_UserIntegration_UserID" FromRole="UserIntegration" ToRole="User" />
           <Property Name="TokenSecret" Type="String" Nullable="true" />
           <Property Name="UserName" Type="String" Nullable="true" />
+          <Property Name="RefreshToken" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -822,6 +824,7 @@
           <ScalarProperty Name="Token" ColumnName="Token" />
           <ScalarProperty Name="TokenSecret" ColumnName="TokenSecret" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="RefreshToken" ColumnName="RefreshToken" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
