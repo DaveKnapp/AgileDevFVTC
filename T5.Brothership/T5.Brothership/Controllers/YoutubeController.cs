@@ -43,25 +43,26 @@ namespace T5.Brothership.Controllers
         public async Task<ActionResult> AuthorizeYoutube(string code)
         {
             var user = _sessionHelper.Get("CurrentUser") as User;
+
             if (user == null)
             {
-                return RedirectToAction("");
+                return RedirectToAction("Login", "Login");
             }
-            await _youtubeIntegration.AuthorizeYoutube(user.ID, code);
+            await _youtubeIntegration.Authorize(user.ID, code);
 
             return RedirectToAction("EditIntegrations", "Account");
         }
 
-        public ActionResult DeAuthorize()
+        public async Task<ActionResult> DeAuthorize()
         {
             var user = _sessionHelper.Get("CurrentUser") as User;
 
             if (user == null)
             {
-                return RedirectToAction("");
+                return RedirectToAction("Login", "Login");
             }
 
-            _youtubeIntegration.DeAuthorizeYoutube(user.ID);
+            await _youtubeIntegration.DeAuthorize(user.ID);
 
             return RedirectToAction("EditIntegrations", "Account");
         }

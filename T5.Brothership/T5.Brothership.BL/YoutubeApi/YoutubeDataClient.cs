@@ -15,7 +15,7 @@ namespace T5.Brothership.BL.YoutubeApi
 {
     public class YoutubeDataClient
     {
-        public async Task<string> GetUserName()
+        public async Task<string> GetChannelId()
         {
             var secrets = new ClientSecrets
             {
@@ -25,15 +25,15 @@ namespace T5.Brothership.BL.YoutubeApi
 
 
             var dataStore = new YoutubeDataStore();
-            var user = dataStore.GetAsync<TokenResponse>("test");
-
+            var user = await dataStore.GetAsync<TokenResponse>("test");
+          
             var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                 secrets,
                   new[] { YouTubeService.Scope.YoutubeReadonly },
                  "user",
                  CancellationToken.None,
                  new YoutubeDataStore(),
-                 new AppCodeReciever(user.Result.RefreshToken)
+                 new AppCodeReciever(user.RefreshToken)
                );
 
 
@@ -49,7 +49,7 @@ namespace T5.Brothership.BL.YoutubeApi
             // Retrieve the contentDetails part of the channel resource for the authenticated user's channel.
             var channelsListResponse = await channelsListRequest.ExecuteAsync();
 
-            return channelsListResponse.Items[0].ContentOwnerDetails.ContentOwner;
+            return channelsListResponse.Items[0].Id;
         }
     }
 }

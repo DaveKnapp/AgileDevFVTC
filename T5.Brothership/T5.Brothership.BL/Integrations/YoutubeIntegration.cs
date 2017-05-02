@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Apis.Auth.OAuth2.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,11 +14,13 @@ namespace T5.Brothership.BL.Integrations
     {
         IBrothershipUnitOfWork _unitOfWork;
         IYoutubeAuthClient _youtubeAuthClient;
+        YoutubeDataClient _youtubeDataClient;
 
         public YoutubeIntegration()
         {
             _unitOfWork = new BrothershipUnitOfWork();
             _youtubeAuthClient = new YoutubeAuthClient();
+            _youtubeDataClient = new YoutubeDataClient();
         }
 
         public YoutubeIntegration(IBrothershipUnitOfWork unitOfWork, IYoutubeAuthClient twitchClient)
@@ -37,48 +40,66 @@ namespace T5.Brothership.BL.Integrations
             GC.SuppressFinalize(this);
         }
 
-        public async Task AuthorizeYoutube(int userId, string authorizationCode)
+        public async Task Authorize(int userId, string authorizationCode)
         {
-            string token = await _youtubeAuthClient.GetAuthorizationToken(authorizationCode);
+            TokenResponse tokenResponse = await _youtubeAuthClient.GetAuthorizationToken(authorizationCode);
 
-            if (token != null)
+            if (tokenResponse != null)
             {
                 var userIntegration = _unitOfWork.UserIntegrations.GetById(userId, (int)IntegrationType.IntegrationTypes.Youtube);
 
                 if (userIntegration != null)
                 {
                     _unitOfWork.UserIntegrations.Delete(userIntegration);
+                    _unitOfWork.Commit();
                 }
-
-                // var channel = await _youtubeAuthClient.GetChannel(token);
 
                 _unitOfWork.UserIntegrations.Add(new UserIntegration
                 {
                     UserID = userId,
                     IntegrationTypeID = (int)IntegrationType.IntegrationTypes.Youtube,
-                    Token = token,
+                    RefreshToken = tokenResponse.RefreshToken,
+                    Token = tokenResponse.AccessToken
                 });
                 _unitOfWork.Commit();
 
+                await SetChannelId(userId);
             }
-            var dataClient = new YoutubeDataClient();
-            string userName = await dataClient.GetUserName();
+
         }
 
-        public async Task DeAuthorizeYoutube(int userId)
+        public async Task DeAuthorize(int userId)
         {
-            var userInegration = _unitOfWork.UserIntegrations.GetById(userId, 1);
+            var userIntegration = _unitOfWork.UserIntegrations.GetById(userId, (int)IntegrationType.IntegrationTypes.Youtube);
 
-            try
+            if (userIntegration != null)
             {
-                await _youtubeAuthClient.DeAuthorize(userInegration.Token);
-                _unitOfWork.UserIntegrations.Delete(userInegration);
-                _unitOfWork.Commit();
+                try
+                {
+                    await _youtubeAuthClient.DeAuthorize(userIntegration.RefreshToken);
+                    _unitOfWork.UserIntegrations.Delete(userIntegration);
+                    _unitOfWork.Commit();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
-            catch (Exception)
+        }
+
+        private async Task SetChannelId(int userId)
+        {
+            string channelId = await _youtubeDataClient.GetChannelId();
+
+            if (channelId != null)
             {
-                throw;
+                var userIntegration = _unitOfWork.UserIntegrations.GetById(userId, (int)IntegrationType.IntegrationTypes.Youtube);
+                userIntegration.ChannelId = channelId;
+
+                _unitOfWork.UserIntegrations.Update(userIntegration);
+                _unitOfWork.Commit();
             }
         }
     }
 }
+

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Google.Apis.Auth.OAuth2.Responses;
+using System.Threading.Tasks;
 
 namespace T5.Brothership.BL.YoutubeApi
 {
@@ -6,6 +7,6 @@ namespace T5.Brothership.BL.YoutubeApi
     {
         Task DeAuthorize(string token);
         void Dispose();
-        Task<string> GetAuthorizationToken(string authorizationCode);
+        Task<TokenResponse> GetAuthorizationToken(string authorizationCode);
     }
 }

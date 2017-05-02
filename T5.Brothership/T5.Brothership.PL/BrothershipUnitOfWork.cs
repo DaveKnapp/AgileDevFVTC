@@ -199,6 +199,7 @@ namespace T5.Brothership.PL
                                                 validationError.ErrorMessage);
                     }
                 }
+                throw;
             }
         }
 

@@ -25,11 +25,11 @@
     position: relative;
 }
 
-.portfolio-item img {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
+    .portfolio-item img {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
 .game-image-title {
     padding-left: 5px;
@@ -59,8 +59,16 @@
         color: white;
     }
 
+
+.icoYoutube{
+    font-size: 26px !important;
+}
 .icoTwitch:hover {
     background-color: #6441a5;
+}
+
+.icoYoutube:hover {
+    background-color: #e52d27;
 }
 
 .panel-heading {
@@ -121,4 +129,8 @@
 
 .twitch-icon {
     color: #6441a5;
+}
+
+.youtube-icon {
+    color: #e52d27;
 }

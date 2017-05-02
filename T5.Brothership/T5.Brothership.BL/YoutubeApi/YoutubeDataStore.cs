@@ -44,7 +44,8 @@ namespace T5.Brothership.BL.YoutubeApi
                 {
                     var tokenResponse = new TokenResponse
                     {
-                        RefreshToken = user.Token,
+                        RefreshToken = user.RefreshToken,
+                        AccessToken = user.Token
                     };
                     taskSource.SetResult((T)Convert.ChangeType(tokenResponse, typeof(T)));
                 }

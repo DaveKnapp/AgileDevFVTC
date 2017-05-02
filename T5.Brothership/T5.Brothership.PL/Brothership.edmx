@@ -133,10 +133,12 @@
     </Key>
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="IntegrationTypeID" Type="int" Nullable="false" />
-    <Property Name="Token" Type="varchar" Nullable="false" MaxLength="80" />
+    <Property Name="Token" Type="varchar(max)" Nullable="false" />
     <Property Name="TokenSecret" Type="nvarchar(max)" Nullable="true" />
     <Property Name="UserName" Type="nvarchar(max)" Nullable="true" />
     <Property Name="RefreshToken" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ChannelId" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="URL" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="UserLogins">
     <Key>
@@ -164,7 +166,7 @@
     <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="25" />
     <Property Name="Email" Type="varchar" Nullable="false" MaxLength="45" />
     <Property Name="Bio" Type="varchar" Nullable="true" MaxLength="350" />
-    <Property Name="ProfileImagePath" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="ProfileImagePath" Type="varchar" Nullable="false" MaxLength="120" />
     <Property Name="DateJoined" Type="datetime" Nullable="false" />
     <Property Name="DOB" Type="datetime" Nullable="false" />
     <Property Name="UserTypeID" Type="int" Nullable="false" />
@@ -527,12 +529,14 @@
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="IntegrationTypeID" Type="Int32" Nullable="false" />
-          <Property Name="Token" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Token" Type="String" Nullable="false" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="IntegrationType" Relationship="brothershipModel.FK_UserIntegration_IntegrationType" FromRole="UserIntegration" ToRole="IntegrationType" />
           <NavigationProperty Name="User" Relationship="brothershipModel.FK_UserIntegration_UserID" FromRole="UserIntegration" ToRole="User" />
-          <Property Name="TokenSecret" Type="String" Nullable="true" />
+          <Property Name="TokenSecret" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="UserName" Type="String" Nullable="true" />
           <Property Name="RefreshToken" Type="String" Nullable="true" />
+          <Property Name="ChannelId" Type="String" Nullable="true" />
+          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -564,7 +568,7 @@
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Bio" Type="String" Nullable="true" MaxLength="350" FixedLength="false" Unicode="false" />
-          <Property Name="ProfileImagePath" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="ProfileImagePath" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="DateJoined" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DOB" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserTypeID" Type="Int32" Nullable="false" />
@@ -825,6 +829,8 @@
           <ScalarProperty Name="TokenSecret" ColumnName="TokenSecret" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="RefreshToken" ColumnName="RefreshToken" />
+          <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

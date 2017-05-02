@@ -46,11 +46,14 @@
                             {
                                 case (int)IntegrationType.IntegrationTypes.Twitch:
                                     <li><a href="https://www.twitch.tv/@(integration.UserName)" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
-                                            break;
-                                        case (int)IntegrationType.IntegrationTypes.Twitter:
+                                    break;
+                                case (int)IntegrationType.IntegrationTypes.Twitter:
                                     <li><a href="https://twitter.com/@(integration.UserName) " class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                                     break;
-                                        default:
+                                case (int)IntegrationType.IntegrationTypes.Youtube:
+                                    <li><a href="https://youtube.com/channel/@(integration.ChannelId) " class="icoYoutube" title="Youtube"><i class="fa fa-youtube"></i></a></li>
+                                    break;
+                                default:
                                     break;
                             }
                         }

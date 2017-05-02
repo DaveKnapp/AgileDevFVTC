@@ -12,24 +12,25 @@ using Google.Apis.YouTube.v3.Data;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Web;
+using Google.Apis.Auth.OAuth2.Responses;
 
 namespace T5.Brothership.BL.YoutubeApi
 {
     public class YoutubeAuthClient : IYoutubeAuthClient
     {
-        private readonly HttpClient client;
+        private readonly HttpClient _client;
         public YoutubeAuthClient()
         {
-            client = new HttpClient();
-            CreateClientHeaders();
+            _client = new HttpClient();
+            InitializeClient();
         }
 
         public void Dispose()
         {
-            client.Dispose();
+            _client.Dispose();
             GC.SuppressFinalize(this);
         }
-        public async Task<string> GetAuthorizationToken(string authorizationCode)
+        public async Task<TokenResponse> GetAuthorizationToken(string authorizationCode)
         {
             var values = new Dictionary<string, string>();
 
@@ -40,14 +41,19 @@ namespace T5.Brothership.BL.YoutubeApi
             values.Add("code", authorizationCode);
 
             var content = new FormUrlEncodedContent(values);
-            var response = await client.PostAsync("oauth2/v4/token", content);
+            var response = await _client.PostAsync("oauth2/v4/token", content);
 
             if (response.IsSuccessStatusCode)
             {
                 string jsonString = await response.Content.ReadAsStringAsync();
                 var authorizationResponse = JsonConvert.DeserializeObject<AuthResponse>(jsonString);
-                //TODO(Dave) Currently this is returning a refresh token but storing in db as token.  Do we want to add refreshed token column to DB?
-                return authorizationResponse.refresh_token != null ? authorizationResponse.refresh_token : null;
+
+                return new TokenResponse
+                {
+                    AccessToken = authorizationResponse.access_token,
+                    RefreshToken = authorizationResponse.refresh_token,
+                    ExpiresInSeconds = authorizationResponse.expires_in
+                };
             }
             else
             {
@@ -57,8 +63,6 @@ namespace T5.Brothership.BL.YoutubeApi
 
         public async Task<string> RefreshToken(string token)
         {
-            //refresh_token =< refresh_token > &
-            //grant_type = refresh_token
             var values = new Dictionary<string, string>();
 
             values.Add("client_id", ApiCredentials.CLIENT_ID);
@@ -67,13 +71,13 @@ namespace T5.Brothership.BL.YoutubeApi
             values.Add("grant_type", "refresh_token");
 
             var content = new FormUrlEncodedContent(values);
-            var response = await client.PostAsync("oauth2/v4/token", content);
+            var response = await _client.PostAsync("oauth2/v4/token", content);
 
             if (response.IsSuccessStatusCode)
             {
                 string jsonString = await response.Content.ReadAsStringAsync();
                 var authorizationResponse = JsonConvert.DeserializeObject<AuthResponse>(jsonString);
-                //TODO(Dave) Currently this is returning a refresh token but storing in db as token.  Do we want to add refreshed token column to DB?
+
                 return authorizationResponse.refresh_token == null ? authorizationResponse.access_token : authorizationResponse.refresh_token;
             }
             else
@@ -84,25 +88,23 @@ namespace T5.Brothership.BL.YoutubeApi
 
         public async Task DeAuthorize(string token)
         {
-            throw new NotImplementedException();
-            var values = new Dictionary<string, string>();
-
-            values.Add("client_id", ApiCredentials.CLIENT_ID);
-            values.Add("client_secret", ApiCredentials.CLIENT_SECRET);
-            values.Add("token", token);
-
-            var content = new FormUrlEncodedContent(values);
-            var response = await client.PostAsync("oauth2/revoke", content);
-
-            if (!(response.StatusCode == System.Net.HttpStatusCode.OK))
+            using (var client = new HttpClient())
             {
-                throw new HttpException(response.StatusCode.ToString());
+                client.BaseAddress = new Uri(@"https://accounts.google.com/o/");
+
+                var response = await _client.GetAsync("oauth2/revoke?token=" + token);
+
+
+                if (!(response.StatusCode == System.Net.HttpStatusCode.OK))
+                {
+                    throw new HttpException(response.StatusCode.ToString());
+                }
             }
         }
 
-        private void CreateClientHeaders()
+        private void InitializeClient()
         {
-            client.BaseAddress = new Uri("https://www.googleapis.com/");
+            _client.BaseAddress = new Uri("https://www.googleapis.com/");
         }
     }
 }

@@ -4,8 +4,8 @@ namespace T5.Brothership.BL.Integrations
 {
     public interface IYoutubeIntegration
     {
-        Task AuthorizeYoutube(int userId, string authorizationCode);
-        Task DeAuthorizeYoutube(int userId);
+        Task Authorize(int userId, string authorizationCode);
+        Task DeAuthorize(int userId);
         void Dispose();
     }
 }
