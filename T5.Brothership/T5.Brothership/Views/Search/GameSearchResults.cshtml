@@ -23,18 +23,20 @@
     }
 </p>
 
-<div class="container">
-    <div class="row">
+<div class="row">
+    <div class="col-md-12">
+        <ul class="grid effect" id="grid">
         @foreach (var item in Model)
         {
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="panel panel-default portfolio-item">
-                    <img class="img-responsive panel-body d-block text-center" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(item.ImgCloudinaryId).jpg" />
-                    <h4 class="panel-heading title-container text-center">
+            <li>
+                <div class="fancybox" data-fancybox-group="gallery">
+                    <img class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(item.ImgCloudinaryId).jpg" />
+                    <h4 class="">
                         @Html.ActionLink(item.Title, "UsersByGame", "Search", new { igdbid = item.igdbID }, null)
                     </h4>
                 </div>
-            </div>
+            </li>
         }
+        </ul>
     </div>
 </div>

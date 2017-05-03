@@ -36,8 +36,8 @@
         @foreach (var item in Model)
         {
             <div class="col-md-3 col-sm-6">
-                <div class="panel panel-default">
-                    <img src="@item.ProfileImagePath" alt="" class="img-responsive portfolio-item panel-body d-block">
+                <div class="panel panel-default portfolio-item">
+                    <img src="@item.ProfileImagePath" alt="" class="img-responsive panel-body d-block">
                     <h4 class="panel-heading title-container text-center">
                         @Html.ActionLink(item.UserName, "User", "User", new { userName = item.UserName }, null)
                     </h4>
