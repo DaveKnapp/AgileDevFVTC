@@ -13,6 +13,18 @@ namespace T5.Brothership.BL.YoutubeApi
 {
     public class YoutubeDataStore : IDataStore
     {
+        private IBrothershipUnitOfWork _unitOfWork;
+
+        public YoutubeDataStore()
+        {
+            _unitOfWork = new BrothershipUnitOfWork();
+        }
+
+        public YoutubeDataStore(IBrothershipUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public Task ClearAsync()
         {
             throw new NotImplementedException();
@@ -20,63 +32,62 @@ namespace T5.Brothership.BL.YoutubeApi
 
         public Task DeleteAsync<T>(string key)
         {
-            return Task.Run(() => { });
+            int userId = Convert.ToInt32(key);
+            return Task.Run(() =>
+            {
+                var user = _unitOfWork.UserIntegrations.GetById(userId, (int)IntegrationType.IntegrationTypes.Youtube);
+
+                if (user != null)
+                {
+                    user.RefreshToken = null;
+                    _unitOfWork.UserIntegrations.Update(user);
+                    _unitOfWork.Commit();
+                }
+            });
         }
 
         public Task<T> GetAsync<T>(string key)
         {
-
+            int userId = Convert.ToInt32(key);
             var taskSource = new TaskCompletionSource<T>();
 
+            var user = _unitOfWork.UserIntegrations.GetById(userId, (int)IntegrationType.IntegrationTypes.Youtube);
 
-            var user = new UserIntegration();
-
-
-            using (BrothershipUnitOfWork unitOfWork = new BrothershipUnitOfWork())
+            if (user == null)
             {
-                user = unitOfWork.UserIntegrations.GetById(1, (int)IntegrationType.IntegrationTypes.Youtube);
-
-                if (user == null)
+                taskSource.SetResult(default(T));
+            }
+            else
+            {
+                var tokenResponse = new TokenResponse
                 {
-                    taskSource.SetResult(default(T));
-                }
-                else
-                {
-                    var tokenResponse = new TokenResponse
-                    {
-                        RefreshToken = user.RefreshToken,
-                        AccessToken = user.Token
-                    };
-                    taskSource.SetResult((T)Convert.ChangeType(tokenResponse, typeof(T)));
-                }
-
-                return taskSource.Task;
-
+                    RefreshToken = user.RefreshToken,
+                };
+                taskSource.SetResult((T)Convert.ChangeType(tokenResponse, typeof(T)));
             }
 
+            return taskSource.Task;
         }
 
         public Task StoreAsync<T>(string key, T value)
         {
-            using (BrothershipUnitOfWork unitOfWork = new BrothershipUnitOfWork())
+            int userId = Convert.ToInt32(key);
+            var taskSource = new TaskCompletionSource<T>();
+            var tokenResponse = value as TokenResponse;
+
+            var user = _unitOfWork.UserIntegrations.GetById(userId, (int)IntegrationType.IntegrationTypes.Youtube);
+
+            if (user != null)
             {
-                var taskSource = new TaskCompletionSource<T>();
-                var tokenResponse = value as TokenResponse;
-                var user = unitOfWork.UserIntegrations.GetById(1, (int)IntegrationType.IntegrationTypes.Youtube);
-
-                if (user != null)
-                {
-                    user.RefreshToken = tokenResponse.RefreshToken;
-                    unitOfWork.UserIntegrations.Update(user);
-                    unitOfWork.Commit();
-                }
-
-                taskSource.SetResult((T)Convert.ChangeType(tokenResponse, typeof(T)));
-
-                return taskSource.Task;
-
+                user.Token = tokenResponse.AccessToken;
+                user.RefreshToken = tokenResponse.RefreshToken;
+                _unitOfWork.UserIntegrations.Update(user);
+                _unitOfWork.Commit();
             }
 
+            taskSource.SetResult((T)Convert.ChangeType(tokenResponse, typeof(T)));
+
+            return taskSource.Task;
         }
     }
 }

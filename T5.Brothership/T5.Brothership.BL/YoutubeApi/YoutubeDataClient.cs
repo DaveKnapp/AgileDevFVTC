@@ -15,7 +15,7 @@ namespace T5.Brothership.BL.YoutubeApi
 {
     public class YoutubeDataClient
     {
-        public async Task<string> GetChannelId()
+        public async Task<string> GetChannelId(int userId)
         {
             var secrets = new ClientSecrets
             {
@@ -23,17 +23,14 @@ namespace T5.Brothership.BL.YoutubeApi
                 ClientSecret = ApiCredentials.CLIENT_SECRET
             };
 
-
             var dataStore = new YoutubeDataStore();
-            var user = await dataStore.GetAsync<TokenResponse>("test");
           
             var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                 secrets,
                   new[] { YouTubeService.Scope.YoutubeReadonly },
-                 "user",
+                 userId.ToString(),
                  CancellationToken.None,
-                 new YoutubeDataStore(),
-                 new AppCodeReciever(user.RefreshToken)
+                 new YoutubeDataStore()
                );
 
 

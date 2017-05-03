@@ -11,7 +11,7 @@ using T5.Brothership.PL;
 namespace T5.Brothership.BL.Integrations
 {
     public class YoutubeIntegration : IYoutubeIntegration
-    {
+    {//TOOD(Dave) Add test
         IBrothershipUnitOfWork _unitOfWork;
         IYoutubeAuthClient _youtubeAuthClient;
         YoutubeDataClient _youtubeDataClient;
@@ -89,7 +89,7 @@ namespace T5.Brothership.BL.Integrations
 
         private async Task SetChannelId(int userId)
         {
-            string channelId = await _youtubeDataClient.GetChannelId();
+            string channelId = await _youtubeDataClient.GetChannelId(userId);
 
             if (channelId != null)
             {

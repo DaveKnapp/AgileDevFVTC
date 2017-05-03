@@ -90,9 +90,9 @@ namespace T5.Brothership.BL.YoutubeApi
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(@"https://accounts.google.com/o/");
+                client.BaseAddress = new Uri(@"https://accounts.google.com/");
 
-                var response = await _client.GetAsync("oauth2/revoke?token=" + token);
+                var response = await client.GetAsync("o/oauth2/revoke?token=" + token);
 
 
                 if (!(response.StatusCode == System.Net.HttpStatusCode.OK))

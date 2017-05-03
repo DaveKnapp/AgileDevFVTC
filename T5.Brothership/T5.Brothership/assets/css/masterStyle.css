@@ -88,8 +88,9 @@
 }
 
     #UpdateMenu li {
-        display: inline;
-        padding: 1em;
+        display: inline-block;
+        padding: .5em;
+        white-space:nowrap;
     }
 
 .UpdateMenuLinkNotSelected {
@@ -133,4 +134,5 @@
 
 .youtube-icon {
     color: #e52d27;
+    font-size: 24px !important;
 }
