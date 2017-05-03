@@ -13,65 +13,76 @@
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
-<div style="float:right;width:50%;">
+<div class="form-group row">
+    <label class="control-label col-md-2 col-md-offset-2">Add Games</label>
     @using (Ajax.BeginForm("SearchIGDB", "Game", new { limit = 50, page = 0 }, options))
     {
-        <div>
+        <div class="col-md-6">
             @Html.TextBox("gameTitle", null, new { id = "Search" })
-            <input type="submit" value="Search" id="SearchButton" />
+            <input type="submit" value="Search" id="SearchButton" class="btn btn-md btn-theme" />
         </div>
     }
-
-    <div id="ScrollingSearch" style="border:solid; height:14em;  overflow-y:scroll;">
-        <div id="LoadingGif" style="display:none;">
-            <img style="margin-left:auto; display:block; margin-right:auto; margin-top:2em;" src="~/images/ajax-loader.gif" />
+</div>
+<div class="form-group row">
+    <!--need to remove inline styles-->
+    <div class="col-md-6 col-md-offset-4">
+        <div id="ScrollingSearch" style="height:14em; overflow-y:scroll;" class="form-control">
+            <div id="LoadingGif" style="display:none;">
+                <img style="margin-left:auto; display:block; margin-right:auto; margin-top:2em;" src="~/images/ajax-loader.gif" />
+            </div>
+            <ul style="list-style:none" id="searchResult">
+                @Html.Action("SearchIGDB", "Game", new { title = "" })
+            </ul>
         </div>
-        <ul style="list-style:none" id="searchResult">
-            @Html.Action("SearchIGDB", "Game", new { title = "" })
-        </ul>
     </div>
 </div>
 
-<div style="border:solid; height:14em; margin-top:2em; width:50%; float:left; overflow-y:scroll;">
-    <ul style="list-style:none" id="UserGames">
-        @for (int i = 0; i < Model.Count(); i++)
-        {
-            <li>
-                <button id="Item-@{@i}" onclick="GameListItemClicked(event);" style="background-color:transparent;
+<div class="form-group row">
+    <label class="control-label col-md-2 col-md-offset-2">Selected Games</label>
+    <!--need to remove inline styles-->
+    <div class="col-md-6">
+        <div style="height:14em; overflow-y:scroll;" class="form-control">
+            <ul style="list-style:none" id="UserGames">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <li>
+                        <button id="Item-@{@i}" onclick="GameListItemClicked(event);" style="background-color:transparent;
                     border:thin; width:100%; margin-top:.5em; margin-bottom:.5em; text-align:left;">
-                    <span>.
-                        <img style="height:46px;" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(Model[i].ImgCloudinaryId).jpg" />
-                    </span>
-                    <span>
-                        @Html.DisplayFor(modelItem => Model[i].Title)
-                    </span>
-                    <span>
-                        @Html.HiddenFor(modelItem => Model[i].igdbID)
-                    </span>
-                </button>
-            </li>
+                            <span>
+                                <img style="height:46px;" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(Model[i].ImgCloudinaryId).jpg" />
+                            </span>
+                            <span>
+                                @Html.DisplayFor(modelItem => Model[i].Title)
+                            </span>
+                            <span>
+                                @Html.HiddenFor(modelItem => Model[i].igdbID)
+                            </span>
+                        </button>
+                    </li>
     }
-    </ul>
+            </ul>
+        </div>
+    </div>
 </div>
 
-@{
-    AjaxOptions optionsScrollLoad = new AjaxOptions
-    {
-        UpdateTargetId = "searchResult",
-        InsertionMode = InsertionMode.InsertAfter,
-        HttpMethod = "Get",
-        OnComplete = "IncrementSearchPage",
-        OnFailure = "SearchHasNoMoreItems"
-    };
-}
+        @{
+            AjaxOptions optionsScrollLoad = new AjaxOptions
+            {
+                UpdateTargetId = "searchResult",
+                InsertionMode = InsertionMode.InsertAfter,
+                HttpMethod = "Get",
+                OnComplete = "IncrementSearchPage",
+                OnFailure = "SearchHasNoMoreItems"
+            };
+        }
 
-@using (Ajax.BeginForm("SearchIGDB", "Game", optionsScrollLoad))
-{
-    <div>
-        <input name="gameTitle" value="" id="ScrollingSearchTitleInput" type="hidden" />
-        <input name="page" value="" id="ScrollingSearchPageInput" type="hidden" />
-        <input name="limit" value="50" type="hidden" />
-        <button type="submit" style="visibility:hidden" value="Search" id="FakeSearchButton">Search</button>
-    </div>
-}
-<script src="~/Scripts/GameSearchHelper.js"></script>
+        @using (Ajax.BeginForm("SearchIGDB", "Game", optionsScrollLoad))
+        {
+            <div>
+                <input name="gameTitle" value="" id="ScrollingSearchTitleInput" type="hidden" />
+                <input name="page" value="" id="ScrollingSearchPageInput" type="hidden" />
+                <input name="limit" value="50" type="hidden" />
+                <button type="submit" style="visibility:hidden" value="Search" id="FakeSearchButton">Search</button>
+            </div>
+        }
+        <script src="~/Scripts/GameSearchHelper.js"></script>

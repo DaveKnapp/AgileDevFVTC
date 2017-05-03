@@ -5,127 +5,128 @@
     ViewBag.Title = "Update";
 }
 
-<h2>Update Account</h2>
+<h2 class="text-center">Update Account</h2>
+<div class="cform container jumbotron">
+    @Html.Partial("AccountEditMenu", "Edit")
 
-@Html.Partial("AccountEditMenu", "Edit")
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        <div>
+            <h4 class="text-danger">@ViewBag.Message</h4>
+            <h4>@ViewBag.UpdateMessage</h4>
 
-    <div class="form-horizontal">
-        <h4 class="text-danger">@ViewBag.Message</h4>
-        <h4 >@ViewBag.UpdateMessage</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.CurrentUser.ID)
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.CurrentUser.ID)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CurrentUser.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.CurrentUser.UserName)
-                @Html.DisplayFor(model => model.CurrentUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CurrentUser.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CurrentUser.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CurrentUser.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CurrentUser.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CurrentUser.DOB, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CurrentUser.DOB, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CurrentUser.NationalityID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CurrentUser.NationalityID, new SelectList(Model.Nationalities, "ID", "Description"),
-                    new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CurrentUser.NationalityID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CurrentUser.GenderId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CurrentUser.GenderId, new SelectList(Model.Genders, "ID", "Description"),
-                    new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CurrentUser.GenderId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.CurrentUser.ProfileImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <img class="img-responsive profile-img" src="@Html.DisplayFor(model => model.CurrentUser.ProfileImagePath)" alt="">
-                @Html.
-                @Html.ValidationMessageFor(model => model.CurrentUser.ProfileImagePath, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CurrentUser.Bio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CurrentUser.Bio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CurrentUser.Bio, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*@foreach (var socialMediaType in Enum.GetValues(typeof(SocialMediaType.SocialMediaTypes)))
-            {
-                int socialMediaId = (int)socialMediaType;
-                var socialMedia = Model.CurrentUser.UserSocialJuncs.FirstOrDefault(p => p.SocialMediaTypeID == socialMediaId);
-                string url = socialMedia == null ? String.Empty : socialMedia.URL;
-
-                <div class="form-group row">
-                    <input type="hidden" name="CurrentUser.UserSocialJuncs.Index" value="@socialMediaId" />
-                    <input name="CurrentUser.UserSocialJuncs[@socialMediaId].UserID" value="@Model.CurrentUser.ID" type="hidden" />
-                    <input name="CurrentUser.UserSocialJuncs[@socialMediaId].SocialMediaTypeID" value="@socialMediaId" type="hidden" />
-
-                    <label class="control-label col-md-2 col-md-offset-2" for="@(socialMediaType)input">@socialMediaType</label>
-                    <div class="col-md-6">
-                        <input id="@(socialMediaType)input" name="CurrentUser.UserSocialJuncs[@socialMediaId].URL" class="form-control" value="@url" />
-                    </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CurrentUser.UserName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.HiddenFor(model => model.CurrentUser.UserName)
+                    @Html.DisplayFor(model => model.CurrentUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
-            }*@
+            </div>
 
-        <div class="form-group row">
-            <div id="userInputGames" class="col-md-6">
-                @for (int i = 0; i < Model.CurrentUser.Games.Count; i++)
-                {
-                    <div>
-                        <input type="hidden" name="CurrentUser.Games.Index" value="@Model.CurrentUser.Games.ToList()[i].igdbID" />
-                        <input name="CurrentUser.Games[@Model.CurrentUser.Games.ToList()[i].igdbID].ID" value="@Model.CurrentUser.Games.ToList()[i].ID" type="hidden" />
-                        <input name="CurrentUser.Games[@Model.CurrentUser.Games.ToList()[i].igdbID].igdbID" value="@Model.CurrentUser.Games.ToList()[i].igdbID" type="hidden" />
-                        <input name="CurrentUser.Games[@Model.CurrentUser.Games.ToList()[i].igdbID].Title" value="@Model.CurrentUser.Games.ToList()[i].Title" type="hidden" />
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CurrentUser.Email, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.CurrentUser.Email, new { htmlAttributes = new { @class = "form-control", autofocus = "autofocus" } })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CurrentUser.DOB, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.CurrentUser.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.DOB, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CurrentUser.NationalityID, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.CurrentUser.NationalityID, new SelectList(Model.Nationalities, "ID", "Description"),
+                    new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.NationalityID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CurrentUser.GenderId, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.CurrentUser.GenderId, new SelectList(Model.Genders, "ID", "Description"),
+                    new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.GenderId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.CurrentUser.ProfileImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <img class="img-responsive profile-img" src="@Html.DisplayFor(model => model.CurrentUser.ProfileImagePath)" alt="">
+                        @Html.
+                        @Html.ValidationMessageFor(model => model.CurrentUser.ProfileImagePath, "", new { @class = "text-danger" })
                     </div>
-                }
+                </div>*@
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CurrentUser.Bio, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.CurrentUser.Bio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurrentUser.Bio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*@foreach (var socialMediaType in Enum.GetValues(typeof(SocialMediaType.SocialMediaTypes)))
+                {
+                    int socialMediaId = (int)socialMediaType;
+                    var socialMedia = Model.CurrentUser.UserSocialJuncs.FirstOrDefault(p => p.SocialMediaTypeID == socialMediaId);
+                    string url = socialMedia == null ? String.Empty : socialMedia.URL;
+
+                    <div class="form-group row">
+                        <input type="hidden" name="CurrentUser.UserSocialJuncs.Index" value="@socialMediaId" />
+                        <input name="CurrentUser.UserSocialJuncs[@socialMediaId].UserID" value="@Model.CurrentUser.ID" type="hidden" />
+                        <input name="CurrentUser.UserSocialJuncs[@socialMediaId].SocialMediaTypeID" value="@socialMediaId" type="hidden" />
+
+                        <label class="control-label col-md-2 col-md-offset-2" for="@(socialMediaType)input">@socialMediaType</label>
+                        <div class="col-md-6">
+                            <input id="@(socialMediaType)input" name="CurrentUser.UserSocialJuncs[@socialMediaId].URL" class="form-control" value="@url" />
+                        </div>
+                    </div>
+                }*@
+
+            <div class="form-group row">
+                <div id="userInputGames" class="col-md-6">
+                    @for (int i = 0; i < Model.CurrentUser.Games.Count; i++)
+                {
+                        <div>
+                            <input type="hidden" name="CurrentUser.Games.Index" value="@Model.CurrentUser.Games.ToList()[i].igdbID" />
+                            <input name="CurrentUser.Games[@Model.CurrentUser.Games.ToList()[i].igdbID].ID" value="@Model.CurrentUser.Games.ToList()[i].ID" type="hidden" />
+                            <input name="CurrentUser.Games[@Model.CurrentUser.Games.ToList()[i].igdbID].igdbID" value="@Model.CurrentUser.Games.ToList()[i].igdbID" type="hidden" />
+                            <input name="CurrentUser.Games[@Model.CurrentUser.Games.ToList()[i].igdbID].Title" value="@Model.CurrentUser.Games.ToList()[i].Title" type="hidden" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" id="SubmitButton" style="visibility:hidden;" />
+                </div>
             </div>
         </div>
+    }
+    <script>
+        gameNextInputIndex = @Model.CurrentUser.Games.Count;
+    </script>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" id="SubmitButton" style="visibility:hidden;" />
-            </div>
-        </div>
-    </div>
-}
-<script>
-    gameNextInputIndex = @Model.CurrentUser.Games.Count;
-</script>
+    @Html.Partial("UserGameEditSearch", Model.CurrentUser.Games.ToList())
 
-@Html.Partial("UserGameEditSearch", Model.CurrentUser.Games.ToList())
-
-<input type="button" value="Save" class="btn btn-lg btn-theme" onclick="SubmitForm();" /><br />
+    <input type="button" value="Save" class="btn btn-lg btn-theme bottom-margin center-button" onclick="SubmitForm();" /><br />
+</div>
 
 @section Scripts {
 

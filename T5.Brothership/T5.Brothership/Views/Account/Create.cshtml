@@ -19,7 +19,7 @@
             <div class="form-group row">
                 @Html.LabelFor(model => model.CurrentUser.UserName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.CurrentUser.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.CurrentUser.UserName, new { htmlAttributes = new { @class = "form-control", autofocus = "autofocus" } })
                     @Html.ValidationMessageFor(model => model.CurrentUser.UserName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -92,18 +92,18 @@
             </div>
 
             @*@foreach (var socialMediaType in Enum.GetValues(typeof(SocialMediaType.SocialMediaTypes)))
-            {
-                int socialMediaId = (int)socialMediaType;
-                <div class="form-group row">
-                    <input type="hidden" name="CurrentUser.UserSocialJuncs.Index" value="@socialMediaId" />
-                   <input name="CurrentUser.UserSocialJuncs[0].UserID" value="1" type="hidden" />
-                    <input name="CurrentUser.UserSocialJuncs[@socialMediaId].SocialMediaTypeID" value="@socialMediaId" type="hidden" />
+                {
+                    int socialMediaId = (int)socialMediaType;
+                    <div class="form-group row">
+                        <input type="hidden" name="CurrentUser.UserSocialJuncs.Index" value="@socialMediaId" />
+                       <input name="CurrentUser.UserSocialJuncs[0].UserID" value="1" type="hidden" />
+                        <input name="CurrentUser.UserSocialJuncs[@socialMediaId].SocialMediaTypeID" value="@socialMediaId" type="hidden" />
 
-                    <label class="control-label col-md-2 col-md-offset-2" for="@(socialMediaType)input">@socialMediaType</label>
-                    <div class="col-md-6">
-                        <input id="@(socialMediaType)input" name="CurrentUser.UserSocialJuncs[@socialMediaId].URL" class="form-control" value="" />
+                        <label class="control-label col-md-2 col-md-offset-2" for="@(socialMediaType)input">@socialMediaType</label>
+                        <div class="col-md-6">
+                            <input id="@(socialMediaType)input" name="CurrentUser.UserSocialJuncs[@socialMediaId].URL" class="form-control" value="" />
+                        </div>
                     </div>
-                </div>
             *@
 
 
@@ -126,13 +126,14 @@
                     <input type="submit" value="Create" style="visibility:hidden;" class="btn btn-lg btn-theme" id="SubmitButton" />
                 </div>
             </div>
+
+
         </div>
     }
+    @Html.Partial("UserGameEditSearch", Model.CurrentUser.Games.ToList())
+
+    <input type="button" value="Create" class="btn btn-lg btn-theme bottom-margin center-button" onclick="SubmitForm();" />
 </div>
-
-@Html.Partial("UserGameEditSearch", Model.CurrentUser.Games.ToList())
-
-<input type="button" value="Create" class="btn btn-lg btn-theme" onclick="SubmitForm();" />
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

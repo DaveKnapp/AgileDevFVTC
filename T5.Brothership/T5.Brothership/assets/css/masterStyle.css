@@ -9,6 +9,17 @@
 .top-margin {
     padding-top: 10px;
 }
+/*used on create.cshtml, update.cshtml, changepassword.cshtml*/
+.bottom-margin {
+    margin-bottom: 2rem;
+}
+
+.center-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*-----------------------*/
 /*Nav CSS*/
 .navbar-brand-color a {
     color: #6666ff !important;
