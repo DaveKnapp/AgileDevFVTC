@@ -20,7 +20,7 @@ namespace T5.Brothership.PL.Repositories
 
         public AzureRepository()
         {
-            var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+            var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(connectionString));
 
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             container = blobClient.GetContainerReference(containerName);

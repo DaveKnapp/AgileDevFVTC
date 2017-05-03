@@ -48,7 +48,7 @@ namespace T5.Brothership.Controllers
         public async Task<ActionResult> Create(CreateUserViewModel userViewModel)
         {
             var newUser = userViewModel.CurrentUser;
-            newUser.ProfileImagePath = "";
+            newUser.ProfileImagePath = "Default";
             newUser.UserTypeID = (int)UserType.UserTypes.User;
 
             if (ModelState.IsValid)
@@ -116,7 +116,7 @@ namespace T5.Brothership.Controllers
             currentUser.ID = (_sessionHelper.Get("CurrentUser") as User).ID;
             //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
             //NOTE(TH) Needs upload functionality from the UI.
-            currentUser.ProfileImagePath = "Default";
+            currentUser.ProfileImagePath = "Default"; 
 
             currentUser.UserTypeID = (int)UserType.UserTypes.User;
 
