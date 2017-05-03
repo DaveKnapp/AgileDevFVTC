@@ -63,15 +63,18 @@ namespace T5.Brothership.BL.Managers
         public async Task Add(User user, string password)
         {
             var newUser = user;
+           
+            newUser.ProfileImagePath = _unitOfWork.AzureBlobStorage.GetDefaultUserImage(); 
 
             if (UserNameExists(user.UserName))
             {
                 throw new UsernameAlreadyExistsException("UserName is being used by another user");
             }
-            // Sets a default image for new users. Change later if we decide to allow uploads at sign up.
-            newUser.ProfileImagePath = _unitOfWork.AzureBlobStorage.GetDefaultUserImage();
             newUser.UserLogin = CreateUserLogin(password);
+           
             newUser.DateJoined = DateTime.Now;
+
+            // Sets a default image for new users. Change later if we decide to allow uploads at sign up.
 
             await _gameManager.AddGamesIfNotExistsAsync(CreateIgdbIdArray(user.Games));
             newUser.Games = _gameManager.GetByIgdbIds(CreateIgdbIdArray(user.Games));

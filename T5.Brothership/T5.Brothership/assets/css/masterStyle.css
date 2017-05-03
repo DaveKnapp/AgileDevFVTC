@@ -23,22 +23,30 @@
 .portfolio-item {
     padding-top: 3.5rem;
     position: relative;
+    width: auto;
 }
 
 .portfolio-item img {
-    width: 100%;
+    width: auto;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .game-image-title {
     padding-left: 5px;
     padding-right: 5px;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    color: whitesmoke;
+    background-color: rgba(0, 0, 0, 0.75);
     width: 100%;
-    display: block;
+    color: whitesmoke;
+    word-wrap: break-word;
+	outline: none;
+	border: none;
+	display: block;
+	max-width: 100%;
+}
+
+.title-container {
     word-wrap: break-word;
 }
 
@@ -53,8 +61,16 @@
         color: white;
     }
 
+
+.icoYoutube{
+    font-size: 26px !important;
+}
 .icoTwitch:hover {
     background-color: #6441a5;
+}
+
+.icoYoutube:hover {
+    background-color: #e52d27;
 }
 
 .panel-heading {
@@ -74,8 +90,9 @@
 }
 
     #UpdateMenu li {
-        display: inline;
-        padding: 1em;
+        display: inline-block;
+        padding: .5em;
+        white-space:nowrap;
     }
 
 .UpdateMenuLinkNotSelected {
@@ -115,4 +132,9 @@
 
 .twitch-icon {
     color: #6441a5;
+}
+
+.youtube-icon {
+    color: #e52d27;
+    font-size: 24px !important;
 }

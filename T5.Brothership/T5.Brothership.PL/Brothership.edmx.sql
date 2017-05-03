@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/22/2017 02:03:16
+-- Date Created: 05/02/2017 15:14:55
 -- Generated from EDMX file: C:\Users\zzdia\Source\Repos\AgileDevFVTC\T5.Brothership\T5.Brothership.PL\Brothership.edmx
 -- --------------------------------------------------
 
@@ -165,9 +165,12 @@ GO
 CREATE TABLE [dbo].[UserIntegrations] (
     [UserID] int  NOT NULL,
     [IntegrationTypeID] int  NOT NULL,
-    [Token] varchar(80)  NOT NULL,
+    [Token] varchar(max)  NOT NULL,
     [TokenSecret] nvarchar(max)  NULL,
-    [UserName] nvarchar(max)  NULL
+    [UserName] nvarchar(max)  NULL,
+    [RefreshToken] nvarchar(max)  NULL,
+    [ChannelId] nvarchar(max)  NULL,
+    [URL] nvarchar(max)  NULL
 );
 GO
 
@@ -194,7 +197,7 @@ CREATE TABLE [dbo].[Users] (
     [UserName] varchar(25)  NOT NULL,
     [Email] varchar(45)  NOT NULL,
     [Bio] varchar(350)  NULL,
-    [ProfileImagePath] varchar(60)  NOT NULL,
+    [ProfileImagePath] varchar(120)  NOT NULL,
     [DateJoined] datetime  NOT NULL,
     [DOB] datetime  NOT NULL,
     [UserTypeID] int  NOT NULL,

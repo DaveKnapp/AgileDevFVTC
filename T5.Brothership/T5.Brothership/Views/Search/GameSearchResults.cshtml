@@ -5,32 +5,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Game Search</h2>
+<h1 class="text-center">Game Search</h1>
 
 <p>
     @using (Html.BeginForm("GameSearchResults", "Search", FormMethod.Get, new { search = "Game" }))
     {
-        @Html.TextBox("Search")
-        <div>
-            <input type="submit" value="Search" />
+        <div class="row">
+            <div class="col-12 d-block text-center">
+                @Html.TextBox("Search")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-block text-center">
+                <input type="submit" class="btn btn-lg btn-primary" value="Search" />
+            </div>
         </div>
     }
 </p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <img style="width:34px;" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(item.ImgCloudinaryId).jpg" />
-            @Html.ActionLink(item.Title, "UsersByGame", "Search", new { igdbid = item.igdbID }, null)
-        </td>       
-    </tr>
-}
-
-</table>
+<div class="row">
+    <div class="col-md-12">
+        <ul class="grid effect" id="grid">
+        @foreach (var item in Model)
+        {
+            <li>
+                <div class="fancybox" data-fancybox-group="gallery">
+                    <img class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(item.ImgCloudinaryId).jpg" />
+                    <h4 class="">
+                        @Html.ActionLink(item.Title, "UsersByGame", "Search", new { igdbid = item.igdbID }, null)
+                    </h4>
+                </div>
+            </li>
+        }
+        </ul>
+    </div>
+</div>

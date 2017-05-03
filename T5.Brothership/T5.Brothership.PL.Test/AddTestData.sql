@@ -64,7 +64,8 @@ SET IDENTITY_INSERT UserLogins OFF;
 	SET IDENTITY_INSERT IntegrationTypes ON;
 	INSERT INTO IntegrationTypes(ID,"Description")
 		VALUES(1, 'Twitch'),
-			  (2, 'Twitter')
+			  (2, 'Twitter'),
+			  (3, 'Youtube')
 	SET IDENTITY_INSERT IntegrationTypes OFF;
 
 	INSERT INTO UserIntegrations(UserID, IntegrationTypeID, Token)

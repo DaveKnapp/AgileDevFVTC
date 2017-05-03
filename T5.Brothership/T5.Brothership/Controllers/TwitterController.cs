@@ -58,6 +58,7 @@ namespace T5.Brothership.Controllers
 
         public ActionResult DeAuthorize()
         {
+            //TODO redirect to login if not logged in /test
             var user = _sessionHelper.Get("CurrentUser") as T5.Brothership.Entities.Models.User;
             _twitterIntegration.DeAuthorize(user.ID);
 

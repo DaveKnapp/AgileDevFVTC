@@ -24,7 +24,8 @@ namespace T5.Brothership.BL.Managers
 
         public string GetDefaultUrl()
         {
-            return _unitOfWork.AzureBlobStorage.GetDefaultUserImage();
+            throw new NotImplementedException();
+          //  return _unitOfWork.AzureBlobStorage.GetDefaultUserImage();
         }
 
         public void Dispose()

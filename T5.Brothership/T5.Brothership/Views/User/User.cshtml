@@ -46,11 +46,14 @@
                             {
                                 case (int)IntegrationType.IntegrationTypes.Twitch:
                                     <li><a href="https://www.twitch.tv/@(integration.UserName)" class="icoTwitch" title="Twitch"><i class="fa fa-twitch"></i></a></li>
-                                            break;
-                                        case (int)IntegrationType.IntegrationTypes.Twitter:
+                                    break;
+                                case (int)IntegrationType.IntegrationTypes.Twitter:
                                     <li><a href="https://twitter.com/@(integration.UserName) " class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                                     break;
-                                        default:
+                                case (int)IntegrationType.IntegrationTypes.Youtube:
+                                    <li><a href="https://youtube.com/channel/@(integration.ChannelId) " class="icoYoutube" title="Youtube"><i class="fa fa-youtube"></i></a></li>
+                                    break;
+                                default:
                                     break;
                             }
                         }
@@ -64,21 +67,25 @@
         <div class="col-md-9">
             <h3>Games</h3>
             <div class="row">
-                @if (Model.User.Games.Count == 0)
-                {
-                    <div class="col">
-                        <p class="text-center">User has no games.</p>
-                    </div>
-                }
-                @foreach (var game in Model.User.Games)
-                {
-                    <div class="col-md-3 col-sm-6 col-xs-6">
-                        <div class="portfolio-item">
-                            <img class="img-fluid d-block" src="//images.igdb.com/igdb/image/upload/t_cover_med/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
-                            <span class="game-image-title">@game.Title</span>
-                        </div>
-                    </div>
-                }
+                <div class="col-md-12">
+                    <ul class="grid effect" id="grid">
+                    @if (Model.User.Games.Count == 0)
+                    {
+                        <li>
+                            <p class="text-center">User has no games.</p>
+                        </li>
+                    }
+                    @foreach (var game in Model.User.Games)
+                    {
+                        <li>
+                            <div class="fancybox" data-fancybox-group="gallery">
+                                <img class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
+                                <span class="game-image-title">@game.Title</span>
+                            </div>
+                        </li>
+                    }
+                    </ul>
+                </div>
             </div>
             @if (Model.User.Games.Count > 0)
             {
