@@ -11,18 +11,13 @@ using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.YoutubeApi
 {
-    public class YoutubeDataStore : IDataStore
+    public class YoutubeDataStore : IDataStore, IDisposable
     {
         private IBrothershipUnitOfWork _unitOfWork;
 
         public YoutubeDataStore()
         {
             _unitOfWork = new BrothershipUnitOfWork();
-        }
-
-        public YoutubeDataStore(IBrothershipUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
         }
 
         public Task ClearAsync()
@@ -44,6 +39,11 @@ namespace T5.Brothership.BL.YoutubeApi
                     _unitOfWork.Commit();
                 }
             });
+        }
+
+        public void Dispose()
+        {
+            _unitOfWork?.Dispose();
         }
 
         public Task<T> GetAsync<T>(string key)

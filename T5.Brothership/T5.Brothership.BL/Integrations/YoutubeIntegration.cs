@@ -10,11 +10,11 @@ using T5.Brothership.PL;
 
 namespace T5.Brothership.BL.Integrations
 {
-    public class YoutubeIntegration : IYoutubeIntegration
+    public class YoutubeIntegration : IYoutubeIntegration, IDisposable
     {//TOOD(Dave) Add test
         IBrothershipUnitOfWork _unitOfWork;
         IYoutubeAuthClient _youtubeAuthClient;
-        YoutubeDataClient _youtubeDataClient;
+        IYoutubeDataClient _youtubeDataClient;
 
         public YoutubeIntegration()
         {
@@ -23,10 +23,11 @@ namespace T5.Brothership.BL.Integrations
             _youtubeDataClient = new YoutubeDataClient();
         }
 
-        public YoutubeIntegration(IBrothershipUnitOfWork unitOfWork, IYoutubeAuthClient twitchClient)
+        public YoutubeIntegration(IBrothershipUnitOfWork unitOfWork, IYoutubeAuthClient youtubeAuthClient, IYoutubeDataClient youtubeDataClient)
         {
             _unitOfWork = unitOfWork;
-            _youtubeAuthClient = twitchClient;
+            _youtubeAuthClient = youtubeAuthClient;
+            _youtubeDataClient = youtubeDataClient;
         }
 
         public YoutubeIntegration(IBrothershipUnitOfWork unitOfWork)
@@ -37,6 +38,7 @@ namespace T5.Brothership.BL.Integrations
         public void Dispose()
         {
             _unitOfWork?.Dispose();
+            _youtubeAuthClient?.Dispose();
             GC.SuppressFinalize(this);
         }
 
