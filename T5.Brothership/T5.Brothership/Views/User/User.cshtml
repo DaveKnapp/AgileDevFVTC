@@ -29,11 +29,12 @@
             <p>@Html.DisplayFor(model => model.User.Nationality.Description)</p>
             @foreach (var integrationInfo in Model.UserIntegrationInfos)
             {
-                <div>
+                <div class="col-md-12">
                     @if (integrationInfo.IsUserLive)
                     {
-                        <a class="alert" href="@integrationInfo.UserLiveStreamURL">@integrationInfo.IntegrationType</a>
-                        <img src="~/images/live.png" style="width:2em;">
+                        @*Watch 'username' live on 'intergrationType' now!*@
+                        <a class="" href="@integrationInfo.UserLiveStreamURL">Watch @(Model.User.UserName) live on @(integrationInfo.IntegrationType) now!</a>
+                        @*<img src="~/images/live.png" style="width:2em;">*@
                     }
                 </div>
             }
