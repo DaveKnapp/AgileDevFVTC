@@ -10,6 +10,8 @@
 <p>
     @using (Html.BeginForm("GameSearchResults", "Search", FormMethod.Get, new { search = "Game" }))
     {
+
+        @Html.ActionLink("Users", "SearchResults", new { search = Request.Params["Search"] })
         <div class="row">
             <div class="col-12 d-block text-center">
                 @Html.TextBox("Search")

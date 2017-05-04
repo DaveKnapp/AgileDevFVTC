@@ -53,8 +53,14 @@
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                                <li>@Html.ActionLink("Streamers", "SearchResults", "Search")</li>
-                                <li>@Html.ActionLink("Games", "GameSearchResults", "Search")</li>
+                                @using (Html.BeginForm("SearchResults", "Search", FormMethod.Get, new { search = "User" }))
+                                {                                   
+                                    
+                                            @Html.TextBox("Search")
+                                        
+                                            <input type="submit" class="btn btn-lg btn-primary" value="Search" />
+                                   
+                                }
                             </ul>
                         </nav>
                     </div><!-- /.navbar-collapse -->
