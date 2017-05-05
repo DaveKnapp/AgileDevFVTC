@@ -310,12 +310,14 @@
     <None Include="Properties\PublishProfiles\brothership - FTP %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - FTP %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - FTP %286%29.pubxml" />
+    <None Include="Properties\PublishProfiles\brothership - FTP %289%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %286%29.pubxml" />
+    <None Include="Properties\PublishProfiles\brothership - Web Deploy %287%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="images\default-user.gif" />
@@ -381,7 +383,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
-    <Folder Include="Views\Youtube\" />
+    <Folder Include="Views\User\Youtube\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

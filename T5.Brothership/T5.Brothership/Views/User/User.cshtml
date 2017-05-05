@@ -29,11 +29,12 @@
             <p>@Html.DisplayFor(model => model.User.Nationality.Description)</p>
             @foreach (var integrationInfo in Model.UserIntegrationInfos)
             {
-                <div>
+                <div class="col-md-12">
                     @if (integrationInfo.IsUserLive)
                     {
-                        <a class="alert" href="@integrationInfo.UserLiveStreamURL">@integrationInfo.IntegrationType</a>
-                        <img src="~/images/live.png" style="width:2em;">
+                        @*Watch 'username' live on 'intergrationType' now!*@
+                        <a class="" href="@integrationInfo.UserLiveStreamURL">Watch @(Model.User.UserName) live on @(integrationInfo.IntegrationType) now!</a>
+                        @*<img src="~/images/live.png" style="width:2em;">*@
                     }
                 </div>
             }
@@ -69,21 +70,23 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="grid effect" id="grid">
-                    @if (Model.User.Games.Count == 0)
-                    {
-                        <li>
-                            <p class="text-center">User has no games.</p>
-                        </li>
-                    }
-                    @foreach (var game in Model.User.Games)
-                    {
-                        <li>
-                            <div class="fancybox" data-fancybox-group="gallery">
-                                <img class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
-                                <span class="game-image-title">@game.Title</span>
-                            </div>
-                        </li>
-                    }
+                        @if (Model.User.Games.Count == 0)
+                        {
+                            <li>
+                                <p class="text-center">User has no games.</p>
+                            </li>
+                        }
+                        @foreach (var game in Model.User.Games)
+                        {
+                            <li>
+                                <div class="fancybox" data-fancybox-group="gallery">
+                                    <div style="position:relative;">
+                                        <img style="width:100%;" class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
+                                        <span style="bottom:0; padding-left:1em; padding-right:1em; padding-top:.5em; padding-bottom:.5em;  position:absolute; " class="game-image-title">@game.Title</span>
+                                    </div>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -135,4 +138,3 @@
 
     </div>
 </div>
-
