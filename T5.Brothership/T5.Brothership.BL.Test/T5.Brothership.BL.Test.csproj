@@ -130,6 +130,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ApiIntegrationsIntegrationTest\TwitchIntegationIntegrationTest.cs" />
+    <Compile Include="ApiIntegrationsIntegrationTest\YoutubeIntegrationIntegrationTest.cs" />
     <Compile Include="ApiIntegrationsUnitTest\TwitterIntegrationUnitTest.cs" />
     <Compile Include="ApiIntegrationsUnitTest\YoutubeInegrationUnitTest.cs" />
     <Compile Include="ClientFakes\YoutubeDataClientFake.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="HelpersUnitTest\TwitterURLConverterUnitTest.cs" />
     <Compile Include="IntegrationFakes\TwitchIntegrationStub.cs" />
     <Compile Include="IntegrationFakes\TwitterIntegrationStub.cs" />
+    <Compile Include="IntegrationFakes\YoutubeIntegrationStub.cs" />
     <Compile Include="ManagerFakes\AzureStorgeManagerStub.cs" />
     <Compile Include="ManagerFakes\GenderManagerFake.cs" />
     <Compile Include="ManagerFakes\NationalityManagerFake.cs" />

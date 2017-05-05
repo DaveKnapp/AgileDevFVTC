@@ -37,7 +37,8 @@ namespace T5.Brothership.BL.YoutubeApi
                   new[] { YouTubeService.Scope.YoutubeReadonly },
                  userId.ToString(),
                  CancellationToken.None,
-                 new YoutubeDataStore()
+                 new YoutubeDataStore(),
+                 new AppCodeReciever()
                );
 
             using (var youtubeService = new YouTubeService(new BaseClientService.Initializer
@@ -45,6 +46,7 @@ namespace T5.Brothership.BL.YoutubeApi
                 HttpClientInitializer = credential,
                 ApplicationName = "Brothership"
             }))
+
             {
                 var channelsListRequest = youtubeService.Channels.List("contentDetails");
                 channelsListRequest.Mine = true;
@@ -55,5 +57,37 @@ namespace T5.Brothership.BL.YoutubeApi
             }
         }
 
+        public async Task<string> GetLiveStreamIdIfLive(int userId)
+        {
+            var dataStore = new YoutubeDataStore();
+
+            var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                secrets,
+                  new[] { YouTubeService.Scope.YoutubeReadonly },
+                 userId.ToString(),
+                 CancellationToken.None,
+                 new YoutubeDataStore(),
+                 new AppCodeReciever()
+               );
+
+            using (var youtubeService = new YouTubeService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = "Brothership"
+            }))
+
+            {
+                var channelsListRequest = youtubeService.LiveBroadcasts.List("id");
+                // channelsListRequest.BroadcastType = LiveBroadcastsResource.ListRequest.BroadcastTypeEnum.All;
+
+                // channelsListRequest.BroadcastStatus = LiveBroadcastsResource.ListRequest.BroadcastStatusEnum.All;
+                channelsListRequest.BroadcastStatus = LiveBroadcastsResource.ListRequest.BroadcastStatusEnum.Active;
+                channelsListRequest.BroadcastType = LiveBroadcastsResource.ListRequest.BroadcastTypeEnum.All;
+
+                var channelsListResponse = await channelsListRequest.ExecuteAsync();
+
+                return (channelsListResponse.Items.Count >= 1) ? channelsListResponse.Items[0].Id : null;
+            }
+        }
     }
 }

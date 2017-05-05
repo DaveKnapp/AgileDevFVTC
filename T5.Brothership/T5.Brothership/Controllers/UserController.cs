@@ -21,24 +21,27 @@ namespace T5.Brothership.Controllers
         AzureStorageManager _azureStorageManager = new AzureStorageManager();
         IRatingManager _ratingManager;
         ISessionHelper _sessionHelper;
+        IYoutubeIntegration _youtubeIntegration;
 
         public UserController() : this(new TwitchIntegration(),
                                      new TwitterIntegration(),
                                      new UserManager(),
                                      new UserRatingManager(),
                                      new RatingManager(),
-                                     new SessionHelper())
+                                     new SessionHelper(),
+                                     new YoutubeIntegration())
         { }
 
-        public UserController(ITwitchIntegration twitchIntegration, ITwitterIntegration twitterintegration, IUserManager userManager,
-                              IUserRatingManager userRatingManager, IRatingManager ratingManager, ISessionHelper sessionHelper)
+        public UserController(ITwitchIntegration twitchIntegration, ITwitterIntegration twitterIntegration, IUserManager userManager,
+                              IUserRatingManager userRatingManager, IRatingManager ratingManager, ISessionHelper sessionHelper, IYoutubeIntegration youtubeInegration)
         {
             _twitchIntegration = twitchIntegration;
-            _twitterIntegration = twitterintegration;
+            _twitterIntegration = twitterIntegration;
             _userManager = userManager;
             _userRatingManger = userRatingManager;
             _ratingManager = ratingManager;
             _sessionHelper = sessionHelper;
+            _youtubeIntegration = youtubeInegration;
         }
 
         [Route("{userName}")]
@@ -130,7 +133,7 @@ namespace T5.Brothership.Controllers
 
                 if (loggedInUser == null)
                 {
-                   return RedirectToAction("Login", "Login");
+                    return RedirectToAction("Login", "Login");
                 }
 
                 var userRating = viewModel.UserRating;
@@ -140,7 +143,7 @@ namespace T5.Brothership.Controllers
 
                 string ratedUserName = _userManager.GetById(viewModel.UserRating.UserBeingRatedID).UserName;
 
-                return RedirectToAction(nameof(User),"User", new { userName = ratedUserName });
+                return RedirectToAction(nameof(User), "User", new { userName = ratedUserName });
             }
             else
             {
@@ -162,6 +165,7 @@ namespace T5.Brothership.Controllers
                     switch (integration.IntegrationTypeID)
                     {
                         case (int)IntegrationType.IntegrationTypes.Twitch:
+
                             integrationInfos.Add(new IntegrationInfo
                             {
                                 IntegrationType = (IntegrationType.IntegrationTypes)Enum.ToObject(typeof(IntegrationType.IntegrationTypes), integration.IntegrationTypeID),
@@ -169,6 +173,17 @@ namespace T5.Brothership.Controllers
                                 UserLiveStreamURL = "https://www.twitch.tv/" + integration.UserName
                             }
                             );
+                            break;
+                        case (int)IntegrationType.IntegrationTypes.Youtube:
+
+                            var integrationInfo = new IntegrationInfo
+                            {
+                                UserLiveStreamURL = await _youtubeIntegration.GetLiveStreamURLIfLive(user.ID),
+                                IntegrationType = (IntegrationType.IntegrationTypes)Enum.ToObject(typeof(IntegrationType.IntegrationTypes), integration.IntegrationTypeID)
+                            };
+
+                            integrationInfo.IsUserLive = integrationInfo.UserLiveStreamURL == null ? false : true;
+                            integrationInfos.Add(integrationInfo);
                             break;
                         default:
                             break;

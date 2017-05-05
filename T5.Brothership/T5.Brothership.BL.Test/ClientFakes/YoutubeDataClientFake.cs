@@ -13,5 +13,10 @@ namespace T5.Brothership.BL.Test.ClientFakes
         {
             return Task.Run(() => "ChannelId");
         }
+
+        public Task<string> GetLiveStreamIdIfLive(int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

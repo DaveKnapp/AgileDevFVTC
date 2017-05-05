@@ -25,7 +25,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      new SessionHelperFake()))
+                                                                      new SessionHelperFake(),
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = await controller.User("TestUserOne") as ViewResult;
 
@@ -43,7 +44,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      new SessionHelperFake()))
+                                                                      new SessionHelperFake(),
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = await controller.User("Fail") as HttpNotFoundResult;
 
@@ -59,14 +61,15 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      new SessionHelperFake()))
+                                                                      new SessionHelperFake(),
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = controller.UserGames("TestUserOne") as ViewResult;
 
                 string expectedView = "UserGames";
 
                 Assert.AreEqual(expectedView, result.ViewName);
-            }
+            } 
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -77,7 +80,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      new SessionHelperFake()))
+                                                                      new SessionHelperFake(),
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = controller.UserGames("Fail") as HttpNotFoundResult;
 
@@ -93,7 +97,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      new SessionHelperFake()))
+                                                                      new SessionHelperFake(),
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = controller.UserRatings("TestUserOne") as ViewResult;
 
@@ -111,7 +116,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      new SessionHelperFake()))
+                                                                      new SessionHelperFake(),
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = controller.UserRatings("Fail") as HttpNotFoundResult;
 
@@ -136,7 +142,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      session))
+                                                                      session,
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = controller.Rate("TestUserOne") as ViewResult;
 
@@ -154,7 +161,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      new SessionHelperFake()))
+                                                                      new SessionHelperFake(),
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = controller.Rate("TestUserOne") as RedirectToRouteResult;
 
@@ -183,7 +191,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      session))
+                                                                      session,
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = controller.Rate("Fail") as HttpNotFoundResult;
 
@@ -218,7 +227,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      session))
+                                                                      session, 
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = controller.Rate(viewModel) as RedirectToRouteResult;
 
@@ -248,7 +258,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      new SessionHelperFake()))
+                                                                      new SessionHelperFake(),
+                                                                      new YoutubeIntegrationStub()))
             {
                 var result = controller.Rate(viewModel) as RedirectToRouteResult;
 
@@ -287,7 +298,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      session))
+                                                                      session, 
+                                                                      new YoutubeIntegrationStub()))
             {
                 controller.ModelState.AddModelError("SessionName", "Required");
                 var result = controller.Rate(viewModel) as ViewResult;
@@ -325,7 +337,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                                                                       new UserManagerFake(),
                                                                       new UserRatingManagerFake(),
                                                                       new RatingManagerFake(),
-                                                                      session))
+                                                                      session,
+                                                                      new YoutubeIntegrationStub()))
             {
                 controller.ModelState.AddModelError("SessionName", "Required");
                 var result = controller.Rate(viewModel) as ViewResult;
