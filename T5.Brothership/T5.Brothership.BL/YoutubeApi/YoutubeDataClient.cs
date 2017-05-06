@@ -78,9 +78,7 @@ namespace T5.Brothership.BL.YoutubeApi
 
             {
                 var channelsListRequest = youtubeService.LiveBroadcasts.List("id");
-                // channelsListRequest.BroadcastType = LiveBroadcastsResource.ListRequest.BroadcastTypeEnum.All;
 
-                // channelsListRequest.BroadcastStatus = LiveBroadcastsResource.ListRequest.BroadcastStatusEnum.All;
                 channelsListRequest.BroadcastStatus = LiveBroadcastsResource.ListRequest.BroadcastStatusEnum.Active;
                 channelsListRequest.BroadcastType = LiveBroadcastsResource.ListRequest.BroadcastTypeEnum.All;
 
@@ -89,5 +87,45 @@ namespace T5.Brothership.BL.YoutubeApi
                 return (channelsListResponse.Items.Count >= 1) ? channelsListResponse.Items[0].Id : null;
             }
         }
+
+        public async Task<List<VideoContent>> GetRecentVideos(string channelId)
+        {
+
+            var youtubeService = new YouTubeService(new BaseClientService.Initializer
+            {
+                ApiKey = ApiCredentials.API_KEY,
+                ApplicationName = "Brothership"
+            });
+
+            var channelRequest = youtubeService.Channels.List("contentDetails");
+            channelRequest.Id = channelId;
+
+            var channelResult = await channelRequest.ExecuteAsync();
+            string uploadPlayListId = channelResult.Items[0].ContentDetails.RelatedPlaylists.Uploads;
+
+
+            var userUploadRequest = youtubeService.PlaylistItems.List("contentDetails");
+            userUploadRequest.MaxResults = 50;
+            userUploadRequest.PlaylistId = uploadPlayListId;
+
+            var userUploadResponse = await userUploadRequest.ExecuteAsync();
+
+            var content = new List<VideoContent>();
+
+
+            foreach (var video in userUploadResponse.Items)
+            {
+                content.Add(new VideoContent
+                {
+                    Id = video.ContentDetails.VideoId,
+                    UploadTime = video.ContentDetails.VideoPublishedAt.GetValueOrDefault()
+                });
+            }
+
+            return content;
+        }
     }
+
+
 }
+

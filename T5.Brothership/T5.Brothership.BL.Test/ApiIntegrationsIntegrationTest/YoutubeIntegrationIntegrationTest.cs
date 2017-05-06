@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using T5.Brothership.BL.YoutubeApi;
 using System.Threading.Tasks;
+using T5.Brothership.PL;
+using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
 {
@@ -13,7 +15,10 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
         {
             YoutubeDataClient client = new YoutubeDataClient();
 
-            string streamId = await client.GetLiveStreamIdIfLive(1);
+            var unitOfWork = new BrothershipUnitOfWork();
+            var channelId = unitOfWork.UserIntegrations.GetById(1, (int)IntegrationType.IntegrationTypes.Youtube).ChannelId;
+
+            var content = await client.GetRecentVideos(channelId);
 
         }
     }

@@ -170,6 +170,7 @@
     <Compile Include="TwitterApi\ITwitterApiCredentials.cs" />
     <Compile Include="TwitterApi\ITwitterClient.cs" />
     <Compile Include="TwitterApi\TwitterClient.cs" />
+    <Compile Include="VideoContent.cs" />
     <Compile Include="YoutubeApi\ApiCredentials.cs" />
     <Compile Include="YoutubeApi\AppFlowMetaData.cs" />
     <Compile Include="YoutubeApi\AuthResponse.cs" />

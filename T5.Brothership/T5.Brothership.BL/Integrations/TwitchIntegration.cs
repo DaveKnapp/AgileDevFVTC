@@ -57,7 +57,8 @@ namespace T5.Brothership.BL.Integrations
                     UserID = userId,
                     IntegrationTypeID = (int)IntegrationType.IntegrationTypes.Twitch,
                     Token = token,
-                    UserName = channel.name
+                    UserName = channel.name,
+                    ChannelId = channel._id.ToString()
                 });
                 _unitOfWork.Commit();
             }

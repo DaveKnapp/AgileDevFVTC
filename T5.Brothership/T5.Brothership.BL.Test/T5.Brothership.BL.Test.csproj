@@ -136,6 +136,7 @@
     <Compile Include="ClientFakes\YoutubeDataClientFake.cs" />
     <Compile Include="ClientFakes\TwitterClientFake.cs" />
     <Compile Include="ClientFakes\YoutubeAuthClientFake.cs" />
+    <Compile Include="ClientIntegrationTest\TwitchClientIntegrationTest.cs" />
     <Compile Include="ConnectionStrings.cs" />
     <Compile Include="GameApiIntegration\GameAPIServiceTest.cs" />
     <Compile Include="GameApiServiceFake.cs" />

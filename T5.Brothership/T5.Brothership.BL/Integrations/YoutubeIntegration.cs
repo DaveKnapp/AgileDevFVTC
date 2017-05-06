@@ -92,7 +92,7 @@ namespace T5.Brothership.BL.Integrations
         public async Task<string> GetLiveStreamURLIfLive(int userId)
         {
             string streamId = await _youtubeDataClient.GetLiveStreamIdIfLive(userId);
-            return  @"https://www.youtube.com/watch?v=" + streamId;
+            return streamId != null ? @"https://www.youtube.com/watch?v=" + streamId : null;
         }
 
         private async Task SetChannelId(int userId)

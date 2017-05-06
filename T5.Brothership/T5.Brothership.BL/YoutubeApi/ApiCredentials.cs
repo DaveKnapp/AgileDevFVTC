@@ -14,6 +14,7 @@ namespace T5.Brothership.BL.YoutubeApi
         internal const string AUTH_URI = "https://accounts.google.com/o/oauth2/auth";
         internal const string TOKEN_URI = "https://accounts.google.com/o/oauth2/token";
         internal const string REDIRECT_URI = "http://localhost:60920/Youtube/AuthorizeYoutube";
+        internal const string API_KEY = "AIzaSyBru9eZfHabtFl7T04z6esQ8lw1WWluTLc";
 
     }
 }

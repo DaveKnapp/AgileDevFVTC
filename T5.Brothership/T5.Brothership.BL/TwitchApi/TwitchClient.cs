@@ -11,7 +11,7 @@ using T5.Brothership.BL.TwitchApi;
 namespace T5.Brothership.BL.TwitchApi
 {
     public class TwitchClient : IDisposable, ITwitchClient
-    {
+    {//TOOD(Dave) Handle null responses
         private readonly HttpClient client = new HttpClient();
 
         public TwitchClient()
@@ -103,6 +103,40 @@ namespace T5.Brothership.BL.TwitchApi
                 throw new HttpRequestException(response.StatusCode.ToString());
             }
         }
+
+        public async Task<List<VideoContent>> GetRecentContent(string channelId)
+        {
+            
+
+            var response = await client.GetAsync("channels/" + channelId + "/videos/");
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonString = await response.Content.ReadAsStringAsync();
+
+                var videoResponse = JsonConvert.DeserializeObject<ChannelVideoResponse>(jsonString);
+
+                var content = new List<VideoContent>();
+
+                foreach (var stream in videoResponse.videos)
+                {
+                    content.Add(new VideoContent
+                    {
+                        Id = stream._id.ToString(),
+                        UploadTime = stream.published_at
+                    });
+                }
+
+                return content;
+              
+            }
+            else
+            {
+                throw new HttpException(response.StatusCode.ToString());
+            }
+            throw new NotImplementedException();
+        }
+
 
         private void CreateClientHeaders()
         {

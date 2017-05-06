@@ -23,8 +23,6 @@
             <p>@Math.Floor(DateTime.Now.Subtract(Model.User.DOB).TotalDays / 365)</p>
             <h4>@Html.DisplayNameFor(model => model.User.Gender)</h4>
             <p>@Html.DisplayFor(model => model.User.Gender.Description)</p>
-            <h4>@Html.DisplayNameFor(model => model.User.UserType)</h4>
-            <p>@Html.DisplayFor(model => model.User.UserType.Description)</p>
             <h4>@Html.DisplayNameFor(model => model.User.Nationality)</h4>
             <p>@Html.DisplayFor(model => model.User.Nationality.Description)</p>
             @foreach (var integrationInfo in Model.UserIntegrationInfos)
@@ -64,77 +62,140 @@
 
 
         </div>
-
         <div class="col-md-9">
-            <h3>Games</h3>
+            <h3>Recent Content</h3>
             <div class="row">
                 <div class="col-md-12">
-                    <ul class="grid effect" id="grid">
-                        @if (Model.User.Games.Count == 0)
-                        {
-                            <li>
-                                <p class="text-center">User has no games.</p>
-                            </li>
-                        }
-                        @foreach (var game in Model.User.Games)
-                        {
-                            <li>
-                                <div class="fancybox" data-fancybox-group="gallery">
-                                    <div style="position:relative;">
-                                        <img style="width:100%;" class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
-                                        <span style="bottom:0; padding-left:1em; padding-right:1em; padding-top:.5em; padding-bottom:.5em;  position:absolute; " class="game-image-title">@game.Title</span>
+
+                    <div style="padding:1em;" class="col-md-6" id="player0"></div> 
+                    
+                    <div  style="padding:1em;" class="col-md-6" id="player1"></div>
+                    <div style="padding:1em;" class="col-md-6"  id="player2"></div>
+                    <div style="padding:1em;" class="col-md-6"  id="player3"></div>
+                    <div style="padding:1em;" class="col-md-6"  id="player4"></div>
+                    <div style="padding:1em;" class="col-md-6" id="player5"></div>
+
+                </div>
+            </div>
+
+            <script>
+                var tag = document.createElement('script');
+
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            </script>
+            <script>
+
+                function onYouTubeIframeAPIReady() {
+                    player = new YT.Player('player0', {
+                        height: '300',
+                        width: '600',
+                        videoId: 'M7lc1UVf-VE',
+                    });
+                    player = new YT.Player('player1', {
+                        height: '300',
+                        width: '600',
+                        videoId: 'M7lc1UVf-VE',
+                    });
+
+                    player = new YT.Player('player2', {
+                        height: '300',
+                        width: '600',
+                        videoId: 'M7lc1UVf-VE',
+                    });
+
+                    player = new YT.Player('player3', {
+                        height: '300',
+                        width: '600',
+                        videoId: 'M7lc1UVf-VE',
+                    });
+
+                    player = new YT.Player('player4', {
+                        height: '300',
+                        width: '600',
+                        videoId: 'M7lc1UVf-VE',
+                    });
+
+                    player = new YT.Player('player5', {
+                        height: '300',
+                        width: '600',
+                        videoId: 'M7lc1UVf-VE',
+                    });
+                }
+            </script>
+
+            <div class="col-md-9">
+                <h3>Games</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="grid effect" id="grid">
+                            @if (Model.User.Games.Count == 0)
+                            {
+                                <li>
+                                    <p class="text-center">User has no games.</p>
+                                </li>
+                            }
+                            @foreach (var game in Model.User.Games)
+                            {
+                                <li>
+                                    <div class="fancybox" data-fancybox-group="gallery">
+                                        <div style="position:relative;">
+                                            <img style="width:100%;" class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
+                                            <span style="bottom:0; padding-left:1em; padding-right:1em; padding-top:.5em; padding-bottom:.5em;  position:absolute; " class="game-image-title">@game.Title</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                @if (Model.User.Games.Count > 0)
+            {
+                    <div class="view-all">
+                        @Html.ActionLink("View All Games", "UserGames", new { userName = Model.User.UserName })
+                    </div>
+                }
+                <div style="margin-bottom:5em;">
+                    <h3 style="display:inline-block; margin-right:1em; float:left">Ratings</h3>
+                    <div style="margin:.5em; float:left;">
+
+                        @if (Model.IsUserLoggedIn)
+                        {
+                            @Html.ActionLink("Rate User", "Rate", "User", null, new { @class = "btn btn-lg btn-theme" })
                         }
-                    </ul>
-                </div>
-            </div>
-            @if (Model.User.Games.Count > 0)
-            {
-                <div class="view-all">
-                    @Html.ActionLink("View All Games", "UserGames", new { userName = Model.User.UserName })
-                </div>
-            }
-            <div style="margin-bottom:5em;">
-                <h3 style="display:inline-block; margin-right:1em; float:left">Ratings</h3>
-                <div style="margin:.5em; float:left;">
-
-                    @if (Model.IsUserLoggedIn)
-                    {
-                        @Html.ActionLink("Rate User", "Rate", "User", null, new { @class = "btn btn-lg btn-theme" })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Login to rate user", "Login", "Login", null, new { @class = "btn btn-lg btn-theme" })
-                    }
-                </div>
-            </div>
-            <div class="row" style="clear:both;">
-                @if (Model.User.UserRatings.Count == 0)
-                {
-                    <div class="col">
-                        <p class="text-center">User has not been rated.</p>
+                        else
+                        {
+                            @Html.ActionLink("Login to rate user", "Login", "Login", null, new { @class = "btn btn-lg btn-theme" })
+                        }
                     </div>
-                }
-
-                @foreach (var rating in Model.User.UserRatings)
-                {
-                    <div class="col-md-4 col-sm-6">
-                        <div class="panel panel-default">
-                            <h5 class="panel-heading">@rating.RaterUser.UserName Says</h5>
-                            <p class="panel-body">@rating.Comment</p>
+                </div>
+                <div class="row" style="clear:both;">
+                    @if (Model.User.UserRatings.Count == 0)
+                    {
+                        <div class="col">
+                            <p class="text-center">User has not been rated.</p>
                         </div>
+                    }
+
+                    @foreach (var rating in Model.User.UserRatings)
+                    {
+                        <div class="col-md-4 col-sm-6">
+                            <div class="panel panel-default">
+                                <h5 class="panel-heading">@rating.RaterUser.UserName Says</h5>
+                                <p class="panel-body">@rating.Comment</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @if (Model.User.UserRatings.Count > 0)
+            {
+                    <div class="view-all">
+                        @Html.ActionLink("View All Ratings", "UserRatings", new { userName = Model.User.UserName })
                     </div>
                 }
             </div>
-            @if (Model.User.UserRatings.Count > 0)
-            {
-                <div class="view-all">
-                    @Html.ActionLink("View All Ratings", "UserRatings", new { userName = Model.User.UserName })
-                </div>
-            }
-        </div>
 
+        </div>
     </div>
-</div>

@@ -9,6 +9,7 @@ using T5.Brothership.Entities.Models;
 using T5.Brothership.PL;
 using T5.Brothership.PL.Test;
 using T5.Brothership.BL.Test.ClientFakes;
+using T5.Brothership.BL.TwitchApi;
 
 namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
 {
@@ -122,5 +123,7 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
                 Assert.IsFalse(isUserLive);
             }
         }
+
+     
     }
 }
