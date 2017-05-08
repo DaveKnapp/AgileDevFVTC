@@ -15,11 +15,11 @@ namespace T5.Brothership.BL.Test.ClientIntegrationTest
         public async Task TestMethod1()
         {
             using (var unitOfWork = new BrothershipUnitOfWork(DataContextCreator.CreateTestContext()))
-            using (var twitchClient = new TwitchClient())
             {
+                var twitchClient = new TwitchClient();
                 var userIntegration = unitOfWork.UserIntegrations.GetById(1, (int)IntegrationType.IntegrationTypes.Twitch);
 
-                var content = await twitchClient.GetRecentContent(userIntegration.ChannelId);
+                var content = await twitchClient.GetRecentVideo(userIntegration.ChannelId,0,10);
             }
         }
     }

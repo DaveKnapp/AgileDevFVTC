@@ -13,7 +13,7 @@ using T5.Brothership.Helpers;
 namespace T5.Brothership.Controllers
 {
     public class UserController : Controller
-    {
+    {//TODO(Dave) Add Video ContentCombinder fake
         ITwitchIntegration _twitchIntegration;
         ITwitterIntegration _twitterIntegration;
         IUserManager _userManager;
@@ -22,6 +22,8 @@ namespace T5.Brothership.Controllers
         IRatingManager _ratingManager;
         ISessionHelper _sessionHelper;
         IYoutubeIntegration _youtubeIntegration;
+        IntegrationVideoCombiner _videoContentGetter = new IntegrationVideoCombiner();
+        
 
         public UserController() : this(new TwitchIntegration(),
                                      new TwitterIntegration(),
@@ -60,6 +62,7 @@ namespace T5.Brothership.Controllers
                 User = user,
                 UserIntegrationInfos = integrationInfos,
                 AverageRating = _userRatingManger.GetAverageRating(user.ID),
+                RecentContent = await _videoContentGetter.GetRecentVideos(user.ID, 6),
                 IsUserLoggedIn = IsUserLoggedIn()
             };
             //TOOD Change to nameof

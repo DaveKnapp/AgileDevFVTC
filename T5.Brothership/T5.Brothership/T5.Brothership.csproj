@@ -383,7 +383,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
-    <Folder Include="Views\User\Youtube\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

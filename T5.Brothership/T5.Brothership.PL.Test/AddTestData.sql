@@ -68,7 +68,7 @@ SET IDENTITY_INSERT UserLogins OFF;
 			  (3, 'Youtube')
 	SET IDENTITY_INSERT IntegrationTypes OFF;
 
-	INSERT INTO UserIntegrations(UserID, IntegrationTypeID, Token)
+	INSERT INTO UserIntegrations(UserID, IntegrationTypeID, Token, ChannelId)
 		VALUES(1,1,'0jjxoy7y0iujpnldgukt0oyap4a9x6'),
 			  (3,1,'lkjlkjlk;jlkjlk3jlkjlkj')
 

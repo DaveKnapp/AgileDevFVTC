@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace T5.Brothership.BL
+namespace T5.Brothership.Entities.Models
 {
     public class VideoContent
     {
         public string Id { get; set; }
         public DateTime UploadTime { get; set; }
+        public IntegrationType.IntegrationTypes ContentType { get; set; }
     }
 }

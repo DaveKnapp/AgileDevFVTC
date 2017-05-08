@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using T5.Brothership.Entities.Models;
 using T5.Brothership.PL;
 
 namespace T5.Brothership.BL.YoutubeApi
@@ -17,6 +18,7 @@ namespace T5.Brothership.BL.YoutubeApi
     public class YoutubeDataClient : IYoutubeDataClient
     {
         private IBrothershipUnitOfWork _unitOfWork;
+        private string _nextPageToken = null;
         private readonly ClientSecrets secrets = new ClientSecrets
         {
             ClientId = ApiCredentials.CLIENT_ID,
@@ -88,7 +90,7 @@ namespace T5.Brothership.BL.YoutubeApi
             }
         }
 
-        public async Task<List<VideoContent>> GetRecentVideos(string channelId)
+        public async Task<List<VideoContent>> GetRecentVideos(string channelId, int itemsPerPage)
         {
 
             var youtubeService = new YouTubeService(new BaseClientService.Initializer
@@ -105,23 +107,26 @@ namespace T5.Brothership.BL.YoutubeApi
 
 
             var userUploadRequest = youtubeService.PlaylistItems.List("contentDetails");
-            userUploadRequest.MaxResults = 50;
+            userUploadRequest.MaxResults = itemsPerPage;
+            userUploadRequest.PageToken = _nextPageToken;
+
             userUploadRequest.PlaylistId = uploadPlayListId;
 
             var userUploadResponse = await userUploadRequest.ExecuteAsync();
+            _nextPageToken = userUploadResponse.NextPageToken;
 
             var content = new List<VideoContent>();
-
 
             foreach (var video in userUploadResponse.Items)
             {
                 content.Add(new VideoContent
                 {
                     Id = video.ContentDetails.VideoId,
-                    UploadTime = video.ContentDetails.VideoPublishedAt.GetValueOrDefault()
+                    UploadTime = video.ContentDetails.VideoPublishedAt.GetValueOrDefault(),
+                    ContentType = IntegrationType.IntegrationTypes.Youtube
+                    
                 });
             }
-
             return content;
         }
     }

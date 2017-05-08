@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using T5.Brothership.BL.TwitchApi;
+using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.Test.ClientFakes
 {
@@ -62,9 +63,119 @@ namespace T5.Brothership.BL.Test.ClientFakes
             });
         }
 
+        public Task<List<VideoContent>> GetRecentVideo(string channelId, int page, int itemsPerPage)
+        {
+            return Task.Run(() => { return CreateFakeVideos().Skip(page * itemsPerPage).Take(itemsPerPage).DefaultIfEmpty().ToList(); });
+        }
+    
+
         public Task<bool> IsStreamerLive(string token)
         {
             return Task.Run(() => { return IsStreamLiveReturnValue; });
         }
+
+    private static List<VideoContent> CreateFakeVideos()
+    {
+        return new List<VideoContent>
+                {
+                    new VideoContent
+                    {
+                        Id = "54354235",
+                        UploadTime = new DateTime(2017,5,7,10,10,43),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "234523454",
+                        UploadTime = new DateTime(2017,5,7,1,40,14),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "345234542",
+                        UploadTime = new DateTime(2017,5,6,10,30,00),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "4353532",
+                        UploadTime = new DateTime(2017,5,5,8,30,00),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "7456745",
+                        UploadTime = new DateTime(2017,5,3,15,0,0),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "4564565",
+                        UploadTime = new DateTime(2017,5,2,7,30,00),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "574345654",
+                        UploadTime = new DateTime(2017,5,2,7,30,0),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "3456546",
+                        UploadTime = new DateTime(2017,5,2,18,30,0),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "2345534",
+                        UploadTime = new DateTime(2017,5,1,7,0,0),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "5675675",
+                        UploadTime = new DateTime(2017,4,29,20,05,43),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "2345435",
+                        UploadTime = new DateTime(2017,4,28,7,12,0),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "32453453",
+                        UploadTime = new DateTime(2017,4,27,10,00,23),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "67587658",
+                        UploadTime = new DateTime(2017,4,26,14,45,0),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "5647567",
+                        UploadTime = new DateTime(2017,4,23,10,00,0),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "56745746",
+                        UploadTime = new DateTime(2017,4,21,18,0,0),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    },
+                    new VideoContent
+                    {
+                        Id = "87676898",
+                        UploadTime = new DateTime(2017,4,20,16,33,23),
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
+                    }
+                };
     }
+
+}
 }

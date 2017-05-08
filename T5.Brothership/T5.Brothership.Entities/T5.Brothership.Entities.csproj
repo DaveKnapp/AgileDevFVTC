@@ -139,6 +139,7 @@
     <Compile Include="Models\UserType.cs">
       <DependentUpon>brothership.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VideoContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

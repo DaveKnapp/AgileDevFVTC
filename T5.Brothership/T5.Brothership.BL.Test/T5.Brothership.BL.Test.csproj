@@ -131,6 +131,7 @@
   <ItemGroup>
     <Compile Include="ApiIntegrationsIntegrationTest\TwitchIntegationIntegrationTest.cs" />
     <Compile Include="ApiIntegrationsIntegrationTest\YoutubeIntegrationIntegrationTest.cs" />
+    <Compile Include="ApiIntegrationsUnitTest\IntegrationVideoCombinerUnitTest.cs" />
     <Compile Include="ApiIntegrationsUnitTest\TwitterIntegrationUnitTest.cs" />
     <Compile Include="ApiIntegrationsUnitTest\YoutubeInegrationUnitTest.cs" />
     <Compile Include="ClientFakes\YoutubeDataClientFake.cs" />

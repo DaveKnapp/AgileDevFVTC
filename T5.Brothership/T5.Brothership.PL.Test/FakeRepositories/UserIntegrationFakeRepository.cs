@@ -69,6 +69,15 @@ namespace T5.Brothership.PL.Test.FakeRepositories
                 UserID = 1,
                 IntegrationTypeID = 1,
                 Token = "ljlkj23lk4jlk23j",
+                ChannelId ="32413414",
+            });
+
+            _fakeUserIntegrations.Add(new UserIntegration
+            {
+                UserID = 1,
+                IntegrationTypeID = 3,
+                Token = "asdfasdfadf",
+                ChannelId = "23413241324",
             });
 
             _fakeUserIntegrations.Add(new UserIntegration

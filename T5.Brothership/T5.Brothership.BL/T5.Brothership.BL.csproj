@@ -143,11 +143,15 @@
     <Compile Include="IGDBApi\GameResponse.cs" />
     <Compile Include="IGDBApi\GameAPIClient.cs" />
     <Compile Include="IGDBApi\IGameAPIService.cs" />
+    <Compile Include="Integrations\IntegrationVideoCombiner.cs" />
     <Compile Include="Integrations\ITwitchIntegration.cs" />
+    <Compile Include="Integrations\ITwitchVideoLoader.cs" />
     <Compile Include="Integrations\ITwitterIntegration.cs" />
     <Compile Include="Integrations\IYoutubeIntegration.cs" />
+    <Compile Include="Integrations\TwitchVideoLoader.cs" />
     <Compile Include="Integrations\TwitterIntegration.cs" />
     <Compile Include="Integrations\YoutubeIntegration.cs" />
+    <Compile Include="Integrations\YoutubeVideoLoader.cs" />
     <Compile Include="Managers\AzureStorageManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\GenderManager.cs" />
@@ -170,7 +174,6 @@
     <Compile Include="TwitterApi\ITwitterApiCredentials.cs" />
     <Compile Include="TwitterApi\ITwitterClient.cs" />
     <Compile Include="TwitterApi\TwitterClient.cs" />
-    <Compile Include="VideoContent.cs" />
     <Compile Include="YoutubeApi\ApiCredentials.cs" />
     <Compile Include="YoutubeApi\AppFlowMetaData.cs" />
     <Compile Include="YoutubeApi\AuthResponse.cs" />

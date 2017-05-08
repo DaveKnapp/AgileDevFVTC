@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using T5.Brothership.BL.TwitchApi;
+using T5.Brothership.Entities.Models;
 
 namespace T5.Brothership.BL.TwitchApi
 {
-    public class TwitchClient : IDisposable, ITwitchClient
+    public class TwitchClient : ITwitchClient
     {//TOOD(Dave) Handle null responses
         private readonly HttpClient client = new HttpClient();
 
@@ -24,10 +25,11 @@ namespace T5.Brothership.BL.TwitchApi
             client.Dispose();
             GC.SuppressFinalize(this);
         }
+
         public async Task<string> GetAuthorizationToken(string authorizationCode)
         {
             var values = new Dictionary<string, string>();
-            
+
             values.Add("client_id", ApiCredentials.CLIENT_ID);
             values.Add("client_secret", ApiCredentials.SECRET);
             values.Add("grant_type", "authorization_code");
@@ -104,11 +106,14 @@ namespace T5.Brothership.BL.TwitchApi
             }
         }
 
-        public async Task<List<VideoContent>> GetRecentContent(string channelId)
+        public async Task<List<VideoContent>> GetRecentVideo(string channelId, int page, int itemsPerPage)
         {
-            
+            if (itemsPerPage > 100)
+            {
+                throw new ArgumentException("items per page must be less than or equal to 1000");
+            }
 
-            var response = await client.GetAsync("channels/" + channelId + "/videos/");
+            var response = await client.GetAsync("channels/" + channelId + "/videos/?limit=" + itemsPerPage + "&offset=" + page * itemsPerPage);
 
             if (response.IsSuccessStatusCode)
             {
@@ -123,12 +128,13 @@ namespace T5.Brothership.BL.TwitchApi
                     content.Add(new VideoContent
                     {
                         Id = stream._id.ToString(),
-                        UploadTime = stream.published_at
+                        UploadTime = stream.published_at,
+                        ContentType = IntegrationType.IntegrationTypes.Twitch
                     });
                 }
 
                 return content;
-              
+
             }
             else
             {
