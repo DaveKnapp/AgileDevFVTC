@@ -15,7 +15,8 @@
         <div class="update-account-integration-item">
             <div>
                 <h4>Twitch<i class="fa fa-twitch twitch-icon" aria-hidden="true"></i></h4>
-                <p>Connect your twitch account to add a link to your twitch channel on your profile and a notice if you are live.</p>
+                <p>Connect your twitch account to add a link to your twitch channel, a notice when you are live, and 
+                   your recent broadcasts to your profile.</p>
             </div>
             <div class="update-account-integration-item-button">
                 @{bool UserHasTwitchIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Twitch) != null;}
@@ -51,7 +52,7 @@
         <div class="update-account-integration-item">
             <div>
                 <h4>Youtube<i class="fa fa-youtube-square youtube-icon" aria-hidden="true"></i></h4>
-                <p>Connect your Youtube account to add a link on your profile to your Youtube channel.</p>
+                <p>Connect your Youtube account to add a link to your Youtube channel, a notice when you are live, and your recent videos to your profile.</p>
             </div>
             <div class="update-account-integration-item-button">
                 @{bool UserHasYoutubeIntegration = Model.FirstOrDefault(p => p.IntegrationTypeID == (int)IntegrationType.IntegrationTypes.Youtube) != null;}
