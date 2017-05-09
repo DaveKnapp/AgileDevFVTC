@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = Model.User.UserName;
 }
-
 <!-- Page Content -->
 <div class="container">
     <!-- Portfolio Item Row -->
@@ -66,26 +65,27 @@
             <h3>Recent Content</h3>
             <div class="row">
                 <div class="col-md-12">
-                        @foreach (var video in Model.RecentContent)
+                    @foreach (var video in Model.RecentContent)
+                    {
+                        switch (video.ContentType)
                         {
-                            switch (video.ContentType)
-                            {
-                                case IntegrationType.IntegrationTypes.Youtube:
-                                    <iframe width="315" height="236"
-                                            src="https://www.youtube.com/embed/@(video.Id)">
-                                    </iframe>
-                                    break;
-                                case IntegrationType.IntegrationTypes.Twitch:
-                                    <iframe src="http://player.twitch.tv/?video=@(video.Id)&autoplay=false"
-                                            height="236"
-                                            width="315"
-                                            frameborder="1"
-                                            allowfullscreen="True"></iframe>
-                                    break;
-                                default:
-                                    break;
-                            }
+                            case IntegrationType.IntegrationTypes.Youtube:
+                                <div class="youtube"
+                                     id="@(video.Id)"
+                                     style="width: 315px; height: 236px;">
+                                </div>
+                                break;
+                            case IntegrationType.IntegrationTypes.Twitch:
+                                <div class="twitch"
+                                     id="@(video.Id)"
+                                     style="background-size: 125% 100%; background-image:url(@(video.PreviewImgUrl));
+                                             width: 315px; height: 236px;">
+                                </div>
+                                break;
+                            default:
+                                break;
                         }
+                    }
                 </div>
                 <div class="col-md-9">
                     <h3>Games</h3>
@@ -160,3 +160,6 @@
 
             </div>
         </div>
+    </div>
+</div>
+<script src="~/Scripts/VideoLoader.js"></script>

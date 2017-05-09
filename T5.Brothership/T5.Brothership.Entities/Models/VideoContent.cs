@@ -11,5 +11,7 @@ namespace T5.Brothership.Entities.Models
         public string Id { get; set; }
         public DateTime UploadTime { get; set; }
         public IntegrationType.IntegrationTypes ContentType { get; set; }
+        //Note Currently PreviewImageURL is only used for Twitch 
+        public string PreviewImgUrl { get; set; }
     }
 }
