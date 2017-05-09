@@ -31,7 +31,7 @@ namespace T5.Brothership.PL.Repositories
         {
             // Change this if you change the default image in storage.
             string blobName = string.Format("default-user.gif");
-            return container.GetBlockBlobReference(blobName).Uri.AbsolutePath;
+            return container.GetBlockBlobReference(blobName).Uri.AbsoluteUri;
         }
 
         public string LoadBlob(string blobName)
@@ -56,7 +56,7 @@ namespace T5.Brothership.PL.Repositories
         {
             string blobName = string.Format(@"{0}_{1}.jpg", _user.ID, _user.UserName.ToLower());
 
-            if (BlobExistsOnCloud(_user.UserName.ToLower()))
+            if (BlobExistsOnCloud(_user))
             {
                 // If the blob exists with that username, delete it.
                 container.GetDirectoryReference(directoryName).GetBlockBlobReference(blobName).Delete(DeleteSnapshotsOption.IncludeSnapshots);
@@ -70,9 +70,9 @@ namespace T5.Brothership.PL.Repositories
         }
 
         // Checks if a Blob of the same name already exists
-        private bool BlobExistsOnCloud(string username)
+        public bool BlobExistsOnCloud(User _user)
         {
-            var blobName = string.Format(@"{0}_{1}.jpg", containerName, username.ToLower());
+            var blobName = string.Format(@"{0}_{1}.jpg", _user.ID, _user.UserName.ToLower());
             return container.GetBlockBlobReference(blobName).Exists();
         }
 

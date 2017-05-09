@@ -8,5 +8,6 @@ namespace T5.Brothership.BL.Managers
         void Dispose();
         string GetDefaultUrl();
         string UploadImage(User user, byte[] imageArray);
+        string GetUserUrl(User user);
     }
 }
