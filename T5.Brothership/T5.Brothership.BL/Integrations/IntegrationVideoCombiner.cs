@@ -56,7 +56,7 @@ namespace T5.Brothership.BL.Integrations
             videos = videos.OrderByDescending(p => p.UploadTime).ToList();
 
             var combinedVideos = new List<VideoContent>();
-            while (true)
+            while (twitchVideoLoader.HasMoreItems || youtubeVideoLoader.HasMoreItems)
             {
                 var video = videos.FirstOrDefault();
                 combinedVideos.Add(video);
