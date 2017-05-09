@@ -39,7 +39,7 @@ namespace T5.Brothership.PL.Repositories
 
         public User GetByUsernameOrEmail(string userNameOrEmail)
         {
-            return DbSet.FirstOrDefault(p => p.UserName == userNameOrEmail || p.Email == userNameOrEmail);
+            return DbSet.FirstOrDefault(p => p.UserName.ToLower() == userNameOrEmail.ToLower() || p.Email.ToLower() == userNameOrEmail.ToLower());
         }
 
         public IQueryable<User> GetSearchedUsers(string search)
@@ -67,7 +67,7 @@ namespace T5.Brothership.PL.Repositories
 
         public User GetByUsername(string username)
         {
-            return DbSet.FirstOrDefault(p => p.UserName ==  username);
+            return DbSet.FirstOrDefault(p => p.UserName.ToLower() ==  username.ToLower());
         }
     }
 }

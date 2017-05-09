@@ -106,7 +106,7 @@ namespace T5.Brothership.BL.YoutubeApi
             string uploadPlayListId = channelResult.Items[0].ContentDetails.RelatedPlaylists.Uploads;
 
 
-            var userUploadRequest = youtubeService.PlaylistItems.List("contentDetails");
+            var userUploadRequest = youtubeService.PlaylistItems.List("contentDetails, snippet");
             userUploadRequest.MaxResults = itemsPerPage;
             userUploadRequest.PageToken = _nextPageToken;
 
@@ -123,7 +123,8 @@ namespace T5.Brothership.BL.YoutubeApi
                 {
                     Id = video.ContentDetails.VideoId,
                     UploadTime = video.ContentDetails.VideoPublishedAt.GetValueOrDefault(),
-                    ContentType = IntegrationType.IntegrationTypes.Youtube
+                    ContentType = IntegrationType.IntegrationTypes.Youtube,
+                    Title = video.Snippet.Title
                     
                 });
             }
