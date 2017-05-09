@@ -147,7 +147,7 @@ namespace T5.Brothership.Controllers
         {
             var currentUser = userViewModel.CurrentUser;
             currentUser.ID = (_sessionHelper.Get("CurrentUser") as User).ID;
-                                               
+
             currentUser.UserTypeID = (int)UserType.UserTypes.User;
 
             if (ModelState.IsValid)

@@ -10,8 +10,9 @@
     @Html.Partial("AccountEditMenu", "Edit")
 </div>
 <div class="cform container jumbotron">
-    @using (Html.BeginForm("Upload", "Account", FormMethod.Post, new { enctype = "multipart/form-data" })) @* <--- (TH) This part may be the problem  *@
-    {
+    @*@using (Html.BeginForm("Upload", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
+    @using (Html.BeginForm("Update", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))          /*The form action name was upload instead of Update<<<<*/
+    {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<Missing this<<<--------------------*/
         @Html.AntiForgeryToken()
 
         <div>
@@ -73,7 +74,7 @@
                     <div class="col-md-10">
                         <input type="file" id="file" name="file" />
                     </div>
-                </div>                    
+                </div>
             </div>
             @* -------------------------------------------------- Fix Profile Image Section End ---------------------------------------------------------------*@
 
