@@ -82,7 +82,6 @@ namespace T5.Brothership.BL.Integrations
             return combinedVideos;
         }
 
-
         public void Dispose()
         {
             _unitOfWork.Dispose();
