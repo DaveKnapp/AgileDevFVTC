@@ -46,6 +46,7 @@
 .profile-img {
     display: block;
     margin: auto;
+    max-height: 300px;
 }
 
 .portfolio-item {
@@ -212,6 +213,10 @@
     overflow: hidden;
     transition: all 200ms ease-out;
     cursor: pointer;
+    width: 315px;
+    height: 236px;
+    position:relative;
+    margin:1rem;
 }
 
     .youtube .play {
@@ -233,11 +238,16 @@
 .twitch {
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 125% 100%; 
     position: relative;
     display: inline-block;
     overflow: hidden;
     transition: all 200ms ease-out;
     cursor: pointer;
+    width: 315px;
+    height: 236px; 
+    position:relative;
+    margin: 1rem;
 }
 
     .twitch .play {
