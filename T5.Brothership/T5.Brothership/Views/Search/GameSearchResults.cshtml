@@ -11,7 +11,6 @@
     @using (Html.BeginForm("GameSearchResults", "Search", FormMethod.Get, new { search = "Game" }))
     {
 
-        @Html.ActionLink("Users", "SearchResults", new { search = Request.Params["Search"] })
         <div class="row">
             <div class="col-12 d-block text-center">
                 @Html.TextBox("Search")
@@ -19,7 +18,12 @@
         </div>
         <div class="row">
             <div class="col-12 d-block text-center">
-                <input type="submit" class="btn btn-lg btn-primary" value="Search" />
+                <input type="submit" class="btn btn-lg btn-theme" value="Search" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-block text-center">
+                @Html.ActionLink("Users", "SearchResults", new { search = Request.Params["Search"] })
             </div>
         </div>
     }
@@ -32,10 +36,12 @@
         {
             <li>
                 <div class="fancybox" data-fancybox-group="gallery">
-                    <img class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(item.ImgCloudinaryId).jpg" />
-                    <h4 class="">
-                        @Html.ActionLink(item.Title, "UsersByGame", "Search", new { igdbid = item.igdbID }, null)
-                    </h4>
+                    <div style="position:relative">
+                        <a href="@Url.Action("UsersByGame", "Search", new { igdbid = item.igdbID })"><img style="width:100%;" class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(item.ImgCloudinaryId).jpg" /></a>
+                        <span class="game-image-title">
+                            @item.Title
+                        </span>
+                    </div>
                 </div>
             </li>
         }

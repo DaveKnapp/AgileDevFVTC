@@ -9,11 +9,13 @@
     <div class="row">
         <p class="alert-danger">@ViewBag.Message</p>
         <div class="col-md-3 profile-info-container">
-            <img class="img-responsive profile-img" src="@Html.DisplayFor(model => model.User.ProfileImagePath)" alt="">
-            @*Average rating should be changed to show rating and star value*@
-            <p>@Html.Partial("AverageStarRating", Model.AverageRating) - @Model.AverageRating</p>
-            <h4>@Html.DisplayNameFor(model => model.User.UserName)</h4>
-            <p>@Html.DisplayFor(model => model.User.UserName)</p>
+            <p>
+                <img class="img-responsive profile-img" src="@Html.DisplayFor(model => model.User.ProfileImagePath)" alt="">
+            </p>
+            <h4 class="heading">@Html.DisplayFor(model => model.User.UserName)</h4>
+            <p class="sub-heading">@Html.Partial("AverageStarRating", Model.AverageRating)</p>
+            <p class="sub-heading">@Model.AverageRating </p>
+            <hr />
             <h4>@Html.DisplayNameFor(model => model.User.Bio)</h4>
             <p>@Html.DisplayFor(model => model.User.Bio)</p>
             <h4>@Html.DisplayNameFor(model => model.User.DateJoined)</h4>
@@ -65,33 +67,42 @@
             <h3>Recent Content</h3>
             <div class="row">
                 <div class="col-md-12">
-                    @foreach (var video in Model.RecentContent)
-                    {
-                        switch (video.ContentType)
+                    <div class="row">
+                        @{bool IsFirstVideo = true; }
+                        @foreach (var video in Model.RecentContent)
                         {
-                            case IntegrationType.IntegrationTypes.Youtube:
-                                <div class="youtube"
-                                     id="@(video.Id)"
-                                     style="width: 315px; height: 236px; position:relative">
-                                    <span class="video-title">@video.Title</span>
-                                    <img src="~/images/YouTube-logo-light.png" class="video-logo" />
-                                </div>
-                                break;
-                            case IntegrationType.IntegrationTypes.Twitch:
-                                <div class="twitch"
-                                     id="@(video.Id)"
-                                     style="background-size: 125% 100%; background-image:url(@(video.PreviewImgUrl));
-                                             width: 315px; height: 236px; postition:relative">
-                                    <img src="~/images/twitch-tv.png" class="video-logo" style="top:5px; right:-3px;"/>
-                                    <span class="video-title">@video.Title</span>
-                                </div>
-                                break;
-                            default:
-                                break;
+                            int width = 315;
+                            int height = 236;
+
+                            if (IsFirstVideo)
+                            {
+                                width = width * 2;
+                                height = height * 2;
+                            }
+                            switch (video.ContentType)
+                            {
+                                case IntegrationType.IntegrationTypes.Youtube:
+                                    <div class="youtube col-12" id="@(video.Id)" style="width: @(width)px; height: @(height)px;">
+                                        <span class="video-title">@video.Title</span>
+                                        <img src="~/images/YouTube-logo-light.png" class="video-logo" />
+                                    </div>
+                                    break;
+                                case IntegrationType.IntegrationTypes.Twitch:
+                                    <div class="twitch"
+                                         id="@(video.Id)"
+                                         style="background-image:url(@(video.PreviewImgUrl)); width: @(width)px; height: @(height)px;">
+                                        <img src="~/images/twitch-tv.png" class="video-logo" style="top:5px; right:-3px;" />
+                                        <span class="video-title">@video.Title</span>
+                                    </div>
+                                    break;
+                                default:
+                                    break;
+                            }
+                            IsFirstVideo = false;
                         }
-                    }
+                    </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <h3>Games</h3>
                     <div class="row">
                         <div class="col-md-12">
@@ -107,8 +118,10 @@
                                     <li>
                                         <div class="fancybox" data-fancybox-group="gallery">
                                             <div style="position:relative;">
-                                                <img style="width:100%;" class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
-                                                <span style="bottom:0; padding-left:1em; padding-right:1em; padding-top:.5em; padding-bottom:.5em;  position:absolute; " class="game-image-title">@game.Title</span>
+                                                <a href="@Url.Action("UsersByGame", "Search", new { igdbid = game.igdbID })">
+                                                    <img style="width:100%;" class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
+                                                </a>
+                                                <span class="game-image-title">@game.Title</span>
                                             </div>
                                         </div>
                                     </li>
@@ -155,14 +168,14 @@
                         {
                             <div class="col-md-4 col-sm-6">
                                 <div class="panel panel-default">
-                                    <h5 class="panel-heading">@rating.RaterUser.UserName Says</h5>
+                                    <h5 class="panel-heading"><a href="@Url.Action("User","User", new {userName = @rating.RaterUser.UserName } )">@rating.RaterUser.UserName Says</a></h5>
                                     <p class="panel-body">@rating.Comment</p>
                                 </div>
                             </div>
                         }
                     </div>
                     @if (Model.User.UserRatings.Count > 0)
-            {
+                    {
                         <div class="view-all">
                             @Html.ActionLink("View All Ratings", "UserRatings", new { userName = Model.User.UserName })
                         </div>

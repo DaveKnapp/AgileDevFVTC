@@ -46,6 +46,7 @@
 .profile-img {
     display: block;
     margin: auto;
+    max-height: 300px;
 }
 
 .portfolio-item {
@@ -54,16 +55,14 @@
     width: auto;
 }
 
-    .portfolio-item img {
-        width: auto;
-        height: 200px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+.portfolio-item img {
+    width: auto;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .game-image-title {
-    padding-left: 5px;
-    padding-right: 5px;
     background-color: rgba(0, 0, 0, 0.75);
     width: 100%;
     color: whitesmoke;
@@ -72,6 +71,17 @@
     border: none;
     display: block;
     max-width: 100%;
+    bottom: 0;
+    padding: .5em 1em;
+    position: absolute;
+}
+/*Temporary fix for oversized game titles on mobile screens*/
+/*Hope to find a fix to send images into 2 or 1 column format instead*/
+@media only screen and (max-width: 400px){
+    .game-image-title{
+        font-size: .75em;
+        display: none;
+    }
 }
 
 .title-container {
@@ -203,6 +213,11 @@
     overflow: hidden;
     transition: all 200ms ease-out;
     cursor: pointer;
+    width: 315px;
+    height: 236px;
+    position:relative;
+    margin:1rem;
+    max-width: 100%;
 }
 
     .youtube .play {
@@ -224,11 +239,17 @@
 .twitch {
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 125% 100%; 
     position: relative;
     display: inline-block;
     overflow: hidden;
     transition: all 200ms ease-out;
     cursor: pointer;
+    width: 315px;
+    height: 236px; 
+    position:relative;
+    margin: 1rem;
+    max-width: 100%;
 }
 
     .twitch .play {
@@ -267,3 +288,14 @@
     top: 0;
     width: 70px;
 }
+
+/*Rating Star Styles*/
+
+.fa-star, .fa-star-o, .fa-star-half-o {
+    color: #6666ff;
+}
+
+/*----------------------*/
+/*Masonary Grid Styles*/
+
+/*---------------------------*/
