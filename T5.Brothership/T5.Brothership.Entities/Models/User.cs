@@ -22,6 +22,8 @@ namespace T5.Brothership.Entities.Models
             this.RatedByUser = new HashSet<UserRating>();
             this.UserSocialJuncs = new HashSet<UserSocialJunc>();
             this.Games = new HashSet<Game>();
+            this.FollowedUsers = new HashSet<User>();
+            this.Followers = new HashSet<User>();
         }
     
         public int ID { get; set; }
@@ -49,5 +51,9 @@ namespace T5.Brothership.Entities.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Game> Games { get; set; }
         public virtual Gender Gender { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> FollowedUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Followers { get; set; }
     }
 }

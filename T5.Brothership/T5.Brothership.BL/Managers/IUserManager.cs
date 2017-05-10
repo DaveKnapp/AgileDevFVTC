@@ -19,5 +19,7 @@ namespace T5.Brothership.BL.Managers
         Task Update(User updatedUser);
         void UpdatePassword(string currentPassword, string newPassword, User user);
         bool UserNameExists(string userName);
+        void FollowUser(int userToFollowId, int followerUserId);
+        void UnFollowUser(int userToFollowId, int followerUserId);
     }
 }

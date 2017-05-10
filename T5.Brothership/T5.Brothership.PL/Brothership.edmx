@@ -21,6 +21,7 @@
     <EntitySet Name="Genders" EntityType="brothershipModel.Store.Genders" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserGameJunc" EntityType="brothershipModel.Store.UserGameJunc" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="GameCategoryJunc" EntityType="brothershipModel.Store.GameCategoryJunc" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserFlollowers" EntityType="brothershipModel.Store.UserFlollowers" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_UserIntegration_IntegrationType" Association="brothershipModel.Store.FK_UserIntegration_IntegrationType">
       <End Role="IntegrationType" EntitySet="IntegrationTypes" />
       <End Role="UserIntegration" EntitySet="UserIntegrations" />
@@ -80,6 +81,14 @@
     <AssociationSet Name="FK_GameCategoryJunc_GameCategory" Association="brothershipModel.Store.FK_GameCategoryJunc_GameCategory">
       <End Role="GameCategory" EntitySet="GameCategories" />
       <End Role="GameCategoryJunc" EntitySet="GameCategoryJunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserFlollowers_User" Association="brothershipModel.Store.FK_UserFlollowers_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserFlollowers" EntitySet="UserFlollowers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserFlollowers_User1" Association="brothershipModel.Store.FK_UserFlollowers_User1">
+      <End Role="User1" EntitySet="Users" />
+      <End Role="UserFlollowers" EntitySet="UserFlollowers" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="GameCategories">
@@ -211,6 +220,14 @@
     </Key>
     <Property Name="Games_ID" Type="int" Nullable="false" />
     <Property Name="GameCategories_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserFlollowers">
+    <Key>
+      <PropertyRef Name="Followers_ID" />
+      <PropertyRef Name="FollowedUsers_ID" />
+    </Key>
+    <Property Name="Followers_ID" Type="int" Nullable="false" />
+    <Property Name="FollowedUsers_ID" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_UserIntegration_IntegrationType">
     <End Role="IntegrationType" Type="brothershipModel.Store.IntegrationTypes" Multiplicity="1" />
@@ -400,6 +417,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UserFlollowers_User">
+    <End Role="User" Type="brothershipModel.Store.Users" Multiplicity="1" />
+    <End Role="UserFlollowers" Type="brothershipModel.Store.UserFlollowers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserFlollowers">
+        <PropertyRef Name="Followers_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserFlollowers_User1">
+    <End Role="UserFlollowers" Type="brothershipModel.Store.UserFlollowers" Multiplicity="*" />
+    <End Role="User1" Type="brothershipModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User1">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserFlollowers">
+        <PropertyRef Name="FollowedUsers_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -469,6 +510,10 @@
           <AssociationSet Name="GameCategoryJunc" Association="brothershipModel.GameCategoryJunc">
             <End Role="Game" EntitySet="Games" />
             <End Role="GameCategory" EntitySet="GameCategories" />
+          </AssociationSet>
+          <AssociationSet Name="UserFlollowers" Association="brothershipModel.UserFlollowers">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User1" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="GameCategory">
@@ -583,6 +628,8 @@
           <NavigationProperty Name="Games" Relationship="brothershipModel.UserGameJunc" FromRole="User" ToRole="Game" />
           <NavigationProperty Name="Gender" Relationship="brothershipModel.GenderUser" FromRole="User" ToRole="Gender" />
           <Property Name="GenderId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="FollowedUsers" Relationship="brothershipModel.UserFlollowers" FromRole="User" ToRole="User1" />
+          <NavigationProperty Name="Followers" Relationship="brothershipModel.UserFlollowers" FromRole="User1" ToRole="User" />
         </EntityType>
         <EntityType Name="UserSocialJunc">
           <Key>
@@ -764,6 +811,10 @@
           <End Type="brothershipModel.GameCategory" Role="GameCategory" Multiplicity="*" >
           </End>
         </Association>
+        <Association Name="UserFlollowers">
+          <End Type="brothershipModel.User" Role="User" Multiplicity="*" />
+          <End Type="brothershipModel.User" Role="User1" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -908,6 +959,14 @@
       </EndProperty>
       <EndProperty Name="GameCategory">
         <ScalarProperty Name="ID" ColumnName="GameCategories_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserFlollowers" TypeName="brothershipModel.UserFlollowers" StoreEntitySet="UserFlollowers">
+      <EndProperty Name="User">
+        <ScalarProperty Name="ID" ColumnName="Followers_ID" />
+      </EndProperty>
+      <EndProperty Name="User1">
+        <ScalarProperty Name="ID" ColumnName="FollowedUsers_ID" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

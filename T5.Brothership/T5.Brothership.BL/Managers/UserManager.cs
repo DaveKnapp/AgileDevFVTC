@@ -191,6 +191,26 @@ namespace T5.Brothership.BL.Managers
             }
         }
 
+        public void FollowUser(int userToFollowId, int followerUserId)
+        {//TODO Do I want to put this somewhere else?
+            var userToFollow = _unitOfWork.Users.GetById(userToFollowId);
+            var follower = _unitOfWork.Users.GetById(followerUserId);
+
+            follower.FollowedUsers.Add(userToFollow);
+            _unitOfWork.Users.Update(follower);
+            _unitOfWork.Commit();
+        }
+
+        public void UnFollowUser(int userToFollowId, int followerUserId)
+        {//TODO Do I want to put this somewhere else?
+            var userToFollow = _unitOfWork.Users.GetById(userToFollowId);
+            var follower = _unitOfWork.Users.GetById(followerUserId);
+
+            follower.FollowedUsers.Remove(userToFollow);
+            _unitOfWork.Users.Update(follower);
+            _unitOfWork.Commit();
+        }
+
 
         private List<User> GetRandomUsersFromList(List<User> users, int qtyUsersToReturn, List<User> usersToExclude = null)
         {

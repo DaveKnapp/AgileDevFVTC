@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/02/2017 15:14:55
--- Generated from EDMX file: C:\Users\zzdia\Source\Repos\AgileDevFVTC\T5.Brothership\T5.Brothership.PL\Brothership.edmx
+-- Date Created: 05/10/2017 15:17:55
+-- Generated from EDMX file: C:\Users\Dave\Source\Repos\AgileDevFVTC\T5.Brothership\T5.Brothership.PL\Brothership.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -242,6 +242,13 @@ CREATE TABLE [dbo].[GameCategoryJunc] (
 );
 GO
 
+-- Creating table 'UserFlollowers'
+CREATE TABLE [dbo].[UserFlollowers] (
+    [Followers_ID] int  NOT NULL,
+    [FollowedUsers_ID] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -334,6 +341,12 @@ GO
 ALTER TABLE [dbo].[GameCategoryJunc]
 ADD CONSTRAINT [PK_GameCategoryJunc]
     PRIMARY KEY CLUSTERED ([Games_ID], [GameCategories_ID] ASC);
+GO
+
+-- Creating primary key on [Followers_ID], [FollowedUsers_ID] in table 'UserFlollowers'
+ALTER TABLE [dbo].[UserFlollowers]
+ADD CONSTRAINT [PK_UserFlollowers]
+    PRIMARY KEY CLUSTERED ([Followers_ID], [FollowedUsers_ID] ASC);
 GO
 
 -- --------------------------------------------------
@@ -527,6 +540,30 @@ GO
 CREATE INDEX [IX_FK_GameCategoryJunc_GameCategory]
 ON [dbo].[GameCategoryJunc]
     ([GameCategories_ID]);
+GO
+
+-- Creating foreign key on [Followers_ID] in table 'UserFlollowers'
+ALTER TABLE [dbo].[UserFlollowers]
+ADD CONSTRAINT [FK_UserFlollowers_User]
+    FOREIGN KEY ([Followers_ID])
+    REFERENCES [dbo].[Users]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [FollowedUsers_ID] in table 'UserFlollowers'
+ALTER TABLE [dbo].[UserFlollowers]
+ADD CONSTRAINT [FK_UserFlollowers_User1]
+    FOREIGN KEY ([FollowedUsers_ID])
+    REFERENCES [dbo].[Users]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserFlollowers_User1'
+CREATE INDEX [IX_FK_UserFlollowers_User1]
+ON [dbo].[UserFlollowers]
+    ([FollowedUsers_ID]);
 GO
 
 -- --------------------------------------------------

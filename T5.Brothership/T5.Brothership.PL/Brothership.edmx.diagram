@@ -31,6 +31,7 @@
         <EntityTypeShape EntityType="brothershipModel.Gender" Width="1.5" PointX="1.25" PointY="2.125" />
         <AssociationConnector Association="brothershipModel.GenderUser" />
         <AssociationConnector Association="brothershipModel.GameCategoryJunc" />
+        <AssociationConnector Association="brothershipModel.UserFlollowers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -233,5 +233,15 @@ namespace T5.Brothership.BL.Test.ManagerFakes
 
             return users;
         }
+
+        public void FollowUser(int userToFollowId, int followerUserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnFollowUser(int userToFollowId, int followerUserId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

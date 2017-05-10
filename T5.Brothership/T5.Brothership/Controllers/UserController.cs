@@ -64,7 +64,8 @@ namespace T5.Brothership.Controllers
                 UserIntegrationInfos = integrationInfos,
                 AverageRating = _userRatingManger.GetAverageRating(user.ID),
                 IsUserLoggedIn = IsUserLoggedIn(),
-                HasLoggedInUserRated = HasLoggedInUserRated(user.ID)
+                HasLoggedInUserRated = HasLoggedInUserRated(user.ID),
+                IsUserFollowing = IsUserFollowedToUser(user.ID)
             };
             try
             {
@@ -229,6 +230,51 @@ namespace T5.Brothership.Controllers
             }
         }
 
+        [Route("User/{userName}/following")]
+        public ActionResult Following(string userName)
+        {
+            {
+                var user = _userManager.GetByUserName(userName);
+
+                return View(nameof(Following), user.FollowedUsers);
+            }
+        }
+
+        [Route("User/{userName}/follow)")]
+        public ActionResult Follow(string userName)
+        {
+            {
+                var loggedInUser = _sessionHelper.Get("CurrentUser") as User;
+
+                if (loggedInUser == null)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+
+                var userToFollow = _userManager.GetByUserName(userName);
+                _userManager.FollowUser(userToFollow.ID, loggedInUser.ID);
+
+                return RedirectToAction(nameof(User), "User", new { userName = userToFollow.UserName });
+            }
+        }
+
+        [Route("User/{userName}/follow)")]
+        public ActionResult UnFollow(string userName)
+        {
+            {
+                var loggedInUser = _sessionHelper.Get("CurrentUser") as User;
+
+                if (loggedInUser == null)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+
+                var userToUnFollow = _userManager.GetByUserName(userName);
+                _userManager.UnFollowUser(userToUnFollow.ID, loggedInUser.ID);
+
+                return RedirectToAction(nameof(User), "User", new { userName = userToUnFollow.UserName });
+            }
+        }
 
 
         private async Task<List<IntegrationInfo>> GetUserIntegrationInfo(User user)
@@ -290,6 +336,17 @@ namespace T5.Brothership.Controllers
                 return false;
             }
             return _userRatingManger.GetById(loggedInUser.ID, ratedUserID) == null ? false : true;
+        }
+
+        private bool IsUserFollowedToUser(int UserId)
+        {
+            var loggedInUser = _sessionHelper.Get("CurrentUser") as User;
+            if (loggedInUser == null)
+            {
+                return false;
+            }
+            var userFollow = _userManager.GetById(UserId);
+            return _userManager.GetById(loggedInUser.ID).FollowedUsers.Contains(userFollow);
         }
     }
 }
