@@ -385,6 +385,7 @@
     <Content Include="Views\Search\GameSearchResults.cshtml" />
     <Content Include="Views\Search\UsersByGame.cshtml" />
     <Content Include="Views\User\EditRating.cshtml" />
+    <Content Include="Views\Shared\AverageStarRating.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

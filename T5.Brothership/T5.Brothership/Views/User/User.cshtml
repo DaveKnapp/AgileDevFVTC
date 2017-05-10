@@ -11,7 +11,7 @@
         <div class="col-md-3 profile-info-container">
             <img class="img-responsive profile-img" src="@Html.DisplayFor(model => model.User.ProfileImagePath)" alt="">
             @*Average rating should be changed to show rating and star value*@
-            <p>Rating - @Model.AverageRating</p>
+            <p>@Html.Partial("AverageStarRating", Model.AverageRating) - @Model.AverageRating</p>
             <h4>@Html.DisplayNameFor(model => model.User.UserName)</h4>
             <p>@Html.DisplayFor(model => model.User.UserName)</p>
             <h4>@Html.DisplayNameFor(model => model.User.Bio)</h4>

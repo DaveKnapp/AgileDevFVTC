@@ -23,6 +23,11 @@ namespace T5.Brothership.BL.Test.ManagerFakes
             return "www.default.com";
         }
 
+        public string GetUserUrl(User user)
+        {
+            throw new NotImplementedException();
+        }
+
         public string UploadImage(User user, byte[] imageArray)
         {
             return "www." + user;

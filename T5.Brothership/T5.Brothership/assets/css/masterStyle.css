@@ -143,10 +143,6 @@
     border-top: 0px;
 }
 
-#UpdateMenu li a:hover {
-    cursor: default;
-    text-decoration: none;
-}
 
 .UpdateMenuLinkNotSelected:before {
     content: "";
