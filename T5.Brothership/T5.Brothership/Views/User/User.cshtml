@@ -126,7 +126,14 @@
 
                             @if (Model.IsUserLoggedIn)
                             {
-                                @Html.ActionLink("Rate User", "Rate", "User", null, new { @class = "btn btn-lg btn-theme" })
+                                if (Model.HasLoggedInUserRated)
+                                {
+                                    @Html.ActionLink("Edit Rating", "EditRating", "User", null, new { @class = "btn btn-lg btn-theme" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Rate User", "Rate", "User", null, new { @class = "btn btn-lg btn-theme" })
+                                }
                             }
                             else
                             {

@@ -46,6 +46,11 @@ namespace T5.Brothership.BL.Test.ManagerFakes
             return _fakeUserRatings.FirstOrDefault(p => p.RaterUserID == raterId && p.UserBeingRatedID == userBeingRatedId);
         }
 
+        public void Update(UserRating userRating)
+        {
+            throw new NotImplementedException();
+        }
+
         private List<UserRating> CreateFakeUserRatings()
         {
             return new List<UserRating>

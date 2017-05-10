@@ -79,6 +79,7 @@ namespace T5.Brothership.PL.Repositories
 
         public int UserAverageRating(int ratedUserId)
         {
+            //TODO Delete?
             int averageRating = 0;
 
             return averageRating;

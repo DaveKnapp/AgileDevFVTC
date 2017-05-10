@@ -4,7 +4,7 @@
     ViewBag.Title = "Rate";
 }
 
-<h2>Rate</h2>
+<h2>Edit Rating</h2>
 
 
 @using (Html.BeginForm())
@@ -37,10 +37,18 @@
                 @foreach (var rating in Model.Ratings)
                 {
                     <div style="display:inline-block;">
-                        @Html.RadioButtonFor(model => model.UserRating.RatingID, rating.ID)
+                        @if (rating.ID == Model.UserRating.RatingID)
+                        {
+                            @Html.RadioButtonFor(model => model.UserRating.RatingID, rating.ID, new { @checked = "checked" })
+                        }
+                        else
+                        {
+                            @Html.RadioButtonFor(model => model.UserRating.RatingID, rating.ID)
+                        }
                         @Html.Label(rating.Description)
                     </div>
                 }
+
             </div>
         </div>
     </div>

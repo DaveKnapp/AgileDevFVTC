@@ -64,5 +64,15 @@ namespace T5.Brothership.BL.Managers
                 return 0;
             }
         }
+
+        public void Update(UserRating userRating)
+        {
+            var currentUserRating = _unitOfWork.UserRatings.GetById(userRating.RaterUserID, userRating.UserBeingRatedID);
+            currentUserRating.Comment = userRating.Comment;
+            currentUserRating.RatingID = userRating.RatingID;
+
+            _unitOfWork.UserRatings.Update(currentUserRating);
+            _unitOfWork.Commit();
+        }
     }
 }

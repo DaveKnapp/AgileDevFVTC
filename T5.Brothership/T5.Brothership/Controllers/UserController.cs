@@ -57,13 +57,14 @@ namespace T5.Brothership.Controllers
             }
             List<IntegrationInfo> integrationInfos = await GetUserIntegrationInfo(user);
 
+
             var viewModel = new UserPageViewModel
             {
                 User = user,
                 UserIntegrationInfos = integrationInfos,
                 AverageRating = _userRatingManger.GetAverageRating(user.ID),
-                IsUserLoggedIn = IsUserLoggedIn()
-
+                IsUserLoggedIn = IsUserLoggedIn(),
+                HasLoggedInUserRated = HasLoggedInUserRated(user.ID)
             };
             try
             {
@@ -165,6 +166,71 @@ namespace T5.Brothership.Controllers
             }
         }
 
+        [Route("User/EditRating/{userName}")]
+        public ActionResult EditRating(string userName)
+        {
+
+            var loggedInUser = _sessionHelper.Get("CurrentUser") as User;
+
+            if (loggedInUser == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var userToRate = _userManager.GetByUserName(userName);
+
+            if (userToRate == null)
+            {
+                return HttpNotFound();
+            }
+
+            UserRatingViewModel viewModel = new UserRatingViewModel
+            {
+                Ratings = _ratingManager.GetAll(),
+                UserRating = _userRatingManger.GetById(loggedInUser.ID, userToRate.ID)
+            };
+
+            if (viewModel.UserRating == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(nameof(EditRating), viewModel);
+        }
+
+        [HttpPost]
+        [Route("User/EditRating/{userName}")]
+        public ActionResult EditRating(UserRatingViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var loggedInUser = _sessionHelper.Get("CurrentUser") as User;
+
+                if (loggedInUser == null)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+
+                var userRating = viewModel.UserRating;
+                userRating.RaterUserID = loggedInUser.ID;
+
+                _userRatingManger.Update(userRating);
+
+                string ratedUserName = _userManager.GetById(viewModel.UserRating.UserBeingRatedID).UserName;
+
+                return RedirectToAction(nameof(User), "User", new { userName = ratedUserName });
+            }
+            else
+            {
+                viewModel.Ratings = _ratingManager.GetAll();
+                ViewBag.Message = "An error occurred when submitting rating.";
+
+                return View(nameof(Rate), viewModel);
+            }
+        }
+
+
+
         private async Task<List<IntegrationInfo>> GetUserIntegrationInfo(User user)
         {
             var integrationInfos = new List<IntegrationInfo>();
@@ -214,6 +280,16 @@ namespace T5.Brothership.Controllers
             var LoggedInUser = _sessionHelper.Get("CurrentUser") as User;
 
             return LoggedInUser != null;
+        }
+
+        private bool HasLoggedInUserRated(int ratedUserID)
+        {
+            var loggedInUser = _sessionHelper.Get("CurrentUser") as User;
+            if (loggedInUser == null)
+            {
+                return false;
+            }
+            return _userRatingManger.GetById(loggedInUser.ID, ratedUserID) == null ? false : true;
         }
     }
 }
