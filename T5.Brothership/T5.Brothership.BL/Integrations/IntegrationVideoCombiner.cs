@@ -63,9 +63,9 @@ namespace T5.Brothership.BL.Integrations
 
             var combinedVideos = new List<VideoContent>();
 
-            while (youtubeChannelId != null || twitchChannelId!= null)
+            while (videos.Count > 0)
             {
-                var video = videos.FirstOrDefault();
+                var video = videos.First();
                 combinedVideos.Add(video);
                 videos.Remove(video);
 
