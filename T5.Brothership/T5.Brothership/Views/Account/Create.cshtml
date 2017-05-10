@@ -83,6 +83,21 @@
             </div>
 
             <div class="form-group row">
+                @Html.Label("Profile Image", htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-3">
+                    <img src="@Model.CurrentUser.ProfileImagePath" alt="" class="img-responsive form-img">
+                    @Html.ValidationMessageFor(model => model.CurrentUser.ProfileImagePath, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-5">
+                    <label class="btn btn-md btn-theme" for="file">
+                        <input type="file" id="file" name="file" class="file-upload" style="display:none;" onchange="fileDetails();" />
+                        Upload Image&nbsp;<span class="fa fa-image"></span>
+                    </label>
+                    <span class="label label-primary" id="upload-file-info"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
                 @Html.LabelFor(model => model.CurrentUser.Bio, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
                 <div class="col-md-6">
 
