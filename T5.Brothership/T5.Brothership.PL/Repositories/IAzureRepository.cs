@@ -15,7 +15,7 @@ namespace T5.Brothership.PL.Repositories
     {
         string GetDefaultUserImage();
         
-        void Upload(byte[] _imageArr, User _user);
+        string Upload(byte[] _imageArr, User _user);
 
         string LoadBlob(string blobName);
 
@@ -25,12 +25,7 @@ namespace T5.Brothership.PL.Repositories
 
         string GetBlobUri(User _user);
 
-        string UploadProfileImage(string username, string filePath);
-
         bool BlobExistsOnCloud(User _user);
-
-        CloudBlockBlob GetBlobInContainer(string username);
-
 
     }
 }

@@ -16,7 +16,7 @@ namespace T5.Brothership.PL.Repositories
         private CloudBlobContainer container;
         private string connectionString = "StorageConnectionString"; // TODO (TH) - Make a more secure connection or a Shared Access Signature config instead.
         private string containerName = "brothership"; // This is the name of the primary container in Azure Storage.
-        private string directoryName = "temp"; // The directory name for each user will always be set to their username.
+        private string directoryName = "temp"; // Directories help divide each user into their own virtual folder.
 
         public AzureRepository()
         {
@@ -39,21 +39,27 @@ namespace T5.Brothership.PL.Repositories
             throw new NotImplementedException();
         }
 
-        public void Upload(byte[] _imageArr, User _user)
+        public string Upload(byte[] _imageArr, User _user)
         {
-            // This determines the identifying name of the blob in storage
+            // This determines the identifying names of the blob in storage
+            directoryName = _user.UserName;
             string blobName = string.Format(@"{0}_{1}.jpg", _user.ID, _user.UserName.ToLower());
 
             // Make a new directory and blob for the User.
             CloudBlobDirectory directory = container.GetDirectoryReference(directoryName);
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobName);
+            
+            CloudBlockBlob blockBlob = directory.GetBlockBlobReference(blobName);
+            blockBlob.Properties.ContentType = "image/jpg";
 
             // Upload the content to the blob
             blockBlob.UploadFromByteArray(_imageArr, 0, _imageArr.Length);
+
+            return GetBlobUri(_user).ToString();
         }
 
         public void Delete(User _user)
         {
+            directoryName = _user.UserName;
             string blobName = string.Format(@"{0}_{1}.jpg", _user.ID, _user.UserName.ToLower());
 
             if (BlobExistsOnCloud(_user))
@@ -72,58 +78,21 @@ namespace T5.Brothership.PL.Repositories
         // Checks if a Blob of the same name already exists
         public bool BlobExistsOnCloud(User _user)
         {
+            directoryName = _user.UserName;
             var blobName = string.Format(@"{0}_{1}.jpg", _user.ID, _user.UserName.ToLower());
-            return container.GetBlockBlobReference(blobName).Exists();
+            return container.GetDirectoryReference(directoryName).GetBlockBlobReference(blobName).Exists();
         }
+
 
         // Use this to return the Blob URI to the User.ProfileImagePath
         public string GetBlobUri(User _user)
         {
+            directoryName = _user.UserName;
             string blobName = string.Format(@"{0}_{1}.jpg", _user.ID, _user.UserName.ToLower());
-            return container.GetDirectoryReference(directoryName).GetBlockBlobReference(blobName).Uri.AbsoluteUri;
+            var blockBlob = container.GetDirectoryReference(directoryName).GetBlockBlobReference(blobName);
+            blockBlob.Properties.ContentType = "image/jpg";
+            return blockBlob.Uri.AbsoluteUri;
         }
-
-        //------------------------------- (TH) Old Code. Not being used at the moment. Maybe delete later. -------------------------------
-        public CloudBlockBlob GetBlobInContainer(string username)
-        {
-            //Parse the connection. (found in app.config)
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-
-            //Create the blob client
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-            //Retrieve a refernce to a container
-            CloudBlobContainer blobContainer = blobClient.GetContainerReference(CloudConfigurationManager.GetSetting(username));
-
-            //Set permission to show to public
-            blobContainer.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
-            blobContainer.CreateIfNotExists();
-
-            // Retrieve reference to a blob name.
-            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference("profile-image");
-            return blockBlob;
-        }
-      
-        // (TH) Old Code. Not being used at the moment. Maybe delete later.
-        public string UploadProfileImage(string username, string filePath)
-        {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-            CloudBlobContainer blobContainer = blobClient.GetContainerReference(CloudConfigurationManager.GetSetting(username));
-            blobContainer.CreateIfNotExists();
-
-            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference("profile-image");
-
-            using (var fileStream = System.IO.File.OpenRead(filePath))
-            {
-                blockBlob.UploadFromStream(fileStream);
-            }
-
-            return ("<img src=" + blockBlob.Uri.AbsoluteUri + " alt='PS Image'>");
-        }
-
-        
+               
     }
 }
