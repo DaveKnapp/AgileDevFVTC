@@ -154,11 +154,17 @@ namespace T5.Brothership.Controllers
             {
                 if (file == null || file.ContentLength <= 0)
                 {
-                    if (!_azureManager.UserImageExists(currentUser) || (currentUser.ProfileImagePath == _azureManager.GetDefaultUrl()))
+                    if (_azureManager.UserImageExists(currentUser))
+                    {
+                        currentUser.ProfileImagePath = _azureManager.GetUserUrl(currentUser);
+                        await _userManger.Update(currentUser);
+                        ViewBag.UpdateMessage = "Account Successfully updated with no image change!";
+                    }
+                    else
                     {
                         currentUser.ProfileImagePath = _azureManager.GetDefaultUrl();
                         await _userManger.Update(currentUser);
-                        ViewBag.UpdateMessage = "Account Successfully updated, No Profile Image."; // (TH) To know if no image was uploaded
+                        ViewBag.UpdateMessage = "Account Successfully updated with default image!";
                     }
                 }
                 else
@@ -167,7 +173,7 @@ namespace T5.Brothership.Controllers
                     _azureManager.UploadImage(currentUser, convertedfile);
                     currentUser.ProfileImagePath = _azureManager.GetUserUrl(currentUser);
                     await _userManger.Update(currentUser);
-                    ViewBag.UpdateMessage = "Account Successfully updated with new image."; // (TH) To know if an image was uploaded
+                    ViewBag.UpdateMessage = "Account Successfully updated with new image!";
                 }
 
                 userViewModel.Genders = _genderManager.GetAll();
