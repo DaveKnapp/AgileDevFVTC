@@ -10,16 +10,5 @@ namespace T5.Brothership.BL.Test.ApiIntegrationsIntegrationTest
     [TestClass]
     public class YoutubeIntegrationIntegrationTest
     {
-        [TestMethod]
-        public async Task TestMethod1()
-        {
-            YoutubeDataClient client = new YoutubeDataClient();
-
-            var unitOfWork = new BrothershipUnitOfWork();
-            var channelId = unitOfWork.UserIntegrations.GetById(1, (int)IntegrationType.IntegrationTypes.Youtube).ChannelId;
-
-            var content = await client.GetRecentVideos(channelId, 10);
-
-        }
     }
 }

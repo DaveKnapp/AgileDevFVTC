@@ -69,8 +69,8 @@ SET IDENTITY_INSERT UserLogins OFF;
 	SET IDENTITY_INSERT IntegrationTypes OFF;
 
 	INSERT INTO UserIntegrations(UserID, IntegrationTypeID, Token, ChannelId)
-		VALUES(1,1,'0jjxoy7y0iujpnldgukt0oyap4a9x6'),
-			  (3,1,'lkjlkjlk;jlkjlk3jlkjlkj')
+		VALUES(1,1,'0jjxoy7y0iujpnldgukt0oyap4a9x6', '32432342'),
+			  (3,1,'lkjlkjlk;jlkjlk3jlkjlkj','23432432432')
 
 	SET IDENTITY_INSERT Ratings ON;
 		INSERT INTO Ratings(ID, "Description")
