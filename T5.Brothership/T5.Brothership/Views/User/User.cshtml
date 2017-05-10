@@ -109,8 +109,10 @@
                                     <li>
                                         <div class="fancybox" data-fancybox-group="gallery">
                                             <div style="position:relative;">
-                                                <img style="width:100%;" class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
-                                                <span style="bottom:0; padding-left:1em; padding-right:1em; padding-top:.5em; padding-bottom:.5em;  position:absolute; " class="game-image-title">@game.Title</span>
+                                                <a href="@Url.Action("UsersByGame", "Search", new { igdbid = game.igdbID })">
+                                                    <img style="width:100%;" class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(game.ImgCloudinaryId).jpg" alt="@game.Title">
+                                                </a>
+                                                <span class="game-image-title">@game.Title</span>
                                             </div>
                                         </div>
                                     </li>
