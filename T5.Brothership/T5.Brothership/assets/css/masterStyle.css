@@ -118,12 +118,12 @@
 }
 
 .UpdateMenuItemSelected {
-    color:#33782D;
+    color: #33782D;
     border: 2px solid #33782D;
-    box-sizing:content-box;
-    border-left:0px;
-    border-right:0px;
-    border-top:0px;
+    box-sizing: content-box;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
 }
 
 #UpdateMenu li a:hover {
@@ -246,4 +246,11 @@
     width: 100%;
     color: whitesmoke;
     word-wrap: break-word;
+}
+
+.video-logo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 70px;
 }

@@ -10,7 +10,7 @@ namespace T5.Brothership.BL.Integrations
 {
     public class TwitchVideoLoader : ITwitchVideoLoader
     {
-        public bool HasMoreItems { get; set; } = true;
+        public bool HasMoreItems { get; set; } 
 
         private int _currentPage = 0;
         //TODO Change to 100
@@ -22,12 +22,14 @@ namespace T5.Brothership.BL.Integrations
 
         public TwitchVideoLoader(string channelId)
         {
+            HasMoreItems = true;
             _twitchClient = new TwitchClient();
             _channelId = channelId;
         }
 
         public TwitchVideoLoader(ITwitchClient twitchClient, string channelId)
         {
+            HasMoreItems = true;
             _twitchClient = twitchClient;
             _channelId = channelId;
         }

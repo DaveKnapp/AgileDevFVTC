@@ -28,10 +28,11 @@ r(function () {
         videos[i].onclick = function () {
             // Create an iFrame with autoplay set to true
             var iframe = document.createElement("iframe");
-            var iframe_url = "https://www.youtube.com/embed/" + this.id + "?autoplay=1&autohide=1";
+            var iframe_url = "https://www.youtube.com/embed/" + this.id + "?autoplay=1&autohide=1&fs=true";
             if (this.getAttribute("data-params")) iframe_url += '&' + this.getAttribute("data-params");
             iframe.setAttribute("src", iframe_url);
             iframe.setAttribute("frameborder", '0');
+            iframe.setAttribute("allowfullscreen",'allowfullscreen');
 
             // The height and width of the iFrame should be the same as parent
             iframe.style.width = this.style.width;
@@ -80,6 +81,8 @@ function SetTwitchVids() {
             if (this.getAttribute("data-params")) iframe_url += '&' + this.getAttribute("data-params");
             iframe.setAttribute("src", iframe_url);
             iframe.setAttribute("frameborder", '0');
+            iframe.setAttribute("allowfullscreen", 'allowfullscreen');
+
 
             // The height and width of the iFrame should be the same as parent
             iframe.style.width = this.style.width;

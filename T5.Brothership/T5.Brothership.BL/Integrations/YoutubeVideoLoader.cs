@@ -10,7 +10,7 @@ namespace T5.Brothership.BL.Integrations
 {
     public class YoutubeVideoLoader
     {
-        public bool HasMoreItems { get; set; } = true;
+        public bool HasMoreItems { get; set; }
 
         private int _itemsPerPage = 5;
         private string _channelId;
@@ -19,12 +19,14 @@ namespace T5.Brothership.BL.Integrations
 
         public YoutubeVideoLoader(string channelId)
         {
+            HasMoreItems = true;
             _YoutubeDataClient = new YoutubeDataClient();
             _channelId = channelId;
         }
 
         public YoutubeVideoLoader(IYoutubeDataClient youtubeDataClient, string channelId)
         {
+            HasMoreItems = true;
             _YoutubeDataClient = youtubeDataClient;
             _channelId = channelId;
         }

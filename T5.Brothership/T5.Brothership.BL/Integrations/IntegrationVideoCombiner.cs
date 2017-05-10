@@ -38,25 +38,32 @@ namespace T5.Brothership.BL.Integrations
             var youtubeVideoLoader = new YoutubeVideoLoader(_youtubeDataClient, youtubeChannelId);
             var twitchVideoLoader = new TwitchVideoLoader(_twitchClient, twitchChannelId);
 
+
+            var videos = new List<VideoContent>();
+
             if (twitchChannelId == null)
             {
                 twitchVideoLoader.HasMoreItems = false;
             }
+            else
+            {
+                videos.AddRange(await twitchVideoLoader.GetVideos());
+            }
+
             if (youtubeChannelId == null)
             {
                 youtubeVideoLoader.HasMoreItems = false;
             }
-
-
-            var videos = new List<VideoContent>();
-
-            videos.AddRange(await youtubeVideoLoader.GetVideos());
-            videos.AddRange(await twitchVideoLoader.GetVideos());
+            else
+            {
+                videos.AddRange(await youtubeVideoLoader.GetVideos());
+            }
 
             videos = videos.OrderByDescending(p => p.UploadTime).ToList();
 
             var combinedVideos = new List<VideoContent>();
-            while (twitchVideoLoader.HasMoreItems || youtubeVideoLoader.HasMoreItems)
+
+            while (youtubeChannelId != null || twitchChannelId!= null)
             {
                 var video = videos.FirstOrDefault();
                 combinedVideos.Add(video);

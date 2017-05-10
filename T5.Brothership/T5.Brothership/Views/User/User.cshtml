@@ -74,6 +74,7 @@
                                      id="@(video.Id)"
                                      style="width: 315px; height: 236px; position:relative">
                                     <span class="video-title">@video.Title</span>
+                                    <img src="~/images/YouTube-logo-light.png" class="video-logo" />
                                 </div>
                                 break;
                             case IntegrationType.IntegrationTypes.Twitch:
@@ -81,6 +82,7 @@
                                      id="@(video.Id)"
                                      style="background-size: 125% 100%; background-image:url(@(video.PreviewImgUrl));
                                              width: 315px; height: 236px; postition:relative">
+                                    <img src="~/images/twitch-tv.png" class="video-logo" style="top:5px; right:-3px;"/>
                                     <span class="video-title">@video.Title</span>
                                 </div>
                                 break;
