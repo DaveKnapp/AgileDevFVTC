@@ -18,7 +18,7 @@
     @using (Ajax.BeginForm("SearchIGDB", "Game", new { limit = 50, page = 0 }, options))
     {
         <div class="col-md-6">
-            @Html.TextBox("gameTitle", null, new { id = "Search" })
+            @Html.TextBox("gameTitle", null, new { id = "GameSearch" })
             <input type="submit" value="Search" id="SearchButton" class="btn btn-md btn-theme" />
         </div>
     }
@@ -65,7 +65,7 @@
     </div>
 </div>
 
-        @{
+@{
             AjaxOptions optionsScrollLoad = new AjaxOptions
             {
                 UpdateTargetId = "searchResult",
@@ -74,14 +74,15 @@
                 OnComplete = "IncrementSearchPage",
                 OnFailure = "SearchHasNoMoreItems"
             };
-        }
+}
 
-        @using (Ajax.BeginForm("SearchIGDB", "Game", optionsScrollLoad))
-        {
-            <div>
-                <input name="gameTitle" value="" id="ScrollingSearchTitleInput" type="hidden" />
-                <input name="page" value="" id="ScrollingSearchPageInput" type="hidden" />
-                <input name="limit" value="50" type="hidden" />
-                <button type="submit" style="visibility:hidden" value="Search" id="FakeSearchButton">Search</button>
-            </div>
-        }
+@using (Ajax.BeginForm("SearchIGDB", "Game", optionsScrollLoad))
+{
+    <div>
+        <input name="gameTitle" value="" id="ScrollingSearchTitleInput" type="hidden" />
+        <input name="page" value="" id="ScrollingSearchPageInput" type="hidden" />
+        <input name="limit" value="50" type="hidden" />
+        <button type="submit" style="visibility:visible" value="Search" id="FakeSearchButton">Search</button>
+    </div>
+}
+<script src="~/Scripts/GameSearchHelper.js"></script>

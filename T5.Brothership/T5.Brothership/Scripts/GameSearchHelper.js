@@ -16,8 +16,9 @@ function SearchHasNoMoreItems() {
 
 function SetScrollingPageInput() {
     document.getElementById("ScrollingSearchPageInput").value = nextSearchPage;
-    document.getElementById("ScrollingSearchTitleInput").value = document.getElementById("Search").value;
+    document.getElementById("ScrollingSearchTitleInput").value = document.getElementById("GameSearch").value;
 }
+
 
 function ClearSearchItems() {
     var searchList = document.getElementById("searchResult");
