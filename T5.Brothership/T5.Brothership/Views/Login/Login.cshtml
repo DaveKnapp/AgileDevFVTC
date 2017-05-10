@@ -43,14 +43,14 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group row">
                             @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-sm-2 col-sm-offset-2" })
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 col-md-offset-1">
                                 @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", autofocus = "autofocus" } })
                                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group row top-margin">
                             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-sm-2 col-sm-offset-2" })
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 col-md-offset-1">
                                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", Type = "password" } })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
@@ -59,7 +59,7 @@
                             <div class="top-margin col-sm-2 col-sm-offset-2">
                                 <input type="submit" value="Login" class="btn btn-lg btn-theme" />
                             </div>
-                            <div class="top-margin col-sm-2">
+                            <div class="top-margin col-sm-2 col-md-offset-1">
                                 <input type="button" value="Sign Up" class="btn btn-lg btn-theme" onclick="location.href='@Url.Action("Create", "Account")'" /> 
                             </div>
                         </div>
