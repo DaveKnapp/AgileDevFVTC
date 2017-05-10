@@ -6,6 +6,8 @@ using T5.Brothership.ViewModels;
 using T5.Brothership.BL.Test.ManagerFakes;
 using T5.Brothership.Entities.Models;
 using System.Threading.Tasks;
+using System.Web;
+using System.IO;
 
 namespace T5.Brothership.Web.Test.ControllersTest
 {
@@ -272,6 +274,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
         [TestMethod, TestCategory("UnitTest")]
         public async Task UpdatePost_InvalidModelStateReturnCorrectView_ReturnsUpdateView()
         {
+            //TODO Find way to pass file to 
+
             var session = new SessionHelperFake();
             var user = new User
             {
@@ -302,8 +306,9 @@ namespace T5.Brothership.Web.Test.ControllersTest
                     CurrentUser = new User()
                 };
 
+                HttpPostedFileBase file = new HttpTestFileStub();
 
-                var result = await controller.Update(viewModel) as ViewResult;
+                var result = await controller.Update(viewModel, file) as ViewResult;
                 var expectedViewName = "Update";
 
                 Assert.AreEqual(expectedViewName, result.ViewName);
@@ -343,8 +348,8 @@ namespace T5.Brothership.Web.Test.ControllersTest
                     CurrentUser = new User()
                 };
 
-
-                var result = await controller.Update(viewModel) as ViewResult;
+                HttpPostedFileBase file = new HttpTestFileStub();
+                var result = await controller.Update(viewModel,file) as ViewResult;
 
                 var expectedMessage = "An error occurred when updating the account.";
 
@@ -384,8 +389,9 @@ namespace T5.Brothership.Web.Test.ControllersTest
                     CurrentUser = new User()
                 };
 
+                HttpPostedFileBase file = new HttpTestFileStub();
 
-                var result = await controller.Update(viewModel) as ViewResult;
+                var result = await controller.Update(viewModel, file) as ViewResult;
                 var expectedViewName = "Update";
 
                 Assert.AreEqual(expectedViewName, result.ViewName);
@@ -424,8 +430,9 @@ namespace T5.Brothership.Web.Test.ControllersTest
                     CurrentUser = new User()
                 };
 
+                HttpPostedFileBase file = new HttpTestFileStub();
 
-                var result = await controller.Update(viewModel) as ViewResult;
+                var result = await controller.Update(viewModel, file) as ViewResult;
 
                 var expectedMessage = "Account Successfully updated.";
 
