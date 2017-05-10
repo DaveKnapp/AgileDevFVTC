@@ -67,30 +67,42 @@
             <h3>Recent Content</h3>
             <div class="row">
                 <div class="col-md-12">
-                    @foreach (var video in Model.RecentContent)
-                    {
-                        switch (video.ContentType)
+                    <div class="row">
+                        @{bool IsFirstVideo = true; }
+                        @foreach (var video in Model.RecentContent)
                         {
-                            case IntegrationType.IntegrationTypes.Youtube:
-                                <div class="youtube" id="@(video.Id)">
-                                    <span class="video-title">@video.Title</span>
-                                    <img src="~/images/YouTube-logo-light.png" class="video-logo" />
-                                </div>
-                                break;
-                            case IntegrationType.IntegrationTypes.Twitch:
-                                <div class="twitch"
-                                     id="@(video.Id)"
-                                     style="background-image:url(@(video.PreviewImgUrl));">
-                                    <img src="~/images/twitch-tv.png" class="video-logo" style="top:5px; right:-3px;"/>
-                                    <span class="video-title">@video.Title</span>
-                                </div>
-                                break;
-                            default:
-                                break;
+                            int width = 315;
+                            int height = 236;
+
+                            if (IsFirstVideo)
+                            {
+                                width = width * 2;
+                                height = height * 2;
+                            }
+                            switch (video.ContentType)
+                            {
+                                case IntegrationType.IntegrationTypes.Youtube:
+                                    <div class="youtube col-12" id="@(video.Id)" style="width: @(width)px; height: @(height)px;">
+                                        <span class="video-title">@video.Title</span>
+                                        <img src="~/images/YouTube-logo-light.png" class="video-logo" />
+                                    </div>
+                                    break;
+                                case IntegrationType.IntegrationTypes.Twitch:
+                                    <div class="twitch"
+                                         id="@(video.Id)"
+                                         style="background-image:url(@(video.PreviewImgUrl)); width: @(width)px; height: @(height)px;">
+                                        <img src="~/images/twitch-tv.png" class="video-logo" style="top:5px; right:-3px;" />
+                                        <span class="video-title">@video.Title</span>
+                                    </div>
+                                    break;
+                                default:
+                                    break;
+                            }
+                            IsFirstVideo = false;
                         }
-                    }
+                    </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <h3>Games</h3>
                     <div class="row">
                         <div class="col-md-12">

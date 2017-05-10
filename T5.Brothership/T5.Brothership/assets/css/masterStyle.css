@@ -217,6 +217,7 @@
     height: 236px;
     position:relative;
     margin:1rem;
+    max-width: 100%;
 }
 
     .youtube .play {
@@ -248,6 +249,7 @@
     height: 236px; 
     position:relative;
     margin: 1rem;
+    max-width: 100%;
 }
 
     .twitch .play {
