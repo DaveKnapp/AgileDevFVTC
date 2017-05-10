@@ -32,9 +32,9 @@
         {
             <li>
                 <div class="fancybox" data-fancybox-group="gallery">
-                    <img class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(item.ImgCloudinaryId).jpg" />
+                    <a href="@Url.Action("UsersByGame", "Search", new { igdbid = item.igdbID })"><img class="" src="//images.igdb.com/igdb/image/upload/t_cover_big/@(item.ImgCloudinaryId).jpg" /></a>
                     <h4 class="">
-                        @Html.ActionLink(item.Title, "UsersByGame", "Search", new { igdbid = item.igdbID }, null)
+                        @item.Title
                     </h4>
                 </div>
             </li>

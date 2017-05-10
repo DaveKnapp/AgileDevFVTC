@@ -9,11 +9,13 @@
     <div class="row">
         <p class="alert-danger">@ViewBag.Message</p>
         <div class="col-md-3 profile-info-container">
-            <img class="img-responsive profile-img" src="@Html.DisplayFor(model => model.User.ProfileImagePath)" alt="">
-            @*Average rating should be changed to show rating and star value*@
-            <p>@Html.Partial("AverageStarRating", Model.AverageRating) - @Model.AverageRating</p>
-            <h4>@Html.DisplayNameFor(model => model.User.UserName)</h4>
-            <p>@Html.DisplayFor(model => model.User.UserName)</p>
+            <p>
+                <img class="img-responsive profile-img" src="@Html.DisplayFor(model => model.User.ProfileImagePath)" alt="">
+            </p>
+            <h4 class="heading">@Html.DisplayFor(model => model.User.UserName)</h4>
+            <p class="sub-heading">@Html.Partial("AverageStarRating", Model.AverageRating)</p>
+            <p class="sub-heading">@Model.AverageRating </p>
+            <hr />
             <h4>@Html.DisplayNameFor(model => model.User.Bio)</h4>
             <p>@Html.DisplayFor(model => model.User.Bio)</p>
             <h4>@Html.DisplayNameFor(model => model.User.DateJoined)</h4>
@@ -155,14 +157,14 @@
                         {
                             <div class="col-md-4 col-sm-6">
                                 <div class="panel panel-default">
-                                    <h5 class="panel-heading">@rating.RaterUser.UserName Says</h5>
+                                    <h5 class="panel-heading"><a href="@Url.Action("User","User", new {userName = @rating.RaterUser.UserName } )">@rating.RaterUser.UserName Says</a></h5>
                                     <p class="panel-body">@rating.Comment</p>
                                 </div>
                             </div>
                         }
                     </div>
                     @if (Model.User.UserRatings.Count > 0)
-            {
+                    {
                         <div class="view-all">
                             @Html.ActionLink("View All Ratings", "UserRatings", new { userName = Model.User.UserName })
                         </div>
