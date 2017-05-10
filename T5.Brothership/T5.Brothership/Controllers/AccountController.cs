@@ -10,6 +10,8 @@ using T5.Brothership.ViewModels;
 using T5.Brothership.Helpers;
 using T5.Brothership.BL.Exceptions;
 using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace T5.Brothership.Controllers
 {
@@ -239,12 +241,31 @@ namespace T5.Brothership.Controllers
             return View(nameof(ChangePassword));
         }
 
-        private byte[] ConvertToBytes(Stream file)
+        // (TH) Method used to convert stream to bitmap to resize before uploading to Azure.
+        private static byte[] ConvertToBytes(Stream file)
         {
             using (var memoryStream = new MemoryStream())
             {
                 file.CopyTo(memoryStream);
-                return memoryStream.ToArray();
+                Bitmap bmp = new Bitmap(memoryStream);
+                var newStream = new Bitmap(bmp, new Size(400, 300));        // Resizes all image uploads to 400x300 for now.
+                byte[] imgArray = newStream.ToByteArray(ImageFormat.Bmp);
+                return imgArray;
+            }
+            
+        }
+
+    }
+
+    // (TH) Class used to convert images to arrays.
+    public static class ImageExtensions
+    {
+        public static byte[] ToByteArray(this Image image, ImageFormat format)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, format);
+                return ms.ToArray();
             }
         }
     }
