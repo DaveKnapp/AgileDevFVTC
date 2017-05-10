@@ -49,19 +49,16 @@
                             <ul class="nav navbar-nav navbar-left">
                                 <li>@Html.Action("LoginLink", "Login")</li>
                                 <li>@Html.Action("SignupLink", "Login")</li>
-                                <li role="separator" class="divider"></li>
                             </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                                @using (Html.BeginForm("SearchResults", "Search", FormMethod.Get, new { search = "User" }))
-                                {                                   
-                                    
-                                            @Html.TextBox("Search")
-                                        
-                                            <input type="submit" class="btn btn-lg btn-primary" value="Search" />
-                                   
+                            <ul class="nav navbar-nav navbar-right top-margin">
+                                @using (Html.BeginForm("SearchResults", "Search", new { search = "User" }, FormMethod.Get, new { @class = "form-inline" }))
+                                {
+                                    <li class="nav-item">
+                                        @Html.TextBox("Search")
+                                        <input type="submit" class="btn btn-md btn-theme" value="Search" />
+                                    </li>
                                 }
-                            </ul>
+                            </ul> 
                         </nav>
                     </div><!-- /.navbar-collapse -->
                 </div>
