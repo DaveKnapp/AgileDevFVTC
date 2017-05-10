@@ -134,6 +134,7 @@ namespace T5.Brothership.BL.Managers
             _unitOfWork.Users.Update(currentUser);
             _unitOfWork.Commit();
         }
+        
 
         public void UpdatePassword(string currentPassword, string newPassword, User user)
         {

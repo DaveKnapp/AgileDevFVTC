@@ -27,6 +27,8 @@ namespace T5.Brothership.PL.Repositories
 
         string UploadProfileImage(string username, string filePath);
 
+        bool BlobExistsOnCloud(User _user);
+
         CloudBlockBlob GetBlobInContainer(string username);
 
 

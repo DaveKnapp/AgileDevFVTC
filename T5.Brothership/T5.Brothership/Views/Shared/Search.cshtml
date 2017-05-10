@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Brothership</title>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://use.fontawesome.com/a555f3eba6.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <!-- styles -->
+    <link rel="stylesheet" href="~/assets/css/fancybox/jquery.fancybox.css" />
+    <link href="~/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/css/slippry.css" />
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/color/default.css" />
+    <link rel="stylesheet" href="~/assets/css/masterStyle.css" />
+    <link rel="icon" href="~/images/Brothership-icon.gif" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <!-- =======================================================
+        Theme Name: Groovin
+        Theme URL: https://bootstrapmade.com/groovin-free-bootstrap-theme/
+        Author: BootstrapMade
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
+    <script src="~/assets/js/modernizr.custom.js"></script>
+</head>
+<body>
+    <header>
+        <div id="navigation" class="navbar navbar-inverse navbar-fixed-top default" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand-color">
+                    @Html.ActionLink("Brothership", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </span>
+                </div>
+                <!--Rmoved class .navigation to allow links to function-->
+                <div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <nav>
+                            <ul class="nav navbar-nav navbar-left">
+                                <li>@Html.Action("LoginLink", "Login")</li>
+                                <li>@Html.Action("SignupLink", "Login")</li>
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            </ul>
+                        </nav>
+                    </div><!-- /.navbar-collapse -->
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <div class="container-fluid bodyPadding">
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="verybottom">
+            <div class="container-fluid">
+                @*<div class="row">
+                    <div class="col-md-12">
+                        <div class="aligncenter">
+                            <ul class="social-network social-circle">
+                                <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+                                <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>*@
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="aligncenter">
+                            <p>
+                                &copy; @DateTime.Now.Year - Brothership
+                            </p>
+                            <div class="credits">
+                                <!--
+                                    All the links in the footer should remain intact.
+                                    You can delete the links only if you purchased the pro version.
+                                    Licensing information: https://bootstrapmade.com/license/
+                                    Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Groovin
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- javascript -->
+    <script src="~/assets/js/jquery-1.9.1.min.js"></script>
+    <script src="~/assets/js/jquery.easing.js"></script>
+    <script src="~/assets/js/classie.js"></script>
+    <script src="~/assets/js/bootstrap.js"></script>
+    <script src="~/assets/js/slippry.min.js"></script>
+    <script src="~/assets/js/nagging-menu.js"></script>
+    <script src="~/assets/js/jquery.nav.js"></script>
+    <script src="~/assets/js/jquery.scrollTo.js"></script>
+    <script src="~/assets/js/jquery.fancybox.pack.js"></script>
+    <script src="~/assets/js/jquery.fancybox-media.js"></script>
+    <script src="~/assets/js/masonry.pkgd.min.js"></script>
+    <script src="~/assets/js/imagesloaded.js"></script>
+    <script src="~/assets/js/jquery.nicescroll.min.js"></script>
+    <script src="~/assets/js/AnimOnScroll.js"></script>
+    <script>
+        new AnimOnScroll(document.getElementById('grid'), {
+            minDuration: 0.4,
+            maxDuration: 0.7,
+            viewportFactor: 0.2
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#slippry-slider').slippry(
+              defaults = {
+                  transition: 'vertical',
+                  useCSS: true,
+                  speed: 5000,
+                  pause: 3000,
+                  initSingle: false,
+                  auto: true,
+                  preload: 'visible',
+                  pager: false,
+              }
+
+            )
+        });
+    </script>
+
+    <script src="~/assets/js/custom.js"></script>
+    <script src="~/contactform/contactform.js"></script>
+
+
+
+
+     @*@Scripts.Render("~/bundles/bootstrap")*@
+     @RenderSection("scripts", required: false)
+</body>
+</html>

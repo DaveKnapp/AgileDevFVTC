@@ -24,8 +24,7 @@ namespace T5.Brothership.BL.Managers
 
         public string GetDefaultUrl()
         {
-            throw new NotImplementedException();
-          //  return _unitOfWork.AzureBlobStorage.GetDefaultUserImage();
+          return _unitOfWork.AzureBlobStorage.GetDefaultUserImage();
         }
 
         public void Dispose()
@@ -37,6 +36,16 @@ namespace T5.Brothership.BL.Managers
         public string UploadImage(User user, byte[] imageArray)
         {
             _unitOfWork.AzureBlobStorage.Upload(imageArray, user);
+            return _unitOfWork.AzureBlobStorage.GetBlobUri(user);
+        }
+
+        public bool UserImageExists(User user)
+        {
+            return _unitOfWork.AzureBlobStorage.BlobExistsOnCloud(user);
+        }
+
+        public string GetUserUrl(User user)
+        {
             return _unitOfWork.AzureBlobStorage.GetBlobUri(user);
         }
 

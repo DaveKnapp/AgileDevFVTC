@@ -9,6 +9,7 @@ using T5.Brothership.Entities.Models;
 using T5.Brothership.ViewModels;
 using T5.Brothership.Helpers;
 using T5.Brothership.BL.Exceptions;
+using System.IO;
 
 namespace T5.Brothership.Controllers
 {
@@ -29,6 +30,7 @@ namespace T5.Brothership.Controllers
             _nationalityManager = nationalityManger;
             _genderManager = genderManager;
             _sessionHelper = sessionHelper;
+            _azureManager = new AzureStorageManager();
         }
 
         public ActionResult Create()
@@ -109,24 +111,68 @@ namespace T5.Brothership.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Update(UpdateUserViewModel userViewModel)
+        //[HttpPost]
+        //public async Task<ActionResult> Update(UpdateUserViewModel userViewModel)
+        //{
+        //    var currentUser = userViewModel.CurrentUser;
+        //    currentUser.ID = (_sessionHelper.Get("CurrentUser") as User).ID;
+        //    //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
+        //    //NOTE(TH) Needs upload functionality from the UI.
+        //    currentUser.ProfileImagePath = _azureManager.GetDefaultUrl();
+
+        //    currentUser.UserTypeID = (int)UserType.UserTypes.User;
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _userManger.Update(currentUser);
+
+        //        userViewModel.Genders = _genderManager.GetAll();
+        //        userViewModel.Nationalities = _nationalityManager.GetAll();
+        //        ViewBag.UpdateMessage = "Account Successfully updated.";
+
+        //        return View(nameof(Update), userViewModel);
+        //    }
+        //    else
+        //    {
+        //        userViewModel.Genders = _genderManager.GetAll();
+        //        userViewModel.Nationalities = _nationalityManager.GetAll();
+
+        //        ViewBag.Message = "An error occurred when updating the account.";
+        //        return View(nameof(Update), userViewModel);
+        //    }
+        //}
+
+        [HttpPost] // (TH) Kept original above.
+        public async Task<ActionResult> Update(UpdateUserViewModel userViewModel, HttpPostedFileBase file)
         {
             var currentUser = userViewModel.CurrentUser;
             currentUser.ID = (_sessionHelper.Get("CurrentUser") as User).ID;
-            //NOTE(Dave) This image path is set because it is not null-able in the database and ef throws validation error
-            //NOTE(TH) Needs upload functionality from the UI.
-            currentUser.ProfileImagePath = "Default"; 
 
             currentUser.UserTypeID = (int)UserType.UserTypes.User;
 
             if (ModelState.IsValid)
             {
-                await _userManger.Update(currentUser);
+                if (file == null || file.ContentLength <= 0)
+                {
+                    if (!_azureManager.UserImageExists(currentUser) || (currentUser.ProfileImagePath == _azureManager.GetDefaultUrl()))
+                    {
+                        currentUser.ProfileImagePath = _azureManager.GetDefaultUrl();
+                        await _userManger.Update(currentUser);
+                        ViewBag.UpdateMessage = "Account Successfully updated, No Profile Image."; // (TH) To know if no image was uploaded
+                    }
+                }
+                else
+                {
+                    var convertedfile = ConvertToBytes(file.InputStream);
+                    _azureManager.UploadImage(currentUser, convertedfile);
+                    currentUser.ProfileImagePath = _azureManager.GetUserUrl(currentUser);
+                    await _userManger.Update(currentUser);
+                    ViewBag.UpdateMessage = "Account Successfully updated with new image."; // (TH) To know if an image was uploaded
+                }
 
                 userViewModel.Genders = _genderManager.GetAll();
                 userViewModel.Nationalities = _nationalityManager.GetAll();
-                ViewBag.UpdateMessage = "Account Successfully updated.";
+                //ViewBag.UpdateMessage = "Account Successfully updated.";
 
                 return View(nameof(Update), userViewModel);
             }
@@ -185,6 +231,15 @@ namespace T5.Brothership.Controllers
 
             ViewBag.Message = "An error occurred when updating your password.";
             return View(nameof(ChangePassword));
+        }
+
+        private byte[] ConvertToBytes(Stream file)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
         }
     }
 }
