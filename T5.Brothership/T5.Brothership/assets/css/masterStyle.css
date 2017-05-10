@@ -74,6 +74,14 @@
     padding: .5em 1em;
     position: absolute;
 }
+/*Temporary fix for oversized game titles on mobile screens*/
+/*Hope to find a fix to send images into 2 or 1 column format instead*/
+@media only screen and (max-width: 400px){
+    .game-image-title{
+        font-size: .75em;
+        display: none;
+    }
+}
 
 .title-container {
     word-wrap: break-word;
@@ -276,3 +284,6 @@
 }
 
 /*----------------------*/
+/*Masonary Grid Styles*/
+
+/*---------------------------*/
