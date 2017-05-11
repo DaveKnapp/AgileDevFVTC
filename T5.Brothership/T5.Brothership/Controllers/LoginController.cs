@@ -46,7 +46,7 @@ namespace T5.Brothership.Controllers
         public ActionResult LogOut()
         {
             _sessionHelper.remove("CurrentUser");
-            return View(nameof(Login));
+            return RedirectToAction(nameof(Login));
         }
 
         //TODO(Dave) Refactor to combine into one partial
