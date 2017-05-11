@@ -9,6 +9,25 @@
     <div class="row">
         <p class="alert-danger">@ViewBag.Message</p>
         <div class="col-md-3 profile-info-container">
+            @if (Model.IsUserLoggedIn)
+            {
+
+                if (Model.IsUserFollowing)
+                {
+                    @Html.ActionLink("Unfollow", "Unfollow", new { userName = Model.User.UserName }, new { @class = "btn btn-lg btn-theme" })
+                }
+                else
+                {
+                    @Html.ActionLink("Follow", "Follow", new { userName = Model.User.UserName }, new { @class = "btn btn-lg btn-theme" })
+                }
+            }
+            else
+            {
+                @Html.ActionLink("Login to Follow User", "Login", "Login", null, new { @class = "btn btn-lg btn-theme" })
+
+
+            }
+
             <p>
                 <img class="img-responsive profile-img" src="@Html.DisplayFor(model => model.User.ProfileImagePath)" alt="">
             </p>
@@ -130,7 +149,7 @@
                         </div>
                     </div>
                     @if (Model.User.Games.Count > 0)
-            {
+                    {
                         <div class="view-all">
                             @Html.ActionLink("View All Games", "UserGames", new { userName = Model.User.UserName })
                         </div>
