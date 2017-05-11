@@ -122,7 +122,7 @@ namespace T5.Brothership.BL.YoutubeApi
                 content.Add(new VideoContent
                 {
                     Id = video.ContentDetails.VideoId,
-                    UploadTime = video.ContentDetails.VideoPublishedAt.GetValueOrDefault(),
+                    UploadTime = video.ContentDetails.VideoPublishedAt.GetValueOrDefault().ToUniversalTime(),
                     ContentType = IntegrationType.IntegrationTypes.Youtube,
                     Title = video.Snippet.Title
                     

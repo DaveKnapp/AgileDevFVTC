@@ -128,7 +128,7 @@ namespace T5.Brothership.BL.TwitchApi
                     content.Add(new VideoContent
                     {
                         Id = stream._id.ToString(),
-                        UploadTime = stream.published_at,
+                        UploadTime = stream.published_at.ToUniversalTime(),
                         ContentType = IntegrationType.IntegrationTypes.Twitch,
                         PreviewImgUrl = stream.preview.medium,
                         Title = stream.title
