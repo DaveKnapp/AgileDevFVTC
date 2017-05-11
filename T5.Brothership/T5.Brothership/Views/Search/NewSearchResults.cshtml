@@ -1,0 +1,53 @@
+﻿@model IEnumerable<T5.Brothership.Entities.Models.User>
+
+@{
+    ViewBag.Title = "NewSearchResults";
+    Layout = "~/Views/Shared/Search.cshtml";
+}
+
+<h1 class="text-center">User Search</h1>
+
+<p>
+    @using (Html.BeginForm("NewSearchResults", "Search", FormMethod.Get, new { search = "User" }))
+    {
+        <div class="row">
+            <div class="col-12 d-block text-center">
+                @Html.TextBox("Search")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-block text-center">
+                <input type="submit" class="btn btn-lg btn-theme" value="Search" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-block text-center">
+                @Html.ActionLink("Games", "GameSearchResults", new { search = Request.Params["Search"] })
+            </div>
+        </div>
+    }
+</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            @*@Html.DisplayNameFor(model => model.UserName)*@
+        </div>
+        <div>
+            @*@Html.DisplayNameFor(model => model.ProfileImagePath)*@
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default portfolio-item">
+                    <a href="@Url.Action("User","User", new {userName = @item.UserName } )"><img src="@item.ProfileImagePath" alt="" class="img-responsive panel-body d-block"></a>
+                    <h4 class="panel-heading title-container text-center">
+                        @item.UserName
+                    </h4>
+                </div>
+            </div>
+        }
+    </div>
+</div>

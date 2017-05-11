@@ -25,6 +25,13 @@ namespace T5.Brothership.Controllers
             return View((List<User>)_userManager.GetSearchedUsers(search));
         }
 
+        public ActionResult NewSearchResults(string search)
+        {
+            if (search == string.Empty || search == null)
+                return View((List<User>)_userManager.GetNewUsers());
+            return View((List<User>)_userManager.GetNewSearchedUsers(search));
+        }
+
         public ActionResult GameSearchResults(string search)
         {
             return View((List<Game>)_gameManager.GetSearchedGames(search));

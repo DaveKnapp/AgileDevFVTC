@@ -47,7 +47,15 @@ namespace T5.Brothership.PL.Repositories
             return DbSet.Where(p => p.UserName.ToLower().Contains(search.ToLower()));
         }
 
+        public IQueryable<User> GetNewSearchedUsers(string search)
+        {
+            return DbSet.Where(p => p.UserName.ToLower().Contains(search.ToLower())).OrderByDescending(p => p.DateJoined);
+        }
 
+        public IQueryable<User> GetNewUsers()
+        {
+            return DbSet.OrderByDescending(p => p.DateJoined);
+        }        
 
         public IQueryable<User> GetFeaturedUsers()
         {

@@ -378,6 +378,7 @@
     <Content Include="Views\Shared\AverageStarRating.cshtml" />
     <Content Include="Views\User\Following.cshtml" />
     <Content Include="Views\User\UserContent.cshtml" />
+    <Content Include="Views\Search\NewSearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
