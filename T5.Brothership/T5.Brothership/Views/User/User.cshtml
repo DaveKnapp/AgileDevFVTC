@@ -71,28 +71,34 @@
                         @{bool IsFirstVideo = true; }
                         @foreach (var video in Model.RecentContent)
                         {
-                            int width = 315;
+                            int width = 100;
                             int height = 236;
+                            string colSize = "col-xs-6";
 
                             if (IsFirstVideo)
                             {
-                                width = width * 2;
+                                width = 100;
                                 height = height * 2;
+                                colSize = "col-xs-12";
                             }
                             switch (video.ContentType)
                             {
                                 case IntegrationType.IntegrationTypes.Youtube:
-                                    <div class="youtube col-12" id="@(video.Id)" style="width: @(width)px; height: @(height)px;">
+                                    <div class="@(colSize) video-format">
+                                    <div class="youtube" id="@(video.Id)" style="width: @(width)%; height: @(height)px;">
                                         <span class="video-title">@video.Title</span>
                                         <img src="~/images/YouTube-logo-light.png" class="video-logo" />
                                     </div>
+                                    </div>
                                     break;
                                 case IntegrationType.IntegrationTypes.Twitch:
+                                    <div class="@(colSize) video-format">
                                     <div class="twitch"
                                          id="@(video.Id)"
-                                         style="background-image:url(@(video.PreviewImgUrl)); width: @(width)px; height: @(height)px;">
+                                         style="background-image:url(@(video.PreviewImgUrl)); width:@(width)%; height: @(height)px;">
                                         <img src="~/images/twitch-tv.png" class="video-logo" style="top:5px; right:-3px;" />
                                         <span class="video-title">@video.Title</span>
+                                    </div>
                                     </div>
                                     break;
                                 default:

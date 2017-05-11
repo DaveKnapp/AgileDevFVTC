@@ -208,15 +208,13 @@
 .youtube {
     background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
     position: relative;
-    display: inline-block;
     overflow: hidden;
     transition: all 200ms ease-out;
     cursor: pointer;
-    width: 315px;
     height: 236px;
-    position:relative;
-    margin:1rem;
+    position: relative;
     max-width: 100%;
 }
 
@@ -239,16 +237,13 @@
 .twitch {
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 125% 100%; 
+    background-size: cover; 
     position: relative;
-    display: inline-block;
     overflow: hidden;
     transition: all 200ms ease-out;
     cursor: pointer;
-    width: 315px;
     height: 236px; 
     position:relative;
-    margin: 1rem;
     max-width: 100%;
 }
 
@@ -289,6 +284,9 @@
     width: 70px;
 }
 
+.video-format {
+    margin: 1rem auto;
+}
 /*Rating Star Styles*/
 
 .fa-star, .fa-star-o, .fa-star-half-o {
