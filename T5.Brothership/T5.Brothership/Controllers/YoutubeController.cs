@@ -32,9 +32,9 @@ namespace T5.Brothership.Controllers
             builder.Append(@"scope=https://www.googleapis.com/auth/youtube.readonly&");
             builder.Append(@"access_type=offline&");
             builder.Append(@"include_granted_scopes=true&");
-            builder.Append(@"redirect_uri=http://localhost:60920/Youtube/AuthorizeYoutube&");
+            builder.Append(@"redirect_uri=" + T5.Brothership.BL.YoutubeApi.ApiCredentials.REDIRECT_URI);
             //state = state_parameter_passthrough_value &
-            builder.Append(@"response_type=code &");
+            builder.Append(@"&response_type=code&");
             builder.Append(@"client_id=269841690793-fo0a41pcc5vn4ink3gf3b4pnta1v90nq.apps.googleusercontent.com");
 
             return Redirect(builder.ToString());
