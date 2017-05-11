@@ -49,6 +49,11 @@
     max-height: 300px;
 }
 
+.follow-button{
+    display:block;
+    margin:0 2rem 2rem 2rem;
+}
+
 .portfolio-item {
     padding-top: 3.5rem;
     position: relative;

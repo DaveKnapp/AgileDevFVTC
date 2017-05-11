@@ -14,16 +14,16 @@
 
                 if (Model.IsUserFollowing)
                 {
-                    @Html.ActionLink("Unfollow", "Unfollow", new { userName = Model.User.UserName }, new { @class = "btn btn-lg btn-theme" })
+                    @Html.ActionLink("Unfollow", "Unfollow", new { userName = Model.User.UserName }, new { @class = "btn btn-lg btn-theme follow-button" })
                 }
                 else
                 {
-                    @Html.ActionLink("Follow", "Follow", new { userName = Model.User.UserName }, new { @class = "btn btn-lg btn-theme" })
+                    @Html.ActionLink("Follow", "Follow", new { userName = Model.User.UserName }, new { @class = "btn btn-lg btn-theme follow-button" })
                 }
             }
             else
             {
-                @Html.ActionLink("Login to Follow User", "Login", "Login", null, new { @class = "btn btn-lg btn-theme" })
+                @Html.ActionLink("Login to Follow User", "Login", "Login", null, new { @class = "btn btn-lg btn-theme follow-button" })
 
 
             }
