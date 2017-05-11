@@ -22,7 +22,15 @@ namespace T5.Brothership.Controllers
 
         public ActionResult SearchResults(string search)
         {
-            return View((List<User>)_userManager.GetSearchedUsers(search));
+            try
+            {
+                return View((List<User>)_userManager.GetSearchedUsers(search));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View();
+            }
         }
 
         public ActionResult NewSearchResults(string search)

@@ -72,6 +72,16 @@ namespace T5.Brothership.PL.Test.FakeRepositories
             return users.OrderByDescending(p => p.UserRatings.Average(r => r.RatingID) * p.UserRatings.Count).AsQueryable();
         }
 
+        public IQueryable<User> GetNewSearchedUsers(string search)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<User> GetNewUsers()
+        {
+            throw new NotImplementedException();
+        }
+
         public IQueryable<User> GetSearchedUsers(string search)
         {
             throw new NotImplementedException();
@@ -80,6 +90,11 @@ namespace T5.Brothership.PL.Test.FakeRepositories
         public IQueryable<User> GetTopRatedUsers(int count)
         {
             return _fakeUsers.OrderByDescending(p => p.UserRatings.Average(i => i.RatingID)).Take(count).AsQueryable();
+        }
+
+        public IQueryable<User> GetTwitchUsers(string search)
+        {
+            throw new NotImplementedException();
         }
 
         public void SaveChanges()

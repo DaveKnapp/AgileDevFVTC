@@ -44,12 +44,24 @@ namespace T5.Brothership.PL.Repositories
 
         public IQueryable<User> GetSearchedUsers(string search)
         {
-            return DbSet.Where(p => p.UserName.ToLower().Contains(search.ToLower()));
+            try
+            {
+                return DbSet.Where(p => p.UserName.ToLower().Contains(search.ToLower()));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }           
         }
 
         public IQueryable<User> GetNewSearchedUsers(string search)
         {
             return DbSet.Where(p => p.UserName.ToLower().Contains(search.ToLower())).OrderByDescending(p => p.DateJoined);
+        }
+
+        public IQueryable<User> GetTwitchUsers(string search)
+        {
+            return DbSet.Where(p => p.UserIntegrations.Any(x => x.UserName.Contains(search)));
         }
 
         public IQueryable<User> GetNewUsers()

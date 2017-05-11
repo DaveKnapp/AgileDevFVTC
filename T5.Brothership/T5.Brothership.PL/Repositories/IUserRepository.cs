@@ -17,6 +17,7 @@ namespace T5.Brothership.PL.Repositories
         IQueryable<User> GetSearchedUsers(string search);
         IQueryable<User> GetNewSearchedUsers(string search);
         IQueryable<User> GetNewUsers();
+        IQueryable<User> GetTwitchUsers(string search);
 
     }
 }

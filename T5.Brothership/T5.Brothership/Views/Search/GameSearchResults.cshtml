@@ -2,25 +2,13 @@
 
 @{
     ViewBag.Title = "GameSearchResults";
-    Layout = "~/Views/Shared/Search.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1 class="text-center">Game Search</h1>
 
-<p>
-    @using (Html.BeginForm("GameSearchResults", "Search", FormMethod.Get, new { search = "Game" }))
-    {
-
-        <div class="row">
-            <div class="col-12 d-block text-center">
-                @Html.TextBox("Search")
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 d-block text-center">
-                <input type="submit" class="btn btn-lg btn-theme" value="Search" />
-            </div>
-        </div>
+<p>  
+   
         <div class="row">
             <div class="col-12 d-block text-center">
                 @Html.ActionLink("Users", "SearchResults", new { search = Request.Params["Search"] })
@@ -29,7 +17,6 @@
                 @Html.ActionLink("New Users", "NewSearchResults", new { search = Request.Params["Search"] })
             </div>
         </div>
-    }
 </p>
 
 <div class="row">

@@ -54,12 +54,24 @@ namespace T5.Brothership.BL.Managers
 
         public List<User> GetNewSearchedUsers(string search)
         {
-            return _unitOfWork.Users.GetNewSearchedUsers(search).ToList();
+            try
+            {
+                return _unitOfWork.Users.GetNewSearchedUsers(search).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }            
         }
 
         public List<User> GetNewUsers()
         {
             return _unitOfWork.Users.GetNewUsers().ToList();
+        }
+
+        public List<User> GetTwitchUsers(string search)
+        {
+            return _unitOfWork.Users.GetTwitchUsers(search).ToList();
         }
 
         public List<User> GetUsersByGame(int igdbid)
