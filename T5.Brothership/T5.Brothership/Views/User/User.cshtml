@@ -24,8 +24,6 @@
             else
             {
                 @Html.ActionLink("Login to Follow User", "Login", "Login", null, new { @class = "btn btn-lg btn-theme follow-button" })
-
-
             }
 
             <p>
@@ -79,8 +77,6 @@
                     </ul>
                 </div>
             </div>
-
-
         </div>
         <div class="col-md-9">
             <h3>Recent Content</h3>
@@ -127,6 +123,18 @@
                         }
                     </div>
                 </div>
+                @if (Model.RecentContent.Count > 0)
+                {
+                    <div class="view-all">
+                        @Html.ActionLink("View All Content", "UserContent", new { userName = Model.User.UserName })
+                    </div>
+                }
+                @if (Model.RecentContent.Count == 0)
+                {
+                    <div class="col">
+                        <p class="text-center">User has no Content.</p>
+                    </div>
+                }
                 <div class="col-md-12">
                     <h3>Games</h3>
                     <div class="row">
@@ -138,7 +146,7 @@
                                         <p class="text-center">User has no games.</p>
                                     </li>
                                 }
-                                @foreach (var game in Model.User.Games)
+                                @foreach (var game in Model.User.Games.Take(20))
                                 {
                                     <li>
                                         <div class="fancybox" data-fancybox-group="gallery">
@@ -182,12 +190,7 @@
                         </div>
                     </div>
                     <div class="row" style="clear:both;">
-                        @if (Model.User.UserRatings.Count == 0)
-                        {
-                            <div class="col">
-                                <p class="text-center">User has not been rated.</p>
-                            </div>
-                        }
+
 
                         @foreach (var rating in Model.User.UserRatings)
                         {
@@ -199,6 +202,13 @@
                             </div>
                         }
                     </div>
+
+                    @if (Model.User.UserRatings.Count == 0)
+                    {
+                        <div class="col">
+                            <p class="text-center">User has not been rated.</p>
+                        </div>
+                    }
                     @if (Model.User.UserRatings.Count > 0)
                     {
                         <div class="view-all">

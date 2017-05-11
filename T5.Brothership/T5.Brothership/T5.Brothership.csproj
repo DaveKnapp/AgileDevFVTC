@@ -387,6 +387,7 @@
     <Content Include="Views\User\EditRating.cshtml" />
     <Content Include="Views\Shared\AverageStarRating.cshtml" />
     <Content Include="Views\User\Following.cshtml" />
+    <Content Include="Views\User\UserContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

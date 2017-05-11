@@ -1,0 +1,43 @@
+﻿@model List<T5.Brothership.Entities.Models.VideoContent>
+@using T5.Brothership.Entities.Models
+@{
+    ViewBag.Title = "User Content";
+}
+
+<h2>User Content</h2>
+    <div class="col-md-12">
+        <div class="row">
+            @foreach (var video in Model)
+            {
+                int width = 100;
+                int height = 236;
+                string colSize = "col-xs-3";
+
+                switch (video.ContentType)
+                {
+                    case IntegrationType.IntegrationTypes.Youtube:
+                        <div style="height: @(height)px;" class="@(colSize) video-format">
+                            <div class="youtube" id="@(video.Id)" style="width: @(width)%; height: @(height)px;">
+                                <span class="video-title">@video.Title</span>
+                                <img src="~/images/YouTube-logo-light.png" class="video-logo" />
+                            </div>
+                        </div>
+                        break;
+                    case IntegrationType.IntegrationTypes.Twitch:
+                        <div style="height: @(height)px;" class="@(colSize) video-format">
+                            <div class="twitch"
+                                 id="@(video.Id)"
+                                 style="background-image:url(@(video.PreviewImgUrl)); width:@(width)%; height: @(height)px;">
+                                <img src="~/images/twitch-tv.png" class="video-logo" style="top:5px; right:-3px;" />
+                                <span class="video-title">@video.Title</span>
+                            </div>
+                        </div>
+                        break;
+                    default:
+                        break;
+                }
+            }
+        </div>
+    </div>
+<script src="~/Scripts/VideoLoader.js"></script>
+

@@ -69,7 +69,7 @@ namespace T5.Brothership.Controllers
             };
             try
             {
-                viewModel.RecentContent = await _videoContentGetter.GetRecentVideos(user.ID, 6);
+                viewModel.RecentContent = await _videoContentGetter.GetRecentVideos(user.ID, 7);
             }
             catch (Exception)
             {
@@ -90,6 +90,21 @@ namespace T5.Brothership.Controllers
             }
 
             return View(nameof(UserGames), user);
+        }
+
+        [Route("User/UserContent/{userName}")]
+        public async Task<ActionResult> UserContent(string userName)
+        {
+            var user = _userManager.GetByUserName(userName);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var userVideos = await _videoContentGetter.GetRecentVideos(user.ID, 100);
+
+            return View(nameof(UserContent), userVideos);
         }
 
         [Route("User/UserRatings/{userName}")]
