@@ -4,10 +4,11 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Model.UserName<span class="caret"></span></a>
     <ul class="dropdown-menu">
         <li>@Html.ActionLink("Profile", "User", "User", new { userName = Model.UserName }, null)</li>
+        <li>@Html.ActionLink("Following", "Following", "User", new { userName = Model.UserName }, null)</li>
         <li role="separator" class="divider"></li>
         <li>@Html.Action("AccountUpdateLink", "Login")</li>
         <li>@Html.Action("LogoutLink", "Login")</li>
     </ul>
 </li>
-<!--Used model.username instead of the following code.  seemed to work fine.-->          
-<!--Html.DisplayFor(model => model.UserName).ToHtmlString()-->                  
+<!--Used model.username instead of the following code.  seemed to work fine.-->
+<!--Html.DisplayFor(model => model.UserName).ToHtmlString()-->

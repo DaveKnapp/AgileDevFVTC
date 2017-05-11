@@ -258,7 +258,7 @@ namespace T5.Brothership.Controllers
             }
         }
 
-        [Route("User/{userName}/follow)")]
+        [Route("User/{userName}/unFollow)")]
         public ActionResult UnFollow(string userName)
         {
             {

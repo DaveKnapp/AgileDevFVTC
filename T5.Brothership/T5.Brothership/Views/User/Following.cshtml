@@ -6,76 +6,13 @@
 
 <h2>Following</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProfileImagePath)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateJoined)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DOB)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserTypeID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NationalityID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GenderId)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProfileImagePath)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateJoined)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DOB)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserTypeID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NationalityID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GenderId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+@foreach (var user in Model)
+{
+    <div class="col-md-3 col-sm-6">
+        <div class="panel panel-default portfolio-item">
+            <a href="@Url.Action("User","User", new {userName = @user.UserName } )"> <img class="img-responsive panel-body" src="@user.ProfileImagePath" alt=""></a>
+            <h4 class="panel-heading text-center">@user.UserName</h4>
+            @* Once we get the Image storing working: src="~/@item.PopularUserImagePath" *@
+        </div>
+    </div>
 }
-
-</table>
