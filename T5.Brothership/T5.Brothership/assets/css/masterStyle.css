@@ -242,12 +242,12 @@
 .twitch {
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
     position: relative;
     overflow: hidden;
     transition: all 200ms ease-out;
     cursor: pointer;
-    height: 236px; 
+    height: 236px;
     position:relative;
     max-width: 100%;
 }

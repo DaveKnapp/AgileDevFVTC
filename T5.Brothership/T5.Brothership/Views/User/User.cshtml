@@ -103,7 +103,7 @@
                             switch (video.ContentType)
                             {
                                 case IntegrationType.IntegrationTypes.Youtube:
-                                    <div class="@(colSize) video-format">
+                                    <div style="height: @(height)px;" class="@(colSize) video-format">
                                     <div class="youtube" id="@(video.Id)" style="width: @(width)%; height: @(height)px;">
                                         <span class="video-title">@video.Title</span>
                                         <img src="~/images/YouTube-logo-light.png" class="video-logo" />
@@ -111,7 +111,7 @@
                                     </div>
                                     break;
                                 case IntegrationType.IntegrationTypes.Twitch:
-                                    <div class="@(colSize) video-format">
+                                    <div style="height: @(height)px;" class="@(colSize) video-format">
                                     <div class="twitch"
                                          id="@(video.Id)"
                                          style="background-image:url(@(video.PreviewImgUrl)); width:@(width)%; height: @(height)px;">
