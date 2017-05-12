@@ -124,7 +124,8 @@ namespace T5.Brothership.BL.YoutubeApi
                     Id = video.ContentDetails.VideoId,
                     UploadTime = video.ContentDetails.VideoPublishedAt.GetValueOrDefault().ToUniversalTime(),
                     ContentType = IntegrationType.IntegrationTypes.Youtube,
-                    Title = video.Snippet.Title
+                    Title = video.Snippet.Title,
+                    PreviewImgUrl = video.Snippet.Thumbnails.High.Url
                     
                 });
             }

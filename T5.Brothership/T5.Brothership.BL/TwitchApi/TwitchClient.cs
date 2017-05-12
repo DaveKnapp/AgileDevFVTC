@@ -130,7 +130,7 @@ namespace T5.Brothership.BL.TwitchApi
                         Id = stream._id.ToString(),
                         UploadTime = stream.published_at.ToUniversalTime(),
                         ContentType = IntegrationType.IntegrationTypes.Twitch,
-                        PreviewImgUrl = stream.preview.medium,
+                        PreviewImgUrl = stream.preview.large,
                         Title = stream.title
                       
                     });
