@@ -32,11 +32,14 @@ r(function () {
             if (this.getAttribute("data-params")) iframe_url += '&' + this.getAttribute("data-params");
             iframe.setAttribute("src", iframe_url);
             iframe.setAttribute("frameborder", '0');
-            iframe.setAttribute("allowfullscreen",'allowfullscreen');
+            iframe.setAttribute("allowfullscreen", 'allowfullscreen');
 
             // The height and width of the iFrame should be the same as parent
-            iframe.style.width = this.style.width;
-            iframe.style.height = this.style.height;
+            iframe.style.top = 0;
+            iframe.style.bottom = 0;
+            iframe.style.left = 0;
+            iframe.style.right = 0;
+            iframe.style.position = 'absolute';
 
             // Replace the YouTube thumbnail with YouTube Player
             this.parentNode.replaceChild(iframe, this);
@@ -85,8 +88,11 @@ function SetTwitchVids() {
 
 
             // The height and width of the iFrame should be the same as parent
-            iframe.style.width = this.style.width;
-            iframe.style.height = this.style.height;
+            iframe.style.top = 0;
+            iframe.style.bottom = 0;
+            iframe.style.left = 0;
+            iframe.style.right = 0;
+            iframe.style.position = 'absolute';
 
             // Replace the YouTube thumbnail with YouTube Player
             this.parentNode.replaceChild(iframe, this);

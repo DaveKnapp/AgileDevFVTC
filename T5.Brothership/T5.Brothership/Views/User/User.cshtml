@@ -79,56 +79,55 @@
             </div>
         </div>
         <div class="col-md-9">
-            <h3>Recent Content</h3>
             <div class="row">
                 <div class="col-md-12">
+                    <h3>Recent Content</h3>
                     <div class="row">
                         @{bool IsFirstVideo = true; }
                         @foreach (var video in Model.RecentContent)
                         {
-                            int width = 100;
-                            int height = 236;
-                            string colSize = "col-xs-6";
+
+                            string colSize = "col-md-6";
 
                             if (IsFirstVideo)
                             {
-                                width = 100;
-                                height = height * 2;
-                                colSize = "col-xs-12";
+                                colSize = "col-md-12";
                             }
-                            switch (video.ContentType)
-                            {
-                                case IntegrationType.IntegrationTypes.Youtube:
-                                    <div style="height: @(height)px;" class="@(colSize) video-format">
-                                    <div class="youtube" id="@(video.Id)" style="width: @(width)%; height: @(height)px;">
-                                        <span class="video-title">@video.Title</span>
-                                        <img src="~/images/YouTube-logo-light.png" class="video-logo" />
-                                    </div>
-                                    </div>
-                                    break;
-                                case IntegrationType.IntegrationTypes.Twitch:
-                                    <div style="height: @(height)px;" class="@(colSize) video-format">
-                                    <div class="twitch"
-                                         id="@(video.Id)"
-                                         style="background-image:url(@(video.PreviewImgUrl)); width:@(width)%; height: @(height)px;">
-                                        <img src="~/images/twitch-tv.png" class="video-logo" style="top:5px; right:-3px;" />
-                                        <span class="video-title">@video.Title</span>
-                                    </div>
-                                    </div>
-                                    break;
-                                default:
-                                    break;
-                            }
-                            IsFirstVideo = false;
-                        }
+                            <div class="@(colSize)">
+                                <div class="video-container">
+                                    @switch (video.ContentType)
+                                    {
+                                        case IntegrationType.IntegrationTypes.Youtube:
+                                            <div class="youtube video" id="@(video.Id)" style="width:100%; height: 100%">
+                                                <span class="video-title">@video.Title</span>
+                                                <img src="~/images/YouTube-logo-light.png" class="video-logo" />
+                                            </div>
+                                            break;
+                                        case IntegrationType.IntegrationTypes.Twitch:
+                                            <div class="twitch video"
+                                                 id="@(video.Id)"
+                                                 style="background-image:url(@(video.PreviewImgUrl)); width:100%; height: 100%">
+                                                <img src="~/images/twitch-tv.png" class="video-logo" style="top:5px; right:-3px;" />
+                                                <span class="video-title">@video.Title</span>
+                                            </div>
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    @{IsFirstVideo = false;}
+                                </div>
+                            </div>
+                                        }
+
                     </div>
+
+                    @if (Model.RecentContent.Count > 0)
+                    {
+                        <div class="view-all">
+                            @Html.ActionLink("View All Content", "UserContent", new { userName = Model.User.UserName })
+                        </div>
+                    }
                 </div>
-                @if (Model.RecentContent.Count > 0)
-                {
-                    <div class="view-all">
-                        @Html.ActionLink("View All Content", "UserContent", new { userName = Model.User.UserName })
-                    </div>
-                }
                 @if (Model.RecentContent.Count == 0)
                 {
                     <div class="col">
