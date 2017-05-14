@@ -288,6 +288,7 @@
 
 .video-container {
     position: relative;
+    padding:0;
     padding-bottom: 57.66%;
 }
 
