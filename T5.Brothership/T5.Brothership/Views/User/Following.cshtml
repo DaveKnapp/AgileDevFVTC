@@ -4,15 +4,16 @@
     ViewBag.Title = "Following";
 }
 
-<h2>Following</h2>
+<div class="container">
+    <h2>Following</h2>
 
-@foreach (var user in Model)
-{
-    <div class="col-md-3 col-sm-6">
-        <div class="panel panel-default portfolio-item">
-            <a href="@Url.Action("User","User", new {userName = @user.UserName } )"> <img class="img-responsive panel-body" src="@user.ProfileImagePath" alt=""></a>
-            <h4 class="panel-heading text-center">@user.UserName</h4>
-            @* Once we get the Image storing working: src="~/@item.PopularUserImagePath" *@
+    @foreach (var user in Model)
+    {
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default portfolio-item">
+                <a href="@Url.Action("User","User", new {userName = @user.UserName } )"> <img class="img-responsive panel-body" src="@user.ProfileImagePath" alt=""></a>
+                <h4 class="panel-heading text-center">@user.UserName</h4>
+            </div>
         </div>
-    </div>
-}
+    }
+</div>
