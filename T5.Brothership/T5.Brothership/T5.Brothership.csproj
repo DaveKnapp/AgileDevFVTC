@@ -228,6 +228,7 @@
     <Content Include="assets\css\masterStyle.css" />
     <Content Include="assets\css\overwrite.css" />
     <Content Include="assets\css\prettyPhoto.css" />
+    <Content Include="assets\css\rating.css" />
     <Content Include="assets\css\slippry.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\fonts\customicon\Icons.svg" />
