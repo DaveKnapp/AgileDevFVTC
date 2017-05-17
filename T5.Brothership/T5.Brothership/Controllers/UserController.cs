@@ -144,6 +144,7 @@ namespace T5.Brothership.Controllers
                 UserRating = new UserRating
                 {
                     UserBeingRatedID = userToRate.ID,
+                    UserBeingRated = userToRate,
                     RaterUserID = loggedInUser.ID
                 }
             };

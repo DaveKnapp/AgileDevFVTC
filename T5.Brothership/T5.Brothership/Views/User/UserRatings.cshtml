@@ -4,15 +4,23 @@
     ViewBag.Title = Model.UserName + "Ratings";
 }
 
-<h2>UserRatings</h2>
+
+<div class="container">
+    <h3><a href="@Url.Action("User","UserRatings" )">@Model.UserName's</a> Ratings</h3>
+
+    <div class="row" style="clear:both;">
 
 
-    @foreach (var rating in Model.UserRatings)
-    {
-        <div class="col-md-4 col-sm-6">
-            <h5>@rating.RaterUser.UserName Says</h5>
-            <p>@rating.Comment</p>
-        </div>
-    }
+        @foreach (var rating in Model.UserRatings)
+        {
+            <div class="col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <h5 class="panel-heading"><a href="@Url.Action("User","User", new {userName = @rating.RaterUser.UserName } )">@rating.RaterUser.UserName Says</a></h5>
+                    <p class="panel-body">@rating.Comment</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
 
