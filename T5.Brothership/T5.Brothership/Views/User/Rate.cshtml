@@ -32,17 +32,14 @@
             </div>
         </div>
 
-        <div class="container-fluid">
-            <div class="stars">
+        <div class="form-group row">
+            <div class="stars col-md-6">
                 @foreach (var rating in Model.Ratings.OrderByDescending(p => p.ID))
                 {
                     <input name="UserRating.RatingID" class="star star-@(rating.ID)" id="star-@(rating.ID)" type="radio" value="@(rating.ID)">
                     <label class="star star-@(rating.ID)" for="star-@(rating.ID)"> </label>
                     @*@Html.RadioButtonFor(model => model.UserRating.RatingID, rating.ID, new { @class ="" })
                     @Html.LabelFor(model => model.UserRating.RatingID, new { @class = "" })*@
-                    // With the following two lines You can change the rating, but you get an error because of the data type I think
-                    //<input type="radio" id="star@() " name="rating" value="@rating.ID" />
-                    //<label for="star@(rating.ID) ">@rating.ID stars</label>
                 }
             </div>
         </div>

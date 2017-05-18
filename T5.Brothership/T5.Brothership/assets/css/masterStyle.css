@@ -2,6 +2,17 @@
     font-family: 'Poppins', sans-serif;
 }
 
+pre {
+    font-family: 'Poppins', sans-serif;
+    background-color: #212121;
+    border: none;
+    color: white;
+    font-size: 1em;
+    padding: 0;
+    overflow-x:hidden;
+    white-space: pre-line;
+    word-break: keep-all;
+}
 .bodyPadding {
     padding-top: 12rem;
 }
@@ -311,58 +322,7 @@
     color: #6666ff;
 }
 
-.rating {
-    float:left;
-}
 
-/*This css property is what hides the radio buttons*/
-.rating:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-    clip:rect(0,0,0,0);
-}
-
-.rating:not(:checked) > label {
-    float:right;
-    width:1em;
-    padding:0 .1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:200%;
-    line-height:1.2;
-    color:#ddd;
-    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-.rating:not(:checked) > label:before {
-    content: '★ ';
-}
-
-.rating > input:checked ~ label {
-    color: #6666ff;
-
-}
-
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-    color: #6666ff;
-}
-
-.rating > input:checked + label:hover,
-.rating > input:checked + label:hover ~ label,
-.rating > input:checked ~ label:hover,
-.rating > input:checked ~ label:hover ~ label,
-.rating > label:hover ~ input:checked ~ label {
-    color: goldenrod;
-    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-}
-
-.rating > label:active {
-    position:relative;
-    top:2px;
-    left:2px;
-}
 
 /*----------------------*/
 /*Masonary Grid Styles*/

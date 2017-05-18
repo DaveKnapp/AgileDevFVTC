@@ -4,60 +4,52 @@
     ViewBag.Title = "Rate";
 }
 
-<h2>Edit Rating</h2>
+<div class="cform container jumbotron">
+    <h3>Edit Your Rating For <a href="@Url.Action("User","User")">@Model.UserRating.UserBeingRated.UserName</a></h3>
 
+    @using (Html.BeginForm(new { @class = "contactForm" }))
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        <div>
+            <hr />
+            <h5 class="text-danger">@ViewBag.Message</h5>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.HiddenFor(model => model.UserRating.RaterUserID, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
 
-    <div class="form-horizontal">
-        <h4>UserRating</h4>
-        <hr />
-        <h5 class="text-danger">@ViewBag.Message</h5>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.HiddenFor(model => model.UserRating.RaterUserID, htmlAttributes: new { @class = "control-label col-md-2" })
-        </div>
+            <div class="form-group">
+                @Html.HiddenFor(model => model.UserRating.UserBeingRatedID, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
 
-        <div class="form-group">
-            @Html.HiddenFor(model => model.UserRating.UserBeingRatedID, htmlAttributes: new { @class = "control-label col-md-2" })
-        </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.UserRating.Comment, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.UserRating.Comment, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserRating.Comment, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserRating.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserRating.Comment, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserRating.Comment, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <div class="stars col-md-6">
+                    @foreach (var rating in Model.Ratings.OrderByDescending(p => p.ID))
+                    {
+                        <input name="UserRating.RatingID" class="star star-@(rating.ID)" id="star-@(rating.ID)" type="radio" value="@(rating.ID)">
+                        <label class="star star-@(rating.ID)" for="star-@(rating.ID)"> </label>
+                        @*@Html.RadioButtonFor(model => model.UserRating.RatingID, rating.ID, new { @class ="" })
+                            @Html.LabelFor(model => model.UserRating.RatingID, new { @class = "" })*@
+                    }
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                @foreach (var rating in Model.Ratings)
-                {
-                    <div style="display:inline-block;">
-                        @if (rating.ID == Model.UserRating.RatingID)
-                        {
-                            @Html.RadioButtonFor(model => model.UserRating.RatingID, rating.ID, new { @checked = "checked" })
-                        }
-                        else
-                        {
-                            @Html.RadioButtonFor(model => model.UserRating.RatingID, rating.ID)
-                        }
-                        @Html.Label(rating.Description)
-                    </div>
-                }
-
+        <div class="form-group row">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-lg btn-theme" />
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Rate" class="btn btn-default" />
-        </div>
-    </div>
-}
+    }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
