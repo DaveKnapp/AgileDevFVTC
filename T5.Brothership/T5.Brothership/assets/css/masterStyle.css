@@ -13,6 +13,16 @@ pre {
     white-space: pre-line;
     word-break: keep-all;
 }
+
+.authors {
+    white-space: pre-line;
+    word-break: keep-all;
+}
+
+.authors p:nth-child(2n){
+    text-decoration:underline;
+}
+
 .bodyPadding {
     padding-top: 12rem;
 }
