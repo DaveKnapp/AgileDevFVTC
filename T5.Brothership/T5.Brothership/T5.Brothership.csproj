@@ -309,9 +309,11 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\brothership - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\brothership - FTP %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\brothership - Web Deploy %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\brothership - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="images\default-user.gif" />
