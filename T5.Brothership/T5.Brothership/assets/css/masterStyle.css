@@ -16,7 +16,7 @@ pre {
 
 .authors {
     white-space: pre-line;
-    word-break: keep-all;
+    word-break: break-all;
 }
 
 .authors p:nth-child(2n){
