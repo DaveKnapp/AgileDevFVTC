@@ -49,7 +49,7 @@ function ItemClicked(event) {
     var item = event.currentTarget;
 
     item.addEventListener("click", GameListItemClicked);
-    document.getElementById("UserGames").appendChild(item.parentNode);
+    document.getElementById("UserGames").insertBefore(item.parentNode, document.getElementById("UserGames").firstChild);
 
     var gameInputDiv = document.getElementById("userInputGames");
 

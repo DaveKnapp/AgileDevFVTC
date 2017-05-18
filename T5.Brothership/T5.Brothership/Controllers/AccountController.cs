@@ -50,7 +50,7 @@ namespace T5.Brothership.Controllers
 
         [HttpPost]
         public async Task<ActionResult> Create(CreateUserViewModel userViewModel)
-        {
+        {//TODO Upload Profile image
             var newUser = userViewModel.CurrentUser;
             newUser.ProfileImagePath = "Default";
             newUser.UserTypeID = (int)UserType.UserTypes.User;
@@ -151,7 +151,7 @@ namespace T5.Brothership.Controllers
             currentUser.ID = (_sessionHelper.Get("CurrentUser") as User).ID;
 
             currentUser.UserTypeID = (int)UserType.UserTypes.User;
-
+            //TOOD Refactor Move logic to manager class
             if (ModelState.IsValid)
             {
                 if (file == null || file.ContentLength <= 0)
@@ -252,7 +252,7 @@ namespace T5.Brothership.Controllers
                 byte[] imgArray = newStream.ToByteArray(ImageFormat.Bmp);
                 return imgArray;
             }
-            
+
         }
 
     }
